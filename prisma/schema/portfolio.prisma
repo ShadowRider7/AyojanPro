@@ -1,0 +1,27 @@
+model PortfolioItem {
+  id        String @id @default(uuid())
+  creatorId String
+
+  title       String   @db.VarChar(255)
+  description String?
+  category    String?  @db.VarChar(100) 
+  tools       String[] 
+
+  thumbnailUrl String? 
+  mediaUrl     String 
+  publicId     String? 
+
+  externalUrl String? 
+
+  isDeleted Boolean   @default(false)
+  deletedAt DateTime?
+
+  creator Creator @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([creatorId])
+  @@index([isDeleted])
+  @@map("portfolio_items")
+}

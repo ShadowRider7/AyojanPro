@@ -1,0 +1,36 @@
+model Creator {
+  id     String @id @default(uuid())
+  userId String @unique
+
+  displayName String?  @db.VarChar(255)
+  bio         String?
+  location    String?
+  experience  Int? // years of experience
+  hourlyRate  Decimal? @db.Decimal(10, 2)
+
+  isAvailable Boolean @default(true)
+
+  // Denormalised rating — updated by a service layer after each new review
+  rating            Decimal @default(0) @db.Decimal(3, 2)
+  completedProjects Int     @default(0)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  skills       CreatorSkill[]
+  services     CreatorService[] // FIX 9: was missing entirely
+  portfolio    PortfolioItem[]
+  proposals    Proposal[]
+  contracts    Contract[]
+  deliverables Deliverable[]
+  reviews      Review[]
+  disputes     Dispute[]
+  
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([location])
+  @@index([isAvailable])
+  @@index([rating])
+  @@map("creators")
+}

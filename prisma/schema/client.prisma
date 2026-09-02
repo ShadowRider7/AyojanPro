@@ -1,0 +1,18 @@
+model Client {
+  id     String @id @default(uuid())
+  userId String @unique
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  projects  Project[]
+  contracts Contract[]
+  payments  Payment[]
+  revisions Revision[]
+  reviews   Review[]
+  disputes  Dispute[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("clients")
+}

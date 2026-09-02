@@ -1,0 +1,29 @@
+model Review {
+  id String @id @default(uuid())
+
+  contractId String
+  clientId   String
+  creatorId  String
+
+  reviewerRole ReviewerRole // FIX 3: was ReviewRole (renamed enum)
+
+  rating  Int // validated 1–5 in service layer
+  comment String?
+
+  isDeleted Boolean   @default(false) // FIX 8: spec says "soft deletion/moderation"
+  deletedAt DateTime?
+
+  contract Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  client   Client   @relation(fields: [clientId], references: [id])
+  creator  Creator  @relation(fields: [creatorId], references: [id])
+
+  createdAt DateTime @default(now())
+
+  // One review per direction per contract (client→creator OR creator→client)
+  @@unique([contractId, reviewerRole])
+  @@index([clientId])
+  @@index([creatorId])
+  @@index([contractId])
+  @@index([isDeleted])
+  @@map("reviews")
+}

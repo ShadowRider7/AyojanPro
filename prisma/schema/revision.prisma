@@ -1,0 +1,27 @@
+model Revision {
+  id String @id @default(uuid())
+
+  milestoneId   String
+  deliverableId String
+  clientId      String
+  // FIX (unnecessary field removed): creatorId was here but is redundant —
+  // the creator is always reachable via milestone → contract → creatorId.
+  // Storing it here would create a maintenance burden with no query benefit.
+
+  description String
+  status      RevisionStatus @default(REQUESTED)
+
+  createdAt  DateTime  @default(now())
+  resolvedAt DateTime?
+  updatedAt  DateTime  @updatedAt // FIX 7: was missing; needed to track status changes
+
+  milestone   Milestone   @relation(fields: [milestoneId], references: [id], onDelete: Cascade)
+  deliverable Deliverable @relation(fields: [deliverableId], references: [id], onDelete: Cascade)
+  client      Client      @relation(fields: [clientId], references: [id])
+
+  @@index([milestoneId])
+  @@index([deliverableId])
+  @@index([clientId])
+  @@index([status])
+  @@map("revisions")
+}

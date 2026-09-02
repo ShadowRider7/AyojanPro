@@ -1,0 +1,22 @@
+model AuditLog {
+  id           String      @id @default(uuid())
+
+  actorId      String                           // the User who performed the action
+  action       AuditAction
+  entityType   String      @db.VarChar(100)     // e.g. "User", "Project", "Contract"
+  entityId     String                           // UUID of the affected record
+
+  previousData Json?                            // state before action
+  newData      Json?                            // state after action
+  metadata     Json?                            // any extra context
+
+  actor        User        @relation("AuditActor", fields: [actorId], references: [id])
+
+  createdAt    DateTime    @default(now())
+
+  @@index([actorId])
+  @@index([action])
+  @@index([entityType, entityId])
+  @@index([createdAt])
+  @@map("audit_logs")
+}

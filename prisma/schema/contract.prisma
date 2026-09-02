@@ -1,0 +1,37 @@
+model Contract {
+  id String @id @default(uuid())
+
+  clientId   String
+  creatorId  String
+  projectId  String @unique 
+  proposalId String @unique
+
+  totalAmount Decimal @db.Decimal(12, 2)
+
+  startDate DateTime
+  endDate   DateTime
+
+  terms String?
+
+  status ContractStatus @default(DRAFT)
+
+  client   Client   @relation(fields: [clientId], references: [id])
+  creator  Creator  @relation(fields: [creatorId], references: [id])
+  project  Project  @relation(fields: [projectId], references: [id])
+  proposal Proposal @relation(fields: [proposalId], references: [id])
+
+  milestones Milestone[]
+  payments   Payment[] // FIX 5: back-relation was missing; Payment.contractId has no reverse
+  reviews    Review[]
+  disputes   Dispute[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([clientId])
+  @@index([creatorId])
+  // projectId already has an implicit index via @unique
+  @@index([status])
+  @@index([startDate, endDate])
+  @@map("contracts")
+}

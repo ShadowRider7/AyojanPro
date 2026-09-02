@@ -1,0 +1,10 @@
+model CreatorSkill {
+  creatorId String
+  skillId   String
+
+  creator Creator @relation(fields: [creatorId], references: [id], onDelete: Cascade)
+  skill   Skill   @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  @@id([creatorId, skillId])
+  @@map("creator_skills")
+}

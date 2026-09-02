@@ -1,0 +1,31 @@
+model Payment {
+  id String @id @default(uuid())
+
+  clientId    String
+  contractId  String
+  milestoneId String @unique // one payment per milestone
+
+  stripeCustomerId        String?
+  stripeCheckoutSessionId String? @unique
+  stripePaymentIntentId   String? @unique
+  stripeEventId           String? @unique 
+
+  amount   Decimal @db.Decimal(12, 2)
+  currency String  @default("bdt") @db.VarChar(10)
+
+  status PaymentStatus @default(PENDING)
+
+  metadata Json?
+
+  client    Client    @relation(fields: [clientId], references: [id])
+  contract  Contract  @relation(fields: [contractId], references: [id])
+  milestone Milestone @relation(fields: [milestoneId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([clientId])
+  @@index([contractId])
+  @@index([status])
+  @@map("payments")
+}

@@ -1,0 +1,25 @@
+model Proposal {
+  id        String @id @default(uuid())
+  creatorId String
+  projectId String
+
+  proposedPrice Decimal @db.Decimal(12, 2)
+  estimatedDays Int
+  message       String
+
+  status ProposalStatus @default(SUBMITTED)
+
+  creator Creator @relation(fields: [creatorId], references: [id])
+  project Project @relation(fields: [projectId], references: [id])
+
+  contract Contract?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Prevent duplicate active proposals from the same creator on the same project
+  @@unique([creatorId, projectId])
+  @@index([projectId, status])
+  @@index([creatorId, status])
+  @@map("proposals")
+}
