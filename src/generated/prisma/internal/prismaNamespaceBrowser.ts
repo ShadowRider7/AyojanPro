@@ -105,7 +105,17 @@ export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typ
 
 export const ClientScalarFieldEnum = {
   id: 'id',
+  name: 'name',
+  email: 'email',
   userId: 'userId',
+  companyName: 'companyName',
+  bio: 'bio',
+  phone: 'phone',
+  location: 'location',
+  website: 'website',
+  industry: 'industry',
+  totalProjects: 'totalProjects',
+  completedProjects: 'completedProjects',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -134,13 +144,21 @@ export type ContractScalarFieldEnum = (typeof ContractScalarFieldEnum)[keyof typ
 export const CreatorScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  displayName: 'displayName',
+  name: 'name',
+  email: 'email',
   bio: 'bio',
   location: 'location',
+  contactNumber: 'contactNumber',
   experience: 'experience',
   hourlyRate: 'hourlyRate',
   isAvailable: 'isAvailable',
+  website: 'website',
+  githubUrl: 'githubUrl',
+  linkedinUrl: 'linkedinUrl',
+  behanceUrl: 'behanceUrl',
+  dribbbleUrl: 'dribbbleUrl',
   rating: 'rating',
+  totalReviews: 'totalReviews',
   completedProjects: 'completedProjects',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -240,6 +258,7 @@ export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[k
 export const PaymentScalarFieldEnum = {
   id: 'id',
   clientId: 'clientId',
+  creatorId: 'creatorId',
   contractId: 'contractId',
   milestoneId: 'milestoneId',
   stripeCustomerId: 'stripeCustomerId',

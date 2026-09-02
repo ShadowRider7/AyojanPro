@@ -249,7 +249,7 @@ export type MilestoneWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Milestone"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Milestone"> | Date | string
   contract?: Prisma.XOR<Prisma.ContractScalarRelationFilter, Prisma.ContractWhereInput>
-  payment?: Prisma.XOR<Prisma.PaymentNullableScalarRelationFilter, Prisma.PaymentWhereInput> | null
+  payment?: Prisma.PaymentListRelationFilter
   deliverables?: Prisma.DeliverableListRelationFilter
   revisions?: Prisma.RevisionListRelationFilter
 }
@@ -265,7 +265,7 @@ export type MilestoneOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   contract?: Prisma.ContractOrderByWithRelationInput
-  payment?: Prisma.PaymentOrderByWithRelationInput
+  payment?: Prisma.PaymentOrderByRelationAggregateInput
   deliverables?: Prisma.DeliverableOrderByRelationAggregateInput
   revisions?: Prisma.RevisionOrderByRelationAggregateInput
 }
@@ -284,7 +284,7 @@ export type MilestoneWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"Milestone"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Milestone"> | Date | string
   contract?: Prisma.XOR<Prisma.ContractScalarRelationFilter, Prisma.ContractWhereInput>
-  payment?: Prisma.XOR<Prisma.PaymentNullableScalarRelationFilter, Prisma.PaymentWhereInput> | null
+  payment?: Prisma.PaymentListRelationFilter
   deliverables?: Prisma.DeliverableListRelationFilter
   revisions?: Prisma.RevisionListRelationFilter
 }, "id">
@@ -331,7 +331,7 @@ export type MilestoneCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   contract: Prisma.ContractCreateNestedOneWithoutMilestonesInput
-  payment?: Prisma.PaymentCreateNestedOneWithoutMilestoneInput
+  payment?: Prisma.PaymentCreateNestedManyWithoutMilestoneInput
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutMilestoneInput
   revisions?: Prisma.RevisionCreateNestedManyWithoutMilestoneInput
 }
@@ -346,7 +346,7 @@ export type MilestoneUncheckedCreateInput = {
   status?: $Enums.MilestoneStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutMilestoneInput
+  payment?: Prisma.PaymentUncheckedCreateNestedManyWithoutMilestoneInput
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutMilestoneInput
   revisions?: Prisma.RevisionUncheckedCreateNestedManyWithoutMilestoneInput
 }
@@ -361,7 +361,7 @@ export type MilestoneUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contract?: Prisma.ContractUpdateOneRequiredWithoutMilestonesNestedInput
-  payment?: Prisma.PaymentUpdateOneWithoutMilestoneNestedInput
+  payment?: Prisma.PaymentUpdateManyWithoutMilestoneNestedInput
   deliverables?: Prisma.DeliverableUpdateManyWithoutMilestoneNestedInput
   revisions?: Prisma.RevisionUpdateManyWithoutMilestoneNestedInput
 }
@@ -376,7 +376,7 @@ export type MilestoneUncheckedUpdateInput = {
   status?: Prisma.EnumMilestoneStatusFieldUpdateOperationsInput | $Enums.MilestoneStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  payment?: Prisma.PaymentUncheckedUpdateOneWithoutMilestoneNestedInput
+  payment?: Prisma.PaymentUncheckedUpdateManyWithoutMilestoneNestedInput
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutMilestoneNestedInput
   revisions?: Prisma.RevisionUncheckedUpdateManyWithoutMilestoneNestedInput
 }
@@ -572,7 +572,7 @@ export type MilestoneCreateWithoutContractInput = {
   status?: $Enums.MilestoneStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  payment?: Prisma.PaymentCreateNestedOneWithoutMilestoneInput
+  payment?: Prisma.PaymentCreateNestedManyWithoutMilestoneInput
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutMilestoneInput
   revisions?: Prisma.RevisionCreateNestedManyWithoutMilestoneInput
 }
@@ -586,7 +586,7 @@ export type MilestoneUncheckedCreateWithoutContractInput = {
   status?: $Enums.MilestoneStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutMilestoneInput
+  payment?: Prisma.PaymentUncheckedCreateNestedManyWithoutMilestoneInput
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutMilestoneInput
   revisions?: Prisma.RevisionUncheckedCreateNestedManyWithoutMilestoneInput
 }
@@ -642,7 +642,7 @@ export type MilestoneCreateWithoutDeliverablesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   contract: Prisma.ContractCreateNestedOneWithoutMilestonesInput
-  payment?: Prisma.PaymentCreateNestedOneWithoutMilestoneInput
+  payment?: Prisma.PaymentCreateNestedManyWithoutMilestoneInput
   revisions?: Prisma.RevisionCreateNestedManyWithoutMilestoneInput
 }
 
@@ -656,7 +656,7 @@ export type MilestoneUncheckedCreateWithoutDeliverablesInput = {
   status?: $Enums.MilestoneStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutMilestoneInput
+  payment?: Prisma.PaymentUncheckedCreateNestedManyWithoutMilestoneInput
   revisions?: Prisma.RevisionUncheckedCreateNestedManyWithoutMilestoneInput
 }
 
@@ -686,7 +686,7 @@ export type MilestoneUpdateWithoutDeliverablesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contract?: Prisma.ContractUpdateOneRequiredWithoutMilestonesNestedInput
-  payment?: Prisma.PaymentUpdateOneWithoutMilestoneNestedInput
+  payment?: Prisma.PaymentUpdateManyWithoutMilestoneNestedInput
   revisions?: Prisma.RevisionUpdateManyWithoutMilestoneNestedInput
 }
 
@@ -700,7 +700,7 @@ export type MilestoneUncheckedUpdateWithoutDeliverablesInput = {
   status?: Prisma.EnumMilestoneStatusFieldUpdateOperationsInput | $Enums.MilestoneStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  payment?: Prisma.PaymentUncheckedUpdateOneWithoutMilestoneNestedInput
+  payment?: Prisma.PaymentUncheckedUpdateManyWithoutMilestoneNestedInput
   revisions?: Prisma.RevisionUncheckedUpdateManyWithoutMilestoneNestedInput
 }
 
@@ -786,7 +786,7 @@ export type MilestoneCreateWithoutRevisionsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   contract: Prisma.ContractCreateNestedOneWithoutMilestonesInput
-  payment?: Prisma.PaymentCreateNestedOneWithoutMilestoneInput
+  payment?: Prisma.PaymentCreateNestedManyWithoutMilestoneInput
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutMilestoneInput
 }
 
@@ -800,7 +800,7 @@ export type MilestoneUncheckedCreateWithoutRevisionsInput = {
   status?: $Enums.MilestoneStatus
   createdAt?: Date | string
   updatedAt?: Date | string
-  payment?: Prisma.PaymentUncheckedCreateNestedOneWithoutMilestoneInput
+  payment?: Prisma.PaymentUncheckedCreateNestedManyWithoutMilestoneInput
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutMilestoneInput
 }
 
@@ -830,7 +830,7 @@ export type MilestoneUpdateWithoutRevisionsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contract?: Prisma.ContractUpdateOneRequiredWithoutMilestonesNestedInput
-  payment?: Prisma.PaymentUpdateOneWithoutMilestoneNestedInput
+  payment?: Prisma.PaymentUpdateManyWithoutMilestoneNestedInput
   deliverables?: Prisma.DeliverableUpdateManyWithoutMilestoneNestedInput
 }
 
@@ -844,7 +844,7 @@ export type MilestoneUncheckedUpdateWithoutRevisionsInput = {
   status?: Prisma.EnumMilestoneStatusFieldUpdateOperationsInput | $Enums.MilestoneStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  payment?: Prisma.PaymentUncheckedUpdateOneWithoutMilestoneNestedInput
+  payment?: Prisma.PaymentUncheckedUpdateManyWithoutMilestoneNestedInput
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutMilestoneNestedInput
 }
 
@@ -868,7 +868,7 @@ export type MilestoneUpdateWithoutContractInput = {
   status?: Prisma.EnumMilestoneStatusFieldUpdateOperationsInput | $Enums.MilestoneStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  payment?: Prisma.PaymentUpdateOneWithoutMilestoneNestedInput
+  payment?: Prisma.PaymentUpdateManyWithoutMilestoneNestedInput
   deliverables?: Prisma.DeliverableUpdateManyWithoutMilestoneNestedInput
   revisions?: Prisma.RevisionUpdateManyWithoutMilestoneNestedInput
 }
@@ -882,7 +882,7 @@ export type MilestoneUncheckedUpdateWithoutContractInput = {
   status?: Prisma.EnumMilestoneStatusFieldUpdateOperationsInput | $Enums.MilestoneStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  payment?: Prisma.PaymentUncheckedUpdateOneWithoutMilestoneNestedInput
+  payment?: Prisma.PaymentUncheckedUpdateManyWithoutMilestoneNestedInput
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutMilestoneNestedInput
   revisions?: Prisma.RevisionUncheckedUpdateManyWithoutMilestoneNestedInput
 }
@@ -904,11 +904,13 @@ export type MilestoneUncheckedUpdateManyWithoutContractInput = {
  */
 
 export type MilestoneCountOutputType = {
+  payment: number
   deliverables: number
   revisions: number
 }
 
 export type MilestoneCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  payment?: boolean | MilestoneCountOutputTypeCountPaymentArgs
   deliverables?: boolean | MilestoneCountOutputTypeCountDeliverablesArgs
   revisions?: boolean | MilestoneCountOutputTypeCountRevisionsArgs
 }
@@ -921,6 +923,13 @@ export type MilestoneCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Ex
    * Select specific fields to fetch from the MilestoneCountOutputType
    */
   select?: Prisma.MilestoneCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * MilestoneCountOutputType without action
+ */
+export type MilestoneCountOutputTypeCountPaymentArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentWhereInput
 }
 
 /**
@@ -1012,7 +1021,7 @@ export type $MilestonePayload<ExtArgs extends runtime.Types.Extensions.InternalA
   name: "Milestone"
   objects: {
     contract: Prisma.$ContractPayload<ExtArgs>
-    payment: Prisma.$PaymentPayload<ExtArgs> | null
+    payment: Prisma.$PaymentPayload<ExtArgs>[]
     deliverables: Prisma.$DeliverablePayload<ExtArgs>[]
     revisions: Prisma.$RevisionPayload<ExtArgs>[]
   }
@@ -1421,7 +1430,7 @@ readonly fields: MilestoneFieldRefs;
 export interface Prisma__MilestoneClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   contract<T extends Prisma.ContractDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContractDefaultArgs<ExtArgs>>): Prisma.Prisma__ContractClient<runtime.Types.Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  payment<T extends Prisma.Milestone$paymentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Milestone$paymentArgs<ExtArgs>>): Prisma.Prisma__PaymentClient<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  payment<T extends Prisma.Milestone$paymentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Milestone$paymentArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   deliverables<T extends Prisma.Milestone$deliverablesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Milestone$deliverablesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliverablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   revisions<T extends Prisma.Milestone$revisionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Milestone$revisionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RevisionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1879,6 +1888,11 @@ export type Milestone$paymentArgs<ExtArgs extends runtime.Types.Extensions.Inter
    */
   include?: Prisma.PaymentInclude<ExtArgs> | null
   where?: Prisma.PaymentWhereInput
+  orderBy?: Prisma.PaymentOrderByWithRelationInput | Prisma.PaymentOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
 }
 
 /**

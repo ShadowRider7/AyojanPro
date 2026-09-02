@@ -30,6 +30,7 @@ export type CreatorAvgAggregateOutputType = {
   experience: number | null
   hourlyRate: runtime.Decimal | null
   rating: runtime.Decimal | null
+  totalReviews: number | null
   completedProjects: number | null
 }
 
@@ -37,19 +38,28 @@ export type CreatorSumAggregateOutputType = {
   experience: number | null
   hourlyRate: runtime.Decimal | null
   rating: runtime.Decimal | null
+  totalReviews: number | null
   completedProjects: number | null
 }
 
 export type CreatorMinAggregateOutputType = {
   id: string | null
   userId: string | null
-  displayName: string | null
+  name: string | null
+  email: string | null
   bio: string | null
   location: string | null
+  contactNumber: string | null
   experience: number | null
   hourlyRate: runtime.Decimal | null
   isAvailable: boolean | null
+  website: string | null
+  githubUrl: string | null
+  linkedinUrl: string | null
+  behanceUrl: string | null
+  dribbbleUrl: string | null
   rating: runtime.Decimal | null
+  totalReviews: number | null
   completedProjects: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -58,13 +68,21 @@ export type CreatorMinAggregateOutputType = {
 export type CreatorMaxAggregateOutputType = {
   id: string | null
   userId: string | null
-  displayName: string | null
+  name: string | null
+  email: string | null
   bio: string | null
   location: string | null
+  contactNumber: string | null
   experience: number | null
   hourlyRate: runtime.Decimal | null
   isAvailable: boolean | null
+  website: string | null
+  githubUrl: string | null
+  linkedinUrl: string | null
+  behanceUrl: string | null
+  dribbbleUrl: string | null
   rating: runtime.Decimal | null
+  totalReviews: number | null
   completedProjects: number | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -73,13 +91,21 @@ export type CreatorMaxAggregateOutputType = {
 export type CreatorCountAggregateOutputType = {
   id: number
   userId: number
-  displayName: number
+  name: number
+  email: number
   bio: number
   location: number
+  contactNumber: number
   experience: number
   hourlyRate: number
   isAvailable: number
+  website: number
+  githubUrl: number
+  linkedinUrl: number
+  behanceUrl: number
+  dribbbleUrl: number
   rating: number
+  totalReviews: number
   completedProjects: number
   createdAt: number
   updatedAt: number
@@ -91,6 +117,7 @@ export type CreatorAvgAggregateInputType = {
   experience?: true
   hourlyRate?: true
   rating?: true
+  totalReviews?: true
   completedProjects?: true
 }
 
@@ -98,19 +125,28 @@ export type CreatorSumAggregateInputType = {
   experience?: true
   hourlyRate?: true
   rating?: true
+  totalReviews?: true
   completedProjects?: true
 }
 
 export type CreatorMinAggregateInputType = {
   id?: true
   userId?: true
-  displayName?: true
+  name?: true
+  email?: true
   bio?: true
   location?: true
+  contactNumber?: true
   experience?: true
   hourlyRate?: true
   isAvailable?: true
+  website?: true
+  githubUrl?: true
+  linkedinUrl?: true
+  behanceUrl?: true
+  dribbbleUrl?: true
   rating?: true
+  totalReviews?: true
   completedProjects?: true
   createdAt?: true
   updatedAt?: true
@@ -119,13 +155,21 @@ export type CreatorMinAggregateInputType = {
 export type CreatorMaxAggregateInputType = {
   id?: true
   userId?: true
-  displayName?: true
+  name?: true
+  email?: true
   bio?: true
   location?: true
+  contactNumber?: true
   experience?: true
   hourlyRate?: true
   isAvailable?: true
+  website?: true
+  githubUrl?: true
+  linkedinUrl?: true
+  behanceUrl?: true
+  dribbbleUrl?: true
   rating?: true
+  totalReviews?: true
   completedProjects?: true
   createdAt?: true
   updatedAt?: true
@@ -134,13 +178,21 @@ export type CreatorMaxAggregateInputType = {
 export type CreatorCountAggregateInputType = {
   id?: true
   userId?: true
-  displayName?: true
+  name?: true
+  email?: true
   bio?: true
   location?: true
+  contactNumber?: true
   experience?: true
   hourlyRate?: true
   isAvailable?: true
+  website?: true
+  githubUrl?: true
+  linkedinUrl?: true
+  behanceUrl?: true
+  dribbbleUrl?: true
   rating?: true
+  totalReviews?: true
   completedProjects?: true
   createdAt?: true
   updatedAt?: true
@@ -236,13 +288,21 @@ export type CreatorGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type CreatorGroupByOutputType = {
   id: string
   userId: string
-  displayName: string | null
+  name: string
+  email: string
   bio: string | null
   location: string | null
-  experience: number | null
+  contactNumber: string | null
+  experience: number
   hourlyRate: runtime.Decimal | null
   isAvailable: boolean
+  website: string | null
+  githubUrl: string | null
+  linkedinUrl: string | null
+  behanceUrl: string | null
+  dribbbleUrl: string | null
   rating: runtime.Decimal
+  totalReviews: number
   completedProjects: number
   createdAt: Date
   updatedAt: Date
@@ -274,13 +334,21 @@ export type CreatorWhereInput = {
   NOT?: Prisma.CreatorWhereInput | Prisma.CreatorWhereInput[]
   id?: Prisma.StringFilter<"Creator"> | string
   userId?: Prisma.StringFilter<"Creator"> | string
-  displayName?: Prisma.StringNullableFilter<"Creator"> | string | null
+  name?: Prisma.StringFilter<"Creator"> | string
+  email?: Prisma.StringFilter<"Creator"> | string
   bio?: Prisma.StringNullableFilter<"Creator"> | string | null
   location?: Prisma.StringNullableFilter<"Creator"> | string | null
-  experience?: Prisma.IntNullableFilter<"Creator"> | number | null
+  contactNumber?: Prisma.StringNullableFilter<"Creator"> | string | null
+  experience?: Prisma.IntFilter<"Creator"> | number
   hourlyRate?: Prisma.DecimalNullableFilter<"Creator"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFilter<"Creator"> | boolean
+  website?: Prisma.StringNullableFilter<"Creator"> | string | null
+  githubUrl?: Prisma.StringNullableFilter<"Creator"> | string | null
+  linkedinUrl?: Prisma.StringNullableFilter<"Creator"> | string | null
+  behanceUrl?: Prisma.StringNullableFilter<"Creator"> | string | null
+  dribbbleUrl?: Prisma.StringNullableFilter<"Creator"> | string | null
   rating?: Prisma.DecimalFilter<"Creator"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFilter<"Creator"> | number
   completedProjects?: Prisma.IntFilter<"Creator"> | number
   createdAt?: Prisma.DateTimeFilter<"Creator"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Creator"> | Date | string
@@ -293,18 +361,27 @@ export type CreatorWhereInput = {
   deliverables?: Prisma.DeliverableListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   disputes?: Prisma.DisputeListRelationFilter
+  payments?: Prisma.PaymentListRelationFilter
 }
 
 export type CreatorOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  displayName?: Prisma.SortOrderInput | Prisma.SortOrder
+  name?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
-  experience?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  experience?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrderInput | Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
+  website?: Prisma.SortOrderInput | Prisma.SortOrder
+  githubUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  behanceUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  dribbbleUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrder
+  totalReviews?: Prisma.SortOrder
   completedProjects?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -317,21 +394,30 @@ export type CreatorOrderByWithRelationInput = {
   deliverables?: Prisma.DeliverableOrderByRelationAggregateInput
   reviews?: Prisma.ReviewOrderByRelationAggregateInput
   disputes?: Prisma.DisputeOrderByRelationAggregateInput
+  payments?: Prisma.PaymentOrderByRelationAggregateInput
 }
 
 export type CreatorWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   userId?: string
+  email?: string
   AND?: Prisma.CreatorWhereInput | Prisma.CreatorWhereInput[]
   OR?: Prisma.CreatorWhereInput[]
   NOT?: Prisma.CreatorWhereInput | Prisma.CreatorWhereInput[]
-  displayName?: Prisma.StringNullableFilter<"Creator"> | string | null
+  name?: Prisma.StringFilter<"Creator"> | string
   bio?: Prisma.StringNullableFilter<"Creator"> | string | null
   location?: Prisma.StringNullableFilter<"Creator"> | string | null
-  experience?: Prisma.IntNullableFilter<"Creator"> | number | null
+  contactNumber?: Prisma.StringNullableFilter<"Creator"> | string | null
+  experience?: Prisma.IntFilter<"Creator"> | number
   hourlyRate?: Prisma.DecimalNullableFilter<"Creator"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFilter<"Creator"> | boolean
+  website?: Prisma.StringNullableFilter<"Creator"> | string | null
+  githubUrl?: Prisma.StringNullableFilter<"Creator"> | string | null
+  linkedinUrl?: Prisma.StringNullableFilter<"Creator"> | string | null
+  behanceUrl?: Prisma.StringNullableFilter<"Creator"> | string | null
+  dribbbleUrl?: Prisma.StringNullableFilter<"Creator"> | string | null
   rating?: Prisma.DecimalFilter<"Creator"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFilter<"Creator"> | number
   completedProjects?: Prisma.IntFilter<"Creator"> | number
   createdAt?: Prisma.DateTimeFilter<"Creator"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Creator"> | Date | string
@@ -344,18 +430,27 @@ export type CreatorWhereUniqueInput = Prisma.AtLeast<{
   deliverables?: Prisma.DeliverableListRelationFilter
   reviews?: Prisma.ReviewListRelationFilter
   disputes?: Prisma.DisputeListRelationFilter
-}, "id" | "userId">
+  payments?: Prisma.PaymentListRelationFilter
+}, "id" | "userId" | "email">
 
 export type CreatorOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  displayName?: Prisma.SortOrderInput | Prisma.SortOrder
+  name?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   bio?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
-  experience?: Prisma.SortOrderInput | Prisma.SortOrder
+  contactNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  experience?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrderInput | Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
+  website?: Prisma.SortOrderInput | Prisma.SortOrder
+  githubUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  behanceUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  dribbbleUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   rating?: Prisma.SortOrder
+  totalReviews?: Prisma.SortOrder
   completedProjects?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -372,13 +467,21 @@ export type CreatorScalarWhereWithAggregatesInput = {
   NOT?: Prisma.CreatorScalarWhereWithAggregatesInput | Prisma.CreatorScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Creator"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Creator"> | string
-  displayName?: Prisma.StringNullableWithAggregatesFilter<"Creator"> | string | null
+  name?: Prisma.StringWithAggregatesFilter<"Creator"> | string
+  email?: Prisma.StringWithAggregatesFilter<"Creator"> | string
   bio?: Prisma.StringNullableWithAggregatesFilter<"Creator"> | string | null
   location?: Prisma.StringNullableWithAggregatesFilter<"Creator"> | string | null
-  experience?: Prisma.IntNullableWithAggregatesFilter<"Creator"> | number | null
+  contactNumber?: Prisma.StringNullableWithAggregatesFilter<"Creator"> | string | null
+  experience?: Prisma.IntWithAggregatesFilter<"Creator"> | number
   hourlyRate?: Prisma.DecimalNullableWithAggregatesFilter<"Creator"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolWithAggregatesFilter<"Creator"> | boolean
+  website?: Prisma.StringNullableWithAggregatesFilter<"Creator"> | string | null
+  githubUrl?: Prisma.StringNullableWithAggregatesFilter<"Creator"> | string | null
+  linkedinUrl?: Prisma.StringNullableWithAggregatesFilter<"Creator"> | string | null
+  behanceUrl?: Prisma.StringNullableWithAggregatesFilter<"Creator"> | string | null
+  dribbbleUrl?: Prisma.StringNullableWithAggregatesFilter<"Creator"> | string | null
   rating?: Prisma.DecimalWithAggregatesFilter<"Creator"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntWithAggregatesFilter<"Creator"> | number
   completedProjects?: Prisma.IntWithAggregatesFilter<"Creator"> | number
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Creator"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Creator"> | Date | string
@@ -386,13 +489,21 @@ export type CreatorScalarWhereWithAggregatesInput = {
 
 export type CreatorCreateInput = {
   id?: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -405,18 +516,27 @@ export type CreatorCreateInput = {
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorUncheckedCreateInput = {
   id?: string
   userId: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -428,17 +548,26 @@ export type CreatorUncheckedCreateInput = {
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -451,18 +580,27 @@ export type CreatorUpdateInput = {
   deliverables?: Prisma.DeliverableUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -474,18 +612,27 @@ export type CreatorUncheckedUpdateInput = {
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorCreateManyInput = {
   id?: string
   userId: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -493,13 +640,21 @@ export type CreatorCreateManyInput = {
 
 export type CreatorUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -508,13 +663,21 @@ export type CreatorUpdateManyMutationInput = {
 export type CreatorUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -528,13 +691,21 @@ export type CreatorScalarRelationFilter = {
 export type CreatorCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  displayName?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  contactNumber?: Prisma.SortOrder
   experience?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
+  website?: Prisma.SortOrder
+  githubUrl?: Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrder
+  behanceUrl?: Prisma.SortOrder
+  dribbbleUrl?: Prisma.SortOrder
   rating?: Prisma.SortOrder
+  totalReviews?: Prisma.SortOrder
   completedProjects?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -544,19 +715,28 @@ export type CreatorAvgOrderByAggregateInput = {
   experience?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
   rating?: Prisma.SortOrder
+  totalReviews?: Prisma.SortOrder
   completedProjects?: Prisma.SortOrder
 }
 
 export type CreatorMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  displayName?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  contactNumber?: Prisma.SortOrder
   experience?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
+  website?: Prisma.SortOrder
+  githubUrl?: Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrder
+  behanceUrl?: Prisma.SortOrder
+  dribbbleUrl?: Prisma.SortOrder
   rating?: Prisma.SortOrder
+  totalReviews?: Prisma.SortOrder
   completedProjects?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -565,13 +745,21 @@ export type CreatorMaxOrderByAggregateInput = {
 export type CreatorMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
-  displayName?: Prisma.SortOrder
+  name?: Prisma.SortOrder
+  email?: Prisma.SortOrder
   bio?: Prisma.SortOrder
   location?: Prisma.SortOrder
+  contactNumber?: Prisma.SortOrder
   experience?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
   isAvailable?: Prisma.SortOrder
+  website?: Prisma.SortOrder
+  githubUrl?: Prisma.SortOrder
+  linkedinUrl?: Prisma.SortOrder
+  behanceUrl?: Prisma.SortOrder
+  dribbbleUrl?: Prisma.SortOrder
   rating?: Prisma.SortOrder
+  totalReviews?: Prisma.SortOrder
   completedProjects?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -581,6 +769,7 @@ export type CreatorSumOrderByAggregateInput = {
   experience?: Prisma.SortOrder
   hourlyRate?: Prisma.SortOrder
   rating?: Prisma.SortOrder
+  totalReviews?: Prisma.SortOrder
   completedProjects?: Prisma.SortOrder
 }
 
@@ -603,14 +792,6 @@ export type CreatorUpdateOneRequiredWithoutContractsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CreatorUpdateToOneWithWhereWithoutContractsInput, Prisma.CreatorUpdateWithoutContractsInput>, Prisma.CreatorUncheckedUpdateWithoutContractsInput>
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type NullableDecimalFieldUpdateOperationsInput = {
   set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
@@ -621,14 +802,6 @@ export type NullableDecimalFieldUpdateOperationsInput = {
 
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
-}
-
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
 }
 
 export type CreatorCreateNestedOneWithoutServicesInput = {
@@ -685,6 +858,20 @@ export type CreatorUpdateOneRequiredWithoutDisputesNestedInput = {
   upsert?: Prisma.CreatorUpsertWithoutDisputesInput
   connect?: Prisma.CreatorWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.CreatorUpdateToOneWithWhereWithoutDisputesInput, Prisma.CreatorUpdateWithoutDisputesInput>, Prisma.CreatorUncheckedUpdateWithoutDisputesInput>
+}
+
+export type CreatorCreateNestedOneWithoutPaymentsInput = {
+  create?: Prisma.XOR<Prisma.CreatorCreateWithoutPaymentsInput, Prisma.CreatorUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.CreatorCreateOrConnectWithoutPaymentsInput
+  connect?: Prisma.CreatorWhereUniqueInput
+}
+
+export type CreatorUpdateOneRequiredWithoutPaymentsNestedInput = {
+  create?: Prisma.XOR<Prisma.CreatorCreateWithoutPaymentsInput, Prisma.CreatorUncheckedCreateWithoutPaymentsInput>
+  connectOrCreate?: Prisma.CreatorCreateOrConnectWithoutPaymentsInput
+  upsert?: Prisma.CreatorUpsertWithoutPaymentsInput
+  connect?: Prisma.CreatorWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.CreatorUpdateToOneWithWhereWithoutPaymentsInput, Prisma.CreatorUpdateWithoutPaymentsInput>, Prisma.CreatorUncheckedUpdateWithoutPaymentsInput>
 }
 
 export type CreatorCreateNestedOneWithoutPortfolioInput = {
@@ -763,13 +950,21 @@ export type CreatorUncheckedUpdateOneWithoutUserNestedInput = {
 
 export type CreatorCreateWithoutContractsInput = {
   id?: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -781,18 +976,27 @@ export type CreatorCreateWithoutContractsInput = {
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorUncheckedCreateWithoutContractsInput = {
   id?: string
   userId: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -803,6 +1007,7 @@ export type CreatorUncheckedCreateWithoutContractsInput = {
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorCreateOrConnectWithoutContractsInput = {
@@ -823,13 +1028,21 @@ export type CreatorUpdateToOneWithWhereWithoutContractsInput = {
 
 export type CreatorUpdateWithoutContractsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -841,18 +1054,27 @@ export type CreatorUpdateWithoutContractsInput = {
   deliverables?: Prisma.DeliverableUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorUncheckedUpdateWithoutContractsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -863,17 +1085,26 @@ export type CreatorUncheckedUpdateWithoutContractsInput = {
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorCreateWithoutServicesInput = {
   id?: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -885,18 +1116,27 @@ export type CreatorCreateWithoutServicesInput = {
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorUncheckedCreateWithoutServicesInput = {
   id?: string
   userId: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -907,6 +1147,7 @@ export type CreatorUncheckedCreateWithoutServicesInput = {
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorCreateOrConnectWithoutServicesInput = {
@@ -927,13 +1168,21 @@ export type CreatorUpdateToOneWithWhereWithoutServicesInput = {
 
 export type CreatorUpdateWithoutServicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -945,18 +1194,27 @@ export type CreatorUpdateWithoutServicesInput = {
   deliverables?: Prisma.DeliverableUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorUncheckedUpdateWithoutServicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -967,17 +1225,26 @@ export type CreatorUncheckedUpdateWithoutServicesInput = {
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorCreateWithoutSkillsInput = {
   id?: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -989,18 +1256,27 @@ export type CreatorCreateWithoutSkillsInput = {
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorUncheckedCreateWithoutSkillsInput = {
   id?: string
   userId: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1011,6 +1287,7 @@ export type CreatorUncheckedCreateWithoutSkillsInput = {
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorCreateOrConnectWithoutSkillsInput = {
@@ -1031,13 +1308,21 @@ export type CreatorUpdateToOneWithWhereWithoutSkillsInput = {
 
 export type CreatorUpdateWithoutSkillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1049,18 +1334,27 @@ export type CreatorUpdateWithoutSkillsInput = {
   deliverables?: Prisma.DeliverableUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorUncheckedUpdateWithoutSkillsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1071,17 +1365,26 @@ export type CreatorUncheckedUpdateWithoutSkillsInput = {
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorCreateWithoutDeliverablesInput = {
   id?: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1093,18 +1396,27 @@ export type CreatorCreateWithoutDeliverablesInput = {
   contracts?: Prisma.ContractCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorUncheckedCreateWithoutDeliverablesInput = {
   id?: string
   userId: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1115,6 +1427,7 @@ export type CreatorUncheckedCreateWithoutDeliverablesInput = {
   contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorCreateOrConnectWithoutDeliverablesInput = {
@@ -1135,13 +1448,21 @@ export type CreatorUpdateToOneWithWhereWithoutDeliverablesInput = {
 
 export type CreatorUpdateWithoutDeliverablesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1153,18 +1474,27 @@ export type CreatorUpdateWithoutDeliverablesInput = {
   contracts?: Prisma.ContractUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorUncheckedUpdateWithoutDeliverablesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1175,17 +1505,26 @@ export type CreatorUncheckedUpdateWithoutDeliverablesInput = {
   contracts?: Prisma.ContractUncheckedUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorCreateWithoutDisputesInput = {
   id?: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1197,18 +1536,27 @@ export type CreatorCreateWithoutDisputesInput = {
   contracts?: Prisma.ContractCreateNestedManyWithoutCreatorInput
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorUncheckedCreateWithoutDisputesInput = {
   id?: string
   userId: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1219,6 +1567,7 @@ export type CreatorUncheckedCreateWithoutDisputesInput = {
   contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutCreatorInput
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorCreateOrConnectWithoutDisputesInput = {
@@ -1239,13 +1588,21 @@ export type CreatorUpdateToOneWithWhereWithoutDisputesInput = {
 
 export type CreatorUpdateWithoutDisputesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1257,18 +1614,27 @@ export type CreatorUpdateWithoutDisputesInput = {
   contracts?: Prisma.ContractUpdateManyWithoutCreatorNestedInput
   deliverables?: Prisma.DeliverableUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorUncheckedUpdateWithoutDisputesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1279,17 +1645,166 @@ export type CreatorUncheckedUpdateWithoutDisputesInput = {
   contracts?: Prisma.ContractUncheckedUpdateManyWithoutCreatorNestedInput
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
+}
+
+export type CreatorCreateWithoutPaymentsInput = {
+  id?: string
+  name: string
+  email: string
+  bio?: string | null
+  location?: string | null
+  contactNumber?: string | null
+  experience: number
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
+  completedProjects?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutCreatorInput
+  skills?: Prisma.CreatorSkillCreateNestedManyWithoutCreatorInput
+  services?: Prisma.CreatorServiceCreateNestedManyWithoutCreatorInput
+  portfolio?: Prisma.PortfolioItemCreateNestedManyWithoutCreatorInput
+  proposals?: Prisma.ProposalCreateNestedManyWithoutCreatorInput
+  contracts?: Prisma.ContractCreateNestedManyWithoutCreatorInput
+  deliverables?: Prisma.DeliverableCreateNestedManyWithoutCreatorInput
+  reviews?: Prisma.ReviewCreateNestedManyWithoutCreatorInput
+  disputes?: Prisma.DisputeCreateNestedManyWithoutCreatorInput
+}
+
+export type CreatorUncheckedCreateWithoutPaymentsInput = {
+  id?: string
+  userId: string
+  name: string
+  email: string
+  bio?: string | null
+  location?: string | null
+  contactNumber?: string | null
+  experience: number
+  hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
+  rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
+  completedProjects?: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  skills?: Prisma.CreatorSkillUncheckedCreateNestedManyWithoutCreatorInput
+  services?: Prisma.CreatorServiceUncheckedCreateNestedManyWithoutCreatorInput
+  portfolio?: Prisma.PortfolioItemUncheckedCreateNestedManyWithoutCreatorInput
+  proposals?: Prisma.ProposalUncheckedCreateNestedManyWithoutCreatorInput
+  contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutCreatorInput
+  deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutCreatorInput
+  reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCreatorInput
+  disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutCreatorInput
+}
+
+export type CreatorCreateOrConnectWithoutPaymentsInput = {
+  where: Prisma.CreatorWhereUniqueInput
+  create: Prisma.XOR<Prisma.CreatorCreateWithoutPaymentsInput, Prisma.CreatorUncheckedCreateWithoutPaymentsInput>
+}
+
+export type CreatorUpsertWithoutPaymentsInput = {
+  update: Prisma.XOR<Prisma.CreatorUpdateWithoutPaymentsInput, Prisma.CreatorUncheckedUpdateWithoutPaymentsInput>
+  create: Prisma.XOR<Prisma.CreatorCreateWithoutPaymentsInput, Prisma.CreatorUncheckedCreateWithoutPaymentsInput>
+  where?: Prisma.CreatorWhereInput
+}
+
+export type CreatorUpdateToOneWithWhereWithoutPaymentsInput = {
+  where?: Prisma.CreatorWhereInput
+  data: Prisma.XOR<Prisma.CreatorUpdateWithoutPaymentsInput, Prisma.CreatorUncheckedUpdateWithoutPaymentsInput>
+}
+
+export type CreatorUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
+  completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutCreatorNestedInput
+  skills?: Prisma.CreatorSkillUpdateManyWithoutCreatorNestedInput
+  services?: Prisma.CreatorServiceUpdateManyWithoutCreatorNestedInput
+  portfolio?: Prisma.PortfolioItemUpdateManyWithoutCreatorNestedInput
+  proposals?: Prisma.ProposalUpdateManyWithoutCreatorNestedInput
+  contracts?: Prisma.ContractUpdateManyWithoutCreatorNestedInput
+  deliverables?: Prisma.DeliverableUpdateManyWithoutCreatorNestedInput
+  reviews?: Prisma.ReviewUpdateManyWithoutCreatorNestedInput
+  disputes?: Prisma.DisputeUpdateManyWithoutCreatorNestedInput
+}
+
+export type CreatorUncheckedUpdateWithoutPaymentsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
+  hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
+  completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  skills?: Prisma.CreatorSkillUncheckedUpdateManyWithoutCreatorNestedInput
+  services?: Prisma.CreatorServiceUncheckedUpdateManyWithoutCreatorNestedInput
+  portfolio?: Prisma.PortfolioItemUncheckedUpdateManyWithoutCreatorNestedInput
+  proposals?: Prisma.ProposalUncheckedUpdateManyWithoutCreatorNestedInput
+  contracts?: Prisma.ContractUncheckedUpdateManyWithoutCreatorNestedInput
+  deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutCreatorNestedInput
+  reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCreatorNestedInput
+  disputes?: Prisma.DisputeUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorCreateWithoutPortfolioInput = {
   id?: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1301,18 +1816,27 @@ export type CreatorCreateWithoutPortfolioInput = {
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorUncheckedCreateWithoutPortfolioInput = {
   id?: string
   userId: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1323,6 +1847,7 @@ export type CreatorUncheckedCreateWithoutPortfolioInput = {
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorCreateOrConnectWithoutPortfolioInput = {
@@ -1343,13 +1868,21 @@ export type CreatorUpdateToOneWithWhereWithoutPortfolioInput = {
 
 export type CreatorUpdateWithoutPortfolioInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1361,18 +1894,27 @@ export type CreatorUpdateWithoutPortfolioInput = {
   deliverables?: Prisma.DeliverableUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorUncheckedUpdateWithoutPortfolioInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1383,17 +1925,26 @@ export type CreatorUncheckedUpdateWithoutPortfolioInput = {
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorCreateWithoutProposalsInput = {
   id?: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1405,18 +1956,27 @@ export type CreatorCreateWithoutProposalsInput = {
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorUncheckedCreateWithoutProposalsInput = {
   id?: string
   userId: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1427,6 +1987,7 @@ export type CreatorUncheckedCreateWithoutProposalsInput = {
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorCreateOrConnectWithoutProposalsInput = {
@@ -1447,13 +2008,21 @@ export type CreatorUpdateToOneWithWhereWithoutProposalsInput = {
 
 export type CreatorUpdateWithoutProposalsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1465,18 +2034,27 @@ export type CreatorUpdateWithoutProposalsInput = {
   deliverables?: Prisma.DeliverableUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorUncheckedUpdateWithoutProposalsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1487,17 +2065,26 @@ export type CreatorUncheckedUpdateWithoutProposalsInput = {
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorCreateWithoutReviewsInput = {
   id?: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1509,18 +2096,27 @@ export type CreatorCreateWithoutReviewsInput = {
   contracts?: Prisma.ContractCreateNestedManyWithoutCreatorInput
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorUncheckedCreateWithoutReviewsInput = {
   id?: string
   userId: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1531,6 +2127,7 @@ export type CreatorUncheckedCreateWithoutReviewsInput = {
   contracts?: Prisma.ContractUncheckedCreateNestedManyWithoutCreatorInput
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorCreateOrConnectWithoutReviewsInput = {
@@ -1551,13 +2148,21 @@ export type CreatorUpdateToOneWithWhereWithoutReviewsInput = {
 
 export type CreatorUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1569,18 +2174,27 @@ export type CreatorUpdateWithoutReviewsInput = {
   contracts?: Prisma.ContractUpdateManyWithoutCreatorNestedInput
   deliverables?: Prisma.DeliverableUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorUncheckedUpdateWithoutReviewsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1591,17 +2205,26 @@ export type CreatorUncheckedUpdateWithoutReviewsInput = {
   contracts?: Prisma.ContractUncheckedUpdateManyWithoutCreatorNestedInput
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorCreateWithoutUserInput = {
   id?: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1613,17 +2236,26 @@ export type CreatorCreateWithoutUserInput = {
   deliverables?: Prisma.DeliverableCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorUncheckedCreateWithoutUserInput = {
   id?: string
-  displayName?: string | null
+  name: string
+  email: string
   bio?: string | null
   location?: string | null
-  experience?: number | null
+  contactNumber?: string | null
+  experience: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
+  website?: string | null
+  githubUrl?: string | null
+  linkedinUrl?: string | null
+  behanceUrl?: string | null
+  dribbbleUrl?: string | null
   rating?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: number
   completedProjects?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -1635,6 +2267,7 @@ export type CreatorUncheckedCreateWithoutUserInput = {
   deliverables?: Prisma.DeliverableUncheckedCreateNestedManyWithoutCreatorInput
   reviews?: Prisma.ReviewUncheckedCreateNestedManyWithoutCreatorInput
   disputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutCreatorInput
+  payments?: Prisma.PaymentUncheckedCreateNestedManyWithoutCreatorInput
 }
 
 export type CreatorCreateOrConnectWithoutUserInput = {
@@ -1655,13 +2288,21 @@ export type CreatorUpdateToOneWithWhereWithoutUserInput = {
 
 export type CreatorUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1673,17 +2314,26 @@ export type CreatorUpdateWithoutUserInput = {
   deliverables?: Prisma.DeliverableUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUpdateManyWithoutCreatorNestedInput
 }
 
 export type CreatorUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  displayName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
   bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  experience?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  contactNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  experience?: Prisma.IntFieldUpdateOperationsInput | number
   hourlyRate?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  website?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  githubUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linkedinUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  behanceUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dribbbleUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   rating?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  totalReviews?: Prisma.IntFieldUpdateOperationsInput | number
   completedProjects?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1695,6 +2345,7 @@ export type CreatorUncheckedUpdateWithoutUserInput = {
   deliverables?: Prisma.DeliverableUncheckedUpdateManyWithoutCreatorNestedInput
   reviews?: Prisma.ReviewUncheckedUpdateManyWithoutCreatorNestedInput
   disputes?: Prisma.DisputeUncheckedUpdateManyWithoutCreatorNestedInput
+  payments?: Prisma.PaymentUncheckedUpdateManyWithoutCreatorNestedInput
 }
 
 
@@ -1711,6 +2362,7 @@ export type CreatorCountOutputType = {
   deliverables: number
   reviews: number
   disputes: number
+  payments: number
 }
 
 export type CreatorCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1722,6 +2374,7 @@ export type CreatorCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   deliverables?: boolean | CreatorCountOutputTypeCountDeliverablesArgs
   reviews?: boolean | CreatorCountOutputTypeCountReviewsArgs
   disputes?: boolean | CreatorCountOutputTypeCountDisputesArgs
+  payments?: boolean | CreatorCountOutputTypeCountPaymentsArgs
 }
 
 /**
@@ -1790,17 +2443,32 @@ export type CreatorCountOutputTypeCountDisputesArgs<ExtArgs extends runtime.Type
   where?: Prisma.DisputeWhereInput
 }
 
+/**
+ * CreatorCountOutputType without action
+ */
+export type CreatorCountOutputTypeCountPaymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PaymentWhereInput
+}
+
 
 export type CreatorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  displayName?: boolean
+  name?: boolean
+  email?: boolean
   bio?: boolean
   location?: boolean
+  contactNumber?: boolean
   experience?: boolean
   hourlyRate?: boolean
   isAvailable?: boolean
+  website?: boolean
+  githubUrl?: boolean
+  linkedinUrl?: boolean
+  behanceUrl?: boolean
+  dribbbleUrl?: boolean
   rating?: boolean
+  totalReviews?: boolean
   completedProjects?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1813,19 +2481,28 @@ export type CreatorSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   deliverables?: boolean | Prisma.Creator$deliverablesArgs<ExtArgs>
   reviews?: boolean | Prisma.Creator$reviewsArgs<ExtArgs>
   disputes?: boolean | Prisma.Creator$disputesArgs<ExtArgs>
+  payments?: boolean | Prisma.Creator$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.CreatorCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["creator"]>
 
 export type CreatorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  displayName?: boolean
+  name?: boolean
+  email?: boolean
   bio?: boolean
   location?: boolean
+  contactNumber?: boolean
   experience?: boolean
   hourlyRate?: boolean
   isAvailable?: boolean
+  website?: boolean
+  githubUrl?: boolean
+  linkedinUrl?: boolean
+  behanceUrl?: boolean
+  dribbbleUrl?: boolean
   rating?: boolean
+  totalReviews?: boolean
   completedProjects?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1835,13 +2512,21 @@ export type CreatorSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type CreatorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   userId?: boolean
-  displayName?: boolean
+  name?: boolean
+  email?: boolean
   bio?: boolean
   location?: boolean
+  contactNumber?: boolean
   experience?: boolean
   hourlyRate?: boolean
   isAvailable?: boolean
+  website?: boolean
+  githubUrl?: boolean
+  linkedinUrl?: boolean
+  behanceUrl?: boolean
+  dribbbleUrl?: boolean
   rating?: boolean
+  totalReviews?: boolean
   completedProjects?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -1851,19 +2536,27 @@ export type CreatorSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type CreatorSelectScalar = {
   id?: boolean
   userId?: boolean
-  displayName?: boolean
+  name?: boolean
+  email?: boolean
   bio?: boolean
   location?: boolean
+  contactNumber?: boolean
   experience?: boolean
   hourlyRate?: boolean
   isAvailable?: boolean
+  website?: boolean
+  githubUrl?: boolean
+  linkedinUrl?: boolean
+  behanceUrl?: boolean
+  dribbbleUrl?: boolean
   rating?: boolean
+  totalReviews?: boolean
   completedProjects?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CreatorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "displayName" | "bio" | "location" | "experience" | "hourlyRate" | "isAvailable" | "rating" | "completedProjects" | "createdAt" | "updatedAt", ExtArgs["result"]["creator"]>
+export type CreatorOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "email" | "bio" | "location" | "contactNumber" | "experience" | "hourlyRate" | "isAvailable" | "website" | "githubUrl" | "linkedinUrl" | "behanceUrl" | "dribbbleUrl" | "rating" | "totalReviews" | "completedProjects" | "createdAt" | "updatedAt", ExtArgs["result"]["creator"]>
 export type CreatorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   skills?: boolean | Prisma.Creator$skillsArgs<ExtArgs>
@@ -1874,6 +2567,7 @@ export type CreatorInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   deliverables?: boolean | Prisma.Creator$deliverablesArgs<ExtArgs>
   reviews?: boolean | Prisma.Creator$reviewsArgs<ExtArgs>
   disputes?: boolean | Prisma.Creator$disputesArgs<ExtArgs>
+  payments?: boolean | Prisma.Creator$paymentsArgs<ExtArgs>
   _count?: boolean | Prisma.CreatorCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CreatorIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1895,17 +2589,26 @@ export type $CreatorPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     deliverables: Prisma.$DeliverablePayload<ExtArgs>[]
     reviews: Prisma.$ReviewPayload<ExtArgs>[]
     disputes: Prisma.$DisputePayload<ExtArgs>[]
+    payments: Prisma.$PaymentPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     userId: string
-    displayName: string | null
+    name: string
+    email: string
     bio: string | null
     location: string | null
-    experience: number | null
+    contactNumber: string | null
+    experience: number
     hourlyRate: runtime.Decimal | null
     isAvailable: boolean
+    website: string | null
+    githubUrl: string | null
+    linkedinUrl: string | null
+    behanceUrl: string | null
+    dribbbleUrl: string | null
     rating: runtime.Decimal
+    totalReviews: number
     completedProjects: number
     createdAt: Date
     updatedAt: Date
@@ -2312,6 +3015,7 @@ export interface Prisma__CreatorClient<T, Null = never, ExtArgs extends runtime.
   deliverables<T extends Prisma.Creator$deliverablesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Creator$deliverablesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DeliverablePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   reviews<T extends Prisma.Creator$reviewsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Creator$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReviewPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   disputes<T extends Prisma.Creator$disputesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Creator$disputesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DisputePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  payments<T extends Prisma.Creator$paymentsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Creator$paymentsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2343,13 +3047,21 @@ export interface Prisma__CreatorClient<T, Null = never, ExtArgs extends runtime.
 export interface CreatorFieldRefs {
   readonly id: Prisma.FieldRef<"Creator", 'String'>
   readonly userId: Prisma.FieldRef<"Creator", 'String'>
-  readonly displayName: Prisma.FieldRef<"Creator", 'String'>
+  readonly name: Prisma.FieldRef<"Creator", 'String'>
+  readonly email: Prisma.FieldRef<"Creator", 'String'>
   readonly bio: Prisma.FieldRef<"Creator", 'String'>
   readonly location: Prisma.FieldRef<"Creator", 'String'>
+  readonly contactNumber: Prisma.FieldRef<"Creator", 'String'>
   readonly experience: Prisma.FieldRef<"Creator", 'Int'>
   readonly hourlyRate: Prisma.FieldRef<"Creator", 'Decimal'>
   readonly isAvailable: Prisma.FieldRef<"Creator", 'Boolean'>
+  readonly website: Prisma.FieldRef<"Creator", 'String'>
+  readonly githubUrl: Prisma.FieldRef<"Creator", 'String'>
+  readonly linkedinUrl: Prisma.FieldRef<"Creator", 'String'>
+  readonly behanceUrl: Prisma.FieldRef<"Creator", 'String'>
+  readonly dribbbleUrl: Prisma.FieldRef<"Creator", 'String'>
   readonly rating: Prisma.FieldRef<"Creator", 'Decimal'>
+  readonly totalReviews: Prisma.FieldRef<"Creator", 'Int'>
   readonly completedProjects: Prisma.FieldRef<"Creator", 'Int'>
   readonly createdAt: Prisma.FieldRef<"Creator", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Creator", 'DateTime'>
@@ -2943,6 +3655,30 @@ export type Creator$disputesArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.DisputeScalarFieldEnum | Prisma.DisputeScalarFieldEnum[]
+}
+
+/**
+ * Creator.payments
+ */
+export type Creator$paymentsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Payment
+   */
+  select?: Prisma.PaymentSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Payment
+   */
+  omit?: Prisma.PaymentOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PaymentInclude<ExtArgs> | null
+  where?: Prisma.PaymentWhereInput
+  orderBy?: Prisma.PaymentOrderByWithRelationInput | Prisma.PaymentOrderByWithRelationInput[]
+  cursor?: Prisma.PaymentWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PaymentScalarFieldEnum | Prisma.PaymentScalarFieldEnum[]
 }
 
 /**

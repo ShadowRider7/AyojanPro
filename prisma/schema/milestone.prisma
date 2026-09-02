@@ -12,7 +12,7 @@ model Milestone {
 
   contract Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
 
-  payment      Payment?
+  payment      Payment[]
   deliverables Deliverable[]
   revisions    Revision[]
 

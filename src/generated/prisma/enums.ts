@@ -28,7 +28,7 @@ export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
 
 
 export const AuthProvider = {
-  LOCAL: 'LOCAL',
+  CREDENTIAL: 'CREDENTIAL',
   GOOGLE: 'GOOGLE'
 } as const
 

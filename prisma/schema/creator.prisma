@@ -1,17 +1,25 @@
 model Creator {
   id     String @id @default(uuid())
   userId String @unique
-
-  displayName String?  @db.VarChar(255)
+  name    String
+  email   String  @unique
+  
   bio         String?
   location    String?
-  experience  Int? 
+  contactNumber String?
+  experience  Int
   hourlyRate  Decimal? @db.Decimal(10, 2)
 
   isAvailable Boolean @default(true)
 
+  website    String?
+  githubUrl  String?
+  linkedinUrl String?
+  behanceUrl String?
+  dribbbleUrl String?
 
   rating            Decimal @default(0) @db.Decimal(3, 2)
+  totalReviews      Int     @default(0)
   completedProjects Int     @default(0)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -24,13 +32,14 @@ model Creator {
   deliverables Deliverable[]
   reviews      Review[]
   disputes     Dispute[]
+  payments     Payment[]
   
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([location])
-  @@index([isAvailable])
   @@index([rating])
+  @@index([completedProjects])
   @@map("creators")
 }

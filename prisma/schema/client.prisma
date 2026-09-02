@@ -1,8 +1,19 @@
 model Client {
   id     String @id @default(uuid())
+  name    String
+  email   String  @unique
   userId String @unique
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  companyName String @db.VarChar(255)
+  bio         String?
+  phone       String? @db.VarChar(30)
+  location    String?
+  website     String?
+  industry    String? @db.VarChar(100)
+
+  totalProjects    Int @default(0)
+  completedProjects Int @default(0)
 
   projects  Project[]
   contracts Contract[]

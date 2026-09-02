@@ -11,7 +11,7 @@ enum UserStatus {
 }
 
 enum AuthProvider {
-  LOCAL
+  CREDENTIAL
   GOOGLE
 }
 
