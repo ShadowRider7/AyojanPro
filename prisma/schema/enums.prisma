@@ -7,7 +7,7 @@ enum Role {
 enum UserStatus {
   ACTIVE
   INACTIVE
-  SUSPENDED // renamed from BLOCKED — matches spec "Suspend/activate"
+  SUSPENDED 
 }
 
 enum AuthProvider {

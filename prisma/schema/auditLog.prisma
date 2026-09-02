@@ -1,14 +1,14 @@
 model AuditLog {
   id           String      @id @default(uuid())
 
-  actorId      String                           // the User who performed the action
+  actorId      String                          
   action       AuditAction
-  entityType   String      @db.VarChar(100)     // e.g. "User", "Project", "Contract"
-  entityId     String                           // UUID of the affected record
+  entityType   String      @db.VarChar(100)     
+  entityId     String                          
 
-  previousData Json?                            // state before action
-  newData      Json?                            // state after action
-  metadata     Json?                            // any extra context
+  previousData Json?                            
+  newData      Json?                           
+  metadata     Json?                            
 
   actor        User        @relation("AuditActor", fields: [actorId], references: [id])
 

@@ -21,7 +21,7 @@ model Contract {
   proposal Proposal @relation(fields: [proposalId], references: [id])
 
   milestones Milestone[]
-  payments   Payment[] // FIX 5: back-relation was missing; Payment.contractId has no reverse
+  payments   Payment[] 
   reviews    Review[]
   disputes   Dispute[]
 
@@ -30,7 +30,7 @@ model Contract {
 
   @@index([clientId])
   @@index([creatorId])
-  // projectId already has an implicit index via @unique
+
   @@index([status])
   @@index([startDate, endDate])
   @@map("contracts")

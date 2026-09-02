@@ -2,7 +2,7 @@ model User {
   id            String       @id @default(uuid())
   name          String       @db.VarChar(255)
   email         String       @unique @db.VarChar(255)
-  password      String? // null for Google-only accounts
+  password      String? 
   googleId      String?      @unique
   authProvider  AuthProvider @default(LOCAL)
   emailVerified Boolean      @default(false)
@@ -16,14 +16,13 @@ model User {
   isDeleted Boolean   @default(false)
   deletedAt DateTime?
 
-  // Role-specific profiles (only one will be populated per user)
+
   client  Client?
   creator Creator?
 
-  // Relations where User is referenced directly (not via Client/Creator)
   adminDisputes Dispute[]      @relation("DisputeResolvedBy")
   notifications Notification[]
-  auditLogs     AuditLog[]     @relation("AuditActor") // FIX 2: added for AuditLog
+  auditLogs     AuditLog[]     @relation("AuditActor") 
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

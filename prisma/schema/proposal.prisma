@@ -17,7 +17,6 @@ model Proposal {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  // Prevent duplicate active proposals from the same creator on the same project
   @@unique([creatorId, projectId])
   @@index([projectId, status])
   @@index([creatorId, status])

@@ -3,7 +3,7 @@ model Payment {
 
   clientId    String
   contractId  String
-  milestoneId String @unique // one payment per milestone
+  milestoneId String @unique 
 
   stripeCustomerId        String?
   stripeCheckoutSessionId String? @unique

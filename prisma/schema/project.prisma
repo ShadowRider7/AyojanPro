@@ -9,8 +9,6 @@ model Project {
   location    String?
   category    String?  @db.VarChar(100)
 
-  // Required services stored as plain strings (no join table needed;
-  // matched against CreatorService.name in search queries)
   requiredServices String[]
 
   status ProjectStatus @default(DRAFT)
