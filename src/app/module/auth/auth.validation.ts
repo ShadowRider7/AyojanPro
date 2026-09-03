@@ -26,13 +26,11 @@ const RegisterZodSchema = z.object({
 
 const LoginZodSchema = z.object({
 	email: emailSchema,
-
 	password: z.string().min(1, "Password is required"),
 });
 
 const VerifyEmailZodSchema = z.object({
 	email: emailSchema,
-
 	otp: z.string().regex(/^\d{6}$/, "OTP must be a 6-digit number"),
 });
 

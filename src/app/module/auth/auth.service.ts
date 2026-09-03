@@ -169,11 +169,12 @@ const verifyEmail = async (payload: IVerifyEmailPayload) => {
 
 	const templatePath = path.join(
 		process.cwd(),
-		"src/app/templates/patient-welcome-email.ejs",
+		"src/app/templates/user-welcome-email.ejs",
 	);
 
 	const templateData = {
 		name: createdUser.name,
+		role: createdUser.role,
 	};
 
 	const html = await ejs.renderFile(templatePath, templateData);
@@ -449,11 +450,12 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 			});
 			const templatePath = path.join(
 				process.cwd(),
-				"src/app/templates/patient-welcome-email.ejs",
+				"src/app/templates/user-welcome-email.ejs",
 			);
 
 			const templateData = {
 				name: user.name,
+				role: user.role,
 			};
 
 			const html = await ejs.renderFile(templatePath, templateData);
@@ -461,9 +463,7 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 			await transporter.sendMail({
 				from: config.email_sender,
 				to: user.email,
-				subject: "Welcome To PH Healthcare System",
-				// text : `Your OTP is ${otp}`
-				// html: `<h1>Your OTP is ${otp}</h1>`
+				subject: "Welcome To CraftBridge System",
 				html,
 			});
 		}
@@ -537,7 +537,7 @@ const forgotPassword = async (payload: IForgotPasswordPayload) => {
 
 	const otp = crypto.randomInt(100000, 1000000).toString();
 
-	const key = `forgor-password-otp:${isUserExist.email}`;
+	const key = `forgot-password-otp:${isUserExist.email}`;
 
 	const expirationSeconds = 5 * 60;
 
