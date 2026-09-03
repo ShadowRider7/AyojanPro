@@ -7,7 +7,7 @@ model Creator {
   bio         String?
   location    String?
   contactNumber String?
-  experience  Int
+  experience  Int @default(0)
   hourlyRate  Decimal? @db.Decimal(10, 2)
 
   isAvailable Boolean @default(true)

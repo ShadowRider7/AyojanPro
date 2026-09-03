@@ -6,50 +6,23 @@ import { sendResponse } from "../../utils/sendResponse";
 import type { IRequestUser } from "./auth.interface";
 import { AuthService } from "./auth.service";
 
-const registerPatient = catchAsync(async (req: Request, res: Response) => {
-	// const payload = PatientValidation.PatientRegistrationZodSchema.safeParse(req.body);
-
-	// if(!payload.success){
-	// 	console.log(payload.error);
-	// 	console.log(payload.error.issues);
-
-	// 	throw new Error(payload.error.issues[0].message)
-	// }
-
-	// console.log(payload);
-
-	const payload = req.body;
-
-	await AuthService.registerPatient(payload);
-
-	// const { accessToken, refreshToken, user, patient } = result;
-
-	// res.cookie("accessToken", accessToken, {
-	// 	httpOnly: true,
-	// 	secure: false,
-	// 	sameSite: "none",
-	// 	maxAge: 1000 * 60 * 60 * 24, // 24 hour or 1 day
-	// });
-	// res.cookie("refreshToken", refreshToken, {
-	// 	httpOnly: true,
-	// 	secure: false,
-	// 	sameSite: "none",
-	// 	maxAge: 1000 * 60 * 60 * 24 * 7, // 7 days
-	// });
-
+const registerUser = catchAsync(async (req: Request, res: Response) => {
+	await AuthService.registerUser(req.body);
 	sendResponse(res, {
 		statusCode: httpStatus.CREATED,
 		success: true,
-		message: "Verification OTP Sent",
+		message:
+			"User registration successful. Verification OTP sent to your email",
 		data: null,
 	});
 });
-const verifyPatientEmail = catchAsync(async (req: Request, res: Response) => {
+
+const verifyEmail = catchAsync(async (req: Request, res: Response) => {
 	const payload = req.body;
 
-	const result = await AuthService.verifyPatientEmail(payload);
+	const result = await AuthService.verifyEmail(payload);
 
-	const { accessToken, refreshToken, user, patient } = result;
+	const { accessToken, refreshToken, user, profile } = result;
 
 	res.cookie("accessToken", accessToken, {
 		httpOnly: true,
@@ -71,8 +44,8 @@ const verifyPatientEmail = catchAsync(async (req: Request, res: Response) => {
 		data: {
 			accessToken,
 			refreshToken,
+			profile,
 			user,
-			patient,
 		},
 	});
 });
@@ -211,8 +184,8 @@ const resetPassword = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const AuthController = {
-	registerPatient,
-	verifyPatientEmail,
+	registerUser,
+	verifyEmail,
 	loginUser,
 	getMe,
 	refreshToken,

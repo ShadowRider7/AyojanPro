@@ -5,7 +5,7 @@ model Client {
   userId String @unique
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  companyName String @db.VarChar(255)
+  companyName String? @db.VarChar(255)
   bio         String?
   phone       String? @db.VarChar(30)
   location    String?

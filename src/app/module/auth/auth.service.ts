@@ -22,14 +22,14 @@ import type {
 	IForgotPasswordPayload,
 	IGoogleLoginPayload,
 	ILoginUserPayload,
-	IRegisterUserPayload,
+	IRegisterPayload,
 	IRequestUser,
 	IResetPasswordPayload,
 	IVerifyEmailPayload,
 } from "./auth.interface";
 
-const registerUser = async (payload: IRegisterUserPayload) => {
-	const { name, password } = payload;
+const registerUser = async (payload: IRegisterPayload) => {
+	const { name, password, role } = payload;
 
 	const email = payload.email.trim().toLowerCase();
 
@@ -48,7 +48,7 @@ const registerUser = async (payload: IRegisterUserPayload) => {
 
 	const expirationSeconds = 5 * 60;
 
-	const otpKey = `User-registration-otp:${email}`;
+	const otpKey = `user-registration-otp:${email}`;
 	const otpValue = crypto.randomInt(100000, 1000000).toString();
 
 	await redisClient.set(otpKey, otpValue, {
@@ -58,15 +58,16 @@ const registerUser = async (payload: IRegisterUserPayload) => {
 		},
 	});
 
-	const patientRegistrationKey = `patient-registration-data:${email}`;
+	const userRegistrationKey = `user-registration-data:${email}`;
 	const redisUserDataPayload = {
 		name,
 		email,
 		password: hashedPassword,
+		role,
 	};
 
 	await redisClient.set(
-		patientRegistrationKey,
+		userRegistrationKey,
 		JSON.stringify(redisUserDataPayload),
 		{
 			expiration: {
@@ -76,7 +77,7 @@ const registerUser = async (payload: IRegisterUserPayload) => {
 		},
 	);
 
-	const tempatePath = path.join(
+	const templatePath = path.join(
 		process.cwd(),
 		"src/app/templates/registration-user-otp.ejs",
 	);
@@ -88,19 +89,17 @@ const registerUser = async (payload: IRegisterUserPayload) => {
 		expirationMinutes: expirationSeconds / 60,
 	};
 
-	const html = await ejs.renderFile(tempatePath, templateData);
+	const html = await ejs.renderFile(templatePath, templateData);
 
 	await transporter.sendMail({
 		from: config.email_sender,
 		to: email,
 		subject: "Email Verification",
-		// text : `Your OTP is ${otp}`
-		// html: `<h1>Your OTP is ${otp}</h1>`
 		html,
 	});
 };
 
-const verifyPatientEmail = async (payload: IVerifyEmailPayload) => {
+const verifyEmail = async (payload: IVerifyEmailPayload) => {
 	const otp = payload.otp;
 	const email = payload.email.trim().toLowerCase();
 
@@ -109,7 +108,7 @@ const verifyPatientEmail = async (payload: IVerifyEmailPayload) => {
 	});
 
 	if (isUserExist?.status === "SUSPENDED") {
-		throw new AppError(httpStatus.FORBIDDEN, "User is Blocked");
+		throw new AppError(httpStatus.FORBIDDEN, "User is suspended");
 	}
 
 	if (isUserExist?.emailVerified) {
@@ -120,7 +119,7 @@ const verifyPatientEmail = async (payload: IVerifyEmailPayload) => {
 		throw new AppError(httpStatus.FORBIDDEN, "User is Deleted");
 	}
 
-	const otpKey = `patient-registration-otp:${email}`;
+	const otpKey = `user-registration-otp:${email}`;
 
 	const redisOtp = await redisClient.get(otpKey);
 
@@ -134,39 +133,41 @@ const verifyPatientEmail = async (payload: IVerifyEmailPayload) => {
 
 	await redisClient.del(otpKey);
 
-	const patientRegistrationKey = `patient-registration-data:${email}`;
+	const userRegistrationKey = `user-registration-data:${email}`;
 
-	const redisPatientData = await redisClient.get(patientRegistrationKey);
+	const redisUserData = await redisClient.get(userRegistrationKey);
 
-	if (!redisPatientData) {
-		throw new AppError(httpStatus.NOT_FOUND, "Patient Doesnt Exist");
+	if (!redisUserData) {
+		throw new AppError(httpStatus.NOT_FOUND, "User Doesnt Exist");
 	}
 
-	const patientPayload: IRegisterPatientPayload = JSON.parse(redisPatientData);
+	const userPayload: IRegisterPayload = JSON.parse(redisUserData);
+
+	const userProfile: "client" | "creator" =
+		userPayload.role === Role.CLIENT ? "client" : "creator";
 
 	const createdUser = await prisma.user.create({
 		data: {
-			name: patientPayload.name,
-			email: patientPayload.email,
-			password: patientPayload.password,
-			role: Role.PATIENT,
+			name: userPayload.name,
+			email: userPayload.email,
+			password: userPayload.password,
+			role: userPayload.role,
 			status: UserStatus.ACTIVE,
 			emailVerified: true,
-			patient: {
+			[userProfile]: {
 				create: {
-					name: patientPayload.name,
-					email: patientPayload.email,
-					contactNumber: patientPayload?.patient?.contactNumber || "",
+					name: userPayload.name,
+					email: userPayload.email,
 				},
 			},
-		},
+		} as any,
 		omit: { password: true },
-		include: { patient: true },
+		include: { creator: true, client: true },
 	});
 
-	await redisClient.del(patientRegistrationKey);
+	await redisClient.del(userRegistrationKey);
 
-	const tempatePath = path.join(
+	const templatePath = path.join(
 		process.cwd(),
 		"src/app/templates/patient-welcome-email.ejs",
 	);
@@ -175,18 +176,17 @@ const verifyPatientEmail = async (payload: IVerifyEmailPayload) => {
 		name: createdUser.name,
 	};
 
-	const html = await ejs.renderFile(tempatePath, templateData);
+	const html = await ejs.renderFile(templatePath, templateData);
 
 	await transporter.sendMail({
 		from: config.email_sender,
 		to: email,
-		subject: "Welcome To PH Healthcare System",
-		// text : `Your OTP is ${otp}`
-		// html: `<h1>Your OTP is ${otp}</h1>`
+		subject: "Welcome To CraftBridge System",
 		html,
 	});
-
-	const { patient, ...user } = createdUser;
+	const profile =
+		userProfile === "client" ? createdUser.client : createdUser.creator;
+	const { client, creator, ...user } = createdUser;
 	const jwtPayload = {
 		userId: user.id,
 		name: user.name,
@@ -208,15 +208,13 @@ const verifyPatientEmail = async (payload: IVerifyEmailPayload) => {
 
 	return {
 		user,
-		patient,
+		profile,
 		accessToken,
 		refreshToken,
 	};
 };
 
 const loginUser = async (payload: ILoginUserPayload) => {
-	// throw new Error("Test Error");
-
 	const { password } = payload;
 	const email = payload.email.trim().toLowerCase();
 
@@ -225,12 +223,11 @@ const loginUser = async (payload: ILoginUserPayload) => {
 	});
 
 	if (!user) {
-		// throw new Error("User not found");
 		throw new AppError(httpStatus.NOT_FOUND, "User Not Found");
 	}
 
-	if (user.status === UserStatus.BLOCKED) {
-		throw new AppError(httpStatus.FORBIDDEN, "User is blocked");
+	if (user.status === UserStatus.SUSPENDED) {
+		throw new AppError(httpStatus.FORBIDDEN, "User is suspended");
 	}
 
 	if (user.isDeleted || user.status === UserStatus.DELETED) {
@@ -284,7 +281,8 @@ const getMe = async (user: IRequestUser) => {
 			id: user.userId,
 		},
 		include: {
-			patient: true,
+			client: true,
+			creator: true,
 		},
 		omit: {
 			password: true,
@@ -353,6 +351,7 @@ const refreshToken = async (token: string) => {
 
 const googleLogin = async (payload: IGoogleLoginPayload) => {
 	let googleIdTokenPayload: TokenPayload | null | undefined = null;
+
 	try {
 		const ticket = await googleClient.verifyIdToken({
 			idToken: payload.idToken,
@@ -385,44 +384,41 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 		);
 	}
 
-	const ifPatientExistWithGoogleAuth = await prisma.user.findUnique({
+	const ifUserExistWithGoogleAuth = await prisma.user.findUnique({
 		where: {
-			email: googleIdTokenPayload.email,
-			role: Role.PATIENT,
 			googleId: googleIdTokenPayload.sub,
 		},
 	});
 
-	let user = ifPatientExistWithGoogleAuth;
+	let user = ifUserExistWithGoogleAuth;
 
-	if (!ifPatientExistWithGoogleAuth) {
-		const ifPatientExistWithCredentials = await prisma.user.findUnique({
+	if (!ifUserExistWithGoogleAuth) {
+		const ifUserExistWithCredentials = await prisma.user.findUnique({
 			where: {
 				email: googleIdTokenPayload.email,
-				role: Role.PATIENT,
 				authProvider: AuthProvider.CREDENTIAL,
 			},
 		});
 
-		if (ifPatientExistWithCredentials) {
-			if (!ifPatientExistWithCredentials.emailVerified) {
+		if (ifUserExistWithCredentials) {
+			if (!ifUserExistWithCredentials.emailVerified) {
 				throw new AppError(httpStatus.FORBIDDEN, "Email Not Verified");
 			}
 
-			if (ifPatientExistWithCredentials.status === UserStatus.BLOCKED) {
-				throw new AppError(httpStatus.FORBIDDEN, "User Is Blocked");
+			if (ifUserExistWithCredentials.status === UserStatus.SUSPENDED) {
+				throw new AppError(httpStatus.FORBIDDEN, "User Is suspended");
 			}
 
 			if (
-				ifPatientExistWithCredentials.isDeleted ||
-				ifPatientExistWithCredentials.status === UserStatus.DELETED
+				ifUserExistWithCredentials.isDeleted ||
+				ifUserExistWithCredentials.status === UserStatus.DELETED
 			) {
 				throw new AppError(httpStatus.FORBIDDEN, "User Is Deleted");
 			}
 
 			user = await prisma.user.update({
 				where: {
-					id: ifPatientExistWithCredentials.id,
+					id: ifUserExistWithCredentials.id,
 				},
 
 				data: {
@@ -430,24 +426,28 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 				},
 			});
 		} else {
+			const role = payload.role;
 			// Google Register
+			const userProfileKey: "client" | "creator" =
+				role === Role.CLIENT ? "client" : "creator";
+
 			user = await prisma.user.create({
 				data: {
 					name: googleIdTokenPayload.name,
 					email: googleIdTokenPayload.email,
-					role: Role.PATIENT,
+					role,
 					googleId: googleIdTokenPayload.sub,
 					authProvider: AuthProvider.GOOGLE,
 					emailVerified: true,
-					patient: {
+					[userProfileKey]: {
 						create: {
 							name: googleIdTokenPayload.name,
 							email: googleIdTokenPayload.email,
 						},
 					},
-				},
+				} as any,
 			});
-			const tempatePath = path.join(
+			const templatePath = path.join(
 				process.cwd(),
 				"src/app/templates/patient-welcome-email.ejs",
 			);
@@ -456,7 +456,7 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 				name: user.name,
 			};
 
-			const html = await ejs.renderFile(tempatePath, templateData);
+			const html = await ejs.renderFile(templatePath, templateData);
 
 			await transporter.sendMail({
 				from: config.email_sender,
@@ -473,8 +473,8 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 		throw new AppError(httpStatus.NOT_FOUND, "User Not Found");
 	}
 
-	if (user.status === UserStatus.BLOCKED) {
-		throw new AppError(httpStatus.FORBIDDEN, "User Is Blocked");
+	if (user.status === UserStatus.SUSPENDED) {
+		throw new AppError(httpStatus.FORBIDDEN, "User Is suspended");
 	}
 
 	if (user.isDeleted || user.status === UserStatus.DELETED) {
@@ -519,8 +519,8 @@ const forgotPassword = async (payload: IForgotPasswordPayload) => {
 		throw new AppError(httpStatus.NOT_FOUND, "User Does Not Exist!");
 	}
 
-	if (isUserExist.status === "BLOCKED") {
-		throw new AppError(httpStatus.FORBIDDEN, "User is Blocked");
+	if (isUserExist.status === "SUSPENDED") {
+		throw new AppError(httpStatus.FORBIDDEN, "User is suspended");
 	}
 
 	if (!isUserExist.emailVerified) {
@@ -548,7 +548,7 @@ const forgotPassword = async (payload: IForgotPasswordPayload) => {
 		},
 	});
 
-	const tempatePath = path.join(
+	const templatePath = path.join(
 		process.cwd(),
 		"src/app/templates/forgot-password.ejs",
 	);
@@ -559,14 +559,12 @@ const forgotPassword = async (payload: IForgotPasswordPayload) => {
 		expirationMinutes: expirationSeconds / 60,
 	};
 
-	const html = await ejs.renderFile(tempatePath, templateData);
+	const html = await ejs.renderFile(templatePath, templateData);
 
 	await transporter.sendMail({
 		from: config.email_sender,
 		to: isUserExist.email,
 		subject: "Forgot Password",
-		// text : `Your OTP is ${otp}`
-		// html: `<h1>Your OTP is ${otp}</h1>`
 		html,
 	});
 };
@@ -584,8 +582,8 @@ const resetPassword = async (payload: IResetPasswordPayload) => {
 		throw new AppError(httpStatus.NOT_FOUND, "User Does Not Exist!");
 	}
 
-	if (isUserExist.status === "BLOCKED") {
-		throw new AppError(httpStatus.FORBIDDEN, "User is Blocked");
+	if (isUserExist.status === "SUSPENDED") {
+		throw new AppError(httpStatus.FORBIDDEN, "User is suspended");
 	}
 
 	if (!isUserExist.emailVerified) {
@@ -600,7 +598,7 @@ const resetPassword = async (payload: IResetPasswordPayload) => {
 		throw new AppError(httpStatus.BAD_REQUEST, "User Has Account With Google");
 	}
 
-	const key = `forgor-password-otp:${isUserExist.email}`;
+	const key = `forgot-password-otp:${isUserExist.email}`;
 
 	const redisOtp = await redisClient.get(key);
 
@@ -628,7 +626,7 @@ const resetPassword = async (payload: IResetPasswordPayload) => {
 
 	await redisClient.del([key]);
 
-	const tempatePath = path.join(
+	const templatePath = path.join(
 		process.cwd(),
 		"src/app/templates/reset-password-success.ejs",
 	);
@@ -637,21 +635,19 @@ const resetPassword = async (payload: IResetPasswordPayload) => {
 		name: isUserExist.name,
 	};
 
-	const html = await ejs.renderFile(tempatePath, templateData);
+	const html = await ejs.renderFile(templatePath, templateData);
 
 	await transporter.sendMail({
 		from: config.email_sender,
 		to: isUserExist.email,
 		subject: "Password Changed",
-		// text : `Your OTP is ${otp}`
-		// html: `<h1>Your Password Is Changed</h1>`
 		html,
 	});
 };
 
 export const AuthService = {
 	registerUser,
-	verifyPatientEmail,
+	verifyEmail,
 	loginUser,
 	getMe,
 	refreshToken,

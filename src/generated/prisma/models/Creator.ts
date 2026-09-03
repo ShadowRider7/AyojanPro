@@ -494,7 +494,7 @@ export type CreatorCreateInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -527,7 +527,7 @@ export type CreatorUncheckedCreateInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -623,7 +623,7 @@ export type CreatorCreateManyInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -955,7 +955,7 @@ export type CreatorCreateWithoutContractsInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -987,7 +987,7 @@ export type CreatorUncheckedCreateWithoutContractsInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -1095,7 +1095,7 @@ export type CreatorCreateWithoutServicesInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -1127,7 +1127,7 @@ export type CreatorUncheckedCreateWithoutServicesInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -1235,7 +1235,7 @@ export type CreatorCreateWithoutSkillsInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -1267,7 +1267,7 @@ export type CreatorUncheckedCreateWithoutSkillsInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -1375,7 +1375,7 @@ export type CreatorCreateWithoutDeliverablesInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -1407,7 +1407,7 @@ export type CreatorUncheckedCreateWithoutDeliverablesInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -1515,7 +1515,7 @@ export type CreatorCreateWithoutDisputesInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -1547,7 +1547,7 @@ export type CreatorUncheckedCreateWithoutDisputesInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -1655,7 +1655,7 @@ export type CreatorCreateWithoutPaymentsInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -1687,7 +1687,7 @@ export type CreatorUncheckedCreateWithoutPaymentsInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -1795,7 +1795,7 @@ export type CreatorCreateWithoutPortfolioInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -1827,7 +1827,7 @@ export type CreatorUncheckedCreateWithoutPortfolioInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -1935,7 +1935,7 @@ export type CreatorCreateWithoutProposalsInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -1967,7 +1967,7 @@ export type CreatorUncheckedCreateWithoutProposalsInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -2075,7 +2075,7 @@ export type CreatorCreateWithoutReviewsInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -2107,7 +2107,7 @@ export type CreatorUncheckedCreateWithoutReviewsInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -2215,7 +2215,7 @@ export type CreatorCreateWithoutUserInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
@@ -2246,7 +2246,7 @@ export type CreatorUncheckedCreateWithoutUserInput = {
   bio?: string | null
   location?: string | null
   contactNumber?: string | null
-  experience: number
+  experience?: number
   hourlyRate?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   isAvailable?: boolean
   website?: string | null
