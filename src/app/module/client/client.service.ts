@@ -8,7 +8,7 @@ const updateClientProfile = async (
 	payload: IUpdateClientProfileInput,
 	user: RequestUser,
 ) => {
-	const existingClient = await prisma.creator.findUnique({
+	const existingClient = await prisma.client.findUnique({
 		where: { userId: user.userId },
 	});
 
@@ -16,7 +16,7 @@ const updateClientProfile = async (
 		throw new AppError(httpStatus.NOT_FOUND, "Client Profile Not Found");
 	}
 
-	const updatedClient = await prisma.creator.update({
+	const updatedClient = await prisma.client.update({
 		where: { id: existingClient.id },
 		data: payload,
 	});

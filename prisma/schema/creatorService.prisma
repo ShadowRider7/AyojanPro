@@ -5,15 +5,11 @@ model CreatorService {
   name        String   @db.VarChar(150)       
   description String?
 
-  isDeleted   Boolean  @default(false)
-  deletedAt   DateTime?
-
   creator     Creator  @relation(fields: [creatorId], references: [id], onDelete: Cascade)
 
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
   @@index([creatorId])
-  @@index([isDeleted])
   @@map("creator_services")
 }

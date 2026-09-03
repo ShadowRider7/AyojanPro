@@ -1,6 +1,6 @@
 model PortfolioItem {
   id        String @id @default(uuid())
-  creatorId String
+  creatorId String 
 
   title       String   @db.VarChar(255)
   description String?
@@ -9,7 +9,7 @@ model PortfolioItem {
 
   thumbnailUrl String? 
   mediaUrl     String 
-  publicId     String? 
+  publicId     String
 
   externalUrl String? 
 

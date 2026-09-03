@@ -3,7 +3,7 @@ import { z } from "zod";
 const updateClientProfileSchema = z.object({
 	companyName: z
 		.string()
-		.min(1, "Company name cannot be empty")
+		.min(3, "Company name cannot be empty")
 		.nullable()
 		.optional(),
 	bio: z

@@ -172,8 +172,6 @@ export const CreatorServiceScalarFieldEnum = {
   creatorId: 'creatorId',
   name: 'name',
   description: 'description',
-  isDeleted: 'isDeleted',
-  deletedAt: 'deletedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

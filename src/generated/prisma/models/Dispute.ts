@@ -659,6 +659,10 @@ export type EnumDisputeStatusFieldUpdateOperationsInput = {
   set?: $Enums.DisputeStatus
 }
 
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
+}
+
 export type DisputeCreateNestedManyWithoutResolvedByInput = {
   create?: Prisma.XOR<Prisma.DisputeCreateWithoutResolvedByInput, Prisma.DisputeUncheckedCreateWithoutResolvedByInput> | Prisma.DisputeCreateWithoutResolvedByInput[] | Prisma.DisputeUncheckedCreateWithoutResolvedByInput[]
   connectOrCreate?: Prisma.DisputeCreateOrConnectWithoutResolvedByInput | Prisma.DisputeCreateOrConnectWithoutResolvedByInput[]

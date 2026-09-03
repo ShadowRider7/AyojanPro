@@ -206,7 +206,7 @@ export type PortfolioItemGroupByOutputType = {
   tools: string[]
   thumbnailUrl: string | null
   mediaUrl: string
-  publicId: string | null
+  publicId: string
   externalUrl: string | null
   isDeleted: boolean
   deletedAt: Date | null
@@ -244,7 +244,7 @@ export type PortfolioItemWhereInput = {
   tools?: Prisma.StringNullableListFilter<"PortfolioItem">
   thumbnailUrl?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
   mediaUrl?: Prisma.StringFilter<"PortfolioItem"> | string
-  publicId?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
+  publicId?: Prisma.StringFilter<"PortfolioItem"> | string
   externalUrl?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
   isDeleted?: Prisma.BoolFilter<"PortfolioItem"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"PortfolioItem"> | Date | string | null
@@ -262,7 +262,7 @@ export type PortfolioItemOrderByWithRelationInput = {
   tools?: Prisma.SortOrder
   thumbnailUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   mediaUrl?: Prisma.SortOrder
-  publicId?: Prisma.SortOrderInput | Prisma.SortOrder
+  publicId?: Prisma.SortOrder
   externalUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -283,7 +283,7 @@ export type PortfolioItemWhereUniqueInput = Prisma.AtLeast<{
   tools?: Prisma.StringNullableListFilter<"PortfolioItem">
   thumbnailUrl?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
   mediaUrl?: Prisma.StringFilter<"PortfolioItem"> | string
-  publicId?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
+  publicId?: Prisma.StringFilter<"PortfolioItem"> | string
   externalUrl?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
   isDeleted?: Prisma.BoolFilter<"PortfolioItem"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"PortfolioItem"> | Date | string | null
@@ -301,7 +301,7 @@ export type PortfolioItemOrderByWithAggregationInput = {
   tools?: Prisma.SortOrder
   thumbnailUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   mediaUrl?: Prisma.SortOrder
-  publicId?: Prisma.SortOrderInput | Prisma.SortOrder
+  publicId?: Prisma.SortOrder
   externalUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -324,7 +324,7 @@ export type PortfolioItemScalarWhereWithAggregatesInput = {
   tools?: Prisma.StringNullableListFilter<"PortfolioItem">
   thumbnailUrl?: Prisma.StringNullableWithAggregatesFilter<"PortfolioItem"> | string | null
   mediaUrl?: Prisma.StringWithAggregatesFilter<"PortfolioItem"> | string
-  publicId?: Prisma.StringNullableWithAggregatesFilter<"PortfolioItem"> | string | null
+  publicId?: Prisma.StringWithAggregatesFilter<"PortfolioItem"> | string
   externalUrl?: Prisma.StringNullableWithAggregatesFilter<"PortfolioItem"> | string | null
   isDeleted?: Prisma.BoolWithAggregatesFilter<"PortfolioItem"> | boolean
   deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PortfolioItem"> | Date | string | null
@@ -340,7 +340,7 @@ export type PortfolioItemCreateInput = {
   tools?: Prisma.PortfolioItemCreatetoolsInput | string[]
   thumbnailUrl?: string | null
   mediaUrl: string
-  publicId?: string | null
+  publicId: string
   externalUrl?: string | null
   isDeleted?: boolean
   deletedAt?: Date | string | null
@@ -358,7 +358,7 @@ export type PortfolioItemUncheckedCreateInput = {
   tools?: Prisma.PortfolioItemCreatetoolsInput | string[]
   thumbnailUrl?: string | null
   mediaUrl: string
-  publicId?: string | null
+  publicId: string
   externalUrl?: string | null
   isDeleted?: boolean
   deletedAt?: Date | string | null
@@ -374,7 +374,7 @@ export type PortfolioItemUpdateInput = {
   tools?: Prisma.PortfolioItemUpdatetoolsInput | string[]
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mediaUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
   externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -392,7 +392,7 @@ export type PortfolioItemUncheckedUpdateInput = {
   tools?: Prisma.PortfolioItemUpdatetoolsInput | string[]
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mediaUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
   externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -409,7 +409,7 @@ export type PortfolioItemCreateManyInput = {
   tools?: Prisma.PortfolioItemCreatetoolsInput | string[]
   thumbnailUrl?: string | null
   mediaUrl: string
-  publicId?: string | null
+  publicId: string
   externalUrl?: string | null
   isDeleted?: boolean
   deletedAt?: Date | string | null
@@ -425,7 +425,7 @@ export type PortfolioItemUpdateManyMutationInput = {
   tools?: Prisma.PortfolioItemUpdatetoolsInput | string[]
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mediaUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
   externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -442,7 +442,7 @@ export type PortfolioItemUncheckedUpdateManyInput = {
   tools?: Prisma.PortfolioItemUpdatetoolsInput | string[]
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mediaUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
   externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -576,7 +576,7 @@ export type PortfolioItemCreateWithoutCreatorInput = {
   tools?: Prisma.PortfolioItemCreatetoolsInput | string[]
   thumbnailUrl?: string | null
   mediaUrl: string
-  publicId?: string | null
+  publicId: string
   externalUrl?: string | null
   isDeleted?: boolean
   deletedAt?: Date | string | null
@@ -592,7 +592,7 @@ export type PortfolioItemUncheckedCreateWithoutCreatorInput = {
   tools?: Prisma.PortfolioItemCreatetoolsInput | string[]
   thumbnailUrl?: string | null
   mediaUrl: string
-  publicId?: string | null
+  publicId: string
   externalUrl?: string | null
   isDeleted?: boolean
   deletedAt?: Date | string | null
@@ -638,7 +638,7 @@ export type PortfolioItemScalarWhereInput = {
   tools?: Prisma.StringNullableListFilter<"PortfolioItem">
   thumbnailUrl?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
   mediaUrl?: Prisma.StringFilter<"PortfolioItem"> | string
-  publicId?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
+  publicId?: Prisma.StringFilter<"PortfolioItem"> | string
   externalUrl?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
   isDeleted?: Prisma.BoolFilter<"PortfolioItem"> | boolean
   deletedAt?: Prisma.DateTimeNullableFilter<"PortfolioItem"> | Date | string | null
@@ -654,7 +654,7 @@ export type PortfolioItemCreateManyCreatorInput = {
   tools?: Prisma.PortfolioItemCreatetoolsInput | string[]
   thumbnailUrl?: string | null
   mediaUrl: string
-  publicId?: string | null
+  publicId: string
   externalUrl?: string | null
   isDeleted?: boolean
   deletedAt?: Date | string | null
@@ -670,7 +670,7 @@ export type PortfolioItemUpdateWithoutCreatorInput = {
   tools?: Prisma.PortfolioItemUpdatetoolsInput | string[]
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mediaUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
   externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -686,7 +686,7 @@ export type PortfolioItemUncheckedUpdateWithoutCreatorInput = {
   tools?: Prisma.PortfolioItemUpdatetoolsInput | string[]
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mediaUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
   externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -702,7 +702,7 @@ export type PortfolioItemUncheckedUpdateManyWithoutCreatorInput = {
   tools?: Prisma.PortfolioItemUpdatetoolsInput | string[]
   thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   mediaUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicId?: Prisma.StringFieldUpdateOperationsInput | string
   externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -808,7 +808,7 @@ export type $PortfolioItemPayload<ExtArgs extends runtime.Types.Extensions.Inter
     tools: string[]
     thumbnailUrl: string | null
     mediaUrl: string
-    publicId: string | null
+    publicId: string
     externalUrl: string | null
     isDeleted: boolean
     deletedAt: Date | null

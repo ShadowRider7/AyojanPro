@@ -29,8 +29,6 @@ export type CreatorServiceMinAggregateOutputType = {
   creatorId: string | null
   name: string | null
   description: string | null
-  isDeleted: boolean | null
-  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -40,8 +38,6 @@ export type CreatorServiceMaxAggregateOutputType = {
   creatorId: string | null
   name: string | null
   description: string | null
-  isDeleted: boolean | null
-  deletedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -51,8 +47,6 @@ export type CreatorServiceCountAggregateOutputType = {
   creatorId: number
   name: number
   description: number
-  isDeleted: number
-  deletedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -64,8 +58,6 @@ export type CreatorServiceMinAggregateInputType = {
   creatorId?: true
   name?: true
   description?: true
-  isDeleted?: true
-  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -75,8 +67,6 @@ export type CreatorServiceMaxAggregateInputType = {
   creatorId?: true
   name?: true
   description?: true
-  isDeleted?: true
-  deletedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -86,8 +76,6 @@ export type CreatorServiceCountAggregateInputType = {
   creatorId?: true
   name?: true
   description?: true
-  isDeleted?: true
-  deletedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -170,8 +158,6 @@ export type CreatorServiceGroupByOutputType = {
   creatorId: string
   name: string
   description: string | null
-  isDeleted: boolean
-  deletedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: CreatorServiceCountAggregateOutputType | null
@@ -202,8 +188,6 @@ export type CreatorServiceWhereInput = {
   creatorId?: Prisma.StringFilter<"CreatorService"> | string
   name?: Prisma.StringFilter<"CreatorService"> | string
   description?: Prisma.StringNullableFilter<"CreatorService"> | string | null
-  isDeleted?: Prisma.BoolFilter<"CreatorService"> | boolean
-  deletedAt?: Prisma.DateTimeNullableFilter<"CreatorService"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"CreatorService"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CreatorService"> | Date | string
   creator?: Prisma.XOR<Prisma.CreatorScalarRelationFilter, Prisma.CreatorWhereInput>
@@ -214,8 +198,6 @@ export type CreatorServiceOrderByWithRelationInput = {
   creatorId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   creator?: Prisma.CreatorOrderByWithRelationInput
@@ -229,8 +211,6 @@ export type CreatorServiceWhereUniqueInput = Prisma.AtLeast<{
   creatorId?: Prisma.StringFilter<"CreatorService"> | string
   name?: Prisma.StringFilter<"CreatorService"> | string
   description?: Prisma.StringNullableFilter<"CreatorService"> | string | null
-  isDeleted?: Prisma.BoolFilter<"CreatorService"> | boolean
-  deletedAt?: Prisma.DateTimeNullableFilter<"CreatorService"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"CreatorService"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CreatorService"> | Date | string
   creator?: Prisma.XOR<Prisma.CreatorScalarRelationFilter, Prisma.CreatorWhereInput>
@@ -241,8 +221,6 @@ export type CreatorServiceOrderByWithAggregationInput = {
   creatorId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.CreatorServiceCountOrderByAggregateInput
@@ -258,8 +236,6 @@ export type CreatorServiceScalarWhereWithAggregatesInput = {
   creatorId?: Prisma.StringWithAggregatesFilter<"CreatorService"> | string
   name?: Prisma.StringWithAggregatesFilter<"CreatorService"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"CreatorService"> | string | null
-  isDeleted?: Prisma.BoolWithAggregatesFilter<"CreatorService"> | boolean
-  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"CreatorService"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CreatorService"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CreatorService"> | Date | string
 }
@@ -268,8 +244,6 @@ export type CreatorServiceCreateInput = {
   id?: string
   name: string
   description?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   creator: Prisma.CreatorCreateNestedOneWithoutServicesInput
@@ -280,8 +254,6 @@ export type CreatorServiceUncheckedCreateInput = {
   creatorId: string
   name: string
   description?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -290,8 +262,6 @@ export type CreatorServiceUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   creator?: Prisma.CreatorUpdateOneRequiredWithoutServicesNestedInput
@@ -302,8 +272,6 @@ export type CreatorServiceUncheckedUpdateInput = {
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -313,8 +281,6 @@ export type CreatorServiceCreateManyInput = {
   creatorId: string
   name: string
   description?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -323,8 +289,6 @@ export type CreatorServiceUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -334,8 +298,6 @@ export type CreatorServiceUncheckedUpdateManyInput = {
   creatorId?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -355,8 +317,6 @@ export type CreatorServiceCountOrderByAggregateInput = {
   creatorId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -366,8 +326,6 @@ export type CreatorServiceMaxOrderByAggregateInput = {
   creatorId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -377,8 +335,6 @@ export type CreatorServiceMinOrderByAggregateInput = {
   creatorId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   description?: Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -425,16 +381,10 @@ export type CreatorServiceUncheckedUpdateManyWithoutCreatorNestedInput = {
   deleteMany?: Prisma.CreatorServiceScalarWhereInput | Prisma.CreatorServiceScalarWhereInput[]
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
 export type CreatorServiceCreateWithoutCreatorInput = {
   id?: string
   name: string
   description?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -443,8 +393,6 @@ export type CreatorServiceUncheckedCreateWithoutCreatorInput = {
   id?: string
   name: string
   description?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -483,8 +431,6 @@ export type CreatorServiceScalarWhereInput = {
   creatorId?: Prisma.StringFilter<"CreatorService"> | string
   name?: Prisma.StringFilter<"CreatorService"> | string
   description?: Prisma.StringNullableFilter<"CreatorService"> | string | null
-  isDeleted?: Prisma.BoolFilter<"CreatorService"> | boolean
-  deletedAt?: Prisma.DateTimeNullableFilter<"CreatorService"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"CreatorService"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CreatorService"> | Date | string
 }
@@ -493,8 +439,6 @@ export type CreatorServiceCreateManyCreatorInput = {
   id?: string
   name: string
   description?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -503,8 +447,6 @@ export type CreatorServiceUpdateWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -513,8 +455,6 @@ export type CreatorServiceUncheckedUpdateWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -523,8 +463,6 @@ export type CreatorServiceUncheckedUpdateManyWithoutCreatorInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -536,8 +474,6 @@ export type CreatorServiceSelect<ExtArgs extends runtime.Types.Extensions.Intern
   creatorId?: boolean
   name?: boolean
   description?: boolean
-  isDeleted?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
@@ -548,8 +484,6 @@ export type CreatorServiceSelectCreateManyAndReturn<ExtArgs extends runtime.Type
   creatorId?: boolean
   name?: boolean
   description?: boolean
-  isDeleted?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
@@ -560,8 +494,6 @@ export type CreatorServiceSelectUpdateManyAndReturn<ExtArgs extends runtime.Type
   creatorId?: boolean
   name?: boolean
   description?: boolean
-  isDeleted?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
@@ -572,13 +504,11 @@ export type CreatorServiceSelectScalar = {
   creatorId?: boolean
   name?: boolean
   description?: boolean
-  isDeleted?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CreatorServiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "creatorId" | "name" | "description" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["creatorService"]>
+export type CreatorServiceOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "creatorId" | "name" | "description" | "createdAt" | "updatedAt", ExtArgs["result"]["creatorService"]>
 export type CreatorServiceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
 }
@@ -599,8 +529,6 @@ export type $CreatorServicePayload<ExtArgs extends runtime.Types.Extensions.Inte
     creatorId: string
     name: string
     description: string | null
-    isDeleted: boolean
-    deletedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["creatorService"]>
@@ -1031,8 +959,6 @@ export interface CreatorServiceFieldRefs {
   readonly creatorId: Prisma.FieldRef<"CreatorService", 'String'>
   readonly name: Prisma.FieldRef<"CreatorService", 'String'>
   readonly description: Prisma.FieldRef<"CreatorService", 'String'>
-  readonly isDeleted: Prisma.FieldRef<"CreatorService", 'Boolean'>
-  readonly deletedAt: Prisma.FieldRef<"CreatorService", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"CreatorService", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"CreatorService", 'DateTime'>
 }
