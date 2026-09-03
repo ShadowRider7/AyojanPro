@@ -1,7 +1,6 @@
 import { z } from "zod";
 
 const updateCreatorProfileSchema = z.object({
-	name: z.string().min(1, "Name cannot be empty").optional(),
 	bio: z
 		.string()
 		.max(500, "Bio cannot exceed 500 characters")

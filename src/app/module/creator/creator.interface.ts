@@ -1,4 +1,4 @@
-export interface UpdateCreatorProfileInput {
+export interface IUpdateCreatorProfileInput {
 	name?: string;
 	bio?: string | null;
 	location?: string | null;
