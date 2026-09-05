@@ -115,7 +115,7 @@ const verifyEmail = async (payload: IVerifyEmailPayload) => {
 		throw new AppError(httpStatus.CONFLICT, "Email ALready Verified");
 	}
 
-	if (isUserExist?.isDeleted || isUserExist?.status === "DELETED") {
+	if (isUserExist?.isDeleted || isUserExist?.status === "INACTIVE") {
 		throw new AppError(httpStatus.FORBIDDEN, "User is Deleted");
 	}
 

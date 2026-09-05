@@ -1,24 +1,36 @@
+
 model Proposal {
-  id        String @id @default(uuid())
-  creatorId String
-  projectId String
+  id                        String @id @default(uuid())
+  professionalId            String
+  eventServiceRequirementId String
+  professionalServiceId     String
 
-  proposedPrice Decimal @db.Decimal(12, 2)
-  estimatedDays Int
-  message       String
+  proposedAmount Decimal @db.Decimal(12, 2)
+  currency       String  @default("BDT") @db.VarChar(10)
 
-  status ProposalStatus @default(SUBMITTED)
+  proposedStartAt DateTime
+  proposedEndAt   DateTime
 
-  creator Creator @relation(fields: [creatorId], references: [id])
-  project Project @relation(fields: [projectId], references: [id])
+  message String? @db.Text
 
-  contract Contract?
+  status ProposalStatus @default(PENDING)
+
+  submittedAt DateTime  @default(now())
+  respondedAt DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@unique([creatorId, projectId])
-  @@index([projectId, status])
-  @@index([creatorId, status])
-  @@map("proposals")
+  professional            Professional            @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+  eventServiceRequirement EventServiceRequirement @relation(fields: [eventServiceRequirementId], references: [id], onDelete: Cascade)
+  professionalService     ProfessionalService     @relation(fields: [professionalServiceId], references: [id], onDelete: Restrict)
+
+  contract Contract?
+
+  @@index([professionalId])
+  @@index([eventServiceRequirementId])
+  @@index([professionalServiceId])
+  @@index([status])
+  @@index([proposedStartAt, proposedEndAt])
+
 }

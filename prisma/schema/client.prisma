@@ -1,29 +1,24 @@
+
 model Client {
   id     String @id @default(uuid())
-  name    String
-  email   String  @unique
   userId String @unique
 
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
-  companyName String? @db.VarChar(255)
-  bio         String?
-  phone       String? @db.VarChar(30)
-  location    String?
-  website     String?
-  industry    String? @db.VarChar(100)
-
-  totalProjects    Int @default(0)
-  completedProjects Int @default(0)
-
-  projects  Project[]
-  contracts Contract[]
-  payments  Payment[]
-  revisions Revision[]
-  reviews   Review[]
-  disputes  Dispute[]
+  phone        String? @db.VarChar(30)
+  profileImage String?
+  bio          String? @db.Text
+  address      String? @db.Text
+  city         String? @db.VarChar(100)
+  country      String? @db.VarChar(100)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  @@map("clients")
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  events    Event[]
+  contracts Contract[]
+  payments  Payment[]
+  reviews Review[]
+
+  @@index([city])
 }

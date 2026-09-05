@@ -1,12 +1,10 @@
 model Notification {
   id String @id @default(uuid())
 
-  userId  String 
-  type    NotificationType
-  title   String           @db.VarChar(255)
+  userId  String
+  title   String   @db.VarChar(255)
   message String
-
-  isRead Boolean @default(false)
+  isRead  Boolean  @default(false)
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -14,6 +12,6 @@ model Notification {
 
   @@index([userId])
   @@index([isRead])
-  @@index([userId, isRead]) 
+  @@index([userId, isRead])
   @@map("notifications")
 }

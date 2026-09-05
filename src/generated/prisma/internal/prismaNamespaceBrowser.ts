@@ -51,23 +51,21 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  AuditLog: 'AuditLog',
   Client: 'Client',
   Contract: 'Contract',
-  Creator: 'Creator',
-  CreatorService: 'CreatorService',
-  CreatorSkill: 'CreatorSkill',
-  Deliverable: 'Deliverable',
   Dispute: 'Dispute',
-  Milestone: 'Milestone',
+  DisputeEvidence: 'DisputeEvidence',
+  Event: 'Event',
+  EventServiceRequirement: 'EventServiceRequirement',
+  Experience: 'Experience',
   Notification: 'Notification',
   Payment: 'Payment',
   PortfolioItem: 'PortfolioItem',
-  Project: 'Project',
-  ProjectSkill: 'ProjectSkill',
+  Professional: 'Professional',
+  ProfessionalService: 'ProfessionalService',
+  ProfessionalSkill: 'ProfessionalSkill',
   Proposal: 'Proposal',
   Review: 'Review',
-  Revision: 'Revision',
   Skill: 'Skill',
   User: 'User'
 } as const
@@ -88,34 +86,15 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const AuditLogScalarFieldEnum = {
-  id: 'id',
-  actorId: 'actorId',
-  action: 'action',
-  entityType: 'entityType',
-  entityId: 'entityId',
-  previousData: 'previousData',
-  newData: 'newData',
-  metadata: 'metadata',
-  createdAt: 'createdAt'
-} as const
-
-export type AuditLogScalarFieldEnum = (typeof AuditLogScalarFieldEnum)[keyof typeof AuditLogScalarFieldEnum]
-
-
 export const ClientScalarFieldEnum = {
   id: 'id',
-  name: 'name',
-  email: 'email',
   userId: 'userId',
-  companyName: 'companyName',
-  bio: 'bio',
   phone: 'phone',
-  location: 'location',
-  website: 'website',
-  industry: 'industry',
-  totalProjects: 'totalProjects',
-  completedProjects: 'completedProjects',
+  profileImage: 'profileImage',
+  bio: 'bio',
+  address: 'address',
+  city: 'city',
+  country: 'country',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -126,14 +105,22 @@ export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof 
 export const ContractScalarFieldEnum = {
   id: 'id',
   clientId: 'clientId',
-  creatorId: 'creatorId',
-  projectId: 'projectId',
+  professionalId: 'professionalId',
+  eventId: 'eventId',
+  eventServiceRequirementId: 'eventServiceRequirementId',
+  professionalServiceId: 'professionalServiceId',
   proposalId: 'proposalId',
-  totalAmount: 'totalAmount',
-  startDate: 'startDate',
-  endDate: 'endDate',
-  terms: 'terms',
+  agreedAmount: 'agreedAmount',
+  currency: 'currency',
+  serviceStartAt: 'serviceStartAt',
+  serviceEndAt: 'serviceEndAt',
   status: 'status',
+  terms: 'terms',
+  confirmedAt: 'confirmedAt',
+  startedAt: 'startedAt',
+  completedAt: 'completedAt',
+  cancelledAt: 'cancelledAt',
+  cancellationReason: 'cancellationReason',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -141,79 +128,13 @@ export const ContractScalarFieldEnum = {
 export type ContractScalarFieldEnum = (typeof ContractScalarFieldEnum)[keyof typeof ContractScalarFieldEnum]
 
 
-export const CreatorScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  name: 'name',
-  email: 'email',
-  bio: 'bio',
-  location: 'location',
-  contactNumber: 'contactNumber',
-  experience: 'experience',
-  hourlyRate: 'hourlyRate',
-  isAvailable: 'isAvailable',
-  website: 'website',
-  githubUrl: 'githubUrl',
-  linkedinUrl: 'linkedinUrl',
-  behanceUrl: 'behanceUrl',
-  dribbbleUrl: 'dribbbleUrl',
-  rating: 'rating',
-  totalReviews: 'totalReviews',
-  completedProjects: 'completedProjects',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type CreatorScalarFieldEnum = (typeof CreatorScalarFieldEnum)[keyof typeof CreatorScalarFieldEnum]
-
-
-export const CreatorServiceScalarFieldEnum = {
-  id: 'id',
-  creatorId: 'creatorId',
-  name: 'name',
-  description: 'description',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type CreatorServiceScalarFieldEnum = (typeof CreatorServiceScalarFieldEnum)[keyof typeof CreatorServiceScalarFieldEnum]
-
-
-export const CreatorSkillScalarFieldEnum = {
-  creatorId: 'creatorId',
-  skillId: 'skillId'
-} as const
-
-export type CreatorSkillScalarFieldEnum = (typeof CreatorSkillScalarFieldEnum)[keyof typeof CreatorSkillScalarFieldEnum]
-
-
-export const DeliverableScalarFieldEnum = {
-  id: 'id',
-  milestoneId: 'milestoneId',
-  creatorId: 'creatorId',
-  title: 'title',
-  description: 'description',
-  mediaUrl: 'mediaUrl',
-  publicId: 'publicId',
-  version: 'version',
-  status: 'status',
-  submittedAt: 'submittedAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type DeliverableScalarFieldEnum = (typeof DeliverableScalarFieldEnum)[keyof typeof DeliverableScalarFieldEnum]
-
-
 export const DisputeScalarFieldEnum = {
   id: 'id',
   contractId: 'contractId',
-  clientId: 'clientId',
-  creatorId: 'creatorId',
-  openedByRole: 'openedByRole',
+  raisedById: 'raisedById',
+  raisedByRole: 'raisedByRole',
   reason: 'reason',
   description: 'description',
-  evidenceUrl: 'evidenceUrl',
   status: 'status',
   resolution: 'resolution',
   resolvedById: 'resolvedById',
@@ -225,25 +146,75 @@ export const DisputeScalarFieldEnum = {
 export type DisputeScalarFieldEnum = (typeof DisputeScalarFieldEnum)[keyof typeof DisputeScalarFieldEnum]
 
 
-export const MilestoneScalarFieldEnum = {
+export const DisputeEvidenceScalarFieldEnum = {
   id: 'id',
-  contractId: 'contractId',
+  disputeId: 'disputeId',
+  uploadedById: 'uploadedById',
+  type: 'type',
   title: 'title',
   description: 'description',
-  amount: 'amount',
-  dueDate: 'dueDate',
+  mediaUrl: 'mediaUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DisputeEvidenceScalarFieldEnum = (typeof DisputeEvidenceScalarFieldEnum)[keyof typeof DisputeEvidenceScalarFieldEnum]
+
+
+export const EventScalarFieldEnum = {
+  id: 'id',
+  clientId: 'clientId',
+  title: 'title',
+  description: 'description',
+  eventType: 'eventType',
+  address: 'address',
+  city: 'city',
+  country: 'country',
+  startAt: 'startAt',
+  endAt: 'endAt',
   status: 'status',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type MilestoneScalarFieldEnum = (typeof MilestoneScalarFieldEnum)[keyof typeof MilestoneScalarFieldEnum]
+export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+export const EventServiceRequirementScalarFieldEnum = {
+  id: 'id',
+  eventId: 'eventId',
+  serviceName: 'serviceName',
+  description: 'description',
+  budget: 'budget',
+  currency: 'currency',
+  startAt: 'startAt',
+  endAt: 'endAt',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type EventServiceRequirementScalarFieldEnum = (typeof EventServiceRequirementScalarFieldEnum)[keyof typeof EventServiceRequirementScalarFieldEnum]
+
+
+export const ExperienceScalarFieldEnum = {
+  id: 'id',
+  professionalId: 'professionalId',
+  title: 'title',
+  description: 'description',
+  organization: 'organization',
+  startDate: 'startDate',
+  endDate: 'endDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ExperienceScalarFieldEnum = (typeof ExperienceScalarFieldEnum)[keyof typeof ExperienceScalarFieldEnum]
 
 
 export const NotificationScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
-  type: 'type',
   title: 'title',
   message: 'message',
   isRead: 'isRead',
@@ -255,17 +226,20 @@ export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[k
 
 export const PaymentScalarFieldEnum = {
   id: 'id',
-  clientId: 'clientId',
-  creatorId: 'creatorId',
   contractId: 'contractId',
-  milestoneId: 'milestoneId',
-  stripeCustomerId: 'stripeCustomerId',
-  stripeCheckoutSessionId: 'stripeCheckoutSessionId',
-  stripePaymentIntentId: 'stripePaymentIntentId',
-  stripeEventId: 'stripeEventId',
+  clientId: 'clientId',
+  stage: 'stage',
+  status: 'status',
+  method: 'method',
   amount: 'amount',
   currency: 'currency',
-  status: 'status',
+  bkashPaymentId: 'bkashPaymentId',
+  bkashTransactionId: 'bkashTransactionId',
+  payerReference: 'payerReference',
+  merchantInvoiceNumber: 'merchantInvoiceNumber',
+  transactionTime: 'transactionTime',
+  paidAt: 'paidAt',
+  failureReason: 'failureReason',
   metadata: 'metadata',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -276,17 +250,14 @@ export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeo
 
 export const PortfolioItemScalarFieldEnum = {
   id: 'id',
-  creatorId: 'creatorId',
+  professionalId: 'professionalId',
   title: 'title',
   description: 'description',
-  category: 'category',
-  tools: 'tools',
-  thumbnailUrl: 'thumbnailUrl',
+  eventType: 'eventType',
   mediaUrl: 'mediaUrl',
   publicId: 'publicId',
   externalUrl: 'externalUrl',
-  isDeleted: 'isDeleted',
-  deletedAt: 'deletedAt',
+  workDate: 'workDate',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -294,42 +265,75 @@ export const PortfolioItemScalarFieldEnum = {
 export type PortfolioItemScalarFieldEnum = (typeof PortfolioItemScalarFieldEnum)[keyof typeof PortfolioItemScalarFieldEnum]
 
 
-export const ProjectScalarFieldEnum = {
+export const ProfessionalScalarFieldEnum = {
   id: 'id',
-  clientId: 'clientId',
-  title: 'title',
-  description: 'description',
-  budget: 'budget',
-  deadline: 'deadline',
-  location: 'location',
-  category: 'category',
-  requiredServices: 'requiredServices',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  address: 'address',
+  city: 'city',
+  country: 'country',
+  professionalTitle: 'professionalTitle',
+  bio: 'bio',
+  experienceYears: 'experienceYears',
+  acceptingBookings: 'acceptingBookings',
   status: 'status',
+  reviewedById: 'reviewedById',
+  reviewedAt: 'reviewedAt',
+  rejectionReason: 'rejectionReason',
+  resume: 'resume',
+  resumePublicId: 'resumePublicId',
+  additionalFiles: 'additionalFiles',
   isDeleted: 'isDeleted',
   deletedAt: 'deletedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  averageRating: 'averageRating',
+  totalReviews: 'totalReviews',
+  userId: 'userId'
+} as const
+
+export type ProfessionalScalarFieldEnum = (typeof ProfessionalScalarFieldEnum)[keyof typeof ProfessionalScalarFieldEnum]
+
+
+export const ProfessionalServiceScalarFieldEnum = {
+  id: 'id',
+  professionalId: 'professionalId',
+  name: 'name',
+  description: 'description',
+  pricingNote: 'pricingNote',
+  minimumPrice: 'minimumPrice',
+  maximumPrice: 'maximumPrice',
+  isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
+export type ProfessionalServiceScalarFieldEnum = (typeof ProfessionalServiceScalarFieldEnum)[keyof typeof ProfessionalServiceScalarFieldEnum]
 
 
-export const ProjectSkillScalarFieldEnum = {
-  projectId: 'projectId',
-  skillId: 'skillId'
+export const ProfessionalSkillScalarFieldEnum = {
+  professionalId: 'professionalId',
+  skillId: 'skillId',
+  createdAt: 'createdAt'
 } as const
 
-export type ProjectSkillScalarFieldEnum = (typeof ProjectSkillScalarFieldEnum)[keyof typeof ProjectSkillScalarFieldEnum]
+export type ProfessionalSkillScalarFieldEnum = (typeof ProfessionalSkillScalarFieldEnum)[keyof typeof ProfessionalSkillScalarFieldEnum]
 
 
 export const ProposalScalarFieldEnum = {
   id: 'id',
-  creatorId: 'creatorId',
-  projectId: 'projectId',
-  proposedPrice: 'proposedPrice',
-  estimatedDays: 'estimatedDays',
+  professionalId: 'professionalId',
+  eventServiceRequirementId: 'eventServiceRequirementId',
+  professionalServiceId: 'professionalServiceId',
+  proposedAmount: 'proposedAmount',
+  currency: 'currency',
+  proposedStartAt: 'proposedStartAt',
+  proposedEndAt: 'proposedEndAt',
   message: 'message',
   status: 'status',
+  submittedAt: 'submittedAt',
+  respondedAt: 'respondedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -341,36 +345,21 @@ export const ReviewScalarFieldEnum = {
   id: 'id',
   contractId: 'contractId',
   clientId: 'clientId',
-  creatorId: 'creatorId',
-  reviewerRole: 'reviewerRole',
+  professionalId: 'professionalId',
+  reviewByClient: 'reviewByClient',
   rating: 'rating',
   comment: 'comment',
-  isDeleted: 'isDeleted',
-  deletedAt: 'deletedAt',
-  createdAt: 'createdAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type ReviewScalarFieldEnum = (typeof ReviewScalarFieldEnum)[keyof typeof ReviewScalarFieldEnum]
 
 
-export const RevisionScalarFieldEnum = {
-  id: 'id',
-  milestoneId: 'milestoneId',
-  deliverableId: 'deliverableId',
-  clientId: 'clientId',
-  description: 'description',
-  status: 'status',
-  createdAt: 'createdAt',
-  resolvedAt: 'resolvedAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type RevisionScalarFieldEnum = (typeof RevisionScalarFieldEnum)[keyof typeof RevisionScalarFieldEnum]
-
-
 export const SkillScalarFieldEnum = {
   id: 'id',
   name: 'name',
+  description: 'description',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -383,11 +372,11 @@ export const UserScalarFieldEnum = {
   name: 'name',
   email: 'email',
   password: 'password',
-  googleId: 'googleId',
-  authProvider: 'authProvider',
-  emailVerified: 'emailVerified',
   role: 'role',
   status: 'status',
+  authProvider: 'authProvider',
+  googleId: 'googleId',
+  emailVerified: 'emailVerified',
   imageUrl: 'imageUrl',
   imagePublicId: 'imagePublicId',
   isDeleted: 'isDeleted',
@@ -423,6 +412,14 @@ export const QueryMode = {
 export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
+export const NullsOrder = {
+  first: 'first',
+  last: 'last'
+} as const
+
+export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
 export const JsonNullValueFilter = {
   DbNull: DbNull,
   JsonNull: JsonNull,
@@ -430,12 +427,4 @@ export const JsonNullValueFilter = {
 } as const
 
 export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
-
-
-export const NullsOrder = {
-  first: 'first',
-  last: 'last'
-} as const
-
-export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
 

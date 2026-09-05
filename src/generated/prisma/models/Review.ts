@@ -38,39 +38,36 @@ export type ReviewMinAggregateOutputType = {
   id: string | null
   contractId: string | null
   clientId: string | null
-  creatorId: string | null
-  reviewerRole: $Enums.ReviewerRole | null
+  professionalId: string | null
+  reviewByClient: boolean | null
   rating: number | null
   comment: string | null
-  isDeleted: boolean | null
-  deletedAt: Date | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ReviewMaxAggregateOutputType = {
   id: string | null
   contractId: string | null
   clientId: string | null
-  creatorId: string | null
-  reviewerRole: $Enums.ReviewerRole | null
+  professionalId: string | null
+  reviewByClient: boolean | null
   rating: number | null
   comment: string | null
-  isDeleted: boolean | null
-  deletedAt: Date | null
   createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type ReviewCountAggregateOutputType = {
   id: number
   contractId: number
   clientId: number
-  creatorId: number
-  reviewerRole: number
+  professionalId: number
+  reviewByClient: number
   rating: number
   comment: number
-  isDeleted: number
-  deletedAt: number
   createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -87,39 +84,36 @@ export type ReviewMinAggregateInputType = {
   id?: true
   contractId?: true
   clientId?: true
-  creatorId?: true
-  reviewerRole?: true
+  professionalId?: true
+  reviewByClient?: true
   rating?: true
   comment?: true
-  isDeleted?: true
-  deletedAt?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type ReviewMaxAggregateInputType = {
   id?: true
   contractId?: true
   clientId?: true
-  creatorId?: true
-  reviewerRole?: true
+  professionalId?: true
+  reviewByClient?: true
   rating?: true
   comment?: true
-  isDeleted?: true
-  deletedAt?: true
   createdAt?: true
+  updatedAt?: true
 }
 
 export type ReviewCountAggregateInputType = {
   id?: true
   contractId?: true
   clientId?: true
-  creatorId?: true
-  reviewerRole?: true
+  professionalId?: true
+  reviewByClient?: true
   rating?: true
   comment?: true
-  isDeleted?: true
-  deletedAt?: true
   createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -213,13 +207,12 @@ export type ReviewGroupByOutputType = {
   id: string
   contractId: string
   clientId: string
-  creatorId: string
-  reviewerRole: $Enums.ReviewerRole
+  professionalId: string
+  reviewByClient: boolean
   rating: number
   comment: string | null
-  isDeleted: boolean
-  deletedAt: Date | null
   createdAt: Date
+  updatedAt: Date
   _count: ReviewCountAggregateOutputType | null
   _avg: ReviewAvgAggregateOutputType | null
   _sum: ReviewSumAggregateOutputType | null
@@ -249,65 +242,61 @@ export type ReviewWhereInput = {
   id?: Prisma.StringFilter<"Review"> | string
   contractId?: Prisma.StringFilter<"Review"> | string
   clientId?: Prisma.StringFilter<"Review"> | string
-  creatorId?: Prisma.StringFilter<"Review"> | string
-  reviewerRole?: Prisma.EnumReviewerRoleFilter<"Review"> | $Enums.ReviewerRole
+  professionalId?: Prisma.StringFilter<"Review"> | string
+  reviewByClient?: Prisma.BoolFilter<"Review"> | boolean
   rating?: Prisma.IntFilter<"Review"> | number
   comment?: Prisma.StringNullableFilter<"Review"> | string | null
-  isDeleted?: Prisma.BoolFilter<"Review"> | boolean
-  deletedAt?: Prisma.DateTimeNullableFilter<"Review"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   contract?: Prisma.XOR<Prisma.ContractScalarRelationFilter, Prisma.ContractWhereInput>
   client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
-  creator?: Prisma.XOR<Prisma.CreatorScalarRelationFilter, Prisma.CreatorWhereInput>
+  professional?: Prisma.XOR<Prisma.ProfessionalScalarRelationFilter, Prisma.ProfessionalWhereInput>
 }
 
 export type ReviewOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   contractId?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
-  creatorId?: Prisma.SortOrder
-  reviewerRole?: Prisma.SortOrder
+  professionalId?: Prisma.SortOrder
+  reviewByClient?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comment?: Prisma.SortOrderInput | Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   contract?: Prisma.ContractOrderByWithRelationInput
   client?: Prisma.ClientOrderByWithRelationInput
-  creator?: Prisma.CreatorOrderByWithRelationInput
+  professional?: Prisma.ProfessionalOrderByWithRelationInput
 }
 
 export type ReviewWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  contractId_reviewerRole?: Prisma.ReviewContractIdReviewerRoleCompoundUniqueInput
+  contractId_clientId_professionalId_reviewByClient?: Prisma.ReviewContractIdClientIdProfessionalIdReviewByClientCompoundUniqueInput
   AND?: Prisma.ReviewWhereInput | Prisma.ReviewWhereInput[]
   OR?: Prisma.ReviewWhereInput[]
   NOT?: Prisma.ReviewWhereInput | Prisma.ReviewWhereInput[]
   contractId?: Prisma.StringFilter<"Review"> | string
   clientId?: Prisma.StringFilter<"Review"> | string
-  creatorId?: Prisma.StringFilter<"Review"> | string
-  reviewerRole?: Prisma.EnumReviewerRoleFilter<"Review"> | $Enums.ReviewerRole
+  professionalId?: Prisma.StringFilter<"Review"> | string
+  reviewByClient?: Prisma.BoolFilter<"Review"> | boolean
   rating?: Prisma.IntFilter<"Review"> | number
   comment?: Prisma.StringNullableFilter<"Review"> | string | null
-  isDeleted?: Prisma.BoolFilter<"Review"> | boolean
-  deletedAt?: Prisma.DateTimeNullableFilter<"Review"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
   contract?: Prisma.XOR<Prisma.ContractScalarRelationFilter, Prisma.ContractWhereInput>
   client?: Prisma.XOR<Prisma.ClientScalarRelationFilter, Prisma.ClientWhereInput>
-  creator?: Prisma.XOR<Prisma.CreatorScalarRelationFilter, Prisma.CreatorWhereInput>
-}, "id" | "contractId_reviewerRole">
+  professional?: Prisma.XOR<Prisma.ProfessionalScalarRelationFilter, Prisma.ProfessionalWhereInput>
+}, "id" | "contractId_clientId_professionalId_reviewByClient">
 
 export type ReviewOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   contractId?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
-  creatorId?: Prisma.SortOrder
-  reviewerRole?: Prisma.SortOrder
+  professionalId?: Prisma.SortOrder
+  reviewByClient?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comment?: Prisma.SortOrderInput | Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.ReviewCountOrderByAggregateInput
   _avg?: Prisma.ReviewAvgOrderByAggregateInput
   _max?: Prisma.ReviewMaxOrderByAggregateInput
@@ -322,101 +311,93 @@ export type ReviewScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Review"> | string
   contractId?: Prisma.StringWithAggregatesFilter<"Review"> | string
   clientId?: Prisma.StringWithAggregatesFilter<"Review"> | string
-  creatorId?: Prisma.StringWithAggregatesFilter<"Review"> | string
-  reviewerRole?: Prisma.EnumReviewerRoleWithAggregatesFilter<"Review"> | $Enums.ReviewerRole
+  professionalId?: Prisma.StringWithAggregatesFilter<"Review"> | string
+  reviewByClient?: Prisma.BoolWithAggregatesFilter<"Review"> | boolean
   rating?: Prisma.IntWithAggregatesFilter<"Review"> | number
   comment?: Prisma.StringNullableWithAggregatesFilter<"Review"> | string | null
-  isDeleted?: Prisma.BoolWithAggregatesFilter<"Review"> | boolean
-  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Review"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Review"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Review"> | Date | string
 }
 
 export type ReviewCreateInput = {
   id?: string
-  reviewerRole: $Enums.ReviewerRole
+  reviewByClient: boolean
   rating: number
   comment?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   contract: Prisma.ContractCreateNestedOneWithoutReviewsInput
   client: Prisma.ClientCreateNestedOneWithoutReviewsInput
-  creator: Prisma.CreatorCreateNestedOneWithoutReviewsInput
+  professional: Prisma.ProfessionalCreateNestedOneWithoutReviewsInput
 }
 
 export type ReviewUncheckedCreateInput = {
   id?: string
   contractId: string
   clientId: string
-  creatorId: string
-  reviewerRole: $Enums.ReviewerRole
+  professionalId: string
+  reviewByClient: boolean
   rating: number
   comment?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReviewUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewerRole?: Prisma.EnumReviewerRoleFieldUpdateOperationsInput | $Enums.ReviewerRole
+  reviewByClient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contract?: Prisma.ContractUpdateOneRequiredWithoutReviewsNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutReviewsNestedInput
-  creator?: Prisma.CreatorUpdateOneRequiredWithoutReviewsNestedInput
+  professional?: Prisma.ProfessionalUpdateOneRequiredWithoutReviewsNestedInput
 }
 
 export type ReviewUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   contractId?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
-  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewerRole?: Prisma.EnumReviewerRoleFieldUpdateOperationsInput | $Enums.ReviewerRole
+  professionalId?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewByClient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewCreateManyInput = {
   id?: string
   contractId: string
   clientId: string
-  creatorId: string
-  reviewerRole: $Enums.ReviewerRole
+  professionalId: string
+  reviewByClient: boolean
   rating: number
   comment?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReviewUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewerRole?: Prisma.EnumReviewerRoleFieldUpdateOperationsInput | $Enums.ReviewerRole
+  reviewByClient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   contractId?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
-  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewerRole?: Prisma.EnumReviewerRoleFieldUpdateOperationsInput | $Enums.ReviewerRole
+  professionalId?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewByClient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewListRelationFilter = {
@@ -429,22 +410,23 @@ export type ReviewOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ReviewContractIdReviewerRoleCompoundUniqueInput = {
+export type ReviewContractIdClientIdProfessionalIdReviewByClientCompoundUniqueInput = {
   contractId: string
-  reviewerRole: $Enums.ReviewerRole
+  clientId: string
+  professionalId: string
+  reviewByClient: boolean
 }
 
 export type ReviewCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   contractId?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
-  creatorId?: Prisma.SortOrder
-  reviewerRole?: Prisma.SortOrder
+  professionalId?: Prisma.SortOrder
+  reviewByClient?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comment?: Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ReviewAvgOrderByAggregateInput = {
@@ -455,26 +437,24 @@ export type ReviewMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   contractId?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
-  creatorId?: Prisma.SortOrder
-  reviewerRole?: Prisma.SortOrder
+  professionalId?: Prisma.SortOrder
+  reviewByClient?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comment?: Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ReviewMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   contractId?: Prisma.SortOrder
   clientId?: Prisma.SortOrder
-  creatorId?: Prisma.SortOrder
-  reviewerRole?: Prisma.SortOrder
+  professionalId?: Prisma.SortOrder
+  reviewByClient?: Prisma.SortOrder
   rating?: Prisma.SortOrder
   comment?: Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type ReviewSumOrderByAggregateInput = {
@@ -565,74 +545,68 @@ export type ReviewUncheckedUpdateManyWithoutContractNestedInput = {
   deleteMany?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
 }
 
-export type ReviewCreateNestedManyWithoutCreatorInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutCreatorInput, Prisma.ReviewUncheckedCreateWithoutCreatorInput> | Prisma.ReviewCreateWithoutCreatorInput[] | Prisma.ReviewUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutCreatorInput | Prisma.ReviewCreateOrConnectWithoutCreatorInput[]
-  createMany?: Prisma.ReviewCreateManyCreatorInputEnvelope
+export type ReviewCreateNestedManyWithoutProfessionalInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutProfessionalInput, Prisma.ReviewUncheckedCreateWithoutProfessionalInput> | Prisma.ReviewCreateWithoutProfessionalInput[] | Prisma.ReviewUncheckedCreateWithoutProfessionalInput[]
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutProfessionalInput | Prisma.ReviewCreateOrConnectWithoutProfessionalInput[]
+  createMany?: Prisma.ReviewCreateManyProfessionalInputEnvelope
   connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
 }
 
-export type ReviewUncheckedCreateNestedManyWithoutCreatorInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutCreatorInput, Prisma.ReviewUncheckedCreateWithoutCreatorInput> | Prisma.ReviewCreateWithoutCreatorInput[] | Prisma.ReviewUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutCreatorInput | Prisma.ReviewCreateOrConnectWithoutCreatorInput[]
-  createMany?: Prisma.ReviewCreateManyCreatorInputEnvelope
+export type ReviewUncheckedCreateNestedManyWithoutProfessionalInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutProfessionalInput, Prisma.ReviewUncheckedCreateWithoutProfessionalInput> | Prisma.ReviewCreateWithoutProfessionalInput[] | Prisma.ReviewUncheckedCreateWithoutProfessionalInput[]
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutProfessionalInput | Prisma.ReviewCreateOrConnectWithoutProfessionalInput[]
+  createMany?: Prisma.ReviewCreateManyProfessionalInputEnvelope
   connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
 }
 
-export type ReviewUpdateManyWithoutCreatorNestedInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutCreatorInput, Prisma.ReviewUncheckedCreateWithoutCreatorInput> | Prisma.ReviewCreateWithoutCreatorInput[] | Prisma.ReviewUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutCreatorInput | Prisma.ReviewCreateOrConnectWithoutCreatorInput[]
-  upsert?: Prisma.ReviewUpsertWithWhereUniqueWithoutCreatorInput | Prisma.ReviewUpsertWithWhereUniqueWithoutCreatorInput[]
-  createMany?: Prisma.ReviewCreateManyCreatorInputEnvelope
+export type ReviewUpdateManyWithoutProfessionalNestedInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutProfessionalInput, Prisma.ReviewUncheckedCreateWithoutProfessionalInput> | Prisma.ReviewCreateWithoutProfessionalInput[] | Prisma.ReviewUncheckedCreateWithoutProfessionalInput[]
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutProfessionalInput | Prisma.ReviewCreateOrConnectWithoutProfessionalInput[]
+  upsert?: Prisma.ReviewUpsertWithWhereUniqueWithoutProfessionalInput | Prisma.ReviewUpsertWithWhereUniqueWithoutProfessionalInput[]
+  createMany?: Prisma.ReviewCreateManyProfessionalInputEnvelope
   set?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
   disconnect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
   delete?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
   connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  update?: Prisma.ReviewUpdateWithWhereUniqueWithoutCreatorInput | Prisma.ReviewUpdateWithWhereUniqueWithoutCreatorInput[]
-  updateMany?: Prisma.ReviewUpdateManyWithWhereWithoutCreatorInput | Prisma.ReviewUpdateManyWithWhereWithoutCreatorInput[]
+  update?: Prisma.ReviewUpdateWithWhereUniqueWithoutProfessionalInput | Prisma.ReviewUpdateWithWhereUniqueWithoutProfessionalInput[]
+  updateMany?: Prisma.ReviewUpdateManyWithWhereWithoutProfessionalInput | Prisma.ReviewUpdateManyWithWhereWithoutProfessionalInput[]
   deleteMany?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
 }
 
-export type ReviewUncheckedUpdateManyWithoutCreatorNestedInput = {
-  create?: Prisma.XOR<Prisma.ReviewCreateWithoutCreatorInput, Prisma.ReviewUncheckedCreateWithoutCreatorInput> | Prisma.ReviewCreateWithoutCreatorInput[] | Prisma.ReviewUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutCreatorInput | Prisma.ReviewCreateOrConnectWithoutCreatorInput[]
-  upsert?: Prisma.ReviewUpsertWithWhereUniqueWithoutCreatorInput | Prisma.ReviewUpsertWithWhereUniqueWithoutCreatorInput[]
-  createMany?: Prisma.ReviewCreateManyCreatorInputEnvelope
+export type ReviewUncheckedUpdateManyWithoutProfessionalNestedInput = {
+  create?: Prisma.XOR<Prisma.ReviewCreateWithoutProfessionalInput, Prisma.ReviewUncheckedCreateWithoutProfessionalInput> | Prisma.ReviewCreateWithoutProfessionalInput[] | Prisma.ReviewUncheckedCreateWithoutProfessionalInput[]
+  connectOrCreate?: Prisma.ReviewCreateOrConnectWithoutProfessionalInput | Prisma.ReviewCreateOrConnectWithoutProfessionalInput[]
+  upsert?: Prisma.ReviewUpsertWithWhereUniqueWithoutProfessionalInput | Prisma.ReviewUpsertWithWhereUniqueWithoutProfessionalInput[]
+  createMany?: Prisma.ReviewCreateManyProfessionalInputEnvelope
   set?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
   disconnect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
   delete?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
   connect?: Prisma.ReviewWhereUniqueInput | Prisma.ReviewWhereUniqueInput[]
-  update?: Prisma.ReviewUpdateWithWhereUniqueWithoutCreatorInput | Prisma.ReviewUpdateWithWhereUniqueWithoutCreatorInput[]
-  updateMany?: Prisma.ReviewUpdateManyWithWhereWithoutCreatorInput | Prisma.ReviewUpdateManyWithWhereWithoutCreatorInput[]
+  update?: Prisma.ReviewUpdateWithWhereUniqueWithoutProfessionalInput | Prisma.ReviewUpdateWithWhereUniqueWithoutProfessionalInput[]
+  updateMany?: Prisma.ReviewUpdateManyWithWhereWithoutProfessionalInput | Prisma.ReviewUpdateManyWithWhereWithoutProfessionalInput[]
   deleteMany?: Prisma.ReviewScalarWhereInput | Prisma.ReviewScalarWhereInput[]
-}
-
-export type EnumReviewerRoleFieldUpdateOperationsInput = {
-  set?: $Enums.ReviewerRole
 }
 
 export type ReviewCreateWithoutClientInput = {
   id?: string
-  reviewerRole: $Enums.ReviewerRole
+  reviewByClient: boolean
   rating: number
   comment?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   contract: Prisma.ContractCreateNestedOneWithoutReviewsInput
-  creator: Prisma.CreatorCreateNestedOneWithoutReviewsInput
+  professional: Prisma.ProfessionalCreateNestedOneWithoutReviewsInput
 }
 
 export type ReviewUncheckedCreateWithoutClientInput = {
   id?: string
   contractId: string
-  creatorId: string
-  reviewerRole: $Enums.ReviewerRole
+  professionalId: string
+  reviewByClient: boolean
   rating: number
   comment?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReviewCreateOrConnectWithoutClientInput = {
@@ -668,37 +642,34 @@ export type ReviewScalarWhereInput = {
   id?: Prisma.StringFilter<"Review"> | string
   contractId?: Prisma.StringFilter<"Review"> | string
   clientId?: Prisma.StringFilter<"Review"> | string
-  creatorId?: Prisma.StringFilter<"Review"> | string
-  reviewerRole?: Prisma.EnumReviewerRoleFilter<"Review"> | $Enums.ReviewerRole
+  professionalId?: Prisma.StringFilter<"Review"> | string
+  reviewByClient?: Prisma.BoolFilter<"Review"> | boolean
   rating?: Prisma.IntFilter<"Review"> | number
   comment?: Prisma.StringNullableFilter<"Review"> | string | null
-  isDeleted?: Prisma.BoolFilter<"Review"> | boolean
-  deletedAt?: Prisma.DateTimeNullableFilter<"Review"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Review"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Review"> | Date | string
 }
 
 export type ReviewCreateWithoutContractInput = {
   id?: string
-  reviewerRole: $Enums.ReviewerRole
+  reviewByClient: boolean
   rating: number
   comment?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   client: Prisma.ClientCreateNestedOneWithoutReviewsInput
-  creator: Prisma.CreatorCreateNestedOneWithoutReviewsInput
+  professional: Prisma.ProfessionalCreateNestedOneWithoutReviewsInput
 }
 
 export type ReviewUncheckedCreateWithoutContractInput = {
   id?: string
   clientId: string
-  creatorId: string
-  reviewerRole: $Enums.ReviewerRole
+  professionalId: string
+  reviewByClient: boolean
   rating: number
   comment?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReviewCreateOrConnectWithoutContractInput = {
@@ -727,198 +698,184 @@ export type ReviewUpdateManyWithWhereWithoutContractInput = {
   data: Prisma.XOR<Prisma.ReviewUpdateManyMutationInput, Prisma.ReviewUncheckedUpdateManyWithoutContractInput>
 }
 
-export type ReviewCreateWithoutCreatorInput = {
+export type ReviewCreateWithoutProfessionalInput = {
   id?: string
-  reviewerRole: $Enums.ReviewerRole
+  reviewByClient: boolean
   rating: number
   comment?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
   contract: Prisma.ContractCreateNestedOneWithoutReviewsInput
   client: Prisma.ClientCreateNestedOneWithoutReviewsInput
 }
 
-export type ReviewUncheckedCreateWithoutCreatorInput = {
+export type ReviewUncheckedCreateWithoutProfessionalInput = {
   id?: string
   contractId: string
   clientId: string
-  reviewerRole: $Enums.ReviewerRole
+  reviewByClient: boolean
   rating: number
   comment?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
-export type ReviewCreateOrConnectWithoutCreatorInput = {
+export type ReviewCreateOrConnectWithoutProfessionalInput = {
   where: Prisma.ReviewWhereUniqueInput
-  create: Prisma.XOR<Prisma.ReviewCreateWithoutCreatorInput, Prisma.ReviewUncheckedCreateWithoutCreatorInput>
+  create: Prisma.XOR<Prisma.ReviewCreateWithoutProfessionalInput, Prisma.ReviewUncheckedCreateWithoutProfessionalInput>
 }
 
-export type ReviewCreateManyCreatorInputEnvelope = {
-  data: Prisma.ReviewCreateManyCreatorInput | Prisma.ReviewCreateManyCreatorInput[]
+export type ReviewCreateManyProfessionalInputEnvelope = {
+  data: Prisma.ReviewCreateManyProfessionalInput | Prisma.ReviewCreateManyProfessionalInput[]
   skipDuplicates?: boolean
 }
 
-export type ReviewUpsertWithWhereUniqueWithoutCreatorInput = {
+export type ReviewUpsertWithWhereUniqueWithoutProfessionalInput = {
   where: Prisma.ReviewWhereUniqueInput
-  update: Prisma.XOR<Prisma.ReviewUpdateWithoutCreatorInput, Prisma.ReviewUncheckedUpdateWithoutCreatorInput>
-  create: Prisma.XOR<Prisma.ReviewCreateWithoutCreatorInput, Prisma.ReviewUncheckedCreateWithoutCreatorInput>
+  update: Prisma.XOR<Prisma.ReviewUpdateWithoutProfessionalInput, Prisma.ReviewUncheckedUpdateWithoutProfessionalInput>
+  create: Prisma.XOR<Prisma.ReviewCreateWithoutProfessionalInput, Prisma.ReviewUncheckedCreateWithoutProfessionalInput>
 }
 
-export type ReviewUpdateWithWhereUniqueWithoutCreatorInput = {
+export type ReviewUpdateWithWhereUniqueWithoutProfessionalInput = {
   where: Prisma.ReviewWhereUniqueInput
-  data: Prisma.XOR<Prisma.ReviewUpdateWithoutCreatorInput, Prisma.ReviewUncheckedUpdateWithoutCreatorInput>
+  data: Prisma.XOR<Prisma.ReviewUpdateWithoutProfessionalInput, Prisma.ReviewUncheckedUpdateWithoutProfessionalInput>
 }
 
-export type ReviewUpdateManyWithWhereWithoutCreatorInput = {
+export type ReviewUpdateManyWithWhereWithoutProfessionalInput = {
   where: Prisma.ReviewScalarWhereInput
-  data: Prisma.XOR<Prisma.ReviewUpdateManyMutationInput, Prisma.ReviewUncheckedUpdateManyWithoutCreatorInput>
+  data: Prisma.XOR<Prisma.ReviewUpdateManyMutationInput, Prisma.ReviewUncheckedUpdateManyWithoutProfessionalInput>
 }
 
 export type ReviewCreateManyClientInput = {
   id?: string
   contractId: string
-  creatorId: string
-  reviewerRole: $Enums.ReviewerRole
+  professionalId: string
+  reviewByClient: boolean
   rating: number
   comment?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReviewUpdateWithoutClientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewerRole?: Prisma.EnumReviewerRoleFieldUpdateOperationsInput | $Enums.ReviewerRole
+  reviewByClient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contract?: Prisma.ContractUpdateOneRequiredWithoutReviewsNestedInput
-  creator?: Prisma.CreatorUpdateOneRequiredWithoutReviewsNestedInput
+  professional?: Prisma.ProfessionalUpdateOneRequiredWithoutReviewsNestedInput
 }
 
 export type ReviewUncheckedUpdateWithoutClientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   contractId?: Prisma.StringFieldUpdateOperationsInput | string
-  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewerRole?: Prisma.EnumReviewerRoleFieldUpdateOperationsInput | $Enums.ReviewerRole
+  professionalId?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewByClient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewUncheckedUpdateManyWithoutClientInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   contractId?: Prisma.StringFieldUpdateOperationsInput | string
-  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewerRole?: Prisma.EnumReviewerRoleFieldUpdateOperationsInput | $Enums.ReviewerRole
+  professionalId?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewByClient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewCreateManyContractInput = {
   id?: string
   clientId: string
-  creatorId: string
-  reviewerRole: $Enums.ReviewerRole
+  professionalId: string
+  reviewByClient: boolean
   rating: number
   comment?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type ReviewUpdateWithoutContractInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewerRole?: Prisma.EnumReviewerRoleFieldUpdateOperationsInput | $Enums.ReviewerRole
+  reviewByClient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.ClientUpdateOneRequiredWithoutReviewsNestedInput
-  creator?: Prisma.CreatorUpdateOneRequiredWithoutReviewsNestedInput
+  professional?: Prisma.ProfessionalUpdateOneRequiredWithoutReviewsNestedInput
 }
 
 export type ReviewUncheckedUpdateWithoutContractInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
-  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewerRole?: Prisma.EnumReviewerRoleFieldUpdateOperationsInput | $Enums.ReviewerRole
+  professionalId?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewByClient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ReviewUncheckedUpdateManyWithoutContractInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
-  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewerRole?: Prisma.EnumReviewerRoleFieldUpdateOperationsInput | $Enums.ReviewerRole
+  professionalId?: Prisma.StringFieldUpdateOperationsInput | string
+  reviewByClient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ReviewCreateManyCreatorInput = {
+export type ReviewCreateManyProfessionalInput = {
   id?: string
   contractId: string
   clientId: string
-  reviewerRole: $Enums.ReviewerRole
+  reviewByClient: boolean
   rating: number
   comment?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
   createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
-export type ReviewUpdateWithoutCreatorInput = {
+export type ReviewUpdateWithoutProfessionalInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewerRole?: Prisma.EnumReviewerRoleFieldUpdateOperationsInput | $Enums.ReviewerRole
+  reviewByClient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contract?: Prisma.ContractUpdateOneRequiredWithoutReviewsNestedInput
   client?: Prisma.ClientUpdateOneRequiredWithoutReviewsNestedInput
 }
 
-export type ReviewUncheckedUpdateWithoutCreatorInput = {
+export type ReviewUncheckedUpdateWithoutProfessionalInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   contractId?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewerRole?: Prisma.EnumReviewerRoleFieldUpdateOperationsInput | $Enums.ReviewerRole
+  reviewByClient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ReviewUncheckedUpdateManyWithoutCreatorInput = {
+export type ReviewUncheckedUpdateManyWithoutProfessionalInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   contractId?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
-  reviewerRole?: Prisma.EnumReviewerRoleFieldUpdateOperationsInput | $Enums.ReviewerRole
+  reviewByClient?: Prisma.BoolFieldUpdateOperationsInput | boolean
   rating?: Prisma.IntFieldUpdateOperationsInput | number
   comment?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -927,78 +884,74 @@ export type ReviewSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   id?: boolean
   contractId?: boolean
   clientId?: boolean
-  creatorId?: boolean
-  reviewerRole?: boolean
+  professionalId?: boolean
+  reviewByClient?: boolean
   rating?: boolean
   comment?: boolean
-  isDeleted?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   contract?: boolean | Prisma.ContractDefaultArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["review"]>
 
 export type ReviewSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   contractId?: boolean
   clientId?: boolean
-  creatorId?: boolean
-  reviewerRole?: boolean
+  professionalId?: boolean
+  reviewByClient?: boolean
   rating?: boolean
   comment?: boolean
-  isDeleted?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   contract?: boolean | Prisma.ContractDefaultArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["review"]>
 
 export type ReviewSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   contractId?: boolean
   clientId?: boolean
-  creatorId?: boolean
-  reviewerRole?: boolean
+  professionalId?: boolean
+  reviewByClient?: boolean
   rating?: boolean
   comment?: boolean
-  isDeleted?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
   contract?: boolean | Prisma.ContractDefaultArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["review"]>
 
 export type ReviewSelectScalar = {
   id?: boolean
   contractId?: boolean
   clientId?: boolean
-  creatorId?: boolean
-  reviewerRole?: boolean
+  professionalId?: boolean
+  reviewByClient?: boolean
   rating?: boolean
   comment?: boolean
-  isDeleted?: boolean
-  deletedAt?: boolean
   createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type ReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contractId" | "clientId" | "creatorId" | "reviewerRole" | "rating" | "comment" | "isDeleted" | "deletedAt" | "createdAt", ExtArgs["result"]["review"]>
+export type ReviewOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contractId" | "clientId" | "professionalId" | "reviewByClient" | "rating" | "comment" | "createdAt" | "updatedAt", ExtArgs["result"]["review"]>
 export type ReviewInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contract?: boolean | Prisma.ContractDefaultArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
 }
 export type ReviewIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contract?: boolean | Prisma.ContractDefaultArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
 }
 export type ReviewIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contract?: boolean | Prisma.ContractDefaultArgs<ExtArgs>
   client?: boolean | Prisma.ClientDefaultArgs<ExtArgs>
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
 }
 
 export type $ReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1006,19 +959,18 @@ export type $ReviewPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
   objects: {
     contract: Prisma.$ContractPayload<ExtArgs>
     client: Prisma.$ClientPayload<ExtArgs>
-    creator: Prisma.$CreatorPayload<ExtArgs>
+    professional: Prisma.$ProfessionalPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     contractId: string
     clientId: string
-    creatorId: string
-    reviewerRole: $Enums.ReviewerRole
+    professionalId: string
+    reviewByClient: boolean
     rating: number
     comment: string | null
-    isDeleted: boolean
-    deletedAt: Date | null
     createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["review"]>
   composites: {}
 }
@@ -1415,7 +1367,7 @@ export interface Prisma__ReviewClient<T, Null = never, ExtArgs extends runtime.T
   readonly [Symbol.toStringTag]: "PrismaPromise"
   contract<T extends Prisma.ContractDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContractDefaultArgs<ExtArgs>>): Prisma.Prisma__ContractClient<runtime.Types.Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   client<T extends Prisma.ClientDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ClientDefaultArgs<ExtArgs>>): Prisma.Prisma__ClientClient<runtime.Types.Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  creator<T extends Prisma.CreatorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CreatorDefaultArgs<ExtArgs>>): Prisma.Prisma__CreatorClient<runtime.Types.Result.GetResult<Prisma.$CreatorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  professional<T extends Prisma.ProfessionalDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfessionalDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfessionalClient<runtime.Types.Result.GetResult<Prisma.$ProfessionalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1448,13 +1400,12 @@ export interface ReviewFieldRefs {
   readonly id: Prisma.FieldRef<"Review", 'String'>
   readonly contractId: Prisma.FieldRef<"Review", 'String'>
   readonly clientId: Prisma.FieldRef<"Review", 'String'>
-  readonly creatorId: Prisma.FieldRef<"Review", 'String'>
-  readonly reviewerRole: Prisma.FieldRef<"Review", 'ReviewerRole'>
+  readonly professionalId: Prisma.FieldRef<"Review", 'String'>
+  readonly reviewByClient: Prisma.FieldRef<"Review", 'Boolean'>
   readonly rating: Prisma.FieldRef<"Review", 'Int'>
   readonly comment: Prisma.FieldRef<"Review", 'String'>
-  readonly isDeleted: Prisma.FieldRef<"Review", 'Boolean'>
-  readonly deletedAt: Prisma.FieldRef<"Review", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Review", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"Review", 'DateTime'>
 }
     
 

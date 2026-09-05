@@ -11,7 +11,7 @@
 
 export const Role = {
   CLIENT: 'CLIENT',
-  CREATOR: 'CREATOR',
+  PROFESSIONAL: 'PROFESSIONAL',
   ADMIN: 'ADMIN'
 } as const
 
@@ -20,8 +20,10 @@ export type Role = (typeof Role)[keyof typeof Role]
 
 export const UserStatus = {
   ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
   DELETED: 'DELETED',
-  SUSPENDED: 'SUSPENDED'
+  SUSPENDED: 'SUSPENDED',
+  BLOCKED: 'BLOCKED'
 } as const
 
 export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
@@ -35,7 +37,16 @@ export const AuthProvider = {
 export type AuthProvider = (typeof AuthProvider)[keyof typeof AuthProvider]
 
 
-export const ProjectStatus = {
+export const ApplicationStatus = {
+  PENDING: 'PENDING',
+  APPROVED: 'APPROVED',
+  REJECTED: 'REJECTED'
+} as const
+
+export type ApplicationStatus = (typeof ApplicationStatus)[keyof typeof ApplicationStatus]
+
+
+export const EventStatus = {
   DRAFT: 'DRAFT',
   PUBLISHED: 'PUBLISHED',
   IN_PROGRESS: 'IN_PROGRESS',
@@ -43,145 +54,117 @@ export const ProjectStatus = {
   CANCELLED: 'CANCELLED'
 } as const
 
-export type ProjectStatus = (typeof ProjectStatus)[keyof typeof ProjectStatus]
+export type EventStatus = (typeof EventStatus)[keyof typeof EventStatus]
+
+
+export const ServiceRequirementStatus = {
+  OPEN: 'OPEN',
+  PARTIALLY_FILLED: 'PARTIALLY_FILLED',
+  FILLED: 'FILLED',
+  IN_PROGRESS: 'IN_PROGRESS',
+  COMPLETED: 'COMPLETED',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type ServiceRequirementStatus = (typeof ServiceRequirementStatus)[keyof typeof ServiceRequirementStatus]
 
 
 export const ProposalStatus = {
-  SUBMITTED: 'SUBMITTED',
-  SHORTLISTED: 'SHORTLISTED',
+  PENDING: 'PENDING',
   ACCEPTED: 'ACCEPTED',
   REJECTED: 'REJECTED',
-  WITHDRAWN: 'WITHDRAWN'
+  WITHDRAWN: 'WITHDRAWN',
+  EXPIRED: 'EXPIRED'
 } as const
 
 export type ProposalStatus = (typeof ProposalStatus)[keyof typeof ProposalStatus]
 
 
 export const ContractStatus = {
-  DRAFT: 'DRAFT',
-  ACTIVE: 'ACTIVE',
+  PENDING: 'PENDING',
+  CONFIRMED: 'CONFIRMED',
   IN_PROGRESS: 'IN_PROGRESS',
+  DELIVERED: 'DELIVERED',
   COMPLETED: 'COMPLETED',
-  CANCELLED: 'CANCELLED'
+  CANCELLED: 'CANCELLED',
+  DISPUTED: 'DISPUTED',
+  RESOLVED: 'RESOLVED'
 } as const
 
 export type ContractStatus = (typeof ContractStatus)[keyof typeof ContractStatus]
 
 
-export const MilestoneStatus = {
-  PENDING: 'PENDING',
-  FUNDED: 'FUNDED',
-  IN_PROGRESS: 'IN_PROGRESS',
-  SUBMITTED: 'SUBMITTED',
-  UNDER_REVIEW: 'UNDER_REVIEW',
-  REVISION_REQUESTED: 'REVISION_REQUESTED',
-  RESUBMITTED: 'RESUBMITTED',
-  APPROVED: 'APPROVED',
-  COMPLETED: 'COMPLETED'
+export const PaymentStage = {
+  INITIAL: 'INITIAL',
+  FINAL: 'FINAL'
 } as const
 
-export type MilestoneStatus = (typeof MilestoneStatus)[keyof typeof MilestoneStatus]
+export type PaymentStage = (typeof PaymentStage)[keyof typeof PaymentStage]
 
 
 export const PaymentStatus = {
   PENDING: 'PENDING',
-  PAID: 'PAID',
+  PROCESSING: 'PROCESSING',
+  COMPLETED: 'COMPLETED',
   FAILED: 'FAILED',
+  CANCELLED: 'CANCELLED',
   REFUNDED: 'REFUNDED'
 } as const
 
 export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
 
 
-export const DeliverableStatus = {
-  SUBMITTED: 'SUBMITTED',
-  UNDER_REVIEW: 'UNDER_REVIEW',
-  REVISION_REQUESTED: 'REVISION_REQUESTED',
-  APPROVED: 'APPROVED'
+export const PaymentMethod = {
+  BKASH: 'BKASH'
 } as const
 
-export type DeliverableStatus = (typeof DeliverableStatus)[keyof typeof DeliverableStatus]
+export type PaymentMethod = (typeof PaymentMethod)[keyof typeof PaymentMethod]
 
 
-export const RevisionStatus = {
-  REQUESTED: 'REQUESTED',
-  IN_PROGRESS: 'IN_PROGRESS',
-  RESOLVED: 'RESOLVED'
+export const AvailabilityType = {
+  AVAILABLE: 'AVAILABLE',
+  UNAVAILABLE: 'UNAVAILABLE'
 } as const
 
-export type RevisionStatus = (typeof RevisionStatus)[keyof typeof RevisionStatus]
+export type AvailabilityType = (typeof AvailabilityType)[keyof typeof AvailabilityType]
 
 
-export const ReviewerRole = {
+export const RevieweeRole = {
   CLIENT: 'CLIENT',
-  CREATOR: 'CREATOR'
+  PROFESSIONAL: 'PROFESSIONAL'
 } as const
 
-export type ReviewerRole = (typeof ReviewerRole)[keyof typeof ReviewerRole]
-
-
-export const DisputeOpener = {
-  CLIENT: 'CLIENT',
-  CREATOR: 'CREATOR'
-} as const
-
-export type DisputeOpener = (typeof DisputeOpener)[keyof typeof DisputeOpener]
+export type RevieweeRole = (typeof RevieweeRole)[keyof typeof RevieweeRole]
 
 
 export const DisputeStatus = {
   OPEN: 'OPEN',
   UNDER_REVIEW: 'UNDER_REVIEW',
-  RESOLVED: 'RESOLVED'
+  RESOLVED: 'RESOLVED',
+  REJECTED: 'REJECTED',
+  CLOSED: 'CLOSED'
 } as const
 
 export type DisputeStatus = (typeof DisputeStatus)[keyof typeof DisputeStatus]
 
 
-export const DisputeReason = {
-  PAYMENT_DISPUTE: 'PAYMENT_DISPUTE',
-  NON_DELIVERY: 'NON_DELIVERY',
-  POOR_QUALITY: 'POOR_QUALITY',
-  UNREASONABLE_REVISION: 'UNREASONABLE_REVISION',
-  CONTRACT_VIOLATION: 'CONTRACT_VIOLATION',
-  CANCELLATION_DISPUTE: 'CANCELLATION_DISPUTE'
+export const DisputeRaisedBy = {
+  CLIENT: 'CLIENT',
+  PROFESSIONAL: 'PROFESSIONAL'
 } as const
 
-export type DisputeReason = (typeof DisputeReason)[keyof typeof DisputeReason]
+export type DisputeRaisedBy = (typeof DisputeRaisedBy)[keyof typeof DisputeRaisedBy]
 
 
 export const NotificationType = {
-  NEW_PROPOSAL: 'NEW_PROPOSAL',
-  PROPOSAL_ACCEPTED: 'PROPOSAL_ACCEPTED',
-  PROPOSAL_REJECTED: 'PROPOSAL_REJECTED',
-  CONTRACT_CREATED: 'CONTRACT_CREATED',
-  PAYMENT_SUCCESSFUL: 'PAYMENT_SUCCESSFUL',
-  PAYMENT_FAILED: 'PAYMENT_FAILED',
-  MILESTONE_FUNDED: 'MILESTONE_FUNDED',
-  DELIVERABLE_SUBMITTED: 'DELIVERABLE_SUBMITTED',
-  REVISION_REQUESTED: 'REVISION_REQUESTED',
-  DELIVERABLE_APPROVED: 'DELIVERABLE_APPROVED',
-  CONTRACT_COMPLETED: 'CONTRACT_COMPLETED',
-  DISPUTE_OPENED: 'DISPUTE_OPENED',
-  DISPUTE_RESOLVED: 'DISPUTE_RESOLVED'
+  APPLICATION: 'APPLICATION',
+  PROPOSAL: 'PROPOSAL',
+  CONTRACT: 'CONTRACT',
+  PAYMENT: 'PAYMENT',
+  SERVICE: 'SERVICE',
+  REVIEW: 'REVIEW',
+  DISPUTE: 'DISPUTE',
+  SYSTEM: 'SYSTEM'
 } as const
 
 export type NotificationType = (typeof NotificationType)[keyof typeof NotificationType]
-
-
-export const AuditAction = {
-  USER_SUSPENDED: 'USER_SUSPENDED',
-  USER_REACTIVATED: 'USER_REACTIVATED',
-  USER_ROLE_CHANGED: 'USER_ROLE_CHANGED',
-  PROJECT_MODERATED: 'PROJECT_MODERATED',
-  PROPOSAL_ACCEPTED: 'PROPOSAL_ACCEPTED',
-  CONTRACT_CREATED: 'CONTRACT_CREATED',
-  CONTRACT_CANCELLED: 'CONTRACT_CANCELLED',
-  PAYMENT_VERIFIED: 'PAYMENT_VERIFIED',
-  DISPUTE_OPENED: 'DISPUTE_OPENED',
-  DISPUTE_RESOLVED: 'DISPUTE_RESOLVED',
-  PORTFOLIO_MODERATED: 'PORTFOLIO_MODERATED',
-  MILESTONE_FUNDED: 'MILESTONE_FUNDED',
-  DELIVERABLE_APPROVED: 'DELIVERABLE_APPROVED'
-} as const
-
-export type AuditAction = (typeof AuditAction)[keyof typeof AuditAction]

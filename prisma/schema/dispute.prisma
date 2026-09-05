@@ -1,35 +1,31 @@
+
+
 model Dispute {
-  id String @id @default(uuid())
-
+  id         String @id @default(uuid())
   contractId String
-  clientId   String
-  creatorId  String
+  raisedById String
 
-  openedByRole DisputeOpener
+  raisedByRole DisputeRaisedBy
 
-  reason      DisputeReason
-  description String
-
-  evidenceUrl String?
+  reason      String @db.VarChar(255)
+  description String @db.Text
 
   status DisputeStatus @default(OPEN)
 
-  resolution String?
-
+  resolution   String?   @db.Text
   resolvedById String?
   resolvedAt   DateTime?
-
-  contract   Contract @relation(fields: [contractId], references: [id])
-  client     Client   @relation(fields: [clientId], references: [id])
-  creator    Creator  @relation(fields: [creatorId], references: [id])
-  resolvedBy User?    @relation("DisputeResolvedBy", fields: [resolvedById], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  contract   Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  raisedBy   User     @relation("DisputeRaisedBy", fields: [raisedById], references: [id], onDelete: Restrict)
+  resolvedBy User?    @relation("DisputeResolvedBy", fields: [resolvedById], references: [id], onDelete: SetNull)
+
+  evidences DisputeEvidence[]
+
   @@index([contractId])
-  @@index([clientId])
-  @@index([creatorId])
+  @@index([raisedById])
   @@index([status])
-  @@map("disputes")
 }

@@ -1,0 +1,22 @@
+
+
+model PortfolioItem {
+  id             String @id @default(uuid())
+  professionalId String
+
+  title       String  @db.VarChar(255)
+  description String? @db.Text
+  eventType   String? @db.VarChar(150)
+  mediaUrl    String?
+  publicId     String?
+  externalUrl String?
+  workDate    DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  professional Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+
+  @@index([professionalId])
+  @@index([workDate])
+}

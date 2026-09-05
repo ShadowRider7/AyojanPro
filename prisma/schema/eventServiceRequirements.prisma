@@ -1,0 +1,27 @@
+model EventServiceRequirement {
+  id      String @id @default(uuid())
+  eventId String
+
+  serviceName String  @db.VarChar(150)
+  description String? @db.Text
+
+  budget   Decimal @db.Decimal(12, 2)
+  currency String  @default("BDT") @db.VarChar(10)
+
+  startAt DateTime
+  endAt   DateTime
+
+  status ServiceRequirementStatus @default(OPEN)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  proposals Proposal[]
+  contracts Contract[]
+
+  @@index([eventId])
+  @@index([status])
+  @@index([startAt, endAt])
+}

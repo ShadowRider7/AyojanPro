@@ -18,11 +18,6 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
- * Model AuditLog
- * 
- */
-export type AuditLog = Prisma.AuditLogModel
-/**
  * Model Client
  * 
  */
@@ -33,35 +28,30 @@ export type Client = Prisma.ClientModel
  */
 export type Contract = Prisma.ContractModel
 /**
- * Model Creator
- * 
- */
-export type Creator = Prisma.CreatorModel
-/**
- * Model CreatorService
- * 
- */
-export type CreatorService = Prisma.CreatorServiceModel
-/**
- * Model CreatorSkill
- * 
- */
-export type CreatorSkill = Prisma.CreatorSkillModel
-/**
- * Model Deliverable
- * 
- */
-export type Deliverable = Prisma.DeliverableModel
-/**
  * Model Dispute
  * 
  */
 export type Dispute = Prisma.DisputeModel
 /**
- * Model Milestone
+ * Model DisputeEvidence
  * 
  */
-export type Milestone = Prisma.MilestoneModel
+export type DisputeEvidence = Prisma.DisputeEvidenceModel
+/**
+ * Model Event
+ * 
+ */
+export type Event = Prisma.EventModel
+/**
+ * Model EventServiceRequirement
+ * 
+ */
+export type EventServiceRequirement = Prisma.EventServiceRequirementModel
+/**
+ * Model Experience
+ * 
+ */
+export type Experience = Prisma.ExperienceModel
 /**
  * Model Notification
  * 
@@ -78,15 +68,20 @@ export type Payment = Prisma.PaymentModel
  */
 export type PortfolioItem = Prisma.PortfolioItemModel
 /**
- * Model Project
+ * Model Professional
  * 
  */
-export type Project = Prisma.ProjectModel
+export type Professional = Prisma.ProfessionalModel
 /**
- * Model ProjectSkill
+ * Model ProfessionalService
  * 
  */
-export type ProjectSkill = Prisma.ProjectSkillModel
+export type ProfessionalService = Prisma.ProfessionalServiceModel
+/**
+ * Model ProfessionalSkill
+ * 
+ */
+export type ProfessionalSkill = Prisma.ProfessionalSkillModel
 /**
  * Model Proposal
  * 
@@ -97,11 +92,6 @@ export type Proposal = Prisma.ProposalModel
  * 
  */
 export type Review = Prisma.ReviewModel
-/**
- * Model Revision
- * 
- */
-export type Revision = Prisma.RevisionModel
 /**
  * Model Skill
  * 

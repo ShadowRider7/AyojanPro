@@ -1,0 +1,19 @@
+
+model Experience {
+  id             String @id @default(uuid())
+  professionalId String
+
+  title        String  @db.VarChar(255)
+  description  String? @db.Text
+  organization String? @db.VarChar(255)
+
+  startDate DateTime?
+  endDate   DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  professional Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+
+  @@index([professionalId])
+}

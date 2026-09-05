@@ -1,0 +1,26 @@
+
+model ProfessionalService {
+  id             String @id @default(uuid())
+  professionalId String
+
+  name        String  @db.VarChar(150)
+  description String? @db.Text
+  pricingNote String? @db.Text
+
+  minimumPrice Decimal? @db.Decimal(12, 2)
+  maximumPrice Decimal? @db.Decimal(12, 2)
+
+  isActive Boolean @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  professional Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+
+  proposals Proposal[]
+  contracts Contract[]
+
+  @@index([professionalId])
+  @@index([name])
+  @@index([isActive])
+}

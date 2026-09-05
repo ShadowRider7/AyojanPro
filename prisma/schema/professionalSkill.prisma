@@ -1,0 +1,14 @@
+
+
+model ProfessionalSkill {
+  professionalId String
+  skillId        String
+
+  professional Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+  skill        Skill        @relation(fields: [skillId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+
+  @@id([professionalId, skillId])
+  @@index([skillId])
+}

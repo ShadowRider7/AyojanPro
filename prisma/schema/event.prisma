@@ -1,0 +1,32 @@
+
+
+model Event {
+  id       String @id @default(uuid())
+  clientId String
+
+  title       String  @db.VarChar(255)
+  description String? @db.Text
+  eventType   String? @db.VarChar(150)
+
+  address String? @db.Text
+  city    String? @db.VarChar(100)
+  country String? @db.VarChar(100)
+
+  startAt DateTime
+  endAt   DateTime
+
+  status EventStatus @default(DRAFT)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  serviceRequirements EventServiceRequirement[]
+  contracts           Contract[]
+
+  @@index([clientId])
+  @@index([status])
+  @@index([city])
+  @@index([startAt, endAt])
+}

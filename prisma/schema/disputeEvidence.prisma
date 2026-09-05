@@ -1,0 +1,21 @@
+
+
+model DisputeEvidence {
+  id           String @id @default(uuid())
+  disputeId    String
+  uploadedById String
+
+  type        String? @db.VarChar(50)
+  title       String? @db.VarChar(255)
+  description String? @db.Text
+  mediaUrl    String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  dispute    Dispute @relation(fields: [disputeId], references: [id], onDelete: Cascade)
+  uploadedBy User    @relation("EvidenceUploadedBy", fields: [uploadedById], references: [id], onDelete: Restrict)
+
+  @@index([disputeId])
+  @@index([uploadedById])
+}

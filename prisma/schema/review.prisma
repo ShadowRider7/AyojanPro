@@ -1,29 +1,79 @@
 model Review {
-  id String @id @default(uuid())
+  id             String   @id @default(uuid())
+  contractId     String
+  clientId       String
+  professionalId String
+  reviewByClient Boolean  // true = Client reviewed Professional | false = Professional reviewed Client
+  rating         Int
+  comment        String?  @db.Text
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
 
-  contractId String
-  clientId   String
-  creatorId  String
+  // Relations
+  contract     Contract     @relation(fields: [contractId], references: [id], onDelete: Cascade)
+  client       Client       @relation(fields: [clientId], references: [id], onDelete: Restrict)
+  professional Professional @relation(fields: [professionalId], references: [id], onDelete: Restrict)
 
-  reviewerRole ReviewerRole 
-
-  rating  Int 
-  comment String?
-
-  isDeleted Boolean   @default(false)
-  deletedAt DateTime?
-
-  contract Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
-  client   Client   @relation(fields: [clientId], references: [id])
-  creator  Creator  @relation(fields: [creatorId], references: [id])
-
-  createdAt DateTime @default(now())
-
-  // One review per direction per contract (client→creator OR creator→client)
-  @@unique([contractId, reviewerRole])
+  // Enforces that each party can only review the other once per contract
+  @@unique([contractId, clientId, professionalId, reviewByClient])
   @@index([clientId])
-  @@index([creatorId])
-  @@index([contractId])
-  @@index([isDeleted])
-  @@map("reviews")
+  @@index([professionalId])
+  @@index([rating])
 }
+
+// import { PrismaClient } from '@prisma/client';
+// const prisma = new PrismaClient();
+
+// async function createContractReview({
+//   contractId,
+//   rating,
+//   comment,
+//   isClientReviewing // true if client is writing the review, false if professional is
+// }: {
+//   contractId: string;
+//   rating: number;
+//   comment?: string;
+//   isClientReviewing: boolean;
+// }) {
+//   // 1. Verify contract exists, is completed, and extract IDs
+//   const contract = await prisma.contract.findUnique({
+//     where: { id: contractId },
+//   });
+
+//   if (!contract || contract.status !== 'COMPLETED') {
+//     throw new Error("Reviews can only be submitted for completed contracts.");
+//   }
+
+//   return await prisma.$transaction(async (tx) => {
+//     // 2. Create the review
+//     const review = await tx.review.create({
+//       data: {
+//         contractId: contract.id,
+//         clientId: contract.clientId,
+//         professionalId: contract.professionalId,
+//         reviewByClient: isClientReviewing,
+//         rating,
+//         comment,
+//       },
+//     });
+
+//     // 3. If the client reviewed the professional, recalculate professional's average metrics
+//     if (isClientReviewing) {
+//       const aggregates = await tx.review.aggregate({
+//         where: { professionalId: contract.professionalId, reviewByClient: true },
+//         _count: { rating: true },
+//         _avg: { rating: true },
+//       });
+
+//       await tx.professional.update({
+//         where: { id: contract.professionalId },
+//         data: {
+//           totalReviews: aggregates._count.rating,
+//           averageRating: aggregates._avg.rating || 0,
+//         },
+//       });
+//     }
+
+//     return review;
+//   });
+// }

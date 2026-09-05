@@ -26,49 +26,42 @@ export type AggregatePortfolioItem = {
 
 export type PortfolioItemMinAggregateOutputType = {
   id: string | null
-  creatorId: string | null
+  professionalId: string | null
   title: string | null
   description: string | null
-  category: string | null
-  thumbnailUrl: string | null
+  eventType: string | null
   mediaUrl: string | null
   publicId: string | null
   externalUrl: string | null
-  isDeleted: boolean | null
-  deletedAt: Date | null
+  workDate: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type PortfolioItemMaxAggregateOutputType = {
   id: string | null
-  creatorId: string | null
+  professionalId: string | null
   title: string | null
   description: string | null
-  category: string | null
-  thumbnailUrl: string | null
+  eventType: string | null
   mediaUrl: string | null
   publicId: string | null
   externalUrl: string | null
-  isDeleted: boolean | null
-  deletedAt: Date | null
+  workDate: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type PortfolioItemCountAggregateOutputType = {
   id: number
-  creatorId: number
+  professionalId: number
   title: number
   description: number
-  category: number
-  tools: number
-  thumbnailUrl: number
+  eventType: number
   mediaUrl: number
   publicId: number
   externalUrl: number
-  isDeleted: number
-  deletedAt: number
+  workDate: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -77,49 +70,42 @@ export type PortfolioItemCountAggregateOutputType = {
 
 export type PortfolioItemMinAggregateInputType = {
   id?: true
-  creatorId?: true
+  professionalId?: true
   title?: true
   description?: true
-  category?: true
-  thumbnailUrl?: true
+  eventType?: true
   mediaUrl?: true
   publicId?: true
   externalUrl?: true
-  isDeleted?: true
-  deletedAt?: true
+  workDate?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type PortfolioItemMaxAggregateInputType = {
   id?: true
-  creatorId?: true
+  professionalId?: true
   title?: true
   description?: true
-  category?: true
-  thumbnailUrl?: true
+  eventType?: true
   mediaUrl?: true
   publicId?: true
   externalUrl?: true
-  isDeleted?: true
-  deletedAt?: true
+  workDate?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type PortfolioItemCountAggregateInputType = {
   id?: true
-  creatorId?: true
+  professionalId?: true
   title?: true
   description?: true
-  category?: true
-  tools?: true
-  thumbnailUrl?: true
+  eventType?: true
   mediaUrl?: true
   publicId?: true
   externalUrl?: true
-  isDeleted?: true
-  deletedAt?: true
+  workDate?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -199,17 +185,14 @@ export type PortfolioItemGroupByArgs<ExtArgs extends runtime.Types.Extensions.In
 
 export type PortfolioItemGroupByOutputType = {
   id: string
-  creatorId: string
+  professionalId: string
   title: string
   description: string | null
-  category: string | null
-  tools: string[]
-  thumbnailUrl: string | null
-  mediaUrl: string
-  publicId: string
+  eventType: string | null
+  mediaUrl: string | null
+  publicId: string | null
   externalUrl: string | null
-  isDeleted: boolean
-  deletedAt: Date | null
+  workDate: Date | null
   createdAt: Date
   updatedAt: Date
   _count: PortfolioItemCountAggregateOutputType | null
@@ -237,38 +220,32 @@ export type PortfolioItemWhereInput = {
   OR?: Prisma.PortfolioItemWhereInput[]
   NOT?: Prisma.PortfolioItemWhereInput | Prisma.PortfolioItemWhereInput[]
   id?: Prisma.StringFilter<"PortfolioItem"> | string
-  creatorId?: Prisma.StringFilter<"PortfolioItem"> | string
+  professionalId?: Prisma.StringFilter<"PortfolioItem"> | string
   title?: Prisma.StringFilter<"PortfolioItem"> | string
   description?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
-  category?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
-  tools?: Prisma.StringNullableListFilter<"PortfolioItem">
-  thumbnailUrl?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
-  mediaUrl?: Prisma.StringFilter<"PortfolioItem"> | string
-  publicId?: Prisma.StringFilter<"PortfolioItem"> | string
+  eventType?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
+  mediaUrl?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
+  publicId?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
   externalUrl?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
-  isDeleted?: Prisma.BoolFilter<"PortfolioItem"> | boolean
-  deletedAt?: Prisma.DateTimeNullableFilter<"PortfolioItem"> | Date | string | null
+  workDate?: Prisma.DateTimeNullableFilter<"PortfolioItem"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"PortfolioItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PortfolioItem"> | Date | string
-  creator?: Prisma.XOR<Prisma.CreatorScalarRelationFilter, Prisma.CreatorWhereInput>
+  professional?: Prisma.XOR<Prisma.ProfessionalScalarRelationFilter, Prisma.ProfessionalWhereInput>
 }
 
 export type PortfolioItemOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  creatorId?: Prisma.SortOrder
+  professionalId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  category?: Prisma.SortOrderInput | Prisma.SortOrder
-  tools?: Prisma.SortOrder
-  thumbnailUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  mediaUrl?: Prisma.SortOrder
-  publicId?: Prisma.SortOrder
+  eventType?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  publicId?: Prisma.SortOrderInput | Prisma.SortOrder
   externalUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  workDate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  creator?: Prisma.CreatorOrderByWithRelationInput
+  professional?: Prisma.ProfessionalOrderByWithRelationInput
 }
 
 export type PortfolioItemWhereUniqueInput = Prisma.AtLeast<{
@@ -276,35 +253,29 @@ export type PortfolioItemWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.PortfolioItemWhereInput | Prisma.PortfolioItemWhereInput[]
   OR?: Prisma.PortfolioItemWhereInput[]
   NOT?: Prisma.PortfolioItemWhereInput | Prisma.PortfolioItemWhereInput[]
-  creatorId?: Prisma.StringFilter<"PortfolioItem"> | string
+  professionalId?: Prisma.StringFilter<"PortfolioItem"> | string
   title?: Prisma.StringFilter<"PortfolioItem"> | string
   description?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
-  category?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
-  tools?: Prisma.StringNullableListFilter<"PortfolioItem">
-  thumbnailUrl?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
-  mediaUrl?: Prisma.StringFilter<"PortfolioItem"> | string
-  publicId?: Prisma.StringFilter<"PortfolioItem"> | string
+  eventType?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
+  mediaUrl?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
+  publicId?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
   externalUrl?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
-  isDeleted?: Prisma.BoolFilter<"PortfolioItem"> | boolean
-  deletedAt?: Prisma.DateTimeNullableFilter<"PortfolioItem"> | Date | string | null
+  workDate?: Prisma.DateTimeNullableFilter<"PortfolioItem"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"PortfolioItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PortfolioItem"> | Date | string
-  creator?: Prisma.XOR<Prisma.CreatorScalarRelationFilter, Prisma.CreatorWhereInput>
+  professional?: Prisma.XOR<Prisma.ProfessionalScalarRelationFilter, Prisma.ProfessionalWhereInput>
 }, "id">
 
 export type PortfolioItemOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  creatorId?: Prisma.SortOrder
+  professionalId?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
-  category?: Prisma.SortOrderInput | Prisma.SortOrder
-  tools?: Prisma.SortOrder
-  thumbnailUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  mediaUrl?: Prisma.SortOrder
-  publicId?: Prisma.SortOrder
+  eventType?: Prisma.SortOrderInput | Prisma.SortOrder
+  mediaUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  publicId?: Prisma.SortOrderInput | Prisma.SortOrder
   externalUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  workDate?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.PortfolioItemCountOrderByAggregateInput
@@ -317,17 +288,14 @@ export type PortfolioItemScalarWhereWithAggregatesInput = {
   OR?: Prisma.PortfolioItemScalarWhereWithAggregatesInput[]
   NOT?: Prisma.PortfolioItemScalarWhereWithAggregatesInput | Prisma.PortfolioItemScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"PortfolioItem"> | string
-  creatorId?: Prisma.StringWithAggregatesFilter<"PortfolioItem"> | string
+  professionalId?: Prisma.StringWithAggregatesFilter<"PortfolioItem"> | string
   title?: Prisma.StringWithAggregatesFilter<"PortfolioItem"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"PortfolioItem"> | string | null
-  category?: Prisma.StringNullableWithAggregatesFilter<"PortfolioItem"> | string | null
-  tools?: Prisma.StringNullableListFilter<"PortfolioItem">
-  thumbnailUrl?: Prisma.StringNullableWithAggregatesFilter<"PortfolioItem"> | string | null
-  mediaUrl?: Prisma.StringWithAggregatesFilter<"PortfolioItem"> | string
-  publicId?: Prisma.StringWithAggregatesFilter<"PortfolioItem"> | string
+  eventType?: Prisma.StringNullableWithAggregatesFilter<"PortfolioItem"> | string | null
+  mediaUrl?: Prisma.StringNullableWithAggregatesFilter<"PortfolioItem"> | string | null
+  publicId?: Prisma.StringNullableWithAggregatesFilter<"PortfolioItem"> | string | null
   externalUrl?: Prisma.StringNullableWithAggregatesFilter<"PortfolioItem"> | string | null
-  isDeleted?: Prisma.BoolWithAggregatesFilter<"PortfolioItem"> | boolean
-  deletedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"PortfolioItem"> | Date | string | null
+  workDate?: Prisma.DateTimeNullableWithAggregatesFilter<"PortfolioItem"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"PortfolioItem"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"PortfolioItem"> | Date | string
 }
@@ -336,32 +304,26 @@ export type PortfolioItemCreateInput = {
   id?: string
   title: string
   description?: string | null
-  category?: string | null
-  tools?: Prisma.PortfolioItemCreatetoolsInput | string[]
-  thumbnailUrl?: string | null
-  mediaUrl: string
-  publicId: string
+  eventType?: string | null
+  mediaUrl?: string | null
+  publicId?: string | null
   externalUrl?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
+  workDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  creator: Prisma.CreatorCreateNestedOneWithoutPortfolioInput
+  professional: Prisma.ProfessionalCreateNestedOneWithoutPortfolioItemsInput
 }
 
 export type PortfolioItemUncheckedCreateInput = {
   id?: string
-  creatorId: string
+  professionalId: string
   title: string
   description?: string | null
-  category?: string | null
-  tools?: Prisma.PortfolioItemCreatetoolsInput | string[]
-  thumbnailUrl?: string | null
-  mediaUrl: string
-  publicId: string
+  eventType?: string | null
+  mediaUrl?: string | null
+  publicId?: string | null
   externalUrl?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
+  workDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -370,49 +332,40 @@ export type PortfolioItemUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tools?: Prisma.PortfolioItemUpdatetoolsInput | string[]
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  mediaUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  eventType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  workDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  creator?: Prisma.CreatorUpdateOneRequiredWithoutPortfolioNestedInput
+  professional?: Prisma.ProfessionalUpdateOneRequiredWithoutPortfolioItemsNestedInput
 }
 
 export type PortfolioItemUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tools?: Prisma.PortfolioItemUpdatetoolsInput | string[]
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  mediaUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  eventType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  workDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PortfolioItemCreateManyInput = {
   id?: string
-  creatorId: string
+  professionalId: string
   title: string
   description?: string | null
-  category?: string | null
-  tools?: Prisma.PortfolioItemCreatetoolsInput | string[]
-  thumbnailUrl?: string | null
-  mediaUrl: string
-  publicId: string
+  eventType?: string | null
+  mediaUrl?: string | null
+  publicId?: string | null
   externalUrl?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
+  workDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -421,33 +374,69 @@ export type PortfolioItemUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tools?: Prisma.PortfolioItemUpdatetoolsInput | string[]
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  mediaUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  eventType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  workDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type PortfolioItemUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalId?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tools?: Prisma.PortfolioItemUpdatetoolsInput | string[]
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  mediaUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  eventType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  workDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type PortfolioItemCountOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  professionalId?: Prisma.SortOrder
+  title?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  eventType?: Prisma.SortOrder
+  mediaUrl?: Prisma.SortOrder
+  publicId?: Prisma.SortOrder
+  externalUrl?: Prisma.SortOrder
+  workDate?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+}
+
+export type PortfolioItemMaxOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  professionalId?: Prisma.SortOrder
+  title?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  eventType?: Prisma.SortOrder
+  mediaUrl?: Prisma.SortOrder
+  publicId?: Prisma.SortOrder
+  externalUrl?: Prisma.SortOrder
+  workDate?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
+}
+
+export type PortfolioItemMinOrderByAggregateInput = {
+  id?: Prisma.SortOrder
+  professionalId?: Prisma.SortOrder
+  title?: Prisma.SortOrder
+  description?: Prisma.SortOrder
+  eventType?: Prisma.SortOrder
+  mediaUrl?: Prisma.SortOrder
+  publicId?: Prisma.SortOrder
+  externalUrl?: Prisma.SortOrder
+  workDate?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type PortfolioItemListRelationFilter = {
@@ -460,170 +449,98 @@ export type PortfolioItemOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type StringNullableListFilter<$PrismaModel = never> = {
-  equals?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel> | null
-  has?: string | Prisma.StringFieldRefInput<$PrismaModel> | null
-  hasEvery?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  hasSome?: string[] | Prisma.ListStringFieldRefInput<$PrismaModel>
-  isEmpty?: boolean
-}
-
-export type PortfolioItemCountOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  creatorId?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  category?: Prisma.SortOrder
-  tools?: Prisma.SortOrder
-  thumbnailUrl?: Prisma.SortOrder
-  mediaUrl?: Prisma.SortOrder
-  publicId?: Prisma.SortOrder
-  externalUrl?: Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-}
-
-export type PortfolioItemMaxOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  creatorId?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  category?: Prisma.SortOrder
-  thumbnailUrl?: Prisma.SortOrder
-  mediaUrl?: Prisma.SortOrder
-  publicId?: Prisma.SortOrder
-  externalUrl?: Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-}
-
-export type PortfolioItemMinOrderByAggregateInput = {
-  id?: Prisma.SortOrder
-  creatorId?: Prisma.SortOrder
-  title?: Prisma.SortOrder
-  description?: Prisma.SortOrder
-  category?: Prisma.SortOrder
-  thumbnailUrl?: Prisma.SortOrder
-  mediaUrl?: Prisma.SortOrder
-  publicId?: Prisma.SortOrder
-  externalUrl?: Prisma.SortOrder
-  isDeleted?: Prisma.SortOrder
-  deletedAt?: Prisma.SortOrder
-  createdAt?: Prisma.SortOrder
-  updatedAt?: Prisma.SortOrder
-}
-
-export type PortfolioItemCreateNestedManyWithoutCreatorInput = {
-  create?: Prisma.XOR<Prisma.PortfolioItemCreateWithoutCreatorInput, Prisma.PortfolioItemUncheckedCreateWithoutCreatorInput> | Prisma.PortfolioItemCreateWithoutCreatorInput[] | Prisma.PortfolioItemUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.PortfolioItemCreateOrConnectWithoutCreatorInput | Prisma.PortfolioItemCreateOrConnectWithoutCreatorInput[]
-  createMany?: Prisma.PortfolioItemCreateManyCreatorInputEnvelope
+export type PortfolioItemCreateNestedManyWithoutProfessionalInput = {
+  create?: Prisma.XOR<Prisma.PortfolioItemCreateWithoutProfessionalInput, Prisma.PortfolioItemUncheckedCreateWithoutProfessionalInput> | Prisma.PortfolioItemCreateWithoutProfessionalInput[] | Prisma.PortfolioItemUncheckedCreateWithoutProfessionalInput[]
+  connectOrCreate?: Prisma.PortfolioItemCreateOrConnectWithoutProfessionalInput | Prisma.PortfolioItemCreateOrConnectWithoutProfessionalInput[]
+  createMany?: Prisma.PortfolioItemCreateManyProfessionalInputEnvelope
   connect?: Prisma.PortfolioItemWhereUniqueInput | Prisma.PortfolioItemWhereUniqueInput[]
 }
 
-export type PortfolioItemUncheckedCreateNestedManyWithoutCreatorInput = {
-  create?: Prisma.XOR<Prisma.PortfolioItemCreateWithoutCreatorInput, Prisma.PortfolioItemUncheckedCreateWithoutCreatorInput> | Prisma.PortfolioItemCreateWithoutCreatorInput[] | Prisma.PortfolioItemUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.PortfolioItemCreateOrConnectWithoutCreatorInput | Prisma.PortfolioItemCreateOrConnectWithoutCreatorInput[]
-  createMany?: Prisma.PortfolioItemCreateManyCreatorInputEnvelope
+export type PortfolioItemUncheckedCreateNestedManyWithoutProfessionalInput = {
+  create?: Prisma.XOR<Prisma.PortfolioItemCreateWithoutProfessionalInput, Prisma.PortfolioItemUncheckedCreateWithoutProfessionalInput> | Prisma.PortfolioItemCreateWithoutProfessionalInput[] | Prisma.PortfolioItemUncheckedCreateWithoutProfessionalInput[]
+  connectOrCreate?: Prisma.PortfolioItemCreateOrConnectWithoutProfessionalInput | Prisma.PortfolioItemCreateOrConnectWithoutProfessionalInput[]
+  createMany?: Prisma.PortfolioItemCreateManyProfessionalInputEnvelope
   connect?: Prisma.PortfolioItemWhereUniqueInput | Prisma.PortfolioItemWhereUniqueInput[]
 }
 
-export type PortfolioItemUpdateManyWithoutCreatorNestedInput = {
-  create?: Prisma.XOR<Prisma.PortfolioItemCreateWithoutCreatorInput, Prisma.PortfolioItemUncheckedCreateWithoutCreatorInput> | Prisma.PortfolioItemCreateWithoutCreatorInput[] | Prisma.PortfolioItemUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.PortfolioItemCreateOrConnectWithoutCreatorInput | Prisma.PortfolioItemCreateOrConnectWithoutCreatorInput[]
-  upsert?: Prisma.PortfolioItemUpsertWithWhereUniqueWithoutCreatorInput | Prisma.PortfolioItemUpsertWithWhereUniqueWithoutCreatorInput[]
-  createMany?: Prisma.PortfolioItemCreateManyCreatorInputEnvelope
+export type PortfolioItemUpdateManyWithoutProfessionalNestedInput = {
+  create?: Prisma.XOR<Prisma.PortfolioItemCreateWithoutProfessionalInput, Prisma.PortfolioItemUncheckedCreateWithoutProfessionalInput> | Prisma.PortfolioItemCreateWithoutProfessionalInput[] | Prisma.PortfolioItemUncheckedCreateWithoutProfessionalInput[]
+  connectOrCreate?: Prisma.PortfolioItemCreateOrConnectWithoutProfessionalInput | Prisma.PortfolioItemCreateOrConnectWithoutProfessionalInput[]
+  upsert?: Prisma.PortfolioItemUpsertWithWhereUniqueWithoutProfessionalInput | Prisma.PortfolioItemUpsertWithWhereUniqueWithoutProfessionalInput[]
+  createMany?: Prisma.PortfolioItemCreateManyProfessionalInputEnvelope
   set?: Prisma.PortfolioItemWhereUniqueInput | Prisma.PortfolioItemWhereUniqueInput[]
   disconnect?: Prisma.PortfolioItemWhereUniqueInput | Prisma.PortfolioItemWhereUniqueInput[]
   delete?: Prisma.PortfolioItemWhereUniqueInput | Prisma.PortfolioItemWhereUniqueInput[]
   connect?: Prisma.PortfolioItemWhereUniqueInput | Prisma.PortfolioItemWhereUniqueInput[]
-  update?: Prisma.PortfolioItemUpdateWithWhereUniqueWithoutCreatorInput | Prisma.PortfolioItemUpdateWithWhereUniqueWithoutCreatorInput[]
-  updateMany?: Prisma.PortfolioItemUpdateManyWithWhereWithoutCreatorInput | Prisma.PortfolioItemUpdateManyWithWhereWithoutCreatorInput[]
+  update?: Prisma.PortfolioItemUpdateWithWhereUniqueWithoutProfessionalInput | Prisma.PortfolioItemUpdateWithWhereUniqueWithoutProfessionalInput[]
+  updateMany?: Prisma.PortfolioItemUpdateManyWithWhereWithoutProfessionalInput | Prisma.PortfolioItemUpdateManyWithWhereWithoutProfessionalInput[]
   deleteMany?: Prisma.PortfolioItemScalarWhereInput | Prisma.PortfolioItemScalarWhereInput[]
 }
 
-export type PortfolioItemUncheckedUpdateManyWithoutCreatorNestedInput = {
-  create?: Prisma.XOR<Prisma.PortfolioItemCreateWithoutCreatorInput, Prisma.PortfolioItemUncheckedCreateWithoutCreatorInput> | Prisma.PortfolioItemCreateWithoutCreatorInput[] | Prisma.PortfolioItemUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.PortfolioItemCreateOrConnectWithoutCreatorInput | Prisma.PortfolioItemCreateOrConnectWithoutCreatorInput[]
-  upsert?: Prisma.PortfolioItemUpsertWithWhereUniqueWithoutCreatorInput | Prisma.PortfolioItemUpsertWithWhereUniqueWithoutCreatorInput[]
-  createMany?: Prisma.PortfolioItemCreateManyCreatorInputEnvelope
+export type PortfolioItemUncheckedUpdateManyWithoutProfessionalNestedInput = {
+  create?: Prisma.XOR<Prisma.PortfolioItemCreateWithoutProfessionalInput, Prisma.PortfolioItemUncheckedCreateWithoutProfessionalInput> | Prisma.PortfolioItemCreateWithoutProfessionalInput[] | Prisma.PortfolioItemUncheckedCreateWithoutProfessionalInput[]
+  connectOrCreate?: Prisma.PortfolioItemCreateOrConnectWithoutProfessionalInput | Prisma.PortfolioItemCreateOrConnectWithoutProfessionalInput[]
+  upsert?: Prisma.PortfolioItemUpsertWithWhereUniqueWithoutProfessionalInput | Prisma.PortfolioItemUpsertWithWhereUniqueWithoutProfessionalInput[]
+  createMany?: Prisma.PortfolioItemCreateManyProfessionalInputEnvelope
   set?: Prisma.PortfolioItemWhereUniqueInput | Prisma.PortfolioItemWhereUniqueInput[]
   disconnect?: Prisma.PortfolioItemWhereUniqueInput | Prisma.PortfolioItemWhereUniqueInput[]
   delete?: Prisma.PortfolioItemWhereUniqueInput | Prisma.PortfolioItemWhereUniqueInput[]
   connect?: Prisma.PortfolioItemWhereUniqueInput | Prisma.PortfolioItemWhereUniqueInput[]
-  update?: Prisma.PortfolioItemUpdateWithWhereUniqueWithoutCreatorInput | Prisma.PortfolioItemUpdateWithWhereUniqueWithoutCreatorInput[]
-  updateMany?: Prisma.PortfolioItemUpdateManyWithWhereWithoutCreatorInput | Prisma.PortfolioItemUpdateManyWithWhereWithoutCreatorInput[]
+  update?: Prisma.PortfolioItemUpdateWithWhereUniqueWithoutProfessionalInput | Prisma.PortfolioItemUpdateWithWhereUniqueWithoutProfessionalInput[]
+  updateMany?: Prisma.PortfolioItemUpdateManyWithWhereWithoutProfessionalInput | Prisma.PortfolioItemUpdateManyWithWhereWithoutProfessionalInput[]
   deleteMany?: Prisma.PortfolioItemScalarWhereInput | Prisma.PortfolioItemScalarWhereInput[]
 }
 
-export type PortfolioItemCreatetoolsInput = {
-  set: string[]
-}
-
-export type PortfolioItemUpdatetoolsInput = {
-  set?: string[]
-  push?: string | string[]
-}
-
-export type PortfolioItemCreateWithoutCreatorInput = {
+export type PortfolioItemCreateWithoutProfessionalInput = {
   id?: string
   title: string
   description?: string | null
-  category?: string | null
-  tools?: Prisma.PortfolioItemCreatetoolsInput | string[]
-  thumbnailUrl?: string | null
-  mediaUrl: string
-  publicId: string
+  eventType?: string | null
+  mediaUrl?: string | null
+  publicId?: string | null
   externalUrl?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
+  workDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type PortfolioItemUncheckedCreateWithoutCreatorInput = {
+export type PortfolioItemUncheckedCreateWithoutProfessionalInput = {
   id?: string
   title: string
   description?: string | null
-  category?: string | null
-  tools?: Prisma.PortfolioItemCreatetoolsInput | string[]
-  thumbnailUrl?: string | null
-  mediaUrl: string
-  publicId: string
+  eventType?: string | null
+  mediaUrl?: string | null
+  publicId?: string | null
   externalUrl?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
+  workDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type PortfolioItemCreateOrConnectWithoutCreatorInput = {
+export type PortfolioItemCreateOrConnectWithoutProfessionalInput = {
   where: Prisma.PortfolioItemWhereUniqueInput
-  create: Prisma.XOR<Prisma.PortfolioItemCreateWithoutCreatorInput, Prisma.PortfolioItemUncheckedCreateWithoutCreatorInput>
+  create: Prisma.XOR<Prisma.PortfolioItemCreateWithoutProfessionalInput, Prisma.PortfolioItemUncheckedCreateWithoutProfessionalInput>
 }
 
-export type PortfolioItemCreateManyCreatorInputEnvelope = {
-  data: Prisma.PortfolioItemCreateManyCreatorInput | Prisma.PortfolioItemCreateManyCreatorInput[]
+export type PortfolioItemCreateManyProfessionalInputEnvelope = {
+  data: Prisma.PortfolioItemCreateManyProfessionalInput | Prisma.PortfolioItemCreateManyProfessionalInput[]
   skipDuplicates?: boolean
 }
 
-export type PortfolioItemUpsertWithWhereUniqueWithoutCreatorInput = {
+export type PortfolioItemUpsertWithWhereUniqueWithoutProfessionalInput = {
   where: Prisma.PortfolioItemWhereUniqueInput
-  update: Prisma.XOR<Prisma.PortfolioItemUpdateWithoutCreatorInput, Prisma.PortfolioItemUncheckedUpdateWithoutCreatorInput>
-  create: Prisma.XOR<Prisma.PortfolioItemCreateWithoutCreatorInput, Prisma.PortfolioItemUncheckedCreateWithoutCreatorInput>
+  update: Prisma.XOR<Prisma.PortfolioItemUpdateWithoutProfessionalInput, Prisma.PortfolioItemUncheckedUpdateWithoutProfessionalInput>
+  create: Prisma.XOR<Prisma.PortfolioItemCreateWithoutProfessionalInput, Prisma.PortfolioItemUncheckedCreateWithoutProfessionalInput>
 }
 
-export type PortfolioItemUpdateWithWhereUniqueWithoutCreatorInput = {
+export type PortfolioItemUpdateWithWhereUniqueWithoutProfessionalInput = {
   where: Prisma.PortfolioItemWhereUniqueInput
-  data: Prisma.XOR<Prisma.PortfolioItemUpdateWithoutCreatorInput, Prisma.PortfolioItemUncheckedUpdateWithoutCreatorInput>
+  data: Prisma.XOR<Prisma.PortfolioItemUpdateWithoutProfessionalInput, Prisma.PortfolioItemUncheckedUpdateWithoutProfessionalInput>
 }
 
-export type PortfolioItemUpdateManyWithWhereWithoutCreatorInput = {
+export type PortfolioItemUpdateManyWithWhereWithoutProfessionalInput = {
   where: Prisma.PortfolioItemScalarWhereInput
-  data: Prisma.XOR<Prisma.PortfolioItemUpdateManyMutationInput, Prisma.PortfolioItemUncheckedUpdateManyWithoutCreatorInput>
+  data: Prisma.XOR<Prisma.PortfolioItemUpdateManyMutationInput, Prisma.PortfolioItemUncheckedUpdateManyWithoutProfessionalInput>
 }
 
 export type PortfolioItemScalarWhereInput = {
@@ -631,81 +548,66 @@ export type PortfolioItemScalarWhereInput = {
   OR?: Prisma.PortfolioItemScalarWhereInput[]
   NOT?: Prisma.PortfolioItemScalarWhereInput | Prisma.PortfolioItemScalarWhereInput[]
   id?: Prisma.StringFilter<"PortfolioItem"> | string
-  creatorId?: Prisma.StringFilter<"PortfolioItem"> | string
+  professionalId?: Prisma.StringFilter<"PortfolioItem"> | string
   title?: Prisma.StringFilter<"PortfolioItem"> | string
   description?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
-  category?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
-  tools?: Prisma.StringNullableListFilter<"PortfolioItem">
-  thumbnailUrl?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
-  mediaUrl?: Prisma.StringFilter<"PortfolioItem"> | string
-  publicId?: Prisma.StringFilter<"PortfolioItem"> | string
+  eventType?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
+  mediaUrl?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
+  publicId?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
   externalUrl?: Prisma.StringNullableFilter<"PortfolioItem"> | string | null
-  isDeleted?: Prisma.BoolFilter<"PortfolioItem"> | boolean
-  deletedAt?: Prisma.DateTimeNullableFilter<"PortfolioItem"> | Date | string | null
+  workDate?: Prisma.DateTimeNullableFilter<"PortfolioItem"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"PortfolioItem"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"PortfolioItem"> | Date | string
 }
 
-export type PortfolioItemCreateManyCreatorInput = {
+export type PortfolioItemCreateManyProfessionalInput = {
   id?: string
   title: string
   description?: string | null
-  category?: string | null
-  tools?: Prisma.PortfolioItemCreatetoolsInput | string[]
-  thumbnailUrl?: string | null
-  mediaUrl: string
-  publicId: string
+  eventType?: string | null
+  mediaUrl?: string | null
+  publicId?: string | null
   externalUrl?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
+  workDate?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type PortfolioItemUpdateWithoutCreatorInput = {
+export type PortfolioItemUpdateWithoutProfessionalInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tools?: Prisma.PortfolioItemUpdatetoolsInput | string[]
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  mediaUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  eventType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  workDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type PortfolioItemUncheckedUpdateWithoutCreatorInput = {
+export type PortfolioItemUncheckedUpdateWithoutProfessionalInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tools?: Prisma.PortfolioItemUpdatetoolsInput | string[]
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  mediaUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  eventType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  workDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type PortfolioItemUncheckedUpdateManyWithoutCreatorInput = {
+export type PortfolioItemUncheckedUpdateManyWithoutProfessionalInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  category?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tools?: Prisma.PortfolioItemUpdatetoolsInput | string[]
-  thumbnailUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  mediaUrl?: Prisma.StringFieldUpdateOperationsInput | string
-  publicId?: Prisma.StringFieldUpdateOperationsInput | string
+  eventType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  mediaUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  publicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   externalUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  workDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -714,104 +616,89 @@ export type PortfolioItemUncheckedUpdateManyWithoutCreatorInput = {
 
 export type PortfolioItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  creatorId?: boolean
+  professionalId?: boolean
   title?: boolean
   description?: boolean
-  category?: boolean
-  tools?: boolean
-  thumbnailUrl?: boolean
+  eventType?: boolean
   mediaUrl?: boolean
   publicId?: boolean
   externalUrl?: boolean
-  isDeleted?: boolean
-  deletedAt?: boolean
+  workDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["portfolioItem"]>
 
 export type PortfolioItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  creatorId?: boolean
+  professionalId?: boolean
   title?: boolean
   description?: boolean
-  category?: boolean
-  tools?: boolean
-  thumbnailUrl?: boolean
+  eventType?: boolean
   mediaUrl?: boolean
   publicId?: boolean
   externalUrl?: boolean
-  isDeleted?: boolean
-  deletedAt?: boolean
+  workDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["portfolioItem"]>
 
 export type PortfolioItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  creatorId?: boolean
+  professionalId?: boolean
   title?: boolean
   description?: boolean
-  category?: boolean
-  tools?: boolean
-  thumbnailUrl?: boolean
+  eventType?: boolean
   mediaUrl?: boolean
   publicId?: boolean
   externalUrl?: boolean
-  isDeleted?: boolean
-  deletedAt?: boolean
+  workDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["portfolioItem"]>
 
 export type PortfolioItemSelectScalar = {
   id?: boolean
-  creatorId?: boolean
+  professionalId?: boolean
   title?: boolean
   description?: boolean
-  category?: boolean
-  tools?: boolean
-  thumbnailUrl?: boolean
+  eventType?: boolean
   mediaUrl?: boolean
   publicId?: boolean
   externalUrl?: boolean
-  isDeleted?: boolean
-  deletedAt?: boolean
+  workDate?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type PortfolioItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "creatorId" | "title" | "description" | "category" | "tools" | "thumbnailUrl" | "mediaUrl" | "publicId" | "externalUrl" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["portfolioItem"]>
+export type PortfolioItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "professionalId" | "title" | "description" | "eventType" | "mediaUrl" | "publicId" | "externalUrl" | "workDate" | "createdAt" | "updatedAt", ExtArgs["result"]["portfolioItem"]>
 export type PortfolioItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
 }
 export type PortfolioItemIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
 }
 export type PortfolioItemIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
 }
 
 export type $PortfolioItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "PortfolioItem"
   objects: {
-    creator: Prisma.$CreatorPayload<ExtArgs>
+    professional: Prisma.$ProfessionalPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    creatorId: string
+    professionalId: string
     title: string
     description: string | null
-    category: string | null
-    tools: string[]
-    thumbnailUrl: string | null
-    mediaUrl: string
-    publicId: string
+    eventType: string | null
+    mediaUrl: string | null
+    publicId: string | null
     externalUrl: string | null
-    isDeleted: boolean
-    deletedAt: Date | null
+    workDate: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["portfolioItem"]>
@@ -1208,7 +1095,7 @@ readonly fields: PortfolioItemFieldRefs;
  */
 export interface Prisma__PortfolioItemClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  creator<T extends Prisma.CreatorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CreatorDefaultArgs<ExtArgs>>): Prisma.Prisma__CreatorClient<runtime.Types.Result.GetResult<Prisma.$CreatorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  professional<T extends Prisma.ProfessionalDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfessionalDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfessionalClient<runtime.Types.Result.GetResult<Prisma.$ProfessionalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1239,17 +1126,14 @@ export interface Prisma__PortfolioItemClient<T, Null = never, ExtArgs extends ru
  */
 export interface PortfolioItemFieldRefs {
   readonly id: Prisma.FieldRef<"PortfolioItem", 'String'>
-  readonly creatorId: Prisma.FieldRef<"PortfolioItem", 'String'>
+  readonly professionalId: Prisma.FieldRef<"PortfolioItem", 'String'>
   readonly title: Prisma.FieldRef<"PortfolioItem", 'String'>
   readonly description: Prisma.FieldRef<"PortfolioItem", 'String'>
-  readonly category: Prisma.FieldRef<"PortfolioItem", 'String'>
-  readonly tools: Prisma.FieldRef<"PortfolioItem", 'String[]'>
-  readonly thumbnailUrl: Prisma.FieldRef<"PortfolioItem", 'String'>
+  readonly eventType: Prisma.FieldRef<"PortfolioItem", 'String'>
   readonly mediaUrl: Prisma.FieldRef<"PortfolioItem", 'String'>
   readonly publicId: Prisma.FieldRef<"PortfolioItem", 'String'>
   readonly externalUrl: Prisma.FieldRef<"PortfolioItem", 'String'>
-  readonly isDeleted: Prisma.FieldRef<"PortfolioItem", 'Boolean'>
-  readonly deletedAt: Prisma.FieldRef<"PortfolioItem", 'DateTime'>
+  readonly workDate: Prisma.FieldRef<"PortfolioItem", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"PortfolioItem", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"PortfolioItem", 'DateTime'>
 }

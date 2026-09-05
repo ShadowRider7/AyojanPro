@@ -1,34 +1,34 @@
-model User {
-  id            String       @id @default(uuid())
-  name          String       @db.VarChar(255)
-  email         String       @unique @db.VarChar(255)
-  password      String? 
-  googleId      String?      @unique
-  authProvider  AuthProvider @default(CREDENTIAL)
-  emailVerified Boolean      @default(false)
 
-  role   Role
-  status UserStatus @default(ACTIVE)
+model User {
+  id           String       @id @default(uuid())
+  name         String       @db.VarChar(255)
+  email        String       @unique @db.VarChar(255)
+  password     String?
+  role         Role
+  status       UserStatus   @default(ACTIVE)
+  authProvider AuthProvider @default(CREDENTIAL)
+  googleId     String?      @unique @db.VarChar(255)
+  emailVerified Boolean      @default(false)
 
   imageUrl      String?
   imagePublicId String?
-
   isDeleted Boolean   @default(false)
   deletedAt DateTime?
-
-
-  client  Client?
-  creator Creator?
-
-  adminDisputes Dispute[]      @relation("DisputeResolvedBy")
-  notifications Notification[]
-  auditLogs     AuditLog[]     @relation("AuditActor") 
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  client       Client?
+  professional Professional?
+
+  notifications Notification[]
+
+  disputesRaised   Dispute[] @relation("DisputeRaisedBy")
+  disputesResolved Dispute[] @relation("DisputeResolvedBy")
+
+  disputeEvidenceUploaded DisputeEvidence[]          @relation("EvidenceUploadedBy")
+
   @@index([role])
   @@index([status])
-  @@index([isDeleted])
-  @@map("users")
+  @@index([createdAt])
 }

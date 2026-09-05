@@ -31,8 +31,8 @@ export * from "./enums"
  * const prisma = new PrismaClient({
  *   adapter: new PrismaPg({ connectionString: process.env.DATABASE_URL })
  * })
- * // Fetch zero or more AuditLogs
- * const auditLogs = await prisma.auditLog.findMany()
+ * // Fetch zero or more Clients
+ * const clients = await prisma.client.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -41,11 +41,6 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
-/**
- * Model AuditLog
- * 
- */
-export type AuditLog = Prisma.AuditLogModel
 /**
  * Model Client
  * 
@@ -57,35 +52,30 @@ export type Client = Prisma.ClientModel
  */
 export type Contract = Prisma.ContractModel
 /**
- * Model Creator
- * 
- */
-export type Creator = Prisma.CreatorModel
-/**
- * Model CreatorService
- * 
- */
-export type CreatorService = Prisma.CreatorServiceModel
-/**
- * Model CreatorSkill
- * 
- */
-export type CreatorSkill = Prisma.CreatorSkillModel
-/**
- * Model Deliverable
- * 
- */
-export type Deliverable = Prisma.DeliverableModel
-/**
  * Model Dispute
  * 
  */
 export type Dispute = Prisma.DisputeModel
 /**
- * Model Milestone
+ * Model DisputeEvidence
  * 
  */
-export type Milestone = Prisma.MilestoneModel
+export type DisputeEvidence = Prisma.DisputeEvidenceModel
+/**
+ * Model Event
+ * 
+ */
+export type Event = Prisma.EventModel
+/**
+ * Model EventServiceRequirement
+ * 
+ */
+export type EventServiceRequirement = Prisma.EventServiceRequirementModel
+/**
+ * Model Experience
+ * 
+ */
+export type Experience = Prisma.ExperienceModel
 /**
  * Model Notification
  * 
@@ -102,15 +92,20 @@ export type Payment = Prisma.PaymentModel
  */
 export type PortfolioItem = Prisma.PortfolioItemModel
 /**
- * Model Project
+ * Model Professional
  * 
  */
-export type Project = Prisma.ProjectModel
+export type Professional = Prisma.ProfessionalModel
 /**
- * Model ProjectSkill
+ * Model ProfessionalService
  * 
  */
-export type ProjectSkill = Prisma.ProjectSkillModel
+export type ProfessionalService = Prisma.ProfessionalServiceModel
+/**
+ * Model ProfessionalSkill
+ * 
+ */
+export type ProfessionalSkill = Prisma.ProfessionalSkillModel
 /**
  * Model Proposal
  * 
@@ -121,11 +116,6 @@ export type Proposal = Prisma.ProposalModel
  * 
  */
 export type Review = Prisma.ReviewModel
-/**
- * Model Revision
- * 
- */
-export type Revision = Prisma.RevisionModel
 /**
  * Model Skill
  * 

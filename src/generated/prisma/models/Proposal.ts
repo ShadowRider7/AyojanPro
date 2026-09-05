@@ -27,47 +27,60 @@ export type AggregateProposal = {
 }
 
 export type ProposalAvgAggregateOutputType = {
-  proposedPrice: runtime.Decimal | null
-  estimatedDays: number | null
+  proposedAmount: runtime.Decimal | null
 }
 
 export type ProposalSumAggregateOutputType = {
-  proposedPrice: runtime.Decimal | null
-  estimatedDays: number | null
+  proposedAmount: runtime.Decimal | null
 }
 
 export type ProposalMinAggregateOutputType = {
   id: string | null
-  creatorId: string | null
-  projectId: string | null
-  proposedPrice: runtime.Decimal | null
-  estimatedDays: number | null
+  professionalId: string | null
+  eventServiceRequirementId: string | null
+  professionalServiceId: string | null
+  proposedAmount: runtime.Decimal | null
+  currency: string | null
+  proposedStartAt: Date | null
+  proposedEndAt: Date | null
   message: string | null
   status: $Enums.ProposalStatus | null
+  submittedAt: Date | null
+  respondedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type ProposalMaxAggregateOutputType = {
   id: string | null
-  creatorId: string | null
-  projectId: string | null
-  proposedPrice: runtime.Decimal | null
-  estimatedDays: number | null
+  professionalId: string | null
+  eventServiceRequirementId: string | null
+  professionalServiceId: string | null
+  proposedAmount: runtime.Decimal | null
+  currency: string | null
+  proposedStartAt: Date | null
+  proposedEndAt: Date | null
   message: string | null
   status: $Enums.ProposalStatus | null
+  submittedAt: Date | null
+  respondedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type ProposalCountAggregateOutputType = {
   id: number
-  creatorId: number
-  projectId: number
-  proposedPrice: number
-  estimatedDays: number
+  professionalId: number
+  eventServiceRequirementId: number
+  professionalServiceId: number
+  proposedAmount: number
+  currency: number
+  proposedStartAt: number
+  proposedEndAt: number
   message: number
   status: number
+  submittedAt: number
+  respondedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -75,47 +88,60 @@ export type ProposalCountAggregateOutputType = {
 
 
 export type ProposalAvgAggregateInputType = {
-  proposedPrice?: true
-  estimatedDays?: true
+  proposedAmount?: true
 }
 
 export type ProposalSumAggregateInputType = {
-  proposedPrice?: true
-  estimatedDays?: true
+  proposedAmount?: true
 }
 
 export type ProposalMinAggregateInputType = {
   id?: true
-  creatorId?: true
-  projectId?: true
-  proposedPrice?: true
-  estimatedDays?: true
+  professionalId?: true
+  eventServiceRequirementId?: true
+  professionalServiceId?: true
+  proposedAmount?: true
+  currency?: true
+  proposedStartAt?: true
+  proposedEndAt?: true
   message?: true
   status?: true
+  submittedAt?: true
+  respondedAt?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type ProposalMaxAggregateInputType = {
   id?: true
-  creatorId?: true
-  projectId?: true
-  proposedPrice?: true
-  estimatedDays?: true
+  professionalId?: true
+  eventServiceRequirementId?: true
+  professionalServiceId?: true
+  proposedAmount?: true
+  currency?: true
+  proposedStartAt?: true
+  proposedEndAt?: true
   message?: true
   status?: true
+  submittedAt?: true
+  respondedAt?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type ProposalCountAggregateInputType = {
   id?: true
-  creatorId?: true
-  projectId?: true
-  proposedPrice?: true
-  estimatedDays?: true
+  professionalId?: true
+  eventServiceRequirementId?: true
+  professionalServiceId?: true
+  proposedAmount?: true
+  currency?: true
+  proposedStartAt?: true
+  proposedEndAt?: true
   message?: true
   status?: true
+  submittedAt?: true
+  respondedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -209,12 +235,17 @@ export type ProposalGroupByArgs<ExtArgs extends runtime.Types.Extensions.Interna
 
 export type ProposalGroupByOutputType = {
   id: string
-  creatorId: string
-  projectId: string
-  proposedPrice: runtime.Decimal
-  estimatedDays: number
-  message: string
+  professionalId: string
+  eventServiceRequirementId: string
+  professionalServiceId: string
+  proposedAmount: runtime.Decimal
+  currency: string
+  proposedStartAt: Date
+  proposedEndAt: Date
+  message: string | null
   status: $Enums.ProposalStatus
+  submittedAt: Date
+  respondedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: ProposalCountAggregateOutputType | null
@@ -244,61 +275,83 @@ export type ProposalWhereInput = {
   OR?: Prisma.ProposalWhereInput[]
   NOT?: Prisma.ProposalWhereInput | Prisma.ProposalWhereInput[]
   id?: Prisma.StringFilter<"Proposal"> | string
-  creatorId?: Prisma.StringFilter<"Proposal"> | string
-  projectId?: Prisma.StringFilter<"Proposal"> | string
-  proposedPrice?: Prisma.DecimalFilter<"Proposal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntFilter<"Proposal"> | number
-  message?: Prisma.StringFilter<"Proposal"> | string
+  professionalId?: Prisma.StringFilter<"Proposal"> | string
+  eventServiceRequirementId?: Prisma.StringFilter<"Proposal"> | string
+  professionalServiceId?: Prisma.StringFilter<"Proposal"> | string
+  proposedAmount?: Prisma.DecimalFilter<"Proposal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFilter<"Proposal"> | string
+  proposedStartAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
+  proposedEndAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
+  message?: Prisma.StringNullableFilter<"Proposal"> | string | null
   status?: Prisma.EnumProposalStatusFilter<"Proposal"> | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
+  respondedAt?: Prisma.DateTimeNullableFilter<"Proposal"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
-  creator?: Prisma.XOR<Prisma.CreatorScalarRelationFilter, Prisma.CreatorWhereInput>
-  project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
+  professional?: Prisma.XOR<Prisma.ProfessionalScalarRelationFilter, Prisma.ProfessionalWhereInput>
+  eventServiceRequirement?: Prisma.XOR<Prisma.EventServiceRequirementScalarRelationFilter, Prisma.EventServiceRequirementWhereInput>
+  professionalService?: Prisma.XOR<Prisma.ProfessionalServiceScalarRelationFilter, Prisma.ProfessionalServiceWhereInput>
   contract?: Prisma.XOR<Prisma.ContractNullableScalarRelationFilter, Prisma.ContractWhereInput> | null
 }
 
 export type ProposalOrderByWithRelationInput = {
   id?: Prisma.SortOrder
-  creatorId?: Prisma.SortOrder
-  projectId?: Prisma.SortOrder
-  proposedPrice?: Prisma.SortOrder
-  estimatedDays?: Prisma.SortOrder
-  message?: Prisma.SortOrder
+  professionalId?: Prisma.SortOrder
+  eventServiceRequirementId?: Prisma.SortOrder
+  professionalServiceId?: Prisma.SortOrder
+  proposedAmount?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  proposedStartAt?: Prisma.SortOrder
+  proposedEndAt?: Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  submittedAt?: Prisma.SortOrder
+  respondedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  creator?: Prisma.CreatorOrderByWithRelationInput
-  project?: Prisma.ProjectOrderByWithRelationInput
+  professional?: Prisma.ProfessionalOrderByWithRelationInput
+  eventServiceRequirement?: Prisma.EventServiceRequirementOrderByWithRelationInput
+  professionalService?: Prisma.ProfessionalServiceOrderByWithRelationInput
   contract?: Prisma.ContractOrderByWithRelationInput
 }
 
 export type ProposalWhereUniqueInput = Prisma.AtLeast<{
   id?: string
-  creatorId_projectId?: Prisma.ProposalCreatorIdProjectIdCompoundUniqueInput
   AND?: Prisma.ProposalWhereInput | Prisma.ProposalWhereInput[]
   OR?: Prisma.ProposalWhereInput[]
   NOT?: Prisma.ProposalWhereInput | Prisma.ProposalWhereInput[]
-  creatorId?: Prisma.StringFilter<"Proposal"> | string
-  projectId?: Prisma.StringFilter<"Proposal"> | string
-  proposedPrice?: Prisma.DecimalFilter<"Proposal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntFilter<"Proposal"> | number
-  message?: Prisma.StringFilter<"Proposal"> | string
+  professionalId?: Prisma.StringFilter<"Proposal"> | string
+  eventServiceRequirementId?: Prisma.StringFilter<"Proposal"> | string
+  professionalServiceId?: Prisma.StringFilter<"Proposal"> | string
+  proposedAmount?: Prisma.DecimalFilter<"Proposal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFilter<"Proposal"> | string
+  proposedStartAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
+  proposedEndAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
+  message?: Prisma.StringNullableFilter<"Proposal"> | string | null
   status?: Prisma.EnumProposalStatusFilter<"Proposal"> | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
+  respondedAt?: Prisma.DateTimeNullableFilter<"Proposal"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
-  creator?: Prisma.XOR<Prisma.CreatorScalarRelationFilter, Prisma.CreatorWhereInput>
-  project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
+  professional?: Prisma.XOR<Prisma.ProfessionalScalarRelationFilter, Prisma.ProfessionalWhereInput>
+  eventServiceRequirement?: Prisma.XOR<Prisma.EventServiceRequirementScalarRelationFilter, Prisma.EventServiceRequirementWhereInput>
+  professionalService?: Prisma.XOR<Prisma.ProfessionalServiceScalarRelationFilter, Prisma.ProfessionalServiceWhereInput>
   contract?: Prisma.XOR<Prisma.ContractNullableScalarRelationFilter, Prisma.ContractWhereInput> | null
-}, "id" | "creatorId_projectId">
+}, "id">
 
 export type ProposalOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
-  creatorId?: Prisma.SortOrder
-  projectId?: Prisma.SortOrder
-  proposedPrice?: Prisma.SortOrder
-  estimatedDays?: Prisma.SortOrder
-  message?: Prisma.SortOrder
+  professionalId?: Prisma.SortOrder
+  eventServiceRequirementId?: Prisma.SortOrder
+  professionalServiceId?: Prisma.SortOrder
+  proposedAmount?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  proposedStartAt?: Prisma.SortOrder
+  proposedEndAt?: Prisma.SortOrder
+  message?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  submittedAt?: Prisma.SortOrder
+  respondedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ProposalCountOrderByAggregateInput
@@ -313,37 +366,52 @@ export type ProposalScalarWhereWithAggregatesInput = {
   OR?: Prisma.ProposalScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ProposalScalarWhereWithAggregatesInput | Prisma.ProposalScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Proposal"> | string
-  creatorId?: Prisma.StringWithAggregatesFilter<"Proposal"> | string
-  projectId?: Prisma.StringWithAggregatesFilter<"Proposal"> | string
-  proposedPrice?: Prisma.DecimalWithAggregatesFilter<"Proposal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntWithAggregatesFilter<"Proposal"> | number
-  message?: Prisma.StringWithAggregatesFilter<"Proposal"> | string
+  professionalId?: Prisma.StringWithAggregatesFilter<"Proposal"> | string
+  eventServiceRequirementId?: Prisma.StringWithAggregatesFilter<"Proposal"> | string
+  professionalServiceId?: Prisma.StringWithAggregatesFilter<"Proposal"> | string
+  proposedAmount?: Prisma.DecimalWithAggregatesFilter<"Proposal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringWithAggregatesFilter<"Proposal"> | string
+  proposedStartAt?: Prisma.DateTimeWithAggregatesFilter<"Proposal"> | Date | string
+  proposedEndAt?: Prisma.DateTimeWithAggregatesFilter<"Proposal"> | Date | string
+  message?: Prisma.StringNullableWithAggregatesFilter<"Proposal"> | string | null
   status?: Prisma.EnumProposalStatusWithAggregatesFilter<"Proposal"> | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeWithAggregatesFilter<"Proposal"> | Date | string
+  respondedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Proposal"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Proposal"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Proposal"> | Date | string
 }
 
 export type ProposalCreateInput = {
   id?: string
-  proposedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays: number
-  message: string
+  proposedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  proposedStartAt: Date | string
+  proposedEndAt: Date | string
+  message?: string | null
   status?: $Enums.ProposalStatus
+  submittedAt?: Date | string
+  respondedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  creator: Prisma.CreatorCreateNestedOneWithoutProposalsInput
-  project: Prisma.ProjectCreateNestedOneWithoutProposalsInput
+  professional: Prisma.ProfessionalCreateNestedOneWithoutProposalsInput
+  eventServiceRequirement: Prisma.EventServiceRequirementCreateNestedOneWithoutProposalsInput
+  professionalService: Prisma.ProfessionalServiceCreateNestedOneWithoutProposalsInput
   contract?: Prisma.ContractCreateNestedOneWithoutProposalInput
 }
 
 export type ProposalUncheckedCreateInput = {
   id?: string
-  creatorId: string
-  projectId: string
-  proposedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays: number
-  message: string
+  professionalId: string
+  eventServiceRequirementId: string
+  professionalServiceId: string
+  proposedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  proposedStartAt: Date | string
+  proposedEndAt: Date | string
+  message?: string | null
   status?: $Enums.ProposalStatus
+  submittedAt?: Date | string
+  respondedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   contract?: Prisma.ContractUncheckedCreateNestedOneWithoutProposalInput
@@ -351,25 +419,35 @@ export type ProposalUncheckedCreateInput = {
 
 export type ProposalUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  proposedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proposedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  creator?: Prisma.CreatorUpdateOneRequiredWithoutProposalsNestedInput
-  project?: Prisma.ProjectUpdateOneRequiredWithoutProposalsNestedInput
+  professional?: Prisma.ProfessionalUpdateOneRequiredWithoutProposalsNestedInput
+  eventServiceRequirement?: Prisma.EventServiceRequirementUpdateOneRequiredWithoutProposalsNestedInput
+  professionalService?: Prisma.ProfessionalServiceUpdateOneRequiredWithoutProposalsNestedInput
   contract?: Prisma.ContractUpdateOneWithoutProposalNestedInput
 }
 
 export type ProposalUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  proposedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalId?: Prisma.StringFieldUpdateOperationsInput | string
+  eventServiceRequirementId?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalServiceId?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proposedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contract?: Prisma.ContractUncheckedUpdateOneWithoutProposalNestedInput
@@ -377,34 +455,48 @@ export type ProposalUncheckedUpdateInput = {
 
 export type ProposalCreateManyInput = {
   id?: string
-  creatorId: string
-  projectId: string
-  proposedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays: number
-  message: string
+  professionalId: string
+  eventServiceRequirementId: string
+  professionalServiceId: string
+  proposedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  proposedStartAt: Date | string
+  proposedEndAt: Date | string
+  message?: string | null
   status?: $Enums.ProposalStatus
+  submittedAt?: Date | string
+  respondedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type ProposalUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  proposedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proposedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ProposalUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  proposedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalId?: Prisma.StringFieldUpdateOperationsInput | string
+  eventServiceRequirementId?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalServiceId?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proposedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -424,55 +516,63 @@ export type ProposalOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ProposalCreatorIdProjectIdCompoundUniqueInput = {
-  creatorId: string
-  projectId: string
-}
-
 export type ProposalCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  creatorId?: Prisma.SortOrder
-  projectId?: Prisma.SortOrder
-  proposedPrice?: Prisma.SortOrder
-  estimatedDays?: Prisma.SortOrder
+  professionalId?: Prisma.SortOrder
+  eventServiceRequirementId?: Prisma.SortOrder
+  professionalServiceId?: Prisma.SortOrder
+  proposedAmount?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  proposedStartAt?: Prisma.SortOrder
+  proposedEndAt?: Prisma.SortOrder
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  submittedAt?: Prisma.SortOrder
+  respondedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ProposalAvgOrderByAggregateInput = {
-  proposedPrice?: Prisma.SortOrder
-  estimatedDays?: Prisma.SortOrder
+  proposedAmount?: Prisma.SortOrder
 }
 
 export type ProposalMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  creatorId?: Prisma.SortOrder
-  projectId?: Prisma.SortOrder
-  proposedPrice?: Prisma.SortOrder
-  estimatedDays?: Prisma.SortOrder
+  professionalId?: Prisma.SortOrder
+  eventServiceRequirementId?: Prisma.SortOrder
+  professionalServiceId?: Prisma.SortOrder
+  proposedAmount?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  proposedStartAt?: Prisma.SortOrder
+  proposedEndAt?: Prisma.SortOrder
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  submittedAt?: Prisma.SortOrder
+  respondedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ProposalMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
-  creatorId?: Prisma.SortOrder
-  projectId?: Prisma.SortOrder
-  proposedPrice?: Prisma.SortOrder
-  estimatedDays?: Prisma.SortOrder
+  professionalId?: Prisma.SortOrder
+  eventServiceRequirementId?: Prisma.SortOrder
+  professionalServiceId?: Prisma.SortOrder
+  proposedAmount?: Prisma.SortOrder
+  currency?: Prisma.SortOrder
+  proposedStartAt?: Prisma.SortOrder
+  proposedEndAt?: Prisma.SortOrder
   message?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  submittedAt?: Prisma.SortOrder
+  respondedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ProposalSumOrderByAggregateInput = {
-  proposedPrice?: Prisma.SortOrder
-  estimatedDays?: Prisma.SortOrder
+  proposedAmount?: Prisma.SortOrder
 }
 
 export type ProposalCreateNestedOneWithoutContractInput = {
@@ -489,87 +589,129 @@ export type ProposalUpdateOneRequiredWithoutContractNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ProposalUpdateToOneWithWhereWithoutContractInput, Prisma.ProposalUpdateWithoutContractInput>, Prisma.ProposalUncheckedUpdateWithoutContractInput>
 }
 
-export type ProposalCreateNestedManyWithoutCreatorInput = {
-  create?: Prisma.XOR<Prisma.ProposalCreateWithoutCreatorInput, Prisma.ProposalUncheckedCreateWithoutCreatorInput> | Prisma.ProposalCreateWithoutCreatorInput[] | Prisma.ProposalUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutCreatorInput | Prisma.ProposalCreateOrConnectWithoutCreatorInput[]
-  createMany?: Prisma.ProposalCreateManyCreatorInputEnvelope
+export type ProposalCreateNestedManyWithoutEventServiceRequirementInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutEventServiceRequirementInput, Prisma.ProposalUncheckedCreateWithoutEventServiceRequirementInput> | Prisma.ProposalCreateWithoutEventServiceRequirementInput[] | Prisma.ProposalUncheckedCreateWithoutEventServiceRequirementInput[]
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutEventServiceRequirementInput | Prisma.ProposalCreateOrConnectWithoutEventServiceRequirementInput[]
+  createMany?: Prisma.ProposalCreateManyEventServiceRequirementInputEnvelope
   connect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
 }
 
-export type ProposalUncheckedCreateNestedManyWithoutCreatorInput = {
-  create?: Prisma.XOR<Prisma.ProposalCreateWithoutCreatorInput, Prisma.ProposalUncheckedCreateWithoutCreatorInput> | Prisma.ProposalCreateWithoutCreatorInput[] | Prisma.ProposalUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutCreatorInput | Prisma.ProposalCreateOrConnectWithoutCreatorInput[]
-  createMany?: Prisma.ProposalCreateManyCreatorInputEnvelope
+export type ProposalUncheckedCreateNestedManyWithoutEventServiceRequirementInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutEventServiceRequirementInput, Prisma.ProposalUncheckedCreateWithoutEventServiceRequirementInput> | Prisma.ProposalCreateWithoutEventServiceRequirementInput[] | Prisma.ProposalUncheckedCreateWithoutEventServiceRequirementInput[]
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutEventServiceRequirementInput | Prisma.ProposalCreateOrConnectWithoutEventServiceRequirementInput[]
+  createMany?: Prisma.ProposalCreateManyEventServiceRequirementInputEnvelope
   connect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
 }
 
-export type ProposalUpdateManyWithoutCreatorNestedInput = {
-  create?: Prisma.XOR<Prisma.ProposalCreateWithoutCreatorInput, Prisma.ProposalUncheckedCreateWithoutCreatorInput> | Prisma.ProposalCreateWithoutCreatorInput[] | Prisma.ProposalUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutCreatorInput | Prisma.ProposalCreateOrConnectWithoutCreatorInput[]
-  upsert?: Prisma.ProposalUpsertWithWhereUniqueWithoutCreatorInput | Prisma.ProposalUpsertWithWhereUniqueWithoutCreatorInput[]
-  createMany?: Prisma.ProposalCreateManyCreatorInputEnvelope
+export type ProposalUpdateManyWithoutEventServiceRequirementNestedInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutEventServiceRequirementInput, Prisma.ProposalUncheckedCreateWithoutEventServiceRequirementInput> | Prisma.ProposalCreateWithoutEventServiceRequirementInput[] | Prisma.ProposalUncheckedCreateWithoutEventServiceRequirementInput[]
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutEventServiceRequirementInput | Prisma.ProposalCreateOrConnectWithoutEventServiceRequirementInput[]
+  upsert?: Prisma.ProposalUpsertWithWhereUniqueWithoutEventServiceRequirementInput | Prisma.ProposalUpsertWithWhereUniqueWithoutEventServiceRequirementInput[]
+  createMany?: Prisma.ProposalCreateManyEventServiceRequirementInputEnvelope
   set?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
   disconnect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
   delete?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
   connect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
-  update?: Prisma.ProposalUpdateWithWhereUniqueWithoutCreatorInput | Prisma.ProposalUpdateWithWhereUniqueWithoutCreatorInput[]
-  updateMany?: Prisma.ProposalUpdateManyWithWhereWithoutCreatorInput | Prisma.ProposalUpdateManyWithWhereWithoutCreatorInput[]
+  update?: Prisma.ProposalUpdateWithWhereUniqueWithoutEventServiceRequirementInput | Prisma.ProposalUpdateWithWhereUniqueWithoutEventServiceRequirementInput[]
+  updateMany?: Prisma.ProposalUpdateManyWithWhereWithoutEventServiceRequirementInput | Prisma.ProposalUpdateManyWithWhereWithoutEventServiceRequirementInput[]
   deleteMany?: Prisma.ProposalScalarWhereInput | Prisma.ProposalScalarWhereInput[]
 }
 
-export type ProposalUncheckedUpdateManyWithoutCreatorNestedInput = {
-  create?: Prisma.XOR<Prisma.ProposalCreateWithoutCreatorInput, Prisma.ProposalUncheckedCreateWithoutCreatorInput> | Prisma.ProposalCreateWithoutCreatorInput[] | Prisma.ProposalUncheckedCreateWithoutCreatorInput[]
-  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutCreatorInput | Prisma.ProposalCreateOrConnectWithoutCreatorInput[]
-  upsert?: Prisma.ProposalUpsertWithWhereUniqueWithoutCreatorInput | Prisma.ProposalUpsertWithWhereUniqueWithoutCreatorInput[]
-  createMany?: Prisma.ProposalCreateManyCreatorInputEnvelope
+export type ProposalUncheckedUpdateManyWithoutEventServiceRequirementNestedInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutEventServiceRequirementInput, Prisma.ProposalUncheckedCreateWithoutEventServiceRequirementInput> | Prisma.ProposalCreateWithoutEventServiceRequirementInput[] | Prisma.ProposalUncheckedCreateWithoutEventServiceRequirementInput[]
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutEventServiceRequirementInput | Prisma.ProposalCreateOrConnectWithoutEventServiceRequirementInput[]
+  upsert?: Prisma.ProposalUpsertWithWhereUniqueWithoutEventServiceRequirementInput | Prisma.ProposalUpsertWithWhereUniqueWithoutEventServiceRequirementInput[]
+  createMany?: Prisma.ProposalCreateManyEventServiceRequirementInputEnvelope
   set?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
   disconnect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
   delete?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
   connect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
-  update?: Prisma.ProposalUpdateWithWhereUniqueWithoutCreatorInput | Prisma.ProposalUpdateWithWhereUniqueWithoutCreatorInput[]
-  updateMany?: Prisma.ProposalUpdateManyWithWhereWithoutCreatorInput | Prisma.ProposalUpdateManyWithWhereWithoutCreatorInput[]
+  update?: Prisma.ProposalUpdateWithWhereUniqueWithoutEventServiceRequirementInput | Prisma.ProposalUpdateWithWhereUniqueWithoutEventServiceRequirementInput[]
+  updateMany?: Prisma.ProposalUpdateManyWithWhereWithoutEventServiceRequirementInput | Prisma.ProposalUpdateManyWithWhereWithoutEventServiceRequirementInput[]
   deleteMany?: Prisma.ProposalScalarWhereInput | Prisma.ProposalScalarWhereInput[]
 }
 
-export type ProposalCreateNestedManyWithoutProjectInput = {
-  create?: Prisma.XOR<Prisma.ProposalCreateWithoutProjectInput, Prisma.ProposalUncheckedCreateWithoutProjectInput> | Prisma.ProposalCreateWithoutProjectInput[] | Prisma.ProposalUncheckedCreateWithoutProjectInput[]
-  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutProjectInput | Prisma.ProposalCreateOrConnectWithoutProjectInput[]
-  createMany?: Prisma.ProposalCreateManyProjectInputEnvelope
+export type ProposalCreateNestedManyWithoutProfessionalInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutProfessionalInput, Prisma.ProposalUncheckedCreateWithoutProfessionalInput> | Prisma.ProposalCreateWithoutProfessionalInput[] | Prisma.ProposalUncheckedCreateWithoutProfessionalInput[]
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutProfessionalInput | Prisma.ProposalCreateOrConnectWithoutProfessionalInput[]
+  createMany?: Prisma.ProposalCreateManyProfessionalInputEnvelope
   connect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
 }
 
-export type ProposalUncheckedCreateNestedManyWithoutProjectInput = {
-  create?: Prisma.XOR<Prisma.ProposalCreateWithoutProjectInput, Prisma.ProposalUncheckedCreateWithoutProjectInput> | Prisma.ProposalCreateWithoutProjectInput[] | Prisma.ProposalUncheckedCreateWithoutProjectInput[]
-  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutProjectInput | Prisma.ProposalCreateOrConnectWithoutProjectInput[]
-  createMany?: Prisma.ProposalCreateManyProjectInputEnvelope
+export type ProposalUncheckedCreateNestedManyWithoutProfessionalInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutProfessionalInput, Prisma.ProposalUncheckedCreateWithoutProfessionalInput> | Prisma.ProposalCreateWithoutProfessionalInput[] | Prisma.ProposalUncheckedCreateWithoutProfessionalInput[]
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutProfessionalInput | Prisma.ProposalCreateOrConnectWithoutProfessionalInput[]
+  createMany?: Prisma.ProposalCreateManyProfessionalInputEnvelope
   connect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
 }
 
-export type ProposalUpdateManyWithoutProjectNestedInput = {
-  create?: Prisma.XOR<Prisma.ProposalCreateWithoutProjectInput, Prisma.ProposalUncheckedCreateWithoutProjectInput> | Prisma.ProposalCreateWithoutProjectInput[] | Prisma.ProposalUncheckedCreateWithoutProjectInput[]
-  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutProjectInput | Prisma.ProposalCreateOrConnectWithoutProjectInput[]
-  upsert?: Prisma.ProposalUpsertWithWhereUniqueWithoutProjectInput | Prisma.ProposalUpsertWithWhereUniqueWithoutProjectInput[]
-  createMany?: Prisma.ProposalCreateManyProjectInputEnvelope
+export type ProposalUpdateManyWithoutProfessionalNestedInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutProfessionalInput, Prisma.ProposalUncheckedCreateWithoutProfessionalInput> | Prisma.ProposalCreateWithoutProfessionalInput[] | Prisma.ProposalUncheckedCreateWithoutProfessionalInput[]
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutProfessionalInput | Prisma.ProposalCreateOrConnectWithoutProfessionalInput[]
+  upsert?: Prisma.ProposalUpsertWithWhereUniqueWithoutProfessionalInput | Prisma.ProposalUpsertWithWhereUniqueWithoutProfessionalInput[]
+  createMany?: Prisma.ProposalCreateManyProfessionalInputEnvelope
   set?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
   disconnect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
   delete?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
   connect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
-  update?: Prisma.ProposalUpdateWithWhereUniqueWithoutProjectInput | Prisma.ProposalUpdateWithWhereUniqueWithoutProjectInput[]
-  updateMany?: Prisma.ProposalUpdateManyWithWhereWithoutProjectInput | Prisma.ProposalUpdateManyWithWhereWithoutProjectInput[]
+  update?: Prisma.ProposalUpdateWithWhereUniqueWithoutProfessionalInput | Prisma.ProposalUpdateWithWhereUniqueWithoutProfessionalInput[]
+  updateMany?: Prisma.ProposalUpdateManyWithWhereWithoutProfessionalInput | Prisma.ProposalUpdateManyWithWhereWithoutProfessionalInput[]
   deleteMany?: Prisma.ProposalScalarWhereInput | Prisma.ProposalScalarWhereInput[]
 }
 
-export type ProposalUncheckedUpdateManyWithoutProjectNestedInput = {
-  create?: Prisma.XOR<Prisma.ProposalCreateWithoutProjectInput, Prisma.ProposalUncheckedCreateWithoutProjectInput> | Prisma.ProposalCreateWithoutProjectInput[] | Prisma.ProposalUncheckedCreateWithoutProjectInput[]
-  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutProjectInput | Prisma.ProposalCreateOrConnectWithoutProjectInput[]
-  upsert?: Prisma.ProposalUpsertWithWhereUniqueWithoutProjectInput | Prisma.ProposalUpsertWithWhereUniqueWithoutProjectInput[]
-  createMany?: Prisma.ProposalCreateManyProjectInputEnvelope
+export type ProposalUncheckedUpdateManyWithoutProfessionalNestedInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutProfessionalInput, Prisma.ProposalUncheckedCreateWithoutProfessionalInput> | Prisma.ProposalCreateWithoutProfessionalInput[] | Prisma.ProposalUncheckedCreateWithoutProfessionalInput[]
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutProfessionalInput | Prisma.ProposalCreateOrConnectWithoutProfessionalInput[]
+  upsert?: Prisma.ProposalUpsertWithWhereUniqueWithoutProfessionalInput | Prisma.ProposalUpsertWithWhereUniqueWithoutProfessionalInput[]
+  createMany?: Prisma.ProposalCreateManyProfessionalInputEnvelope
   set?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
   disconnect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
   delete?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
   connect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
-  update?: Prisma.ProposalUpdateWithWhereUniqueWithoutProjectInput | Prisma.ProposalUpdateWithWhereUniqueWithoutProjectInput[]
-  updateMany?: Prisma.ProposalUpdateManyWithWhereWithoutProjectInput | Prisma.ProposalUpdateManyWithWhereWithoutProjectInput[]
+  update?: Prisma.ProposalUpdateWithWhereUniqueWithoutProfessionalInput | Prisma.ProposalUpdateWithWhereUniqueWithoutProfessionalInput[]
+  updateMany?: Prisma.ProposalUpdateManyWithWhereWithoutProfessionalInput | Prisma.ProposalUpdateManyWithWhereWithoutProfessionalInput[]
+  deleteMany?: Prisma.ProposalScalarWhereInput | Prisma.ProposalScalarWhereInput[]
+}
+
+export type ProposalCreateNestedManyWithoutProfessionalServiceInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutProfessionalServiceInput, Prisma.ProposalUncheckedCreateWithoutProfessionalServiceInput> | Prisma.ProposalCreateWithoutProfessionalServiceInput[] | Prisma.ProposalUncheckedCreateWithoutProfessionalServiceInput[]
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutProfessionalServiceInput | Prisma.ProposalCreateOrConnectWithoutProfessionalServiceInput[]
+  createMany?: Prisma.ProposalCreateManyProfessionalServiceInputEnvelope
+  connect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
+}
+
+export type ProposalUncheckedCreateNestedManyWithoutProfessionalServiceInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutProfessionalServiceInput, Prisma.ProposalUncheckedCreateWithoutProfessionalServiceInput> | Prisma.ProposalCreateWithoutProfessionalServiceInput[] | Prisma.ProposalUncheckedCreateWithoutProfessionalServiceInput[]
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutProfessionalServiceInput | Prisma.ProposalCreateOrConnectWithoutProfessionalServiceInput[]
+  createMany?: Prisma.ProposalCreateManyProfessionalServiceInputEnvelope
+  connect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
+}
+
+export type ProposalUpdateManyWithoutProfessionalServiceNestedInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutProfessionalServiceInput, Prisma.ProposalUncheckedCreateWithoutProfessionalServiceInput> | Prisma.ProposalCreateWithoutProfessionalServiceInput[] | Prisma.ProposalUncheckedCreateWithoutProfessionalServiceInput[]
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutProfessionalServiceInput | Prisma.ProposalCreateOrConnectWithoutProfessionalServiceInput[]
+  upsert?: Prisma.ProposalUpsertWithWhereUniqueWithoutProfessionalServiceInput | Prisma.ProposalUpsertWithWhereUniqueWithoutProfessionalServiceInput[]
+  createMany?: Prisma.ProposalCreateManyProfessionalServiceInputEnvelope
+  set?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
+  disconnect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
+  delete?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
+  connect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
+  update?: Prisma.ProposalUpdateWithWhereUniqueWithoutProfessionalServiceInput | Prisma.ProposalUpdateWithWhereUniqueWithoutProfessionalServiceInput[]
+  updateMany?: Prisma.ProposalUpdateManyWithWhereWithoutProfessionalServiceInput | Prisma.ProposalUpdateManyWithWhereWithoutProfessionalServiceInput[]
+  deleteMany?: Prisma.ProposalScalarWhereInput | Prisma.ProposalScalarWhereInput[]
+}
+
+export type ProposalUncheckedUpdateManyWithoutProfessionalServiceNestedInput = {
+  create?: Prisma.XOR<Prisma.ProposalCreateWithoutProfessionalServiceInput, Prisma.ProposalUncheckedCreateWithoutProfessionalServiceInput> | Prisma.ProposalCreateWithoutProfessionalServiceInput[] | Prisma.ProposalUncheckedCreateWithoutProfessionalServiceInput[]
+  connectOrCreate?: Prisma.ProposalCreateOrConnectWithoutProfessionalServiceInput | Prisma.ProposalCreateOrConnectWithoutProfessionalServiceInput[]
+  upsert?: Prisma.ProposalUpsertWithWhereUniqueWithoutProfessionalServiceInput | Prisma.ProposalUpsertWithWhereUniqueWithoutProfessionalServiceInput[]
+  createMany?: Prisma.ProposalCreateManyProfessionalServiceInputEnvelope
+  set?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
+  disconnect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
+  delete?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
+  connect?: Prisma.ProposalWhereUniqueInput | Prisma.ProposalWhereUniqueInput[]
+  update?: Prisma.ProposalUpdateWithWhereUniqueWithoutProfessionalServiceInput | Prisma.ProposalUpdateWithWhereUniqueWithoutProfessionalServiceInput[]
+  updateMany?: Prisma.ProposalUpdateManyWithWhereWithoutProfessionalServiceInput | Prisma.ProposalUpdateManyWithWhereWithoutProfessionalServiceInput[]
   deleteMany?: Prisma.ProposalScalarWhereInput | Prisma.ProposalScalarWhereInput[]
 }
 
@@ -579,24 +721,34 @@ export type EnumProposalStatusFieldUpdateOperationsInput = {
 
 export type ProposalCreateWithoutContractInput = {
   id?: string
-  proposedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays: number
-  message: string
+  proposedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  proposedStartAt: Date | string
+  proposedEndAt: Date | string
+  message?: string | null
   status?: $Enums.ProposalStatus
+  submittedAt?: Date | string
+  respondedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  creator: Prisma.CreatorCreateNestedOneWithoutProposalsInput
-  project: Prisma.ProjectCreateNestedOneWithoutProposalsInput
+  professional: Prisma.ProfessionalCreateNestedOneWithoutProposalsInput
+  eventServiceRequirement: Prisma.EventServiceRequirementCreateNestedOneWithoutProposalsInput
+  professionalService: Prisma.ProfessionalServiceCreateNestedOneWithoutProposalsInput
 }
 
 export type ProposalUncheckedCreateWithoutContractInput = {
   id?: string
-  creatorId: string
-  projectId: string
-  proposedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays: number
-  message: string
+  professionalId: string
+  eventServiceRequirementId: string
+  professionalServiceId: string
+  proposedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  proposedStartAt: Date | string
+  proposedEndAt: Date | string
+  message?: string | null
   status?: $Enums.ProposalStatus
+  submittedAt?: Date | string
+  respondedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -619,76 +771,96 @@ export type ProposalUpdateToOneWithWhereWithoutContractInput = {
 
 export type ProposalUpdateWithoutContractInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  proposedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proposedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  creator?: Prisma.CreatorUpdateOneRequiredWithoutProposalsNestedInput
-  project?: Prisma.ProjectUpdateOneRequiredWithoutProposalsNestedInput
+  professional?: Prisma.ProfessionalUpdateOneRequiredWithoutProposalsNestedInput
+  eventServiceRequirement?: Prisma.EventServiceRequirementUpdateOneRequiredWithoutProposalsNestedInput
+  professionalService?: Prisma.ProfessionalServiceUpdateOneRequiredWithoutProposalsNestedInput
 }
 
 export type ProposalUncheckedUpdateWithoutContractInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  proposedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalId?: Prisma.StringFieldUpdateOperationsInput | string
+  eventServiceRequirementId?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalServiceId?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proposedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ProposalCreateWithoutCreatorInput = {
+export type ProposalCreateWithoutEventServiceRequirementInput = {
   id?: string
-  proposedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays: number
-  message: string
+  proposedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  proposedStartAt: Date | string
+  proposedEndAt: Date | string
+  message?: string | null
   status?: $Enums.ProposalStatus
+  submittedAt?: Date | string
+  respondedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  project: Prisma.ProjectCreateNestedOneWithoutProposalsInput
+  professional: Prisma.ProfessionalCreateNestedOneWithoutProposalsInput
+  professionalService: Prisma.ProfessionalServiceCreateNestedOneWithoutProposalsInput
   contract?: Prisma.ContractCreateNestedOneWithoutProposalInput
 }
 
-export type ProposalUncheckedCreateWithoutCreatorInput = {
+export type ProposalUncheckedCreateWithoutEventServiceRequirementInput = {
   id?: string
-  projectId: string
-  proposedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays: number
-  message: string
+  professionalId: string
+  professionalServiceId: string
+  proposedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  proposedStartAt: Date | string
+  proposedEndAt: Date | string
+  message?: string | null
   status?: $Enums.ProposalStatus
+  submittedAt?: Date | string
+  respondedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   contract?: Prisma.ContractUncheckedCreateNestedOneWithoutProposalInput
 }
 
-export type ProposalCreateOrConnectWithoutCreatorInput = {
+export type ProposalCreateOrConnectWithoutEventServiceRequirementInput = {
   where: Prisma.ProposalWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProposalCreateWithoutCreatorInput, Prisma.ProposalUncheckedCreateWithoutCreatorInput>
+  create: Prisma.XOR<Prisma.ProposalCreateWithoutEventServiceRequirementInput, Prisma.ProposalUncheckedCreateWithoutEventServiceRequirementInput>
 }
 
-export type ProposalCreateManyCreatorInputEnvelope = {
-  data: Prisma.ProposalCreateManyCreatorInput | Prisma.ProposalCreateManyCreatorInput[]
+export type ProposalCreateManyEventServiceRequirementInputEnvelope = {
+  data: Prisma.ProposalCreateManyEventServiceRequirementInput | Prisma.ProposalCreateManyEventServiceRequirementInput[]
   skipDuplicates?: boolean
 }
 
-export type ProposalUpsertWithWhereUniqueWithoutCreatorInput = {
+export type ProposalUpsertWithWhereUniqueWithoutEventServiceRequirementInput = {
   where: Prisma.ProposalWhereUniqueInput
-  update: Prisma.XOR<Prisma.ProposalUpdateWithoutCreatorInput, Prisma.ProposalUncheckedUpdateWithoutCreatorInput>
-  create: Prisma.XOR<Prisma.ProposalCreateWithoutCreatorInput, Prisma.ProposalUncheckedCreateWithoutCreatorInput>
+  update: Prisma.XOR<Prisma.ProposalUpdateWithoutEventServiceRequirementInput, Prisma.ProposalUncheckedUpdateWithoutEventServiceRequirementInput>
+  create: Prisma.XOR<Prisma.ProposalCreateWithoutEventServiceRequirementInput, Prisma.ProposalUncheckedCreateWithoutEventServiceRequirementInput>
 }
 
-export type ProposalUpdateWithWhereUniqueWithoutCreatorInput = {
+export type ProposalUpdateWithWhereUniqueWithoutEventServiceRequirementInput = {
   where: Prisma.ProposalWhereUniqueInput
-  data: Prisma.XOR<Prisma.ProposalUpdateWithoutCreatorInput, Prisma.ProposalUncheckedUpdateWithoutCreatorInput>
+  data: Prisma.XOR<Prisma.ProposalUpdateWithoutEventServiceRequirementInput, Prisma.ProposalUncheckedUpdateWithoutEventServiceRequirementInput>
 }
 
-export type ProposalUpdateManyWithWhereWithoutCreatorInput = {
+export type ProposalUpdateManyWithWhereWithoutEventServiceRequirementInput = {
   where: Prisma.ProposalScalarWhereInput
-  data: Prisma.XOR<Prisma.ProposalUpdateManyMutationInput, Prisma.ProposalUncheckedUpdateManyWithoutCreatorInput>
+  data: Prisma.XOR<Prisma.ProposalUpdateManyMutationInput, Prisma.ProposalUncheckedUpdateManyWithoutEventServiceRequirementInput>
 }
 
 export type ProposalScalarWhereInput = {
@@ -696,154 +868,335 @@ export type ProposalScalarWhereInput = {
   OR?: Prisma.ProposalScalarWhereInput[]
   NOT?: Prisma.ProposalScalarWhereInput | Prisma.ProposalScalarWhereInput[]
   id?: Prisma.StringFilter<"Proposal"> | string
-  creatorId?: Prisma.StringFilter<"Proposal"> | string
-  projectId?: Prisma.StringFilter<"Proposal"> | string
-  proposedPrice?: Prisma.DecimalFilter<"Proposal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntFilter<"Proposal"> | number
-  message?: Prisma.StringFilter<"Proposal"> | string
+  professionalId?: Prisma.StringFilter<"Proposal"> | string
+  eventServiceRequirementId?: Prisma.StringFilter<"Proposal"> | string
+  professionalServiceId?: Prisma.StringFilter<"Proposal"> | string
+  proposedAmount?: Prisma.DecimalFilter<"Proposal"> | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFilter<"Proposal"> | string
+  proposedStartAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
+  proposedEndAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
+  message?: Prisma.StringNullableFilter<"Proposal"> | string | null
   status?: Prisma.EnumProposalStatusFilter<"Proposal"> | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
+  respondedAt?: Prisma.DateTimeNullableFilter<"Proposal"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Proposal"> | Date | string
 }
 
-export type ProposalCreateWithoutProjectInput = {
+export type ProposalCreateWithoutProfessionalInput = {
   id?: string
-  proposedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays: number
-  message: string
+  proposedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  proposedStartAt: Date | string
+  proposedEndAt: Date | string
+  message?: string | null
   status?: $Enums.ProposalStatus
+  submittedAt?: Date | string
+  respondedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  creator: Prisma.CreatorCreateNestedOneWithoutProposalsInput
+  eventServiceRequirement: Prisma.EventServiceRequirementCreateNestedOneWithoutProposalsInput
+  professionalService: Prisma.ProfessionalServiceCreateNestedOneWithoutProposalsInput
   contract?: Prisma.ContractCreateNestedOneWithoutProposalInput
 }
 
-export type ProposalUncheckedCreateWithoutProjectInput = {
+export type ProposalUncheckedCreateWithoutProfessionalInput = {
   id?: string
-  creatorId: string
-  proposedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays: number
-  message: string
+  eventServiceRequirementId: string
+  professionalServiceId: string
+  proposedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  proposedStartAt: Date | string
+  proposedEndAt: Date | string
+  message?: string | null
   status?: $Enums.ProposalStatus
+  submittedAt?: Date | string
+  respondedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   contract?: Prisma.ContractUncheckedCreateNestedOneWithoutProposalInput
 }
 
-export type ProposalCreateOrConnectWithoutProjectInput = {
+export type ProposalCreateOrConnectWithoutProfessionalInput = {
   where: Prisma.ProposalWhereUniqueInput
-  create: Prisma.XOR<Prisma.ProposalCreateWithoutProjectInput, Prisma.ProposalUncheckedCreateWithoutProjectInput>
+  create: Prisma.XOR<Prisma.ProposalCreateWithoutProfessionalInput, Prisma.ProposalUncheckedCreateWithoutProfessionalInput>
 }
 
-export type ProposalCreateManyProjectInputEnvelope = {
-  data: Prisma.ProposalCreateManyProjectInput | Prisma.ProposalCreateManyProjectInput[]
+export type ProposalCreateManyProfessionalInputEnvelope = {
+  data: Prisma.ProposalCreateManyProfessionalInput | Prisma.ProposalCreateManyProfessionalInput[]
   skipDuplicates?: boolean
 }
 
-export type ProposalUpsertWithWhereUniqueWithoutProjectInput = {
+export type ProposalUpsertWithWhereUniqueWithoutProfessionalInput = {
   where: Prisma.ProposalWhereUniqueInput
-  update: Prisma.XOR<Prisma.ProposalUpdateWithoutProjectInput, Prisma.ProposalUncheckedUpdateWithoutProjectInput>
-  create: Prisma.XOR<Prisma.ProposalCreateWithoutProjectInput, Prisma.ProposalUncheckedCreateWithoutProjectInput>
+  update: Prisma.XOR<Prisma.ProposalUpdateWithoutProfessionalInput, Prisma.ProposalUncheckedUpdateWithoutProfessionalInput>
+  create: Prisma.XOR<Prisma.ProposalCreateWithoutProfessionalInput, Prisma.ProposalUncheckedCreateWithoutProfessionalInput>
 }
 
-export type ProposalUpdateWithWhereUniqueWithoutProjectInput = {
+export type ProposalUpdateWithWhereUniqueWithoutProfessionalInput = {
   where: Prisma.ProposalWhereUniqueInput
-  data: Prisma.XOR<Prisma.ProposalUpdateWithoutProjectInput, Prisma.ProposalUncheckedUpdateWithoutProjectInput>
+  data: Prisma.XOR<Prisma.ProposalUpdateWithoutProfessionalInput, Prisma.ProposalUncheckedUpdateWithoutProfessionalInput>
 }
 
-export type ProposalUpdateManyWithWhereWithoutProjectInput = {
+export type ProposalUpdateManyWithWhereWithoutProfessionalInput = {
   where: Prisma.ProposalScalarWhereInput
-  data: Prisma.XOR<Prisma.ProposalUpdateManyMutationInput, Prisma.ProposalUncheckedUpdateManyWithoutProjectInput>
+  data: Prisma.XOR<Prisma.ProposalUpdateManyMutationInput, Prisma.ProposalUncheckedUpdateManyWithoutProfessionalInput>
 }
 
-export type ProposalCreateManyCreatorInput = {
+export type ProposalCreateWithoutProfessionalServiceInput = {
   id?: string
-  projectId: string
-  proposedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays: number
-  message: string
+  proposedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  proposedStartAt: Date | string
+  proposedEndAt: Date | string
+  message?: string | null
   status?: $Enums.ProposalStatus
+  submittedAt?: Date | string
+  respondedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  professional: Prisma.ProfessionalCreateNestedOneWithoutProposalsInput
+  eventServiceRequirement: Prisma.EventServiceRequirementCreateNestedOneWithoutProposalsInput
+  contract?: Prisma.ContractCreateNestedOneWithoutProposalInput
+}
+
+export type ProposalUncheckedCreateWithoutProfessionalServiceInput = {
+  id?: string
+  professionalId: string
+  eventServiceRequirementId: string
+  proposedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  proposedStartAt: Date | string
+  proposedEndAt: Date | string
+  message?: string | null
+  status?: $Enums.ProposalStatus
+  submittedAt?: Date | string
+  respondedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  contract?: Prisma.ContractUncheckedCreateNestedOneWithoutProposalInput
+}
+
+export type ProposalCreateOrConnectWithoutProfessionalServiceInput = {
+  where: Prisma.ProposalWhereUniqueInput
+  create: Prisma.XOR<Prisma.ProposalCreateWithoutProfessionalServiceInput, Prisma.ProposalUncheckedCreateWithoutProfessionalServiceInput>
+}
+
+export type ProposalCreateManyProfessionalServiceInputEnvelope = {
+  data: Prisma.ProposalCreateManyProfessionalServiceInput | Prisma.ProposalCreateManyProfessionalServiceInput[]
+  skipDuplicates?: boolean
+}
+
+export type ProposalUpsertWithWhereUniqueWithoutProfessionalServiceInput = {
+  where: Prisma.ProposalWhereUniqueInput
+  update: Prisma.XOR<Prisma.ProposalUpdateWithoutProfessionalServiceInput, Prisma.ProposalUncheckedUpdateWithoutProfessionalServiceInput>
+  create: Prisma.XOR<Prisma.ProposalCreateWithoutProfessionalServiceInput, Prisma.ProposalUncheckedCreateWithoutProfessionalServiceInput>
+}
+
+export type ProposalUpdateWithWhereUniqueWithoutProfessionalServiceInput = {
+  where: Prisma.ProposalWhereUniqueInput
+  data: Prisma.XOR<Prisma.ProposalUpdateWithoutProfessionalServiceInput, Prisma.ProposalUncheckedUpdateWithoutProfessionalServiceInput>
+}
+
+export type ProposalUpdateManyWithWhereWithoutProfessionalServiceInput = {
+  where: Prisma.ProposalScalarWhereInput
+  data: Prisma.XOR<Prisma.ProposalUpdateManyMutationInput, Prisma.ProposalUncheckedUpdateManyWithoutProfessionalServiceInput>
+}
+
+export type ProposalCreateManyEventServiceRequirementInput = {
+  id?: string
+  professionalId: string
+  professionalServiceId: string
+  proposedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  proposedStartAt: Date | string
+  proposedEndAt: Date | string
+  message?: string | null
+  status?: $Enums.ProposalStatus
+  submittedAt?: Date | string
+  respondedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type ProposalUpdateWithoutCreatorInput = {
+export type ProposalUpdateWithoutEventServiceRequirementInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  proposedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proposedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  project?: Prisma.ProjectUpdateOneRequiredWithoutProposalsNestedInput
+  professional?: Prisma.ProfessionalUpdateOneRequiredWithoutProposalsNestedInput
+  professionalService?: Prisma.ProfessionalServiceUpdateOneRequiredWithoutProposalsNestedInput
   contract?: Prisma.ContractUpdateOneWithoutProposalNestedInput
 }
 
-export type ProposalUncheckedUpdateWithoutCreatorInput = {
+export type ProposalUncheckedUpdateWithoutEventServiceRequirementInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  proposedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalId?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalServiceId?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proposedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contract?: Prisma.ContractUncheckedUpdateOneWithoutProposalNestedInput
 }
 
-export type ProposalUncheckedUpdateManyWithoutCreatorInput = {
+export type ProposalUncheckedUpdateManyWithoutEventServiceRequirementInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  proposedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalId?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalServiceId?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proposedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ProposalCreateManyProjectInput = {
+export type ProposalCreateManyProfessionalInput = {
   id?: string
-  creatorId: string
-  proposedPrice: runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays: number
-  message: string
+  eventServiceRequirementId: string
+  professionalServiceId: string
+  proposedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  proposedStartAt: Date | string
+  proposedEndAt: Date | string
+  message?: string | null
   status?: $Enums.ProposalStatus
+  submittedAt?: Date | string
+  respondedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type ProposalUpdateWithoutProjectInput = {
+export type ProposalUpdateWithoutProfessionalInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  proposedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proposedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  creator?: Prisma.CreatorUpdateOneRequiredWithoutProposalsNestedInput
+  eventServiceRequirement?: Prisma.EventServiceRequirementUpdateOneRequiredWithoutProposalsNestedInput
+  professionalService?: Prisma.ProfessionalServiceUpdateOneRequiredWithoutProposalsNestedInput
   contract?: Prisma.ContractUpdateOneWithoutProposalNestedInput
 }
 
-export type ProposalUncheckedUpdateWithoutProjectInput = {
+export type ProposalUncheckedUpdateWithoutProfessionalInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
-  proposedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.StringFieldUpdateOperationsInput | string
+  eventServiceRequirementId?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalServiceId?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proposedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contract?: Prisma.ContractUncheckedUpdateOneWithoutProposalNestedInput
 }
 
-export type ProposalUncheckedUpdateManyWithoutProjectInput = {
+export type ProposalUncheckedUpdateManyWithoutProfessionalInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
-  creatorId?: Prisma.StringFieldUpdateOperationsInput | string
-  proposedPrice?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
-  estimatedDays?: Prisma.IntFieldUpdateOperationsInput | number
-  message?: Prisma.StringFieldUpdateOperationsInput | string
+  eventServiceRequirementId?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalServiceId?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proposedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ProposalCreateManyProfessionalServiceInput = {
+  id?: string
+  professionalId: string
+  eventServiceRequirementId: string
+  proposedAmount: runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: string
+  proposedStartAt: Date | string
+  proposedEndAt: Date | string
+  message?: string | null
+  status?: $Enums.ProposalStatus
+  submittedAt?: Date | string
+  respondedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ProposalUpdateWithoutProfessionalServiceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proposedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  professional?: Prisma.ProfessionalUpdateOneRequiredWithoutProposalsNestedInput
+  eventServiceRequirement?: Prisma.EventServiceRequirementUpdateOneRequiredWithoutProposalsNestedInput
+  contract?: Prisma.ContractUpdateOneWithoutProposalNestedInput
+}
+
+export type ProposalUncheckedUpdateWithoutProfessionalServiceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalId?: Prisma.StringFieldUpdateOperationsInput | string
+  eventServiceRequirementId?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proposedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  contract?: Prisma.ContractUncheckedUpdateOneWithoutProposalNestedInput
+}
+
+export type ProposalUncheckedUpdateManyWithoutProfessionalServiceInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  professionalId?: Prisma.StringFieldUpdateOperationsInput | string
+  eventServiceRequirementId?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedAmount?: Prisma.DecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string
+  currency?: Prisma.StringFieldUpdateOperationsInput | string
+  proposedStartAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  proposedEndAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumProposalStatusFieldUpdateOperationsInput | $Enums.ProposalStatus
+  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  respondedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -852,89 +1205,121 @@ export type ProposalUncheckedUpdateManyWithoutProjectInput = {
 
 export type ProposalSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  creatorId?: boolean
-  projectId?: boolean
-  proposedPrice?: boolean
-  estimatedDays?: boolean
+  professionalId?: boolean
+  eventServiceRequirementId?: boolean
+  professionalServiceId?: boolean
+  proposedAmount?: boolean
+  currency?: boolean
+  proposedStartAt?: boolean
+  proposedEndAt?: boolean
   message?: boolean
   status?: boolean
+  submittedAt?: boolean
+  respondedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
-  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
+  eventServiceRequirement?: boolean | Prisma.EventServiceRequirementDefaultArgs<ExtArgs>
+  professionalService?: boolean | Prisma.ProfessionalServiceDefaultArgs<ExtArgs>
   contract?: boolean | Prisma.Proposal$contractArgs<ExtArgs>
 }, ExtArgs["result"]["proposal"]>
 
 export type ProposalSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  creatorId?: boolean
-  projectId?: boolean
-  proposedPrice?: boolean
-  estimatedDays?: boolean
+  professionalId?: boolean
+  eventServiceRequirementId?: boolean
+  professionalServiceId?: boolean
+  proposedAmount?: boolean
+  currency?: boolean
+  proposedStartAt?: boolean
+  proposedEndAt?: boolean
   message?: boolean
   status?: boolean
+  submittedAt?: boolean
+  respondedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
-  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
+  eventServiceRequirement?: boolean | Prisma.EventServiceRequirementDefaultArgs<ExtArgs>
+  professionalService?: boolean | Prisma.ProfessionalServiceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["proposal"]>
 
 export type ProposalSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
-  creatorId?: boolean
-  projectId?: boolean
-  proposedPrice?: boolean
-  estimatedDays?: boolean
+  professionalId?: boolean
+  eventServiceRequirementId?: boolean
+  professionalServiceId?: boolean
+  proposedAmount?: boolean
+  currency?: boolean
+  proposedStartAt?: boolean
+  proposedEndAt?: boolean
   message?: boolean
   status?: boolean
+  submittedAt?: boolean
+  respondedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
-  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
+  eventServiceRequirement?: boolean | Prisma.EventServiceRequirementDefaultArgs<ExtArgs>
+  professionalService?: boolean | Prisma.ProfessionalServiceDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["proposal"]>
 
 export type ProposalSelectScalar = {
   id?: boolean
-  creatorId?: boolean
-  projectId?: boolean
-  proposedPrice?: boolean
-  estimatedDays?: boolean
+  professionalId?: boolean
+  eventServiceRequirementId?: boolean
+  professionalServiceId?: boolean
+  proposedAmount?: boolean
+  currency?: boolean
+  proposedStartAt?: boolean
+  proposedEndAt?: boolean
   message?: boolean
   status?: boolean
+  submittedAt?: boolean
+  respondedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ProposalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "creatorId" | "projectId" | "proposedPrice" | "estimatedDays" | "message" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["proposal"]>
+export type ProposalOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "professionalId" | "eventServiceRequirementId" | "professionalServiceId" | "proposedAmount" | "currency" | "proposedStartAt" | "proposedEndAt" | "message" | "status" | "submittedAt" | "respondedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["proposal"]>
 export type ProposalInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
-  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
+  eventServiceRequirement?: boolean | Prisma.EventServiceRequirementDefaultArgs<ExtArgs>
+  professionalService?: boolean | Prisma.ProfessionalServiceDefaultArgs<ExtArgs>
   contract?: boolean | Prisma.Proposal$contractArgs<ExtArgs>
 }
 export type ProposalIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
-  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
+  eventServiceRequirement?: boolean | Prisma.EventServiceRequirementDefaultArgs<ExtArgs>
+  professionalService?: boolean | Prisma.ProfessionalServiceDefaultArgs<ExtArgs>
 }
 export type ProposalIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  creator?: boolean | Prisma.CreatorDefaultArgs<ExtArgs>
-  project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
+  professional?: boolean | Prisma.ProfessionalDefaultArgs<ExtArgs>
+  eventServiceRequirement?: boolean | Prisma.EventServiceRequirementDefaultArgs<ExtArgs>
+  professionalService?: boolean | Prisma.ProfessionalServiceDefaultArgs<ExtArgs>
 }
 
 export type $ProposalPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Proposal"
   objects: {
-    creator: Prisma.$CreatorPayload<ExtArgs>
-    project: Prisma.$ProjectPayload<ExtArgs>
+    professional: Prisma.$ProfessionalPayload<ExtArgs>
+    eventServiceRequirement: Prisma.$EventServiceRequirementPayload<ExtArgs>
+    professionalService: Prisma.$ProfessionalServicePayload<ExtArgs>
     contract: Prisma.$ContractPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
-    creatorId: string
-    projectId: string
-    proposedPrice: runtime.Decimal
-    estimatedDays: number
-    message: string
+    professionalId: string
+    eventServiceRequirementId: string
+    professionalServiceId: string
+    proposedAmount: runtime.Decimal
+    currency: string
+    proposedStartAt: Date
+    proposedEndAt: Date
+    message: string | null
     status: $Enums.ProposalStatus
+    submittedAt: Date
+    respondedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["proposal"]>
@@ -1331,8 +1716,9 @@ readonly fields: ProposalFieldRefs;
  */
 export interface Prisma__ProposalClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  creator<T extends Prisma.CreatorDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.CreatorDefaultArgs<ExtArgs>>): Prisma.Prisma__CreatorClient<runtime.Types.Result.GetResult<Prisma.$CreatorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  project<T extends Prisma.ProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  professional<T extends Prisma.ProfessionalDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfessionalDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfessionalClient<runtime.Types.Result.GetResult<Prisma.$ProfessionalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  eventServiceRequirement<T extends Prisma.EventServiceRequirementDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.EventServiceRequirementDefaultArgs<ExtArgs>>): Prisma.Prisma__EventServiceRequirementClient<runtime.Types.Result.GetResult<Prisma.$EventServiceRequirementPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  professionalService<T extends Prisma.ProfessionalServiceDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProfessionalServiceDefaultArgs<ExtArgs>>): Prisma.Prisma__ProfessionalServiceClient<runtime.Types.Result.GetResult<Prisma.$ProfessionalServicePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   contract<T extends Prisma.Proposal$contractArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Proposal$contractArgs<ExtArgs>>): Prisma.Prisma__ContractClient<runtime.Types.Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1364,12 +1750,17 @@ export interface Prisma__ProposalClient<T, Null = never, ExtArgs extends runtime
  */
 export interface ProposalFieldRefs {
   readonly id: Prisma.FieldRef<"Proposal", 'String'>
-  readonly creatorId: Prisma.FieldRef<"Proposal", 'String'>
-  readonly projectId: Prisma.FieldRef<"Proposal", 'String'>
-  readonly proposedPrice: Prisma.FieldRef<"Proposal", 'Decimal'>
-  readonly estimatedDays: Prisma.FieldRef<"Proposal", 'Int'>
+  readonly professionalId: Prisma.FieldRef<"Proposal", 'String'>
+  readonly eventServiceRequirementId: Prisma.FieldRef<"Proposal", 'String'>
+  readonly professionalServiceId: Prisma.FieldRef<"Proposal", 'String'>
+  readonly proposedAmount: Prisma.FieldRef<"Proposal", 'Decimal'>
+  readonly currency: Prisma.FieldRef<"Proposal", 'String'>
+  readonly proposedStartAt: Prisma.FieldRef<"Proposal", 'DateTime'>
+  readonly proposedEndAt: Prisma.FieldRef<"Proposal", 'DateTime'>
   readonly message: Prisma.FieldRef<"Proposal", 'String'>
   readonly status: Prisma.FieldRef<"Proposal", 'ProposalStatus'>
+  readonly submittedAt: Prisma.FieldRef<"Proposal", 'DateTime'>
+  readonly respondedAt: Prisma.FieldRef<"Proposal", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Proposal", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Proposal", 'DateTime'>
 }

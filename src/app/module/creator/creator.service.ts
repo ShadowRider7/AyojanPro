@@ -1,5 +1,7 @@
 import type { UploadApiResponse } from "cloudinary";
 import httpStatus from "http-status";
+import type { CreatorWhereInput } from "../../../generated/prisma/models";
+import type { IQuery } from "../../interfaces";
 import { cloudinary } from "../../lib/cloudinary";
 import { prisma } from "../../lib/prisma";
 import type { RequestUser } from "../../middleware/checkAuth";
@@ -256,6 +258,32 @@ const deletePortfolio = async (portfolioId: string, user: RequestUser) => {
 			id: portfolioId,
 		},
 	});
+};
+
+const getAllCreators = async (query: IQuery) => {
+	const limit = query.limit ? Number(query.limit) : 10;
+	const page = query.page ? Number(query.page) : 1;
+	const skip = (page - 1) * limit;
+	const sortBy = query.sortBy ? query.sortBy : "createdAt";
+	const sortOrder = query.sortOrder ? query.sortOrder : "desc";
+
+	const andConditions: CreatorWhereInput[] = [
+		{ isAvailable: true },
+		{
+			schedules: {
+				some: {
+					isDeleted: false,
+					status: ScheduleStatus.PUBLISHED,
+					availableSlots: { gt: 0 },
+					startDateTime: {
+						gte: startOfToday,
+						lt: startOfTomorrow,
+						gt: now,
+					},
+				},
+			},
+		},
+	];
 };
 
 export const creatorService = {

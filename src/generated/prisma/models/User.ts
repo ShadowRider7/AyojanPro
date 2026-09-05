@@ -29,11 +29,11 @@ export type UserMinAggregateOutputType = {
   name: string | null
   email: string | null
   password: string | null
-  googleId: string | null
-  authProvider: $Enums.AuthProvider | null
-  emailVerified: boolean | null
   role: $Enums.Role | null
   status: $Enums.UserStatus | null
+  authProvider: $Enums.AuthProvider | null
+  googleId: string | null
+  emailVerified: boolean | null
   imageUrl: string | null
   imagePublicId: string | null
   isDeleted: boolean | null
@@ -47,11 +47,11 @@ export type UserMaxAggregateOutputType = {
   name: string | null
   email: string | null
   password: string | null
-  googleId: string | null
-  authProvider: $Enums.AuthProvider | null
-  emailVerified: boolean | null
   role: $Enums.Role | null
   status: $Enums.UserStatus | null
+  authProvider: $Enums.AuthProvider | null
+  googleId: string | null
+  emailVerified: boolean | null
   imageUrl: string | null
   imagePublicId: string | null
   isDeleted: boolean | null
@@ -65,11 +65,11 @@ export type UserCountAggregateOutputType = {
   name: number
   email: number
   password: number
-  googleId: number
-  authProvider: number
-  emailVerified: number
   role: number
   status: number
+  authProvider: number
+  googleId: number
+  emailVerified: number
   imageUrl: number
   imagePublicId: number
   isDeleted: number
@@ -85,11 +85,11 @@ export type UserMinAggregateInputType = {
   name?: true
   email?: true
   password?: true
-  googleId?: true
-  authProvider?: true
-  emailVerified?: true
   role?: true
   status?: true
+  authProvider?: true
+  googleId?: true
+  emailVerified?: true
   imageUrl?: true
   imagePublicId?: true
   isDeleted?: true
@@ -103,11 +103,11 @@ export type UserMaxAggregateInputType = {
   name?: true
   email?: true
   password?: true
-  googleId?: true
-  authProvider?: true
-  emailVerified?: true
   role?: true
   status?: true
+  authProvider?: true
+  googleId?: true
+  emailVerified?: true
   imageUrl?: true
   imagePublicId?: true
   isDeleted?: true
@@ -121,11 +121,11 @@ export type UserCountAggregateInputType = {
   name?: true
   email?: true
   password?: true
-  googleId?: true
-  authProvider?: true
-  emailVerified?: true
   role?: true
   status?: true
+  authProvider?: true
+  googleId?: true
+  emailVerified?: true
   imageUrl?: true
   imagePublicId?: true
   isDeleted?: true
@@ -212,11 +212,11 @@ export type UserGroupByOutputType = {
   name: string
   email: string
   password: string | null
-  googleId: string | null
-  authProvider: $Enums.AuthProvider
-  emailVerified: boolean
   role: $Enums.Role
   status: $Enums.UserStatus
+  authProvider: $Enums.AuthProvider
+  googleId: string | null
+  emailVerified: boolean
   imageUrl: string | null
   imagePublicId: string | null
   isDeleted: boolean
@@ -251,11 +251,11 @@ export type UserWhereInput = {
   name?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringNullableFilter<"User"> | string | null
-  googleId?: Prisma.StringNullableFilter<"User"> | string | null
-  authProvider?: Prisma.EnumAuthProviderFilter<"User"> | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFilter<"User"> | $Enums.AuthProvider
+  googleId?: Prisma.StringNullableFilter<"User"> | string | null
+  emailVerified?: Prisma.BoolFilter<"User"> | boolean
   imageUrl?: Prisma.StringNullableFilter<"User"> | string | null
   imagePublicId?: Prisma.StringNullableFilter<"User"> | string | null
   isDeleted?: Prisma.BoolFilter<"User"> | boolean
@@ -263,10 +263,11 @@ export type UserWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   client?: Prisma.XOR<Prisma.ClientNullableScalarRelationFilter, Prisma.ClientWhereInput> | null
-  creator?: Prisma.XOR<Prisma.CreatorNullableScalarRelationFilter, Prisma.CreatorWhereInput> | null
-  adminDisputes?: Prisma.DisputeListRelationFilter
+  professional?: Prisma.XOR<Prisma.ProfessionalNullableScalarRelationFilter, Prisma.ProfessionalWhereInput> | null
   notifications?: Prisma.NotificationListRelationFilter
-  auditLogs?: Prisma.AuditLogListRelationFilter
+  disputesRaised?: Prisma.DisputeListRelationFilter
+  disputesResolved?: Prisma.DisputeListRelationFilter
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -274,11 +275,11 @@ export type UserOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrderInput | Prisma.SortOrder
-  googleId?: Prisma.SortOrderInput | Prisma.SortOrder
-  authProvider?: Prisma.SortOrder
-  emailVerified?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  authProvider?: Prisma.SortOrder
+  googleId?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   imagePublicId?: Prisma.SortOrderInput | Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -286,10 +287,11 @@ export type UserOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   client?: Prisma.ClientOrderByWithRelationInput
-  creator?: Prisma.CreatorOrderByWithRelationInput
-  adminDisputes?: Prisma.DisputeOrderByRelationAggregateInput
+  professional?: Prisma.ProfessionalOrderByWithRelationInput
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
-  auditLogs?: Prisma.AuditLogOrderByRelationAggregateInput
+  disputesRaised?: Prisma.DisputeOrderByRelationAggregateInput
+  disputesResolved?: Prisma.DisputeOrderByRelationAggregateInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -301,10 +303,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringFilter<"User"> | string
   password?: Prisma.StringNullableFilter<"User"> | string | null
-  authProvider?: Prisma.EnumAuthProviderFilter<"User"> | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFilter<"User"> | boolean
   role?: Prisma.EnumRoleFilter<"User"> | $Enums.Role
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFilter<"User"> | $Enums.AuthProvider
+  emailVerified?: Prisma.BoolFilter<"User"> | boolean
   imageUrl?: Prisma.StringNullableFilter<"User"> | string | null
   imagePublicId?: Prisma.StringNullableFilter<"User"> | string | null
   isDeleted?: Prisma.BoolFilter<"User"> | boolean
@@ -312,10 +314,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
   client?: Prisma.XOR<Prisma.ClientNullableScalarRelationFilter, Prisma.ClientWhereInput> | null
-  creator?: Prisma.XOR<Prisma.CreatorNullableScalarRelationFilter, Prisma.CreatorWhereInput> | null
-  adminDisputes?: Prisma.DisputeListRelationFilter
+  professional?: Prisma.XOR<Prisma.ProfessionalNullableScalarRelationFilter, Prisma.ProfessionalWhereInput> | null
   notifications?: Prisma.NotificationListRelationFilter
-  auditLogs?: Prisma.AuditLogListRelationFilter
+  disputesRaised?: Prisma.DisputeListRelationFilter
+  disputesResolved?: Prisma.DisputeListRelationFilter
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceListRelationFilter
 }, "id" | "email" | "googleId">
 
 export type UserOrderByWithAggregationInput = {
@@ -323,11 +326,11 @@ export type UserOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrderInput | Prisma.SortOrder
-  googleId?: Prisma.SortOrderInput | Prisma.SortOrder
-  authProvider?: Prisma.SortOrder
-  emailVerified?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  authProvider?: Prisma.SortOrder
+  googleId?: Prisma.SortOrderInput | Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   imagePublicId?: Prisma.SortOrderInput | Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -347,11 +350,11 @@ export type UserScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
   password?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  googleId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
-  authProvider?: Prisma.EnumAuthProviderWithAggregatesFilter<"User"> | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   role?: Prisma.EnumRoleWithAggregatesFilter<"User"> | $Enums.Role
   status?: Prisma.EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderWithAggregatesFilter<"User"> | $Enums.AuthProvider
+  googleId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
+  emailVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   imagePublicId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   isDeleted?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
@@ -365,11 +368,11 @@ export type UserCreateInput = {
   name: string
   email: string
   password?: string | null
-  googleId?: string | null
-  authProvider?: $Enums.AuthProvider
-  emailVerified?: boolean
   role: $Enums.Role
   status?: $Enums.UserStatus
+  authProvider?: $Enums.AuthProvider
+  googleId?: string | null
+  emailVerified?: boolean
   imageUrl?: string | null
   imagePublicId?: string | null
   isDeleted?: boolean
@@ -377,10 +380,11 @@ export type UserCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   client?: Prisma.ClientCreateNestedOneWithoutUserInput
-  creator?: Prisma.CreatorCreateNestedOneWithoutUserInput
-  adminDisputes?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
+  professional?: Prisma.ProfessionalCreateNestedOneWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -388,11 +392,11 @@ export type UserUncheckedCreateInput = {
   name: string
   email: string
   password?: string | null
-  googleId?: string | null
-  authProvider?: $Enums.AuthProvider
-  emailVerified?: boolean
   role: $Enums.Role
   status?: $Enums.UserStatus
+  authProvider?: $Enums.AuthProvider
+  googleId?: string | null
+  emailVerified?: boolean
   imageUrl?: string | null
   imagePublicId?: string | null
   isDeleted?: boolean
@@ -400,10 +404,11 @@ export type UserUncheckedCreateInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   client?: Prisma.ClientUncheckedCreateNestedOneWithoutUserInput
-  creator?: Prisma.CreatorUncheckedCreateNestedOneWithoutUserInput
-  adminDisputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
+  professional?: Prisma.ProfessionalUncheckedCreateNestedOneWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUpdateInput = {
@@ -411,11 +416,11 @@ export type UserUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -423,10 +428,11 @@ export type UserUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.ClientUpdateOneWithoutUserNestedInput
-  creator?: Prisma.CreatorUpdateOneWithoutUserNestedInput
-  adminDisputes?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
+  professional?: Prisma.ProfessionalUpdateOneWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -434,11 +440,11 @@ export type UserUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -446,10 +452,11 @@ export type UserUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.ClientUncheckedUpdateOneWithoutUserNestedInput
-  creator?: Prisma.CreatorUncheckedUpdateOneWithoutUserNestedInput
-  adminDisputes?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
+  professional?: Prisma.ProfessionalUncheckedUpdateOneWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -457,11 +464,11 @@ export type UserCreateManyInput = {
   name: string
   email: string
   password?: string | null
-  googleId?: string | null
-  authProvider?: $Enums.AuthProvider
-  emailVerified?: boolean
   role: $Enums.Role
   status?: $Enums.UserStatus
+  authProvider?: $Enums.AuthProvider
+  googleId?: string | null
+  emailVerified?: boolean
   imageUrl?: string | null
   imagePublicId?: string | null
   isDeleted?: boolean
@@ -475,11 +482,11 @@ export type UserUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -493,11 +500,11 @@ export type UserUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -521,11 +528,11 @@ export type UserCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
-  googleId?: Prisma.SortOrder
-  authProvider?: Prisma.SortOrder
-  emailVerified?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  authProvider?: Prisma.SortOrder
+  googleId?: Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   imagePublicId?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -539,11 +546,11 @@ export type UserMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
-  googleId?: Prisma.SortOrder
-  authProvider?: Prisma.SortOrder
-  emailVerified?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  authProvider?: Prisma.SortOrder
+  googleId?: Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   imagePublicId?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
@@ -557,31 +564,17 @@ export type UserMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
-  googleId?: Prisma.SortOrder
-  authProvider?: Prisma.SortOrder
-  emailVerified?: Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  authProvider?: Prisma.SortOrder
+  googleId?: Prisma.SortOrder
+  emailVerified?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   imagePublicId?: Prisma.SortOrder
   isDeleted?: Prisma.SortOrder
   deletedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type UserCreateNestedOneWithoutAuditLogsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutAuditLogsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAuditLogsInput
-  upsert?: Prisma.UserUpsertWithoutAuditLogsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAuditLogsInput, Prisma.UserUpdateWithoutAuditLogsInput>, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
 }
 
 export type UserCreateNestedOneWithoutClientInput = {
@@ -598,34 +591,48 @@ export type UserUpdateOneRequiredWithoutClientNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutClientInput, Prisma.UserUpdateWithoutClientInput>, Prisma.UserUncheckedUpdateWithoutClientInput>
 }
 
-export type UserCreateNestedOneWithoutCreatorInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatorInput, Prisma.UserUncheckedCreateWithoutCreatorInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatorInput
+export type UserCreateNestedOneWithoutDisputesRaisedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDisputesRaisedInput, Prisma.UserUncheckedCreateWithoutDisputesRaisedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDisputesRaisedInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutCreatorNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutCreatorInput, Prisma.UserUncheckedCreateWithoutCreatorInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCreatorInput
-  upsert?: Prisma.UserUpsertWithoutCreatorInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCreatorInput, Prisma.UserUpdateWithoutCreatorInput>, Prisma.UserUncheckedUpdateWithoutCreatorInput>
-}
-
-export type UserCreateNestedOneWithoutAdminDisputesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAdminDisputesInput, Prisma.UserUncheckedCreateWithoutAdminDisputesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdminDisputesInput
+export type UserCreateNestedOneWithoutDisputesResolvedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDisputesResolvedInput, Prisma.UserUncheckedCreateWithoutDisputesResolvedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDisputesResolvedInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneWithoutAdminDisputesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutAdminDisputesInput, Prisma.UserUncheckedCreateWithoutAdminDisputesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAdminDisputesInput
-  upsert?: Prisma.UserUpsertWithoutAdminDisputesInput
+export type UserUpdateOneRequiredWithoutDisputesRaisedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDisputesRaisedInput, Prisma.UserUncheckedCreateWithoutDisputesRaisedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDisputesRaisedInput
+  upsert?: Prisma.UserUpsertWithoutDisputesRaisedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDisputesRaisedInput, Prisma.UserUpdateWithoutDisputesRaisedInput>, Prisma.UserUncheckedUpdateWithoutDisputesRaisedInput>
+}
+
+export type UserUpdateOneWithoutDisputesResolvedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDisputesResolvedInput, Prisma.UserUncheckedCreateWithoutDisputesResolvedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDisputesResolvedInput
+  upsert?: Prisma.UserUpsertWithoutDisputesResolvedInput
   disconnect?: Prisma.UserWhereInput | boolean
   delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAdminDisputesInput, Prisma.UserUpdateWithoutAdminDisputesInput>, Prisma.UserUncheckedUpdateWithoutAdminDisputesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDisputesResolvedInput, Prisma.UserUpdateWithoutDisputesResolvedInput>, Prisma.UserUncheckedUpdateWithoutDisputesResolvedInput>
+}
+
+export type UserCreateNestedOneWithoutDisputeEvidenceUploadedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDisputeEvidenceUploadedInput, Prisma.UserUncheckedCreateWithoutDisputeEvidenceUploadedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDisputeEvidenceUploadedInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDisputeEvidenceUploadedNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDisputeEvidenceUploadedInput, Prisma.UserUncheckedCreateWithoutDisputeEvidenceUploadedInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDisputeEvidenceUploadedInput
+  upsert?: Prisma.UserUpsertWithoutDisputeEvidenceUploadedInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDisputeEvidenceUploadedInput, Prisma.UserUpdateWithoutDisputeEvidenceUploadedInput>, Prisma.UserUncheckedUpdateWithoutDisputeEvidenceUploadedInput>
 }
 
 export type UserCreateNestedOneWithoutNotificationsInput = {
@@ -642,8 +649,18 @@ export type UserUpdateOneRequiredWithoutNotificationsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutNotificationsInput, Prisma.UserUpdateWithoutNotificationsInput>, Prisma.UserUncheckedUpdateWithoutNotificationsInput>
 }
 
-export type EnumAuthProviderFieldUpdateOperationsInput = {
-  set?: $Enums.AuthProvider
+export type UserCreateNestedOneWithoutProfessionalInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfessionalInput, Prisma.UserUncheckedCreateWithoutProfessionalInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfessionalInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutProfessionalNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutProfessionalInput, Prisma.UserUncheckedCreateWithoutProfessionalInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfessionalInput
+  upsert?: Prisma.UserUpsertWithoutProfessionalInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutProfessionalInput, Prisma.UserUpdateWithoutProfessionalInput>, Prisma.UserUncheckedUpdateWithoutProfessionalInput>
 }
 
 export type EnumRoleFieldUpdateOperationsInput = {
@@ -654,108 +671,8 @@ export type EnumUserStatusFieldUpdateOperationsInput = {
   set?: $Enums.UserStatus
 }
 
-export type UserCreateWithoutAuditLogsInput = {
-  id?: string
-  name: string
-  email: string
-  password?: string | null
-  googleId?: string | null
-  authProvider?: $Enums.AuthProvider
-  emailVerified?: boolean
-  role: $Enums.Role
-  status?: $Enums.UserStatus
-  imageUrl?: string | null
-  imagePublicId?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  client?: Prisma.ClientCreateNestedOneWithoutUserInput
-  creator?: Prisma.CreatorCreateNestedOneWithoutUserInput
-  adminDisputes?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutAuditLogsInput = {
-  id?: string
-  name: string
-  email: string
-  password?: string | null
-  googleId?: string | null
-  authProvider?: $Enums.AuthProvider
-  emailVerified?: boolean
-  role: $Enums.Role
-  status?: $Enums.UserStatus
-  imageUrl?: string | null
-  imagePublicId?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  client?: Prisma.ClientUncheckedCreateNestedOneWithoutUserInput
-  creator?: Prisma.CreatorUncheckedCreateNestedOneWithoutUserInput
-  adminDisputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutAuditLogsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
-}
-
-export type UserUpsertWithoutAuditLogsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutAuditLogsInput, Prisma.UserUncheckedCreateWithoutAuditLogsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutAuditLogsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutAuditLogsInput, Prisma.UserUncheckedUpdateWithoutAuditLogsInput>
-}
-
-export type UserUpdateWithoutAuditLogsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  client?: Prisma.ClientUpdateOneWithoutUserNestedInput
-  creator?: Prisma.CreatorUpdateOneWithoutUserNestedInput
-  adminDisputes?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutAuditLogsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  client?: Prisma.ClientUncheckedUpdateOneWithoutUserNestedInput
-  creator?: Prisma.CreatorUncheckedUpdateOneWithoutUserNestedInput
-  adminDisputes?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+export type EnumAuthProviderFieldUpdateOperationsInput = {
+  set?: $Enums.AuthProvider
 }
 
 export type UserCreateWithoutClientInput = {
@@ -763,21 +680,22 @@ export type UserCreateWithoutClientInput = {
   name: string
   email: string
   password?: string | null
-  googleId?: string | null
-  authProvider?: $Enums.AuthProvider
-  emailVerified?: boolean
   role: $Enums.Role
   status?: $Enums.UserStatus
+  authProvider?: $Enums.AuthProvider
+  googleId?: string | null
+  emailVerified?: boolean
   imageUrl?: string | null
   imagePublicId?: string | null
   isDeleted?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  creator?: Prisma.CreatorCreateNestedOneWithoutUserInput
-  adminDisputes?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
+  professional?: Prisma.ProfessionalCreateNestedOneWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUncheckedCreateWithoutClientInput = {
@@ -785,21 +703,22 @@ export type UserUncheckedCreateWithoutClientInput = {
   name: string
   email: string
   password?: string | null
-  googleId?: string | null
-  authProvider?: $Enums.AuthProvider
-  emailVerified?: boolean
   role: $Enums.Role
   status?: $Enums.UserStatus
+  authProvider?: $Enums.AuthProvider
+  googleId?: string | null
+  emailVerified?: boolean
   imageUrl?: string | null
   imagePublicId?: string | null
   isDeleted?: boolean
   deletedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  creator?: Prisma.CreatorUncheckedCreateNestedOneWithoutUserInput
-  adminDisputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
+  professional?: Prisma.ProfessionalUncheckedCreateNestedOneWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserCreateOrConnectWithoutClientInput = {
@@ -823,21 +742,22 @@ export type UserUpdateWithoutClientInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  creator?: Prisma.CreatorUpdateOneWithoutUserNestedInput
-  adminDisputes?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
+  professional?: Prisma.ProfessionalUpdateOneWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClientInput = {
@@ -845,33 +765,34 @@ export type UserUncheckedUpdateWithoutClientInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  creator?: Prisma.CreatorUncheckedUpdateOneWithoutUserNestedInput
-  adminDisputes?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
+  professional?: Prisma.ProfessionalUncheckedUpdateOneWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
 }
 
-export type UserCreateWithoutCreatorInput = {
+export type UserCreateWithoutDisputesRaisedInput = {
   id?: string
   name: string
   email: string
   password?: string | null
-  googleId?: string | null
-  authProvider?: $Enums.AuthProvider
-  emailVerified?: boolean
   role: $Enums.Role
   status?: $Enums.UserStatus
+  authProvider?: $Enums.AuthProvider
+  googleId?: string | null
+  emailVerified?: boolean
   imageUrl?: string | null
   imagePublicId?: string | null
   isDeleted?: boolean
@@ -879,21 +800,22 @@ export type UserCreateWithoutCreatorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   client?: Prisma.ClientCreateNestedOneWithoutUserInput
-  adminDisputes?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
+  professional?: Prisma.ProfessionalCreateNestedOneWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceCreateNestedManyWithoutUploadedByInput
 }
 
-export type UserUncheckedCreateWithoutCreatorInput = {
+export type UserUncheckedCreateWithoutDisputesRaisedInput = {
   id?: string
   name: string
   email: string
   password?: string | null
-  googleId?: string | null
-  authProvider?: $Enums.AuthProvider
-  emailVerified?: boolean
   role: $Enums.Role
   status?: $Enums.UserStatus
+  authProvider?: $Enums.AuthProvider
+  googleId?: string | null
+  emailVerified?: boolean
   imageUrl?: string | null
   imagePublicId?: string | null
   isDeleted?: boolean
@@ -901,81 +823,27 @@ export type UserUncheckedCreateWithoutCreatorInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   client?: Prisma.ClientUncheckedCreateNestedOneWithoutUserInput
-  adminDisputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
+  professional?: Prisma.ProfessionalUncheckedCreateNestedOneWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
-export type UserCreateOrConnectWithoutCreatorInput = {
+export type UserCreateOrConnectWithoutDisputesRaisedInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutCreatorInput, Prisma.UserUncheckedCreateWithoutCreatorInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDisputesRaisedInput, Prisma.UserUncheckedCreateWithoutDisputesRaisedInput>
 }
 
-export type UserUpsertWithoutCreatorInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutCreatorInput, Prisma.UserUncheckedUpdateWithoutCreatorInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutCreatorInput, Prisma.UserUncheckedCreateWithoutCreatorInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutCreatorInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutCreatorInput, Prisma.UserUncheckedUpdateWithoutCreatorInput>
-}
-
-export type UserUpdateWithoutCreatorInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  client?: Prisma.ClientUpdateOneWithoutUserNestedInput
-  adminDisputes?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
-}
-
-export type UserUncheckedUpdateWithoutCreatorInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  client?: Prisma.ClientUncheckedUpdateOneWithoutUserNestedInput
-  adminDisputes?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
-}
-
-export type UserCreateWithoutAdminDisputesInput = {
+export type UserCreateWithoutDisputesResolvedInput = {
   id?: string
   name: string
   email: string
   password?: string | null
-  googleId?: string | null
-  authProvider?: $Enums.AuthProvider
-  emailVerified?: boolean
   role: $Enums.Role
   status?: $Enums.UserStatus
+  authProvider?: $Enums.AuthProvider
+  googleId?: string | null
+  emailVerified?: boolean
   imageUrl?: string | null
   imagePublicId?: string | null
   isDeleted?: boolean
@@ -983,21 +851,22 @@ export type UserCreateWithoutAdminDisputesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   client?: Prisma.ClientCreateNestedOneWithoutUserInput
-  creator?: Prisma.CreatorCreateNestedOneWithoutUserInput
+  professional?: Prisma.ProfessionalCreateNestedOneWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceCreateNestedManyWithoutUploadedByInput
 }
 
-export type UserUncheckedCreateWithoutAdminDisputesInput = {
+export type UserUncheckedCreateWithoutDisputesResolvedInput = {
   id?: string
   name: string
   email: string
   password?: string | null
-  googleId?: string | null
-  authProvider?: $Enums.AuthProvider
-  emailVerified?: boolean
   role: $Enums.Role
   status?: $Enums.UserStatus
+  authProvider?: $Enums.AuthProvider
+  googleId?: string | null
+  emailVerified?: boolean
   imageUrl?: string | null
   imagePublicId?: string | null
   isDeleted?: boolean
@@ -1005,37 +874,38 @@ export type UserUncheckedCreateWithoutAdminDisputesInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   client?: Prisma.ClientUncheckedCreateNestedOneWithoutUserInput
-  creator?: Prisma.CreatorUncheckedCreateNestedOneWithoutUserInput
+  professional?: Prisma.ProfessionalUncheckedCreateNestedOneWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
-export type UserCreateOrConnectWithoutAdminDisputesInput = {
+export type UserCreateOrConnectWithoutDisputesResolvedInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutAdminDisputesInput, Prisma.UserUncheckedCreateWithoutAdminDisputesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDisputesResolvedInput, Prisma.UserUncheckedCreateWithoutDisputesResolvedInput>
 }
 
-export type UserUpsertWithoutAdminDisputesInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutAdminDisputesInput, Prisma.UserUncheckedUpdateWithoutAdminDisputesInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutAdminDisputesInput, Prisma.UserUncheckedCreateWithoutAdminDisputesInput>
+export type UserUpsertWithoutDisputesRaisedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDisputesRaisedInput, Prisma.UserUncheckedUpdateWithoutDisputesRaisedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDisputesRaisedInput, Prisma.UserUncheckedCreateWithoutDisputesRaisedInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutAdminDisputesInput = {
+export type UserUpdateToOneWithWhereWithoutDisputesRaisedInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutAdminDisputesInput, Prisma.UserUncheckedUpdateWithoutAdminDisputesInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDisputesRaisedInput, Prisma.UserUncheckedUpdateWithoutDisputesRaisedInput>
 }
 
-export type UserUpdateWithoutAdminDisputesInput = {
+export type UserUpdateWithoutDisputesRaisedInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1043,21 +913,22 @@ export type UserUpdateWithoutAdminDisputesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.ClientUpdateOneWithoutUserNestedInput
-  creator?: Prisma.CreatorUpdateOneWithoutUserNestedInput
+  professional?: Prisma.ProfessionalUpdateOneWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUpdateManyWithoutUploadedByNestedInput
 }
 
-export type UserUncheckedUpdateWithoutAdminDisputesInput = {
+export type UserUncheckedUpdateWithoutDisputesRaisedInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1065,9 +936,175 @@ export type UserUncheckedUpdateWithoutAdminDisputesInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.ClientUncheckedUpdateOneWithoutUserNestedInput
-  creator?: Prisma.CreatorUncheckedUpdateOneWithoutUserNestedInput
+  professional?: Prisma.ProfessionalUncheckedUpdateOneWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+}
+
+export type UserUpsertWithoutDisputesResolvedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDisputesResolvedInput, Prisma.UserUncheckedUpdateWithoutDisputesResolvedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDisputesResolvedInput, Prisma.UserUncheckedCreateWithoutDisputesResolvedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDisputesResolvedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDisputesResolvedInput, Prisma.UserUncheckedUpdateWithoutDisputesResolvedInput>
+}
+
+export type UserUpdateWithoutDisputesResolvedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  client?: Prisma.ClientUpdateOneWithoutUserNestedInput
+  professional?: Prisma.ProfessionalUpdateOneWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUpdateManyWithoutUploadedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  client?: Prisma.ClientUncheckedUpdateOneWithoutUserNestedInput
+  professional?: Prisma.ProfessionalUncheckedUpdateOneWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+}
+
+export type UserCreateWithoutDisputeEvidenceUploadedInput = {
+  id?: string
+  name: string
+  email: string
+  password?: string | null
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  authProvider?: $Enums.AuthProvider
+  googleId?: string | null
+  emailVerified?: boolean
+  imageUrl?: string | null
+  imagePublicId?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  client?: Prisma.ClientCreateNestedOneWithoutUserInput
+  professional?: Prisma.ProfessionalCreateNestedOneWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
+}
+
+export type UserUncheckedCreateWithoutDisputeEvidenceUploadedInput = {
+  id?: string
+  name: string
+  email: string
+  password?: string | null
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  authProvider?: $Enums.AuthProvider
+  googleId?: string | null
+  emailVerified?: boolean
+  imageUrl?: string | null
+  imagePublicId?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  client?: Prisma.ClientUncheckedCreateNestedOneWithoutUserInput
+  professional?: Prisma.ProfessionalUncheckedCreateNestedOneWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
+}
+
+export type UserCreateOrConnectWithoutDisputeEvidenceUploadedInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDisputeEvidenceUploadedInput, Prisma.UserUncheckedCreateWithoutDisputeEvidenceUploadedInput>
+}
+
+export type UserUpsertWithoutDisputeEvidenceUploadedInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDisputeEvidenceUploadedInput, Prisma.UserUncheckedUpdateWithoutDisputeEvidenceUploadedInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDisputeEvidenceUploadedInput, Prisma.UserUncheckedCreateWithoutDisputeEvidenceUploadedInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDisputeEvidenceUploadedInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDisputeEvidenceUploadedInput, Prisma.UserUncheckedUpdateWithoutDisputeEvidenceUploadedInput>
+}
+
+export type UserUpdateWithoutDisputeEvidenceUploadedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  client?: Prisma.ClientUpdateOneWithoutUserNestedInput
+  professional?: Prisma.ProfessionalUpdateOneWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDisputeEvidenceUploadedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  client?: Prisma.ClientUncheckedUpdateOneWithoutUserNestedInput
+  professional?: Prisma.ProfessionalUncheckedUpdateOneWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -1075,11 +1112,11 @@ export type UserCreateWithoutNotificationsInput = {
   name: string
   email: string
   password?: string | null
-  googleId?: string | null
-  authProvider?: $Enums.AuthProvider
-  emailVerified?: boolean
   role: $Enums.Role
   status?: $Enums.UserStatus
+  authProvider?: $Enums.AuthProvider
+  googleId?: string | null
+  emailVerified?: boolean
   imageUrl?: string | null
   imagePublicId?: string | null
   isDeleted?: boolean
@@ -1087,9 +1124,10 @@ export type UserCreateWithoutNotificationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   client?: Prisma.ClientCreateNestedOneWithoutUserInput
-  creator?: Prisma.CreatorCreateNestedOneWithoutUserInput
-  adminDisputes?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
-  auditLogs?: Prisma.AuditLogCreateNestedManyWithoutActorInput
+  professional?: Prisma.ProfessionalCreateNestedOneWithoutUserInput
+  disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -1097,11 +1135,11 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   name: string
   email: string
   password?: string | null
-  googleId?: string | null
-  authProvider?: $Enums.AuthProvider
-  emailVerified?: boolean
   role: $Enums.Role
   status?: $Enums.UserStatus
+  authProvider?: $Enums.AuthProvider
+  googleId?: string | null
+  emailVerified?: boolean
   imageUrl?: string | null
   imagePublicId?: string | null
   isDeleted?: boolean
@@ -1109,9 +1147,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   client?: Prisma.ClientUncheckedCreateNestedOneWithoutUserInput
-  creator?: Prisma.CreatorUncheckedCreateNestedOneWithoutUserInput
-  adminDisputes?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
-  auditLogs?: Prisma.AuditLogUncheckedCreateNestedManyWithoutActorInput
+  professional?: Prisma.ProfessionalUncheckedCreateNestedOneWithoutUserInput
+  disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -1135,11 +1174,11 @@ export type UserUpdateWithoutNotificationsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1147,9 +1186,10 @@ export type UserUpdateWithoutNotificationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.ClientUpdateOneWithoutUserNestedInput
-  creator?: Prisma.CreatorUpdateOneWithoutUserNestedInput
-  adminDisputes?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
-  auditLogs?: Prisma.AuditLogUpdateManyWithoutActorNestedInput
+  professional?: Prisma.ProfessionalUpdateOneWithoutUserNestedInput
+  disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -1157,11 +1197,11 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -1169,9 +1209,118 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   client?: Prisma.ClientUncheckedUpdateOneWithoutUserNestedInput
-  creator?: Prisma.CreatorUncheckedUpdateOneWithoutUserNestedInput
-  adminDisputes?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
-  auditLogs?: Prisma.AuditLogUncheckedUpdateManyWithoutActorNestedInput
+  professional?: Prisma.ProfessionalUncheckedUpdateOneWithoutUserNestedInput
+  disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
+}
+
+export type UserCreateWithoutProfessionalInput = {
+  id?: string
+  name: string
+  email: string
+  password?: string | null
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  authProvider?: $Enums.AuthProvider
+  googleId?: string | null
+  emailVerified?: boolean
+  imageUrl?: string | null
+  imagePublicId?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  client?: Prisma.ClientCreateNestedOneWithoutUserInput
+  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
+  disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceCreateNestedManyWithoutUploadedByInput
+}
+
+export type UserUncheckedCreateWithoutProfessionalInput = {
+  id?: string
+  name: string
+  email: string
+  password?: string | null
+  role: $Enums.Role
+  status?: $Enums.UserStatus
+  authProvider?: $Enums.AuthProvider
+  googleId?: string | null
+  emailVerified?: boolean
+  imageUrl?: string | null
+  imagePublicId?: string | null
+  isDeleted?: boolean
+  deletedAt?: Date | string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  client?: Prisma.ClientUncheckedCreateNestedOneWithoutUserInput
+  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
+  disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
+  disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
+}
+
+export type UserCreateOrConnectWithoutProfessionalInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutProfessionalInput, Prisma.UserUncheckedCreateWithoutProfessionalInput>
+}
+
+export type UserUpsertWithoutProfessionalInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutProfessionalInput, Prisma.UserUncheckedUpdateWithoutProfessionalInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutProfessionalInput, Prisma.UserUncheckedCreateWithoutProfessionalInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutProfessionalInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutProfessionalInput, Prisma.UserUncheckedUpdateWithoutProfessionalInput>
+}
+
+export type UserUpdateWithoutProfessionalInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  client?: Prisma.ClientUpdateOneWithoutUserNestedInput
+  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
+  disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUpdateManyWithoutUploadedByNestedInput
+}
+
+export type UserUncheckedUpdateWithoutProfessionalInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  client?: Prisma.ClientUncheckedUpdateOneWithoutUserNestedInput
+  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
+  disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
+  disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
+  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
 }
 
 
@@ -1180,15 +1329,17 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
  */
 
 export type UserCountOutputType = {
-  adminDisputes: number
   notifications: number
-  auditLogs: number
+  disputesRaised: number
+  disputesResolved: number
+  disputeEvidenceUploaded: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  adminDisputes?: boolean | UserCountOutputTypeCountAdminDisputesArgs
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
-  auditLogs?: boolean | UserCountOutputTypeCountAuditLogsArgs
+  disputesRaised?: boolean | UserCountOutputTypeCountDisputesRaisedArgs
+  disputesResolved?: boolean | UserCountOutputTypeCountDisputesResolvedArgs
+  disputeEvidenceUploaded?: boolean | UserCountOutputTypeCountDisputeEvidenceUploadedArgs
 }
 
 /**
@@ -1204,13 +1355,6 @@ export type UserCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensi
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountAdminDisputesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DisputeWhereInput
-}
-
-/**
- * UserCountOutputType without action
- */
 export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.NotificationWhereInput
 }
@@ -1218,8 +1362,22 @@ export type UserCountOutputTypeCountNotificationsArgs<ExtArgs extends runtime.Ty
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountAuditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AuditLogWhereInput
+export type UserCountOutputTypeCountDisputesRaisedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DisputeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDisputesResolvedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DisputeWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDisputeEvidenceUploadedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DisputeEvidenceWhereInput
 }
 
 
@@ -1228,11 +1386,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   name?: boolean
   email?: boolean
   password?: boolean
-  googleId?: boolean
-  authProvider?: boolean
-  emailVerified?: boolean
   role?: boolean
   status?: boolean
+  authProvider?: boolean
+  googleId?: boolean
+  emailVerified?: boolean
   imageUrl?: boolean
   imagePublicId?: boolean
   isDeleted?: boolean
@@ -1240,10 +1398,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   createdAt?: boolean
   updatedAt?: boolean
   client?: boolean | Prisma.User$clientArgs<ExtArgs>
-  creator?: boolean | Prisma.User$creatorArgs<ExtArgs>
-  adminDisputes?: boolean | Prisma.User$adminDisputesArgs<ExtArgs>
+  professional?: boolean | Prisma.User$professionalArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
-  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
+  disputesRaised?: boolean | Prisma.User$disputesRaisedArgs<ExtArgs>
+  disputesResolved?: boolean | Prisma.User$disputesResolvedArgs<ExtArgs>
+  disputeEvidenceUploaded?: boolean | Prisma.User$disputeEvidenceUploadedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1252,11 +1411,11 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   email?: boolean
   password?: boolean
-  googleId?: boolean
-  authProvider?: boolean
-  emailVerified?: boolean
   role?: boolean
   status?: boolean
+  authProvider?: boolean
+  googleId?: boolean
+  emailVerified?: boolean
   imageUrl?: boolean
   imagePublicId?: boolean
   isDeleted?: boolean
@@ -1270,11 +1429,11 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   name?: boolean
   email?: boolean
   password?: boolean
-  googleId?: boolean
-  authProvider?: boolean
-  emailVerified?: boolean
   role?: boolean
   status?: boolean
+  authProvider?: boolean
+  googleId?: boolean
+  emailVerified?: boolean
   imageUrl?: boolean
   imagePublicId?: boolean
   isDeleted?: boolean
@@ -1288,11 +1447,11 @@ export type UserSelectScalar = {
   name?: boolean
   email?: boolean
   password?: boolean
-  googleId?: boolean
-  authProvider?: boolean
-  emailVerified?: boolean
   role?: boolean
   status?: boolean
+  authProvider?: boolean
+  googleId?: boolean
+  emailVerified?: boolean
   imageUrl?: boolean
   imagePublicId?: boolean
   isDeleted?: boolean
@@ -1301,13 +1460,14 @@ export type UserSelectScalar = {
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "googleId" | "authProvider" | "emailVerified" | "role" | "status" | "imageUrl" | "imagePublicId" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "password" | "role" | "status" | "authProvider" | "googleId" | "emailVerified" | "imageUrl" | "imagePublicId" | "isDeleted" | "deletedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   client?: boolean | Prisma.User$clientArgs<ExtArgs>
-  creator?: boolean | Prisma.User$creatorArgs<ExtArgs>
-  adminDisputes?: boolean | Prisma.User$adminDisputesArgs<ExtArgs>
+  professional?: boolean | Prisma.User$professionalArgs<ExtArgs>
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
-  auditLogs?: boolean | Prisma.User$auditLogsArgs<ExtArgs>
+  disputesRaised?: boolean | Prisma.User$disputesRaisedArgs<ExtArgs>
+  disputesResolved?: boolean | Prisma.User$disputesResolvedArgs<ExtArgs>
+  disputeEvidenceUploaded?: boolean | Prisma.User$disputeEvidenceUploadedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1317,21 +1477,22 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "User"
   objects: {
     client: Prisma.$ClientPayload<ExtArgs> | null
-    creator: Prisma.$CreatorPayload<ExtArgs> | null
-    adminDisputes: Prisma.$DisputePayload<ExtArgs>[]
+    professional: Prisma.$ProfessionalPayload<ExtArgs> | null
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
-    auditLogs: Prisma.$AuditLogPayload<ExtArgs>[]
+    disputesRaised: Prisma.$DisputePayload<ExtArgs>[]
+    disputesResolved: Prisma.$DisputePayload<ExtArgs>[]
+    disputeEvidenceUploaded: Prisma.$DisputeEvidencePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     email: string
     password: string | null
-    googleId: string | null
-    authProvider: $Enums.AuthProvider
-    emailVerified: boolean
     role: $Enums.Role
     status: $Enums.UserStatus
+    authProvider: $Enums.AuthProvider
+    googleId: string | null
+    emailVerified: boolean
     imageUrl: string | null
     imagePublicId: string | null
     isDeleted: boolean
@@ -1733,10 +1894,11 @@ readonly fields: UserFieldRefs;
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   client<T extends Prisma.User$clientArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clientArgs<ExtArgs>>): Prisma.Prisma__ClientClient<runtime.Types.Result.GetResult<Prisma.$ClientPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  creator<T extends Prisma.User$creatorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$creatorArgs<ExtArgs>>): Prisma.Prisma__CreatorClient<runtime.Types.Result.GetResult<Prisma.$CreatorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  adminDisputes<T extends Prisma.User$adminDisputesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$adminDisputesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DisputePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  professional<T extends Prisma.User$professionalArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$professionalArgs<ExtArgs>>): Prisma.Prisma__ProfessionalClient<runtime.Types.Result.GetResult<Prisma.$ProfessionalPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  auditLogs<T extends Prisma.User$auditLogsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$auditLogsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AuditLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  disputesRaised<T extends Prisma.User$disputesRaisedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$disputesRaisedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DisputePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  disputesResolved<T extends Prisma.User$disputesResolvedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$disputesResolvedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DisputePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  disputeEvidenceUploaded<T extends Prisma.User$disputeEvidenceUploadedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$disputeEvidenceUploadedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DisputeEvidencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1770,11 +1932,11 @@ export interface UserFieldRefs {
   readonly name: Prisma.FieldRef<"User", 'String'>
   readonly email: Prisma.FieldRef<"User", 'String'>
   readonly password: Prisma.FieldRef<"User", 'String'>
-  readonly googleId: Prisma.FieldRef<"User", 'String'>
-  readonly authProvider: Prisma.FieldRef<"User", 'AuthProvider'>
-  readonly emailVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly role: Prisma.FieldRef<"User", 'Role'>
   readonly status: Prisma.FieldRef<"User", 'UserStatus'>
+  readonly authProvider: Prisma.FieldRef<"User", 'AuthProvider'>
+  readonly googleId: Prisma.FieldRef<"User", 'String'>
+  readonly emailVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly imageUrl: Prisma.FieldRef<"User", 'String'>
   readonly imagePublicId: Prisma.FieldRef<"User", 'String'>
   readonly isDeleted: Prisma.FieldRef<"User", 'Boolean'>
@@ -2193,46 +2355,22 @@ export type User$clientArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 }
 
 /**
- * User.creator
+ * User.professional
  */
-export type User$creatorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$professionalArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Creator
+   * Select specific fields to fetch from the Professional
    */
-  select?: Prisma.CreatorSelect<ExtArgs> | null
+  select?: Prisma.ProfessionalSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Creator
+   * Omit specific fields from the Professional
    */
-  omit?: Prisma.CreatorOmit<ExtArgs> | null
+  omit?: Prisma.ProfessionalOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.CreatorInclude<ExtArgs> | null
-  where?: Prisma.CreatorWhereInput
-}
-
-/**
- * User.adminDisputes
- */
-export type User$adminDisputesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Dispute
-   */
-  select?: Prisma.DisputeSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Dispute
-   */
-  omit?: Prisma.DisputeOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DisputeInclude<ExtArgs> | null
-  where?: Prisma.DisputeWhereInput
-  orderBy?: Prisma.DisputeOrderByWithRelationInput | Prisma.DisputeOrderByWithRelationInput[]
-  cursor?: Prisma.DisputeWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DisputeScalarFieldEnum | Prisma.DisputeScalarFieldEnum[]
+  include?: Prisma.ProfessionalInclude<ExtArgs> | null
+  where?: Prisma.ProfessionalWhereInput
 }
 
 /**
@@ -2260,27 +2398,75 @@ export type User$notificationsArgs<ExtArgs extends runtime.Types.Extensions.Inte
 }
 
 /**
- * User.auditLogs
+ * User.disputesRaised
  */
-export type User$auditLogsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$disputesRaisedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the AuditLog
+   * Select specific fields to fetch from the Dispute
    */
-  select?: Prisma.AuditLogSelect<ExtArgs> | null
+  select?: Prisma.DisputeSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the AuditLog
+   * Omit specific fields from the Dispute
    */
-  omit?: Prisma.AuditLogOmit<ExtArgs> | null
+  omit?: Prisma.DisputeOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.AuditLogInclude<ExtArgs> | null
-  where?: Prisma.AuditLogWhereInput
-  orderBy?: Prisma.AuditLogOrderByWithRelationInput | Prisma.AuditLogOrderByWithRelationInput[]
-  cursor?: Prisma.AuditLogWhereUniqueInput
+  include?: Prisma.DisputeInclude<ExtArgs> | null
+  where?: Prisma.DisputeWhereInput
+  orderBy?: Prisma.DisputeOrderByWithRelationInput | Prisma.DisputeOrderByWithRelationInput[]
+  cursor?: Prisma.DisputeWhereUniqueInput
   take?: number
   skip?: number
-  distinct?: Prisma.AuditLogScalarFieldEnum | Prisma.AuditLogScalarFieldEnum[]
+  distinct?: Prisma.DisputeScalarFieldEnum | Prisma.DisputeScalarFieldEnum[]
+}
+
+/**
+ * User.disputesResolved
+ */
+export type User$disputesResolvedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Dispute
+   */
+  select?: Prisma.DisputeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Dispute
+   */
+  omit?: Prisma.DisputeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DisputeInclude<ExtArgs> | null
+  where?: Prisma.DisputeWhereInput
+  orderBy?: Prisma.DisputeOrderByWithRelationInput | Prisma.DisputeOrderByWithRelationInput[]
+  cursor?: Prisma.DisputeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DisputeScalarFieldEnum | Prisma.DisputeScalarFieldEnum[]
+}
+
+/**
+ * User.disputeEvidenceUploaded
+ */
+export type User$disputeEvidenceUploadedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DisputeEvidence
+   */
+  select?: Prisma.DisputeEvidenceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DisputeEvidence
+   */
+  omit?: Prisma.DisputeEvidenceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DisputeEvidenceInclude<ExtArgs> | null
+  where?: Prisma.DisputeEvidenceWhereInput
+  orderBy?: Prisma.DisputeEvidenceOrderByWithRelationInput | Prisma.DisputeEvidenceOrderByWithRelationInput[]
+  cursor?: Prisma.DisputeEvidenceWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DisputeEvidenceScalarFieldEnum | Prisma.DisputeEvidenceScalarFieldEnum[]
 }
 
 /**
