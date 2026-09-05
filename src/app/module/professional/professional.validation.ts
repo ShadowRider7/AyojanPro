@@ -1,6 +1,40 @@
 import { z } from "zod";
 
-const updateCreatorProfileSchema = z.object({
+const applyAsProfessionalSchema = z.object({
+	user: z.object({
+		name: z.string().min(2, "Name must be at least 2 characters long"),
+		email: z.string().email("Invalid email address"),
+	}),
+	professional: z.object({
+		phone: z
+			.string()
+			.max(30, "Phone number cannot exceed 30 characters")
+			.optional()
+			.or(z.literal("")),
+		address: z.string().optional().or(z.literal("")),
+		city: z
+			.string()
+			.max(100, "City name cannot exceed 100 characters")
+			.optional()
+			.or(z.literal("")),
+		country: z
+			.string()
+			.max(100, "Country name cannot exceed 100 characters")
+			.optional()
+			.or(z.literal("")),
+		professionalTitle: z
+			.string()
+			.min(2, "Professional title is required")
+			.max(255),
+		bio: z.string().optional().or(z.literal("")),
+		experienceYears: z
+			.number()
+			.int()
+			.nonnegative("Experience years must be a positive integer"),
+	}),
+});
+
+const updateProfessionalProfileSchema = z.object({
 	bio: z
 		.string()
 		.max(500, "Bio cannot exceed 500 characters")
@@ -32,7 +66,8 @@ const updateCreatorProfileSchema = z.object({
 	behanceUrl: z.string().url("Invalid Behance URL").nullable().optional(),
 	dribbbleUrl: z.string().url("Invalid Dribbble URL").nullable().optional(),
 });
-const CreatePortfolioSchema = z.object({
+
+export const CreatePortfolioSchema = z.object({
 	title: z
 		.string("Title is required")
 		.min(1, "Title cannot be empty")
@@ -45,17 +80,16 @@ const CreatePortfolioSchema = z.object({
 		.trim()
 		.optional(),
 
-	category: z
+	eventType: z
 		.string()
-		.max(100, "Category must be 100 characters or less")
+		.max(100, "Event type must be 100 characters or less")
 		.trim()
 		.optional(),
 
-	tools: z
-		.array(z.string().min(1, "Tool name cannot be empty"))
-		.nonempty({ message: "At least one tool must be specified" }),
-
-	thumbnailUrl: z.string().url("Invalid thumbnail URL format").optional(),
+	workDays: z
+		.string("Work days is required")
+		.min(1, "Work days cannot be empty")
+		.trim(),
 
 	mediaUrl: z.string("Media URL is required").url("Invalid media URL format"),
 
@@ -63,9 +97,15 @@ const CreatePortfolioSchema = z.object({
 		.string("Public ID is required")
 		.min(1, "Public ID cannot be empty"),
 
-	externalUrl: z.string().url("Invalid external URL format").optional(),
+	externalUrl: z
+		.string()
+		.url("Invalid external URL format")
+		.optional()
+		.or(z.literal("")),
 });
-export const CreatorValidation = {
-	updateCreatorProfileSchema,
+
+export const ProfessionalValidation = {
+	applyAsProfessionalSchema,
+	updateProfessionalProfileSchema,
 	CreatePortfolioSchema,
 };

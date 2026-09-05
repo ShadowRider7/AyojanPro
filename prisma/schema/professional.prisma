@@ -1,15 +1,17 @@
 
 model Professional {
   id String @id @default(uuid())
+  name String
+  email String @unique
 
   phone   String? @db.VarChar(30)
   address String? @db.Text
   city    String? @db.VarChar(100)
   country String? @db.VarChar(100)
 
-  professionalTitle String? @db.VarChar(255)
+  professionalTitle String @db.VarChar(255)
   bio               String? @db.Text
-  experienceYears   Int?
+  experienceYears   Int
 
   services       ProfessionalService[]
   skills         ProfessionalSkill[]

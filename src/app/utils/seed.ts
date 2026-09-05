@@ -116,27 +116,27 @@ export const seedTesterClient = async () => {
 	}
 };
 
-export const seedTesterCreator = async () => {
+export const seedTesterProfessional = async () => {
 	try {
-		const isTesterCreatorExist = await prisma.user.findUnique({
+		const isTesterProfessionalExist = await prisma.user.findUnique({
 			where: {
-				email: config.tester_creator_email,
+				email: config.tester_professional_email,
 			},
 		});
 
-		if (isTesterCreatorExist) {
-			console.log("Tester Creator Already Exists!");
+		if (isTesterProfessionalExist) {
+			console.log("Tester Professional Already Exists!");
 			return;
 		}
 
-		const name = config.tester_creator_name;
-		const email = config.tester_creator_email;
-		const password = config.tester_creator_password;
+		const name = config.tester_professional_name;
+		const email = config.tester_professional_email;
+		const password = config.tester_professional_password;
 
 		if (!name || !email || !password) {
 			throw new AppError(
 				httpStatus.INTERNAL_SERVER_ERROR,
-				"Tester Creator Name , Email, Password Missing In Env File!!!",
+				"Tester Professional Name , Email, Password Missing In Env File!!!",
 			);
 		}
 
@@ -145,14 +145,14 @@ export const seedTesterCreator = async () => {
 			Number(config.bcrypt_salt_rounds),
 		);
 
-		const testerCreator = await prisma.user.create({
+		const testerProfessional = await prisma.user.create({
 			data: {
 				name,
 				email,
 				password: hashedPassword,
 				role: Role.CREATOR,
 				emailVerified: true,
-				creator: {
+				professional: {
 					create: {
 						email,
 						name,
@@ -162,13 +162,13 @@ export const seedTesterCreator = async () => {
 			},
 		});
 
-		console.log("Tester Creator Created : ", testerCreator);
+		console.log("Tester Professional Created : ", testerProfessional);
 	} catch (error) {
-		console.log("Error Seeding Tester Creator : ", error);
+		console.log("Error Seeding Tester Professional : ", error);
 
 		await prisma.user.delete({
 			where: {
-				email: config.tester_creator_email,
+				email: config.tester_professional_email,
 			},
 		});
 	}

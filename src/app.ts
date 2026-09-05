@@ -12,7 +12,7 @@ import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
 import { notFound } from "./app/middleware/notFound";
 import { AuthRoutes } from "./app/module/auth/auth.route";
 import { ClientRoutes } from "./app/module/client/client.route";
-import { CreatorRoutes } from "./app/module/creator/creator.route";
+import { ProfessionalRoutes } from "./app/module/creator/professional.route";
 import { UserRoutes } from "./app/module/user/user.route";
 
 const app: Application = express();
@@ -34,7 +34,7 @@ app.use(cookieParser());
 app.use("/api/v1/auth", AuthRoutes);
 app.use("/api/v1/user", UserRoutes);
 app.use("/api/v1/client", ClientRoutes);
-app.use("/api/v1/creator", CreatorRoutes);
+app.use("/api/v1/professional", ProfessionalRoutes);
 // Basic route
 app.get("/", async (req: Request, res: Response) => {
 	res.status(httpStatus.OK).json({

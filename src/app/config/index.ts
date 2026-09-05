@@ -31,7 +31,7 @@ export default {
 	tester_client_name: process.env.TESTER_CLIENT_NAME!,
 	tester_client_email: process.env.TESTER_CLIENT_EMAIL!,
 	tester_client_password: process.env.TESTER_CLIENT_PASSWORD!,
-	tester_creator_name: process.env.TESTER_CREATOR_NAME!,
-	tester_creator_email: process.env.TESTER_CREATOR_EMAIL!,
-	tester_creator_password: process.env.TESTER_CREATOR_PASSWORD!,
+	tester_professional_name: process.env.TESTER_CREATOR_NAME!,
+	tester_professional_email: process.env.TESTER_CREATOR_EMAIL!,
+	tester_professional_password: process.env.TESTER_CREATOR_PASSWORD!,
 };

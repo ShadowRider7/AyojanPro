@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Application Update</title>
+    <style>
+      /* Reset & Base Styles */
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100% !important;
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        background-color: #f7f7f7;
+        font-family: Arial, Helvetica, sans-serif;
+        color: #333333;
+      }
+      img {
+        line-height: 100%;
+        outline: none;
+        text-decoration: none;
+        -ms-interpolation-mode: bicubic;
+        border: 0;
+      }
+      table {
+        border-collapse: collapse !important;
+        mso-table-lspace: 0pt;
+        mso-table-rspace: 0pt;
+      }
+      td {
+        font-family: Arial, Helvetica, sans-serif;
+      }
+      /* Utility Styles */
+      .wrapper {
+        width: 100%;
+        table-layout: fixed;
+        background-color: #f7f7f7;
+        padding: 40px 0;
+      }
+      .container {
+        width: 100%;
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      }
+      /* Content Styles */
+      .content-padding {
+        padding: 40px 30px;
+      }
+      h2 {
+        margin: 0 0 20px 0;
+        font-size: 24px;
+        line-height: 30px;
+        color: #111111;
+        font-weight: bold;
+      }
+      p {
+        margin: 0 0 16px 0;
+        font-size: 15px;
+        line-height: 24px;
+        color: #444444;
+      }
+      p:last-of-type {
+        margin-bottom: 24px;
+      }
+      /* Notification Alert Callout Table Box Layout */
+      .reason-box {
+        width: 100%;
+        margin-bottom: 24px;
+        background-color: #fdf2f2;
+        border-left: 4px solid #e02424;
+      }
+      .reason-text {
+        padding: 14px 16px;
+        font-size: 14px;
+        line-height: 22px;
+        color: #611a15;
+      }
+      .footer {
+        padding-top: 24px;
+        border-top: 1px solid #eeeeee;
+        font-size: 12px;
+        line-height: 18px;
+        color: #888888;
+      }
+    </style>
+  </head>
+  <body>
+    <center class="wrapper">
+      <!--[if mso]>
+      <table align="center" border="0" cellpadding="0" cellspacing="0" width="500" style="width:500px; background-color:#ffffff;">
+      <tr>
+      <td>
+      <![endif]-->
+      <table class="container" cellpadding="0" cellspacing="0" width="100%" role="presentation">
+        <tr>
+          <td class="content-padding">
+            <h2>Application Update</h2>
+            <p>Hello, <%= name %>, thank you for applying to AyojanPro System.</p>
+            <p>After review, we are unable to approve your application at this time.</p>
+            
+            <% if (reason) { %>
+              <table class="reason-box" cellpadding="0" cellspacing="0" role="presentation">
+                <tr>
+                  <td class="reason-text">
+                    <strong>Reason:</strong> <%= reason %>
+                  </td>
+                </tr>
+              </table>
+            <% } %>
+          </td>
+        </tr>
+        <tr>
+          <td class="content-padding footer" align="left">
+            &copy; AyojanPro System. All rights reserved.
+          </td>
+        </tr>
+      </table>
+      <!--[if mso]>
+      </td>
+      </tr>
+      </table>
+      <![endif]-->
+    </center>
+  </body>
+</html>

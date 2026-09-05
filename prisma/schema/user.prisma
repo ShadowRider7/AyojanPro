@@ -9,6 +9,7 @@ model User {
   authProvider AuthProvider @default(CREDENTIAL)
   googleId     String?      @unique @db.VarChar(255)
   emailVerified Boolean      @default(false)
+  needPasswordChange Boolean @default(false)
 
   imageUrl      String?
   imagePublicId String?
