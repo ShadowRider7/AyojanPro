@@ -2,8 +2,6 @@
 model Professional {
   id String @id @default(uuid())
 
-  name    String  @db.VarChar(255)
-  email   String  @db.VarChar(255)
   phone   String? @db.VarChar(30)
   address String? @db.Text
   city    String? @db.VarChar(100)
@@ -46,7 +44,6 @@ model Professional {
   userId String @unique
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  @@index([email])
   @@index([status])
    @@index([city])
   @@index([acceptingBookings])

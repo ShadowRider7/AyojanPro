@@ -2,7 +2,7 @@
 
 ## 1. Project Overview
 
-**AyojanPro** is a local event management and event-service booking platform. It connects **clients who organize events** with **professionals who provide event-related services**. It is specifically an event-service platform, not a generic freelancing marketplace.
+**AyojanPro** is a local event management and event-service booking platform. It connects **clients who organize events** with **professionals who provide event-related services**, performed on-site in person (photography, videography, drone coverage, decoration, makeup, sound, etc.). It is specifically an event-service platform, not a generic freelancing marketplace.
 
 ### Core Workflow
 
@@ -23,11 +23,13 @@ Contract Created
         ↓
 30% Upfront Payment
         ↓
-Service/Event Execution
+Service Executed On-Site
         ↓
-Completion
+Professional Submits Deliverable(s) & Marks Delivered
         ↓
 70% Final Payment
+        ↓
+Contract Completed
         ↓
 Mutual Reviews
         ↓
@@ -44,19 +46,21 @@ Exactly three roles exist:
 
 ### Client
 
-Clients can register/login with credentials or Google OAuth, manage their profile, create and publish events, define multiple service requirements, set a separate budget and schedule for each service, receive and review proposals, accept proposals, hire the same professional for multiple requirements of one event, hire different professionals for different requirements, make bKash payments, complete services, review professionals, and raise disputes with evidence.
+Clients can register/login with credentials or Google OAuth, manage their profile, create and publish events, define multiple service requirements, set a separate budget and schedule for each service, receive and review proposals, accept proposals, hire the same professional for multiple requirements of one event, hire different professionals for different requirements, make bKash payments, confirm/complete services, review professionals, and raise disputes with evidence.
 
 ### Professional
 
-Professionals **cannot directly register as active professionals**. They must submit an application containing personal and professional information, services, skills, experience, previous work and portfolio information. Admin reviews the application; only approved applicants become active professionals.
+A professional does **not** go through a separate application entity. Applying to become a professional **is** creating the `Professional` profile itself: a `User` account with role `PROFESSIONAL` is created together with a `Professional` record that starts in `PENDING` status and carries the application information directly (personal/professional details, services, skills, experience, portfolio, resume, additional supporting files). There is no separate `ProfessionalApplication` table — the profile the applicant fills out **is** the professional's eventual profile.
 
-Active professionals can manage their profile, multiple services, skills, experience, portfolio, availability and time-off; enable/disable `acceptingBookings`; browse events; submit proposals for suitable service requirements; provide contracted services; receive payments; review clients; and raise disputes.
+Admin reviews the same `Professional` record and flips its status to `APPROVED` or `REJECTED` (with an optional `rejectionReason`). Only an `APPROVED` professional is treated as active on the platform — a `PENDING` or `REJECTED` professional cannot browse events or submit proposals, even though the row already exists.
+
+Active (`APPROVED`) professionals can manage their profile, multiple services, skills, experience, portfolio; enable/disable `acceptingBookings`; browse events; submit proposals for suitable service requirements; provide contracted services in person; submit deliverables; receive payments; review clients; and raise disputes.
 
 A professional may provide multiple services and may be hired for multiple service requirements of the same event. `acceptingBookings = false` prevents new bookings but does not invalidate existing confirmed contracts.
 
 ### Admin
 
-Admin manages clients, professionals, professional applications, events, service requirements, proposals, contracts, payments, disputes, evidence and platform-level operations. Admin can approve/reject professional applications and resolve disputes.
+Admin manages clients, professionals (including reviewing pending applications on the `Professional` record itself), events, service requirements, proposals, contracts, payments, disputes, evidence and platform-level operations. Admin can approve/reject professionals and resolve disputes.
 
 ## 3. Authentication and Authorization
 
@@ -68,59 +72,50 @@ Only clients use the normal public registration flow. Client authentication supp
 Professionals follow:
 
 ```text
-Professional Application → Admin Review → Approval → Professional Account/Profile
+User account (role=PROFESSIONAL) + Professional profile (status=PENDING)
+        ↓
+Admin reviews the Professional record
+        ↓
+status = APPROVED → professional becomes active
+status = REJECTED → professional stays inactive, rejectionReason recorded
 ```
 
 Admin accounts are controlled by the platform and may be seeded/created administratively.
 
-Every protected operation must verify authentication, identity, role and resource ownership/permission.
+Every protected operation must verify authentication, identity, role and resource ownership/permission. A `PENDING` or `REJECTED` professional must be blocked from any professional-only action even though the account exists.
 
-## 4. Professional Application
+## 4. Profiles
 
-A dedicated application process is required. Applications may contain personal information, contact information, professional title/description, services, skills, experience, previous work, portfolio information and supporting information.
-
-Application statuses:
-
-- `PENDING`
-- `APPROVED`
-- `REJECTED`
-
-Only an approved application can create/activate a professional.
-
-## 5. Profiles
+Identity fields (`name`, `email`, `profile image`) live on `User` for **both** clients and professionals — neither role duplicates them. Role-specific models only hold role-specific data.
 
 ### Client Profile
 
-May contain name, contact information, profile image, location, bio and other required information.
+`Client` holds phone, profile image, bio, address, city, country.
 
 ### Professional Profile
 
-May contain name, profile image, professional title, bio, location, contact information where appropriate, experience, skills, services, availability, booking preference and rating information.
+`Professional` holds phone, address, city, country, professional title, bio, years of experience, `acceptingBookings`, application/review metadata (`status`, `reviewedById`, `reviewedAt`, `rejectionReason`, `resume`, `additionalFiles`), and aggregate rating info (`averageRating`, `totalReviews`).
 
-## 6. Professional Services, Skills and Experience
+## 5. Professional Services, Skills and Experience
 
 A professional can provide **multiple services**, such as photography, videography, drone coverage, decoration, makeup or sound management.
 
-A professional service may contain service name/category, description, pricing information, service details and metadata.
+A professional service may contain service name/category, description, pricing information (min/max), an active flag, and metadata.
 
-Professionals can maintain skills and experience. Experience may contain position/title, description, organization/client, start date, end date and relevant details.
+Professionals can maintain skills (from a shared `Skill` catalog, joined via `ProfessionalSkill`) and experience entries (position/title, description, organization, start date, end date).
 
-## 7. Professional Portfolio
+## 6. Professional Portfolio
 
-Professionals can maintain multiple portfolio items showcasing previous/major events. Items may contain title, description, event/work type, media, external URL, date and other relevant information. Cloudinary may be used for media storage.
+Professionals can maintain multiple portfolio items showcasing previous/major events: title, description, event/work type, media URL, external URL, work date. Cloudinary may be used for media storage.
 
-## 8. Professional Availability
-
-Professionals can manage recurring availability rules and specific unavailable/time-off periods. Availability must be checked before accepting proposals and creating contracts.
-
-## 9. Event Management
+## 7. Event Management
 
 Clients can create and publish events containing:
 
 - Title
 - Description
 - Event type/category
-- Location
+- Location (address, city, country)
 - Overall `startAt`
 - Overall `endAt`
 - Status
@@ -128,7 +123,7 @@ Clients can create and publish events containing:
 
 The overall event time describes the event, while each service requirement has its own actual service time.
 
-## 10. Event Service Requirements
+## 8. Event Service Requirements
 
 An event can contain multiple independent service requirements:
 
@@ -141,9 +136,9 @@ Wedding
 └── Decoration
 ```
 
-Each requirement must have its own service type/name, description, **budget**, `startAt`, `endAt`, status and relevant requirements.
+Each requirement has its own service name, description, **budget**, `startAt`, `endAt`, status and relevant requirements. The client must specify a **separate budget for every required service**.
 
-The client must specify a **separate budget for every required service**.
+A professional applies (submits a proposal) only to the requirements matching skills/services they actually offer — one professional may be qualified for several requirements of the same event, or only one, while other requirements are picked up by different professionals. Each requirement is filled **independently**: one requirement being hired-out does not affect the status of any other requirement on the same event. A requirement's own status (`OPEN` → `FILLED`) reflects only that requirement, not the event as a whole.
 
 Example:
 
@@ -155,7 +150,7 @@ Makeup      → 15,000 BDT
 Decoration  → 40,000 BDT
 ```
 
-## 11. Date and Time Rules
+## 9. Date and Time Rules
 
 Date/time handling is critical throughout the platform. Actual timestamps must use PostgreSQL/Prisma `DateTime` values consistently.
 
@@ -167,18 +162,9 @@ startAt < endAt
 
 must be true.
 
-Event and service schedules may differ where business rules permit. For example:
+Event and service schedules may differ where business rules permit. The backend must validate service timing according to the platform's scheduling rules.
 
-```text
-Event:       4:00 PM → 10:00 PM
-Drone:       5:00 PM → 7:00 PM
-Photography: 4:00 PM → 10:00 PM
-Makeup:      2:00 PM → 5:00 PM
-```
-
-The backend must validate service timing according to the platform's scheduling rules.
-
-## 12. Professional Time Conflict Rules
+## 10. Professional Time Conflict Rules
 
 A professional cannot accept overlapping service periods.
 
@@ -188,19 +174,13 @@ AND
 existing.endAt > new.startAt
 ```
 
-means the periods overlap.
+means the periods overlap. Therefore `10:00–12:00` and `12:00–15:00` are allowed, while `10:00–14:00` and `12:00–16:00` conflict.
 
-Therefore `10:00–12:00` and `12:00–15:00` are allowed, while `10:00–14:00` and `12:00–16:00` conflict.
+The conflict check is run directly against `Contract` rows in `CONFIRMED` or `IN_PROGRESS` status for that professional — there is no separate availability/schedule table; the contract table is the single source of truth for a professional's booked time.
 
-Conflict checks must consider contracts from the same or different events, multiple services assigned to the same professional, availability rules and time-off periods.
-
-A professional can work on multiple services/events on the same date if their actual service periods do not overlap.
-
-## 13. Multiple Services by One Professional
+## 11. Multiple Services by One Professional
 
 A professional is **not limited to one service per event**.
-
-Valid example:
 
 ```text
 Wedding
@@ -211,229 +191,155 @@ Wedding
 └── Decoration → Professional B
 ```
 
-Professional A can have multiple contracts for the same event as long as the service periods do not overlap.
+Professional A can have multiple contracts for the same event as long as the service periods do not overlap. Each service requirement is treated as an independent booking requirement.
 
-Each service requirement is treated as an independent booking requirement.
+## 12. Proposal System
 
-## 14. Proposal System
+A proposal belongs to one professional, one event service requirement, and one professional service. A professional may propose for multiple requirements of the same event when qualified for each.
 
-A proposal belongs to one professional and one event service requirement. A professional may propose for multiple requirements of the same event when qualified.
+A proposal contains proposed amount, proposed `startAt`, proposed `endAt`, message/details and status.
 
-A proposal may contain proposed amount, proposed `startAt`, proposed `endAt`, message/details and status.
+Proposal statuses: `PENDING`, `ACCEPTED`, `REJECTED`, `WITHDRAWN`, `EXPIRED`.
 
-Proposal statuses:
+## 13. Proposal and Requirement Exclusivity
 
-- `PENDING`
-- `ACCEPTED`
-- `REJECTED`
-- `WITHDRAWN`
-- `EXPIRED`
-
-## 15. Proposal and Requirement Exclusivity
-
-Each individual event service requirement can have only **one active hired professional**.
-
-Valid:
-
-```text
-Wedding
-├── Photography → Professional A
-├── Videography → Professional B
-└── Drone → Professional A
-```
-
-Invalid:
-
-```text
-Photography
-├── Professional A → accepted
-└── Professional B → accepted
-```
-
-Once a requirement has an active/accepted/confirmed contract, another professional cannot be hired for that same requirement. Other unfilled requirements remain open.
+Each individual event service requirement can have only **one active hired professional**. Once a requirement has an active/accepted/confirmed contract, another professional cannot be hired for that same requirement. Other unfilled requirements on the same event remain open regardless.
 
 Cancelled/rejected/expired proposals or contracts must not unnecessarily block future hiring.
 
 Proposal acceptance and contract creation must use transactional/race-safe logic so two professionals cannot simultaneously become the hired professional for one requirement.
 
-## 16. Contract System
+## 14. Contract System
 
-A contract is created when the client accepts a professional proposal.
+A contract is created when the client accepts a professional's proposal. A contract represents one client, one professional, one event, one specific event service requirement and one professional service, and carries agreed amount, agreed service `startAt`/`endAt`, status, terms, and lifecycle timestamps.
 
-A contract represents one client, one professional, one event, one specific event service requirement and one professional service.
+Contract statuses and their flow:
 
-It should contain agreed amount, agreed service `startAt`/`endAt`, status, terms/details, creation date and completion/cancellation information where necessary.
+```text
+PENDING → CONFIRMED → IN_PROGRESS → DELIVERED → COMPLETED
+                                            ↘ CANCELLED
+                                            ↘ DISPUTED → RESOLVED
+```
 
-The contract time must be validated again when created/accepted.
+- `PENDING` — contract created, awaiting confirmation (initial payment).
+- `CONFIRMED` — 30% upfront payment settled; the booking is locked in and now counts toward the professional's schedule-conflict check.
+- `IN_PROGRESS` — the service window has started.
+- `DELIVERED` — the professional has finished the on-site service and marked it delivered, optionally attaching a `Deliverable` record with media/drive links. Not every service produces a deliverable (e.g. decoration, live sound management) — the professional can move straight to `DELIVERED` without one.
+- `COMPLETED` — final 70% payment is settled; reviews unlock.
+- `CANCELLED` / `DISPUTED` / `RESOLVED` — exception paths.
 
-Contract statuses may include:
+Invalid state transitions must be rejected. The contract time must be validated again when created/confirmed.
 
-- `PENDING`
-- `CONFIRMED`
-- `IN_PROGRESS`
-- `COMPLETED`
-- `CANCELLED`
-- `DISPUTED`
-- `RESOLVED`
-
-Invalid state transitions must be rejected.
-
-## 17. Payment System
+## 15. Payment System
 
 The payment provider is **bKash**. Payment status must be verified by the backend; the frontend must never be trusted to declare payment success.
 
-Payments are associated with contracts.
+Payments are associated with contracts and (for record-keeping) the paying client.
 
 ### Payment Schedule
 
 ```text
-30% → Initial/Upfront Payment
-70% → Final Payment
+30% → Initial/Upfront Payment (unlocks CONFIRMED)
+70% → Final Payment (unlocks COMPLETED)
 ```
 
-The initial 30% is paid upfront. The remaining 70% is paid after the service/event is finished and required completion conditions are satisfied.
+The initial 30% is paid upfront to confirm the contract. The remaining 70% is paid after the service is marked `DELIVERED`.
 
-Payment records should support contract, payment stage, amount, currency, payment method, bKash information, transaction/reference information, payment status, transaction time, failure reason and metadata.
+Payment records support contract, client, payment stage, amount, currency, method, bKash transaction/reference information, status, transaction time, failure reason and metadata. Only one payment per (contract, stage) is permitted.
 
-Payment stages:
+Payment stages: `INITIAL`, `FINAL`.
+Payment statuses: `PENDING`, `PROCESSING`, `COMPLETED`, `FAILED`, `CANCELLED`, `REFUNDED`.
 
-- `INITIAL`
-- `FINAL`
+## 16. Service Delivery & Deliverables
 
-Possible payment statuses:
+Because AyojanPro is an in-person, on-location service platform, "delivery" does not always mean a file handoff — most services are physically performed at the event. A `Deliverable` exists to optionally record links (Cloudinary uploads, Google Drive folders, etc.) for services that do produce media or files.
 
-- `PENDING`
-- `PROCESSING`
-- `COMPLETED`
-- `FAILED`
-- `CANCELLED`
-- `REFUNDED`
+- At most **one** `Deliverable` record per contract (title, description, an array of external links, submission timestamp).
+- Creating/attaching a `Deliverable` is what the professional does when they have something to hand over; it is optional.
+- Marking a contract `DELIVERED` never requires a `Deliverable` to exist — a professional can mark a purely in-person service (e.g. decoration setup, makeup) as delivered with nothing attached.
+- Final payment eligibility is gated on contract status `DELIVERED`, not on the presence of a `Deliverable`.
 
-Successful bKash payments must be verified server-side.
+## 17. Reviews and Ratings
 
-## 18. Service Completion
-
-After contracted work is delivered, the service/contract can be marked completed according to the workflow. The final 70% becomes payable/processable according to the business rules. Reviews become available after the required completion/payment conditions.
-
-Completion must be verified by the backend.
-
-## 19. Reviews and Ratings
-
-After successful completion, both sides can review each other:
+After a contract reaches `COMPLETED`, both sides can review each other:
 
 ```text
 Client → Professional
 Professional → Client
 ```
 
-A review may contain rating, comment, contract, reviewer, reviewee and creation date. A reviewer cannot create unlimited duplicate reviews for the same contract and direction.
+A review contains rating, comment, contract, reviewer, reviewee and creation date. Each side can leave only one review per contract per direction (enforced uniquely on contract + client + professional + direction).
 
-## 20. Dispute Management
+## 18. Dispute Management
 
-Either client or professional can raise a dispute for issues such as:
+Either client or professional can raise a dispute for issues such as client non-payment, professional no-show, service not delivered, quality failure, contractual violation, or other legitimate contract-related issues.
 
-- Client non-payment.
-- Professional no-show.
-- Service not delivered.
-- Material service/quality failure.
-- Contractual violation.
-- Other legitimate contract-related issues.
+A dispute contains contract, raised-by user, raised-by role, reason, description, status, resolution information and timestamps.
 
-A dispute should contain contract, raised-by user, reason, description, status, resolution information and timestamps.
+## 19. Dispute Evidence
 
-## 21. Dispute Evidence
+Disputes require sufficient supporting evidence: images, documents, screenshots, other media, and descriptions. Cloudinary may be used for media storage. Evidence is associated with the relevant dispute and protected from unauthorized access.
 
-Disputes require sufficient supporting evidence. Evidence may include images, documents, screenshots, other media and descriptions. Cloudinary may be used for appropriate media storage.
-
-Evidence must be associated with the relevant dispute and protected from unauthorized access.
-
-## 22. Admin Dispute Resolution
+## 20. Admin Dispute Resolution
 
 Admin can inspect event, service requirement, proposal, contract, payment records, user information, evidence and completion information before resolving a dispute.
 
-Possible dispute statuses:
+Dispute statuses: `OPEN`, `UNDER_REVIEW`, `RESOLVED`, `REJECTED`, `CLOSED`.
 
-- `OPEN`
-- `UNDER_REVIEW`
-- `RESOLVED`
-- `REJECTED`
-- `CLOSED`
+## 21. Notifications and Email
 
-## 23. Notifications and Email
+Notifications carry a `type` (`APPLICATION`, `PROPOSAL`, `CONTRACT`, `PAYMENT`, `SERVICE`, `REVIEW`, `DISPUTE`, `SYSTEM`) and cover application decisions, new/updated proposals, contracts, payment requirements/results, delivery, completion, reviews and disputes.
 
-Notifications should cover important events such as application decisions, new/updated proposals, contracts, payment requirements/results, upcoming services, completion, reviews and disputes.
+Nodemailer may be used for transactional email mirroring the same events.
 
-Nodemailer may be used for transactional email including account, application, proposal, contract, payment, completion and dispute notifications.
+## 22. Media Storage
 
-## 24. Media Storage
+Cloudinary may be used for profile images, professional portfolios, deliverable links, and dispute evidence. The database stores URLs/references and metadata rather than large binary files.
 
-Cloudinary may be used for profile images, professional portfolios, event media, deliverables and dispute evidence. The database should store URLs/references and metadata rather than large binary files.
+## 23. Matching
 
-## 25. Deliverables and Revisions
+Since AyojanPro is a local platform, location matters. Matching may consider: service, skills, location, service schedule (no overlap with existing contracts), rating, experience, portfolio, pricing, and `acceptingBookings`. Professionals who cannot actually serve the required time period (based on existing confirmed contracts) should not be recommended as suitable matches.
 
-Where applicable, professionals may submit deliverables containing contract reference, title, description, media URL, submission date, status and metadata.
-
-For services where revisions are applicable, revision requests may contain deliverable reference, requester, description, status, requested date and completion date.
-
-## 26. Location and Matching
-
-AyojanPro is a local event platform, so location matters. Matching may consider:
-
-- Service
-- Skills
-- Location
-- Availability
-- Service schedule
-- Rating
-- Experience
-- Portfolio
-- Pricing
-- `acceptingBookings`
-
-Professionals who cannot actually serve the required time period should not be recommended as suitable matches.
-
-## 27. Core Business Rules
+## 24. Core Business Rules
 
 1. **Role restriction:** only clients directly register through the normal registration flow.
-2. **Professional approval:** a professional cannot become active without admin approval.
+2. **Professional gating:** a `Professional` record exists from the moment of application, but only an `APPROVED` status allows active platform use.
 3. **Service-specific budget:** every event service requirement has its own budget.
 4. **Service-specific schedule:** every event service requirement has its own service time range.
 5. **One active professional per requirement:** one requirement cannot have multiple simultaneously active hired professionals.
 6. **Multiple services per professional:** one professional can be hired for multiple requirements of the same event.
-7. **No time overlap:** a professional cannot have overlapping confirmed/active service contracts.
-8. **Availability:** a professional cannot accept work during blocked/unavailable periods.
-9. **Booking preference:** a professional not accepting new bookings cannot accept a new contract.
-10. **Payment verification:** payment success is verified by the backend.
-11. **Two-stage payment:** contract payment follows 30% + 70%.
-12. **Review eligibility:** reviews are available only after required completion conditions.
+7. **No time overlap:** a professional cannot have overlapping `CONFIRMED`/`IN_PROGRESS` contracts, checked directly against the contract table.
+8. **Booking preference:** a professional not accepting new bookings cannot accept a new contract.
+9. **Payment verification:** payment success is verified by the backend.
+10. **Two-stage payment:** 30% unlocks `CONFIRMED`, 70% unlocks `COMPLETED`.
+11. **Delivery is not deliverable-dependent:** a contract can move to `DELIVERED` with or without a `Deliverable` record.
+12. **Review eligibility:** reviews are available only after a contract is `COMPLETED`.
 13. **Dispute evidence:** disputes require sufficient supporting information/evidence.
 14. **Transactional booking:** proposal acceptance and contract creation must protect against race conditions.
 15. **Date/time validation:** every relevant workflow transition validates timestamps and scheduling conflicts.
 
-## 28. Time-Sensitive Workflow Validation
+## 25. Time-Sensitive Workflow Validation
 
 The backend must handle cases including:
 
 - Proposal accepted after service time has passed.
 - Contract created with a conflicting confirmed contract.
-- Professional becomes unavailable after proposal submission.
 - Professional disables `acceptingBookings` before acceptance.
 - Requirement is already filled when another proposal is accepted.
 - Contract cancellation frees the professional's schedule.
 - Proposal expires before acceptance.
-- Final payment attempted before completion.
+- Final payment attempted before the contract is `DELIVERED`.
 - Final payment attempted after a dispute is opened.
 - Simultaneous booking attempts for overlapping periods.
 
 These checks must be performed server-side.
 
-## 29. Database Architecture
+## 26. Database Architecture
 
 Technology:
 
 - PostgreSQL
-- Prisma ORM
-- Prisma 7
+- Prisma ORM 7 (multi-file schema)
 
 Major domains:
 
@@ -443,17 +349,12 @@ Authentication
     └── Client
 
 Professional Management
-    ├── ProfessionalApplication
-    ├── Professional
+    ├── Professional        (also carries application/review state)
     ├── ProfessionalService
     ├── Skill
     ├── ProfessionalSkill
     ├── Experience
     └── PortfolioItem
-
-Availability
-    ├── AvailabilityRule
-    └── TimeOff
 
 Event Management
     ├── Event
@@ -467,8 +368,7 @@ Payment
     └── Payment
 
 Service Delivery
-    ├── Deliverable
-    └── Revision
+    └── Deliverable      (one-to-one, optional, per contract)
 
 Feedback
     └── Review
@@ -481,11 +381,9 @@ Communication
     └── Notification
 ```
 
-**No `AuditLog` model is required.**
+**No `AuditLog`, `ProfessionalApplication`, `AvailabilityRule`, `TimeOff`, or `Revision` models are used** — applications are folded into `Professional`, and delivery is a status + one optional `Deliverable` row rather than a revision workflow.
 
-## 30. Core Relationships
-
-Conceptually:
+## 27. Core Relationships
 
 ```text
 User
@@ -500,15 +398,17 @@ User
     ├── Skills
     ├── Experience
     ├── Portfolio
-    ├── Availability
-    ├── TimeOff
     ├── Proposals
     └── Contracts
+
+Contract
+├── Payments (INITIAL, FINAL)
+├── Deliverable (0 or 1)
+├── Reviews (client→professional, professional→client)
+└── Disputes
 ```
 
-A contract connects the client, professional, event, service requirement and professional service, and may have payments, deliverables, revisions, reviews and disputes.
-
-## 31. API Architecture
+## 28. API Architecture
 
 Base API path:
 
@@ -519,38 +419,28 @@ Base API path:
 Architecture:
 
 ```text
-Routes
-  ↓
-Middleware
-  ↓
-Controller
-  ↓
-Service
-  ↓
-Prisma
-  ↓
-PostgreSQL
+Routes → Middleware → Controller → Service → Prisma → PostgreSQL
 ```
 
 Routes define endpoints and route-level middleware. Middleware handles authentication, authorization, validation, errors, rate limiting where necessary and file handling where required. Controllers remain thin and handle request extraction, service calls and responses. Services contain business logic, transactions, scheduling checks, permissions, payment verification and workflow transitions. Prisma handles database access.
 
-## 32. Validation
+## 29. Validation
 
-Validation is required for authentication, profiles, applications, services, skills, experience, portfolio, availability, events, service requirements, proposals, contracts, payments, reviews, disputes and evidence.
+Validation is required for authentication, profiles, professional applications (on the `Professional` model), services, skills, experience, portfolio, events, service requirements, proposals, contracts, payments, deliverables, reviews, disputes and evidence.
 
 Validation must include date/time consistency and business rules.
 
-## 33. Error Handling
+## 30. Error Handling
 
-The API should return consistent errors for validation, authentication, authorization, missing resources, duplicates, scheduling conflicts, invalid workflow transitions, payment failures, availability conflicts, already-filled requirements, dispute restrictions and external service failures.
+The API should return consistent errors for validation, authentication, authorization, missing resources, duplicates, scheduling conflicts, invalid workflow transitions, payment failures, already-filled requirements, dispute restrictions and external service failures.
 
-## 34. Security Requirements
+## 31. Security Requirements
 
 The backend must:
 
 - Hash passwords securely.
 - Validate authentication tokens.
-- Enforce role-based access control.
+- Enforce role-based access control, including gating `PENDING`/`REJECTED` professionals from professional-only actions.
 - Validate resource ownership.
 - Validate uploaded files.
 - Protect sensitive payment information.
@@ -559,7 +449,7 @@ The backend must:
 - Apply rate limiting to sensitive endpoints where appropriate.
 - Avoid exposing sensitive user information.
 
-## 35. Optional Infrastructure
+## 32. Optional Infrastructure
 
 ### Redis
 
@@ -577,7 +467,7 @@ Transactional email.
 
 Payment processing.
 
-## 36. End-to-End Client Flow
+## 33. End-to-End Client Flow
 
 ```text
 Register/Login
@@ -586,116 +476,76 @@ Create Profile
       ↓
 Create Event
       ↓
-Add Required Services
-      ↓
-Set Budget + Service Time
+Add Required Services (budget + service time each)
       ↓
 Publish Event
       ↓
 Receive Proposals
       ↓
-Review Professionals
-      ↓
-Accept Proposal
-      ↓
-Contract Created
+Accept Proposal → Contract Created
       ↓
 Pay 30%
       ↓
-Service Delivered
+Service Delivered On-Site
       ↓
-Mark/Verify Completion
+Professional Marks Contract Delivered (± Deliverable)
       ↓
-Pay 70%
+Pay 70% → Contract Completed
       ↓
 Review Professional
 ```
 
-## 37. End-to-End Professional Flow
+## 34. End-to-End Professional Flow
 
 ```text
-Submit Professional Application
+Submit Professional Profile (User + Professional, status=PENDING)
       ↓
-Admin Approval
+Admin Approval (status=APPROVED)
       ↓
-Professional Account Activated
-      ↓
-Complete Profile
-      ↓
-Add Services
-      ↓
-Add Skills/Experience
-      ↓
-Add Portfolio
-      ↓
-Configure Availability
+Complete Profile / Add Services, Skills, Experience, Portfolio
       ↓
 Enable Accepting Bookings
       ↓
 Browse Events
       ↓
-Submit Proposals
+Submit Proposals for Matching Requirements
       ↓
-Proposal Accepted
+Proposal Accepted → Contract Confirmed
       ↓
-Contract Confirmed
+Provide Service On-Site
       ↓
-Provide Service
+Submit Deliverable (if applicable) & Mark Delivered
       ↓
-Complete Service
-      ↓
-Receive Payment
+Receive Final Payment → Contract Completed
       ↓
 Review Client
 ```
 
-## 38. End-to-End Admin Flow
+## 35. End-to-End Admin Flow
 
 ```text
-Review Professional Applications
+Review Pending Professionals
           ↓
 Approve/Reject
           ↓
-Monitor Events
+Monitor Events, Proposals, Contracts, Payments
           ↓
-Monitor Proposals
-          ↓
-Monitor Contracts
-          ↓
-Monitor Payments
-          ↓
-Review Disputes
-          ↓
-Review Evidence
+Review Disputes & Evidence
           ↓
 Resolve Disputes
 ```
 
-## 39. Core Business Example
+## 36. Core Business Example
 
 ```text
 Event: Wedding
 Overall Time: 4:00 PM → 10:00 PM
 
-Photography
-Budget: 30,000 BDT
-Time: 4:00 PM → 10:00 PM
-
-Videography
-Budget: 25,000 BDT
-Time: 4:00 PM → 10:00 PM
-
-Drone
-Budget: 10,000 BDT
-Time: 5:00 PM → 7:00 PM
-
-Makeup
-Budget: 15,000 BDT
-Time: 2:00 PM → 5:00 PM
-
-Decoration
-Budget: 40,000 BDT
-Time: 1:00 PM → 4:00 PM
+Photography   → Budget: 30,000 BDT   Time: 4:00 PM → 10:00 PM
+Videography   → Budget: 25,000 BDT   Time: 4:00 PM → 10:00 PM
+Drone         → Budget: 10,000 BDT   Time: 5:00 PM → 7:00 PM
+Makeup        → Budget: 15,000 BDT   Time: 2:00 PM → 5:00 PM
+Decoration    → Budget: 40,000 BDT   Time: 1:00 PM → 4:00 PM
 ```
 
 Possible hiring:
@@ -711,26 +561,22 @@ Professional B
 └── Decoration
 ```
 
-This is valid if each professional is qualified, accepting bookings, available during the required periods, and has no overlapping contracts. Each service requirement can have only one active hired professional.
+Valid because each professional is qualified for the specific requirement they applied to, is `APPROVED` and `acceptingBookings`, and has no overlapping confirmed contracts. Photography/Videography/Drone and Makeup/Decoration are filled independently — one requirement being hired-out never affects another requirement's status.
 
-## 40. Final Project Objective
+## 37. Final Project Objective
 
 AyojanPro should provide a reliable local event-service platform where:
 
-- Clients organize events.
-- Events contain multiple independently budgeted and scheduled services.
-- Professionals are verified through admin approval.
-- Professionals can provide multiple services.
-- Professionals can propose for multiple services within one event.
-- The same professional can be hired for multiple services of one event.
-- Different professionals can handle different services of the same event.
-- Scheduling conflicts are prevented.
-- Contracts formalize agreements.
-- Payments follow 30% upfront and 70% final payment.
-- bKash payments are verified server-side.
+- Clients organize events with independently budgeted and scheduled services.
+- Professionals apply directly through their own profile record and become active only after admin approval.
+- Professionals can provide multiple services and be hired for multiple requirements of one event.
+- Different professionals can independently fill different requirements of the same event.
+- Scheduling conflicts are prevented using the contract table as the single source of truth.
+- Contracts formalize agreements and move through a clear `PENDING → CONFIRMED → IN_PROGRESS → DELIVERED → COMPLETED` lifecycle.
+- Payments follow 30% upfront and 70% final, both verified server-side via bKash.
+- Delivery is decoupled from payment for services with no tangible handoff.
 - Completed contracts enable mutual reviews.
-- Disputes can be raised with evidence.
-- Admin can investigate and resolve disputes.
+- Disputes can be raised with evidence and resolved by admin.
 - The architecture remains modular, maintainable, secure and scalable.
 
 The implementation must prioritize **business-rule correctness, data integrity, role-based authorization, date/time consistency, transactional safety and reliable payment verification**.

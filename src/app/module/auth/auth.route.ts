@@ -9,14 +9,14 @@ const router = Router();
 
 router.post(
 	"/register",
-	validateRequest(AuthValidation.RegisterZodSchema),
-	AuthController.registerUser,
+	validateRequest(AuthValidation.ClientRegisterZodSchema),
+	AuthController.registerClient,
 );
 
 router.post(
 	"/verify-email",
 	validateRequest(AuthValidation.VerifyEmailZodSchema),
-	AuthController.verifyEmail,
+	AuthController.verifyClientEmail,
 );
 
 router.post(
@@ -47,7 +47,7 @@ router.post(
 
 router.get(
 	"/me",
-	auth(Role.ADMIN, Role.CLIENT, Role.CREATOR),
+	auth(Role.ADMIN, Role.CLIENT, Role.PROFESSIONAL),
 	AuthController.getMe,
 );
 

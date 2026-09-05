@@ -1,6 +1,6 @@
 # AyojanPro
 
-A local event-service booking platform that connects **clients** who organize events with **verified professionals** who provide event-related services (photography, videography, decoration, makeup, sound, etc.).
+A local event-service booking platform connecting **clients** who organize events with **verified professionals** who perform event services on-site (photography, videography, decoration, makeup, sound, etc.).
 
 ---
 
@@ -10,7 +10,7 @@ A local event-service booking platform that connects **clients** who organize ev
 |---|---|
 | Runtime | Node.js + TypeScript |
 | Framework | Express.js |
-| ORM | Prisma 7 |
+| ORM | Prisma 7 (multi-file schema) |
 | Database | PostgreSQL |
 | Auth | JWT + Google OAuth 2.0 |
 | Payments | bKash |
@@ -36,11 +36,13 @@ Routes → Middleware → Controller → Service → Prisma → PostgreSQL
 
 ## Roles
 
-| Role | Registration |
+| Role | How the account is created |
 |---|---|
 | `CLIENT` | Self-register (credentials or Google OAuth) |
-| `PROFESSIONAL` | Application → Admin approval → Account activated |
+| `PROFESSIONAL` | Applies directly by creating a `User` + `Professional` profile (`status = PENDING`) → Admin flips status to `APPROVED`/`REJECTED` |
 | `ADMIN` | Platform-seeded; not publicly registrable |
+
+> There is no separate application table — the `Professional` model **is** the application. It carries `status`, `resume`, `rejectionReason`, `reviewedById`, `reviewedAt` alongside the normal profile fields. A `PENDING`/`REJECTED` professional is blocked from any professional-only action even though the row already exists.
 
 ---
 
@@ -49,13 +51,13 @@ Routes → Middleware → Controller → Service → Prisma → PostgreSQL
 ```
 Client creates Event
   └─ Adds Service Requirements (each with own budget + time range)
-       └─ Professionals browse and submit Proposals
-            └─ Client accepts Proposal → Contract created
-                 └─ Client pays 30% upfront
-                      └─ Service delivered
-                           └─ Contract marked complete
-                                └─ Client pays 70% final
-                                     └─ Mutual reviews
+       └─ Qualified Professionals submit Proposals for the requirements they match
+            └─ Client accepts a Proposal → Contract created (PENDING)
+                 └─ Client pays 30% → Contract CONFIRMED
+                      └─ Service performed on-site → Contract IN_PROGRESS
+                           └─ Professional marks service DELIVERED (± Deliverable links)
+                                └─ Client pays 70% → Contract COMPLETED
+                                     └─ Mutual reviews unlock
 ```
 
 ---
@@ -69,19 +71,18 @@ User ─┬─ Client ─── Event ─── EventServiceRequirement ─┬�
                        ├─ Skill / ProfessionalSkill
                        ├─ Experience
                        ├─ PortfolioItem
-                       ├─ AvailabilityRule
-                       ├─ TimeOff
                        ├─ Proposal
                        └─ Contract
 
-Contract ─┬─ Payment
-           ├─ Deliverable ─── Revision
-           ├─ Review
+Contract ─┬─ Payment (INITIAL, FINAL)
+           ├─ Deliverable (0 or 1, optional links only)
+           ├─ Review (client→professional, professional→client)
            └─ Dispute ─── DisputeEvidence
 
-ProfessionalApplication (standalone; leads to Professional on approval)
 Notification
 ```
+
+No `ProfessionalApplication`, `AvailabilityRule`, `TimeOff`, `Revision`, or `AuditLog` models — professional intake is a status field on `Professional`, scheduling conflicts are checked directly against `Contract` rows, and delivery is a status + one optional record rather than a versioned revision flow.
 
 ---
 
@@ -99,28 +100,17 @@ Base path: `/api/v1`
 | POST | `/auth/refresh` | Refresh access token |
 | POST | `/auth/logout` | Logout |
 
-### Professional Applications
+### Professionals (profile + application in one)
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/applications` | Submit professional application |
-| GET | `/applications` | List all applications (Admin) |
-| GET | `/applications/:id` | Get application detail (Admin) |
-| PATCH | `/applications/:id/approve` | Approve application (Admin) |
-| PATCH | `/applications/:id/reject` | Reject application (Admin) |
-
-### Client Profile
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/clients/me` | Get own profile |
-| PATCH | `/clients/me` | Update profile |
-
-### Professional Profile
-| Method | Endpoint | Description |
-|---|---|---|
-| GET | `/professionals` | Browse professionals |
+| POST | `/professionals/apply` | Create `User` (role `PROFESSIONAL`) + `Professional` profile, `status = PENDING` |
+| GET | `/professionals` | Browse `APPROVED` professionals |
 | GET | `/professionals/:id` | Get professional profile |
 | PATCH | `/professionals/me` | Update own profile |
 | PATCH | `/professionals/me/accepting-bookings` | Toggle accepting bookings |
+| GET | `/admin/professionals?status=PENDING` | List pending applications (Admin) |
+| PATCH | `/admin/professionals/:id/approve` | Approve (Admin) |
+| PATCH | `/admin/professionals/:id/reject` | Reject, with reason (Admin) |
 
 ### Professional Services, Skills & Experience
 | Method | Endpoint | Description |
@@ -141,14 +131,11 @@ Base path: `/api/v1`
 | PATCH | `/professionals/me/portfolio/:id` | Update item |
 | DELETE | `/professionals/me/portfolio/:id` | Remove item |
 
-### Availability
+### Client Profile
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/professionals/me/availability` | Add availability rule |
-| PATCH | `/professionals/me/availability/:id` | Update rule |
-| DELETE | `/professionals/me/availability/:id` | Remove rule |
-| POST | `/professionals/me/time-off` | Add time-off period |
-| DELETE | `/professionals/me/time-off/:id` | Remove time-off |
+| GET | `/clients/me` | Get own profile |
+| PATCH | `/clients/me` | Update profile |
 
 ### Events
 | Method | Endpoint | Description |
@@ -174,7 +161,7 @@ Base path: `/api/v1`
 | POST | `/requirements/:requirementId/proposals` | Submit proposal (Professional) |
 | GET | `/requirements/:requirementId/proposals` | List proposals (Client/Admin) |
 | GET | `/proposals/:id` | Get proposal detail |
-| PATCH | `/proposals/:id/accept` | Accept proposal (Client) |
+| PATCH | `/proposals/:id/accept` | Accept proposal → creates Contract (Client) |
 | PATCH | `/proposals/:id/reject` | Reject proposal (Client) |
 | PATCH | `/proposals/:id/withdraw` | Withdraw proposal (Professional) |
 
@@ -184,23 +171,17 @@ Base path: `/api/v1`
 | GET | `/contracts` | List own contracts |
 | GET | `/contracts/:id` | Get contract detail |
 | PATCH | `/contracts/:id/cancel` | Cancel contract |
-| PATCH | `/contracts/:id/complete` | Mark complete |
+| POST | `/contracts/:id/deliverable` | Attach deliverable links and mark `DELIVERED` (Professional) |
+| GET | `/contracts/:id/deliverable` | Get the contract's deliverable, if any |
+| PATCH | `/contracts/:id/complete` | Mark `COMPLETED` (typically triggered by final payment) |
 
 ### Payments
 | Method | Endpoint | Description |
 |---|---|---|
 | POST | `/contracts/:id/payments/initial` | Initiate 30% upfront payment |
-| POST | `/contracts/:id/payments/final` | Initiate 70% final payment |
+| POST | `/contracts/:id/payments/final` | Initiate 70% final payment (requires `DELIVERED`) |
 | POST | `/payments/bkash/callback` | bKash payment callback (verified server-side) |
 | GET | `/contracts/:id/payments` | List payments for contract |
-
-### Deliverables & Revisions
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/contracts/:id/deliverables` | Submit deliverable (Professional) |
-| GET | `/contracts/:id/deliverables` | List deliverables |
-| POST | `/deliverables/:id/revisions` | Request revision (Client) |
-| PATCH | `/revisions/:id` | Update revision status |
 
 ### Reviews
 | Method | Endpoint | Description |
@@ -239,25 +220,33 @@ Base path: `/api/v1`
 
 ## Key Business Rules
 
+**Professional gating**
+- Applying = creating the `Professional` record itself, `status = PENDING`.
+- Only `status = APPROVED` unlocks professional-only actions (browsing events, proposing, contracting).
+
 **Scheduling**
 - Every `EventServiceRequirement` has its own `startAt`/`endAt` and budget, independent of the parent event's time range.
 - `startAt < endAt` is enforced on every proposal, contract, and service.
-- A professional cannot hold two contracts whose time ranges overlap: `existing.startAt < new.endAt AND existing.endAt > new.startAt`.
-- Availability rules and time-off periods are checked before a contract is confirmed.
+- A professional cannot hold two `CONFIRMED`/`IN_PROGRESS` contracts whose time ranges overlap: `existing.startAt < new.endAt AND existing.endAt > new.startAt`. This check runs directly against the `Contract` table — there is no separate availability model.
 
 **Hiring**
-- One requirement → only one active hired professional at a time.
+- One requirement → only one active hired professional at a time; other requirements on the same event fill independently.
 - One professional → can hold multiple contracts for the same event provided their service periods don't overlap.
 - `acceptingBookings = false` blocks new contracts but does not invalidate existing confirmed ones.
 - Proposal acceptance and contract creation are wrapped in a database transaction to prevent race conditions.
 
+**Delivery**
+- Contract lifecycle: `PENDING → CONFIRMED → IN_PROGRESS → DELIVERED → COMPLETED` (plus `CANCELLED` / `DISPUTED` / `RESOLVED`).
+- A `Deliverable` (title, description, array of external links) is optional and capped at one per contract.
+- Marking `DELIVERED` never requires a `Deliverable` to exist — many services (decoration, makeup, live sound) have nothing to hand over.
+
 **Payments**
-- 30% paid upfront after contract confirmation; 70% paid after service completion.
+- 30% paid upfront to reach `CONFIRMED`; 70% paid once the contract is `DELIVERED`, moving it to `COMPLETED`.
 - Payment success is **always** verified server-side via bKash callback — the frontend result is never trusted.
 - Final payment is blocked if a dispute is open on the contract.
 
 **Reviews**
-- Reviews unlock only after the contract is `COMPLETED` and the final payment is settled.
+- Reviews unlock only once the contract is `COMPLETED`.
 - One review per direction (Client→Professional, Professional→Client) per contract.
 
 **Disputes**

@@ -22,25 +22,25 @@ import type {
 	IForgotPasswordPayload,
 	IGoogleLoginPayload,
 	ILoginUserPayload,
-	IRegisterPayload,
+	IRegisterClientPayload,
 	IRequestUser,
 	IResetPasswordPayload,
 	IVerifyEmailPayload,
 } from "./auth.interface";
 
-const registerUser = async (payload: IRegisterPayload) => {
-	const { name, password, role } = payload;
+const registerClient = async (payload: IRegisterClientPayload) => {
+	const { name, password, client: clientData } = payload;
 
 	const email = payload.email.trim().toLowerCase();
 
-	const isUserExists = await prisma.user.findUnique({
+	const isClientExists = await prisma.user.findUnique({
 		where: { email },
 	});
 
-	if (isUserExists) {
+	if (isClientExists) {
 		throw new AppError(
 			httpStatus.CONFLICT,
-			"User with this email already exists",
+			"Client with this email already exists",
 		);
 	}
 
@@ -48,7 +48,7 @@ const registerUser = async (payload: IRegisterPayload) => {
 
 	const expirationSeconds = 5 * 60;
 
-	const otpKey = `user-registration-otp:${email}`;
+	const otpKey = `client-registration-otp:${email}`;
 	const otpValue = crypto.randomInt(100000, 1000000).toString();
 
 	await redisClient.set(otpKey, otpValue, {
@@ -58,17 +58,17 @@ const registerUser = async (payload: IRegisterPayload) => {
 		},
 	});
 
-	const userRegistrationKey = `user-registration-data:${email}`;
-	const redisUserDataPayload = {
+	const clientRegistrationKey = `client-registration-data:${email}`;
+	const redisClientDataPayload = {
 		name,
 		email,
 		password: hashedPassword,
-		role,
+		client: clientData,
 	};
 
 	await redisClient.set(
-		userRegistrationKey,
-		JSON.stringify(redisUserDataPayload),
+		clientRegistrationKey,
+		JSON.stringify(redisClientDataPayload),
 		{
 			expiration: {
 				type: "EX",
@@ -99,7 +99,7 @@ const registerUser = async (payload: IRegisterPayload) => {
 	});
 };
 
-const verifyEmail = async (payload: IVerifyEmailPayload) => {
+const verifyClientEmail = async (payload: IVerifyEmailPayload) => {
 	const otp = payload.otp;
 	const email = payload.email.trim().toLowerCase();
 
@@ -114,12 +114,11 @@ const verifyEmail = async (payload: IVerifyEmailPayload) => {
 	if (isUserExist?.emailVerified) {
 		throw new AppError(httpStatus.CONFLICT, "Email ALready Verified");
 	}
-
-	if (isUserExist?.isDeleted || isUserExist?.status === "INACTIVE") {
+	if (isUserExist?.isDeleted || isUserExist?.status === "DELETED") {
 		throw new AppError(httpStatus.FORBIDDEN, "User is Deleted");
 	}
 
-	const otpKey = `user-registration-otp:${email}`;
+	const otpKey = `client-registration-otp:${email}`;
 
 	const redisOtp = await redisClient.get(otpKey);
 
@@ -133,39 +132,39 @@ const verifyEmail = async (payload: IVerifyEmailPayload) => {
 
 	await redisClient.del(otpKey);
 
-	const userRegistrationKey = `user-registration-data:${email}`;
+	const clientRegistrationKey = `client-registration-data:${email}`;
 
-	const redisUserData = await redisClient.get(userRegistrationKey);
+	const redisUserData = await redisClient.get(clientRegistrationKey);
 
 	if (!redisUserData) {
-		throw new AppError(httpStatus.NOT_FOUND, "User Doesnt Exist");
+		throw new AppError(httpStatus.NOT_FOUND, "redis client data not available");
 	}
 
-	const userPayload: IRegisterPayload = JSON.parse(redisUserData);
-
-	const userProfile: "client" | "creator" =
-		userPayload.role === Role.CLIENT ? "client" : "creator";
+	const clientPayload: IRegisterClientPayload = JSON.parse(redisUserData);
 
 	const createdUser = await prisma.user.create({
 		data: {
-			name: userPayload.name,
-			email: userPayload.email,
-			password: userPayload.password,
-			role: userPayload.role,
+			name: clientPayload.name,
+			email: clientPayload.email,
+			password: clientPayload.password,
+			role: Role.CLIENT,
 			status: UserStatus.ACTIVE,
 			emailVerified: true,
-			[userProfile]: {
+			client: {
 				create: {
-					name: userPayload.name,
-					email: userPayload.email,
+					address: clientPayload.client.address,
+					bio: clientPayload.client.bio,
+					city: clientPayload.client.city,
+					country: clientPayload.client.country,
+					phone: clientPayload.client.phone,
 				},
 			},
-		} as any,
+		},
 		omit: { password: true },
-		include: { creator: true, client: true },
+		include: { client: true },
 	});
 
-	await redisClient.del(userRegistrationKey);
+	await redisClient.del(clientRegistrationKey);
 
 	const templatePath = path.join(
 		process.cwd(),
@@ -174,7 +173,7 @@ const verifyEmail = async (payload: IVerifyEmailPayload) => {
 
 	const templateData = {
 		name: createdUser.name,
-		role: createdUser.role,
+		role: Role.CLIENT,
 	};
 
 	const html = await ejs.renderFile(templatePath, templateData);
@@ -182,12 +181,11 @@ const verifyEmail = async (payload: IVerifyEmailPayload) => {
 	await transporter.sendMail({
 		from: config.email_sender,
 		to: email,
-		subject: "Welcome To CraftBridge System",
+		subject: "Welcome To AyojanPro System",
 		html,
 	});
-	const profile =
-		userProfile === "client" ? createdUser.client : createdUser.creator;
-	const { client, creator, ...user } = createdUser;
+
+	const { client, ...user } = createdUser;
 	const jwtPayload = {
 		userId: user.id,
 		name: user.name,
@@ -209,7 +207,7 @@ const verifyEmail = async (payload: IVerifyEmailPayload) => {
 
 	return {
 		user,
-		profile,
+		client,
 		accessToken,
 		refreshToken,
 	};
@@ -283,7 +281,7 @@ const getMe = async (user: IRequestUser) => {
 		},
 		include: {
 			client: true,
-			creator: true,
+			professional: true,
 		},
 		omit: {
 			password: true,
@@ -427,26 +425,18 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 				},
 			});
 		} else {
-			const role = payload.role;
-			// Google Register
-			const userProfileKey: "client" | "creator" =
-				role === Role.CLIENT ? "client" : "creator";
-
 			user = await prisma.user.create({
 				data: {
 					name: googleIdTokenPayload.name,
 					email: googleIdTokenPayload.email,
-					role,
+					role: Role.CLIENT,
 					googleId: googleIdTokenPayload.sub,
 					authProvider: AuthProvider.GOOGLE,
 					emailVerified: true,
-					[userProfileKey]: {
-						create: {
-							name: googleIdTokenPayload.name,
-							email: googleIdTokenPayload.email,
-						},
+					client: {
+						create: {},
 					},
-				} as any,
+				},
 			});
 			const templatePath = path.join(
 				process.cwd(),
@@ -455,7 +445,7 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 
 			const templateData = {
 				name: user.name,
-				role: user.role,
+				role: Role.CLIENT,
 			};
 
 			const html = await ejs.renderFile(templatePath, templateData);
@@ -463,7 +453,7 @@ const googleLogin = async (payload: IGoogleLoginPayload) => {
 			await transporter.sendMail({
 				from: config.email_sender,
 				to: user.email,
-				subject: "Welcome To CraftBridge System",
+				subject: "Welcome To AyojanPro System",
 				html,
 			});
 		}
@@ -646,8 +636,8 @@ const resetPassword = async (payload: IResetPasswordPayload) => {
 };
 
 export const AuthService = {
-	registerUser,
-	verifyEmail,
+	registerClient,
+	verifyClientEmail,
 	loginUser,
 	getMe,
 	refreshToken,

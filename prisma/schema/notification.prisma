@@ -3,6 +3,7 @@ model Notification {
 
   userId  String
   title   String   @db.VarChar(255)
+  type NotificationType
   message String
   isRead  Boolean  @default(false)
 

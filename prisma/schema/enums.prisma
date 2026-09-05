@@ -7,7 +7,6 @@ enum Role {
 
 enum UserStatus {
   ACTIVE
-  INACTIVE
   DELETED
   SUSPENDED
   BLOCKED
@@ -78,10 +77,7 @@ enum PaymentMethod {
   BKASH
 }
 
-enum AvailabilityType {
-  AVAILABLE
-  UNAVAILABLE
-}
+
 
 enum RevieweeRole {
   CLIENT

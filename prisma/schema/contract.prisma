@@ -39,6 +39,7 @@ model Contract {
   payments     Payment[]
   reviews      Review[]
   disputes     Dispute[]
+  deliverables Deliverable?
 
   @@index([clientId])
   @@index([professionalId])

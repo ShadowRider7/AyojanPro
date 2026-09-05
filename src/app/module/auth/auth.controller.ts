@@ -6,23 +6,23 @@ import { sendResponse } from "../../utils/sendResponse";
 import type { IRequestUser } from "./auth.interface";
 import { AuthService } from "./auth.service";
 
-const registerUser = catchAsync(async (req: Request, res: Response) => {
-	await AuthService.registerUser(req.body);
+const registerClient = catchAsync(async (req: Request, res: Response) => {
+	await AuthService.registerClient(req.body);
 	sendResponse(res, {
 		statusCode: httpStatus.CREATED,
 		success: true,
 		message:
-			"User registration successful. Verification OTP sent to your email",
+			"Client registration successful. Verification OTP sent to your email",
 		data: null,
 	});
 });
 
-const verifyEmail = catchAsync(async (req: Request, res: Response) => {
+const verifyClientEmail = catchAsync(async (req: Request, res: Response) => {
 	const payload = req.body;
 
-	const result = await AuthService.verifyEmail(payload);
+	const result = await AuthService.verifyClientEmail(payload);
 
-	const { accessToken, refreshToken, user, profile } = result;
+	const { accessToken, refreshToken, user, client } = result;
 
 	res.cookie("accessToken", accessToken, {
 		httpOnly: true,
@@ -44,7 +44,7 @@ const verifyEmail = catchAsync(async (req: Request, res: Response) => {
 		data: {
 			accessToken,
 			refreshToken,
-			profile,
+			client,
 			user,
 		},
 	});
@@ -184,8 +184,8 @@ const resetPassword = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const AuthController = {
-	registerUser,
-	verifyEmail,
+	registerClient,
+	verifyClientEmail,
 	loginUser,
 	getMe,
 	refreshToken,

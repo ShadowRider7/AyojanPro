@@ -1,9 +1,16 @@
 import type { Role } from "../../../generated/prisma/enums";
-export interface IRegisterPayload {
+export interface IRegisterClientPayload {
 	name: string;
 	email: string;
 	password: string;
-	role: "CLIENT" | "CREATOR";
+	client: {
+		phone?: string;
+		profileImage?: string;
+		bio?: string;
+		address?: string;
+		city?: string;
+		country?: string;
+	};
 }
 
 export interface ILoginUserPayload {
@@ -20,7 +27,6 @@ export interface IRequestUser {
 
 export interface IGoogleLoginPayload {
 	idToken: string;
-	role: "CLIENT" | "CREATOR";
 }
 
 export interface IVerifyEmailPayload {
