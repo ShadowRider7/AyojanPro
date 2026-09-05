@@ -1,4 +1,8 @@
 node_modules
+.vscode
+.claude
+.agents
+.windsurf
 
 /generated/prisma
 node_modules
@@ -14,6 +18,3 @@ pnpm-lock.yaml
 yarn.lock
 package-lock.json
 pnpm-workspace.yaml
-.vscode
-.claude
-.agents

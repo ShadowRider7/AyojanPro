@@ -1,8 +1,8 @@
-# CraftBridge — Project Requirements
+# AyojanPro — Project Requirements
 
 ## 1. Project Overview
 
-**CraftBridge** is a local event management and event-service booking platform. It connects **clients who organize events** with **professionals who provide event-related services**. It is specifically an event-service platform, not a generic freelancing marketplace.
+**AyojanPro** is a local event management and event-service booking platform. It connects **clients who organize events** with **professionals who provide event-related services**. It is specifically an event-service platform, not a generic freelancing marketplace.
 
 ### Core Workflow
 
@@ -377,7 +377,7 @@ For services where revisions are applicable, revision requests may contain deliv
 
 ## 26. Location and Matching
 
-CraftBridge is a local event platform, so location matters. Matching may consider:
+AyojanPro is a local event platform, so location matters. Matching may consider:
 
 - Service
 - Skills
@@ -715,7 +715,7 @@ This is valid if each professional is qualified, accepting bookings, available d
 
 ## 40. Final Project Objective
 
-CraftBridge should provide a reliable local event-service platform where:
+AyojanPro should provide a reliable local event-service platform where:
 
 - Clients organize events.
 - Events contain multiple independently budgeted and scheduled services.
