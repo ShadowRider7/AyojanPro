@@ -1,1085 +1,307 @@
-# CraftBridge Backend
+# AyojanPro
 
-> A creator marketplace and project collaboration REST API connecting clients with skilled creators.
-
-[![Node.js](https://img.shields.io/badge/Node.js-LTS-green)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue)](https://www.typescriptlang.org/)
-[![Express](https://img.shields.io/badge/Express.js-REST-black)](https://expressjs.com/)
-[![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748)](https://www.prisma.io/)
-[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-Database-336791)](https://www.postgresql.org/)
-[![Stripe](https://img.shields.io/badge/Stripe-Payments-635BFF)](https://stripe.com/)
+A local event-service booking platform that connects **clients** who organize events with **verified professionals** who provide event-related services (photography, videography, decoration, makeup, sound, etc.).
 
 ---
 
-## 📌 Overview
+## Tech Stack
 
-CraftBridge is a backend-focused creator marketplace designed to connect clients with professional creators.
+| Layer | Technology |
+|---|---|
+| Runtime | Node.js + TypeScript |
+| Framework | Express.js |
+| ORM | Prisma 7 |
+| Database | PostgreSQL |
+| Auth | JWT + Google OAuth 2.0 |
+| Payments | bKash |
+| Media | Cloudinary |
+| Email | Nodemailer |
+| Cache / Rate Limit | Redis (optional) |
 
-Clients can publish projects and receive proposals from creators. After selecting a creator, the platform creates a contract and allows both parties to manage milestones, deliverables, revisions, payments, and reviews.
+---
 
-The platform is designed around a complete business workflow rather than simple CRUD operations.
+## Architecture
 
-```text
-Client
-   │
-   ▼
-Project
-   │
-   ▼
-Proposal
-   │
-   ▼
-Contract
-   │
-   ▼
-Milestones
-   │
-   ▼
-Deliverables
-   │
-   ▼
-Revisions
-   │
-   ▼
-Stripe Payment
-   │
-   ▼
-Completion
-   │
-   ▼
-Review
+```
+Routes → Middleware → Controller → Service → Prisma → PostgreSQL
+```
+
+- **Routes** — define endpoints and attach middleware
+- **Middleware** — auth, RBAC, validation, rate limiting, file handling
+- **Controllers** — thin; extract request data, call service, return response
+- **Services** — all business logic, transactions, scheduling checks, payment verification
+- **Prisma** — database access layer
+
+---
+
+## Roles
+
+| Role | Registration |
+|---|---|
+| `CLIENT` | Self-register (credentials or Google OAuth) |
+| `PROFESSIONAL` | Application → Admin approval → Account activated |
+| `ADMIN` | Platform-seeded; not publicly registrable |
+
+---
+
+## Core Workflow
+
+```
+Client creates Event
+  └─ Adds Service Requirements (each with own budget + time range)
+       └─ Professionals browse and submit Proposals
+            └─ Client accepts Proposal → Contract created
+                 └─ Client pays 30% upfront
+                      └─ Service delivered
+                           └─ Contract marked complete
+                                └─ Client pays 70% final
+                                     └─ Mutual reviews
 ```
 
 ---
 
-## 🎯 Core Features
+## Database Models
 
-### Authentication
-
-* Email/password registration
-* Email/password login
-* Google OAuth
-* JWT access tokens
-* Refresh tokens
-* Logout
-* Bearer authentication
-
-### Role-Based Access
-
-CraftBridge has three primary roles:
-
-| Role      | Description                           |
-| --------- | ------------------------------------- |
-| `CLIENT`  | Publishes projects and hires creators |
-| `CREATOR` | Offers services and works on projects |
-| `ADMIN`   | Manages and monitors the platform     |
-
----
-
-## 👤 Creator Features
-
-Creators can:
-
-* Create and manage profiles
-* Add skills
-* Create services
-* Manage portfolio
-* Browse projects
-* Search projects
-* Filter projects
-* Submit proposals
-* Withdraw proposals
-* Manage contracts
-* Work on milestones
-* Submit deliverables
-* Handle revisions
-* View payment history
-* Review clients
-
----
-
-## 💼 Client Features
-
-Clients can:
-
-* Manage profiles
-* Create projects
-* Update projects
-* Publish projects
-* Cancel projects
-* View proposals
-* Accept proposals
-* Reject proposals
-* Manage contracts
-* Create milestones
-* Review deliverables
-* Request revisions
-* Approve milestones
-* Make payments
-* Review creators
-
----
-
-## 🛡️ Admin Features
-
-Admins can:
-
-* View users
-* Search users
-* Filter users
-* Suspend users
-* Reactivate users
-* Monitor projects
-* Monitor contracts
-* Monitor payments
-* View dashboard statistics
-* View audit logs
-
----
-
-## 💳 Payment System
-
-CraftBridge uses Stripe for real payment processing.
-
-Payment flow:
-
-```text
-Create Payment Session
-        ↓
-Stripe Checkout
-        ↓
-Customer Payment
-        ↓
-Stripe Webhook
-        ↓
-Payment Verification
-        ↓
-Payment Status = PAID
-        ↓
-Milestone Status = FUNDED
 ```
+User ─┬─ Client ─── Event ─── EventServiceRequirement ─┬─ Proposal
+      │                                                  └─ Contract
+      └─ Professional ─┬─ ProfessionalService
+                       ├─ Skill / ProfessionalSkill
+                       ├─ Experience
+                       ├─ PortfolioItem
+                       ├─ AvailabilityRule
+                       ├─ TimeOff
+                       ├─ Proposal
+                       └─ Contract
 
-The backend does not trust frontend payment status.
+Contract ─┬─ Payment
+           ├─ Deliverable ─── Revision
+           ├─ Review
+           └─ Dispute ─── DisputeEvidence
 
-Stripe webhook signatures are verified before updating the database.
-
----
-
-## 🗄️ Database
-
-CraftBridge uses:
-
-* PostgreSQL
-* Prisma ORM
-
-### Main Models
-
-```text
-User
-RefreshToken
-CreatorProfile
-Skill
-Service
-Portfolio
-Project
-Proposal
-Contract
-Milestone
-Deliverable
-Revision
-Payment
-Review
+ProfessionalApplication (standalone; leads to Professional on approval)
 Notification
-AuditLog
-```
-
-### Important Database Features
-
-* Foreign key relationships
-* One-to-one relationships
-* One-to-many relationships
-* Many-to-many relationships
-* Composite unique constraints
-* Database indexes
-* Soft deletes
-* PostgreSQL JSON fields
-* Transactions
-* Enum-based status management
-
----
-
-## 🏗️ Architecture
-
-The backend follows a modular architecture.
-
-```text
-src/
-│
-├── app/
-│   ├── routes.ts
-│   └── middleware/
-│
-├── modules/
-│   ├── auth/
-│   ├── user/
-│   ├── creator/
-│   ├── project/
-│   ├── proposal/
-│   ├── contract/
-│   ├── milestone/
-│   ├── deliverable/
-│   ├── revision/
-│   ├── payment/
-│   ├── review/
-│   ├── notification/
-│   └── admin/
-│
-├── config/
-├── errors/
-├── lib/
-├── middlewares/
-├── types/
-├── utils/
-│
-└── server.ts
-```
-
-Typical request flow:
-
-```text
-Request
-   ↓
-Route
-   ↓
-Authentication Middleware
-   ↓
-Authorization Middleware
-   ↓
-Validation
-   ↓
-Controller
-   ↓
-Service
-   ↓
-Prisma
-   ↓
-PostgreSQL
-   ↓
-Response
 ```
 
 ---
 
-## 🔐 Security
+## API Reference
 
-CraftBridge implements:
+Base path: `/api/v1`
 
-* Password hashing with bcrypt
-* JWT authentication
-* Bearer token authorization
-* Role-based authorization
-* Helmet security headers
-* CORS
-* Rate limiting
-* Zod validation
-* Centralized error handling
-* Stripe webhook verification
-* Secure environment variables
-* Password exclusion from API responses
+### Auth
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/auth/register` | Client registration |
+| POST | `/auth/login` | Credential login |
+| GET | `/auth/google` | Google OAuth initiation |
+| GET | `/auth/google/callback` | Google OAuth callback |
+| POST | `/auth/refresh` | Refresh access token |
+| POST | `/auth/logout` | Logout |
+
+### Professional Applications
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/applications` | Submit professional application |
+| GET | `/applications` | List all applications (Admin) |
+| GET | `/applications/:id` | Get application detail (Admin) |
+| PATCH | `/applications/:id/approve` | Approve application (Admin) |
+| PATCH | `/applications/:id/reject` | Reject application (Admin) |
+
+### Client Profile
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/clients/me` | Get own profile |
+| PATCH | `/clients/me` | Update profile |
+
+### Professional Profile
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/professionals` | Browse professionals |
+| GET | `/professionals/:id` | Get professional profile |
+| PATCH | `/professionals/me` | Update own profile |
+| PATCH | `/professionals/me/accepting-bookings` | Toggle accepting bookings |
+
+### Professional Services, Skills & Experience
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/professionals/me/services` | Add service |
+| PATCH | `/professionals/me/services/:id` | Update service |
+| DELETE | `/professionals/me/services/:id` | Remove service |
+| POST | `/professionals/me/skills` | Add skill |
+| DELETE | `/professionals/me/skills/:id` | Remove skill |
+| POST | `/professionals/me/experience` | Add experience |
+| PATCH | `/professionals/me/experience/:id` | Update experience |
+| DELETE | `/professionals/me/experience/:id` | Remove experience |
+
+### Portfolio
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/professionals/me/portfolio` | Add portfolio item |
+| PATCH | `/professionals/me/portfolio/:id` | Update item |
+| DELETE | `/professionals/me/portfolio/:id` | Remove item |
+
+### Availability
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/professionals/me/availability` | Add availability rule |
+| PATCH | `/professionals/me/availability/:id` | Update rule |
+| DELETE | `/professionals/me/availability/:id` | Remove rule |
+| POST | `/professionals/me/time-off` | Add time-off period |
+| DELETE | `/professionals/me/time-off/:id` | Remove time-off |
+
+### Events
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/events` | Create event (Client) |
+| GET | `/events` | Browse published events (Professional/Admin) |
+| GET | `/events/:id` | Get event detail |
+| PATCH | `/events/:id` | Update event (Client/Admin) |
+| DELETE | `/events/:id` | Delete event (Client/Admin) |
+| PATCH | `/events/:id/publish` | Publish event |
+
+### Event Service Requirements
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/events/:eventId/requirements` | Add service requirement |
+| GET | `/events/:eventId/requirements` | List requirements |
+| PATCH | `/events/:eventId/requirements/:id` | Update requirement |
+| DELETE | `/events/:eventId/requirements/:id` | Remove requirement |
+
+### Proposals
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/requirements/:requirementId/proposals` | Submit proposal (Professional) |
+| GET | `/requirements/:requirementId/proposals` | List proposals (Client/Admin) |
+| GET | `/proposals/:id` | Get proposal detail |
+| PATCH | `/proposals/:id/accept` | Accept proposal (Client) |
+| PATCH | `/proposals/:id/reject` | Reject proposal (Client) |
+| PATCH | `/proposals/:id/withdraw` | Withdraw proposal (Professional) |
+
+### Contracts
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/contracts` | List own contracts |
+| GET | `/contracts/:id` | Get contract detail |
+| PATCH | `/contracts/:id/cancel` | Cancel contract |
+| PATCH | `/contracts/:id/complete` | Mark complete |
+
+### Payments
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/contracts/:id/payments/initial` | Initiate 30% upfront payment |
+| POST | `/contracts/:id/payments/final` | Initiate 70% final payment |
+| POST | `/payments/bkash/callback` | bKash payment callback (verified server-side) |
+| GET | `/contracts/:id/payments` | List payments for contract |
+
+### Deliverables & Revisions
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/contracts/:id/deliverables` | Submit deliverable (Professional) |
+| GET | `/contracts/:id/deliverables` | List deliverables |
+| POST | `/deliverables/:id/revisions` | Request revision (Client) |
+| PATCH | `/revisions/:id` | Update revision status |
+
+### Reviews
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/contracts/:id/reviews` | Leave review (Client or Professional) |
+| GET | `/professionals/:id/reviews` | Get professional reviews |
+| GET | `/clients/:id/reviews` | Get client reviews |
+
+### Disputes
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/contracts/:id/disputes` | Raise dispute |
+| GET | `/disputes` | List disputes (Admin) |
+| GET | `/disputes/:id` | Get dispute detail |
+| POST | `/disputes/:id/evidence` | Upload evidence |
+| PATCH | `/disputes/:id/status` | Update dispute status (Admin) |
+| PATCH | `/disputes/:id/resolve` | Resolve dispute (Admin) |
+
+### Notifications
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/notifications` | List notifications |
+| PATCH | `/notifications/:id/read` | Mark as read |
+| PATCH | `/notifications/read-all` | Mark all as read |
+
+### Admin
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/admin/users` | List all users |
+| GET | `/admin/events` | List all events |
+| GET | `/admin/contracts` | List all contracts |
+| GET | `/admin/payments` | List all payments |
+| PATCH | `/admin/users/:id/status` | Activate/suspend user |
 
 ---
 
-## ⚡ Performance
+## Key Business Rules
 
-The API uses:
+**Scheduling**
+- Every `EventServiceRequirement` has its own `startAt`/`endAt` and budget, independent of the parent event's time range.
+- `startAt < endAt` is enforced on every proposal, contract, and service.
+- A professional cannot hold two contracts whose time ranges overlap: `existing.startAt < new.endAt AND existing.endAt > new.startAt`.
+- Availability rules and time-off periods are checked before a contract is confirmed.
 
-* Prisma `select`
-* Efficient relation queries
-* Pagination
-* Filtering
-* Sorting
-* Search
-* PostgreSQL indexes
-* Transactions
-* Optional Redis caching
+**Hiring**
+- One requirement → only one active hired professional at a time.
+- One professional → can hold multiple contracts for the same event provided their service periods don't overlap.
+- `acceptingBookings = false` blocks new contracts but does not invalidate existing confirmed ones.
+- Proposal acceptance and contract creation are wrapped in a database transaction to prevent race conditions.
 
----
+**Payments**
+- 30% paid upfront after contract confirmation; 70% paid after service completion.
+- Payment success is **always** verified server-side via bKash callback — the frontend result is never trusted.
+- Final payment is blocked if a dispute is open on the contract.
 
-## 🗑️ Soft Delete
+**Reviews**
+- Reviews unlock only after the contract is `COMPLETED` and the final payment is settled.
+- One review per direction (Client→Professional, Professional→Client) per contract.
 
-Business-critical records use soft deletion.
-
-Instead of permanently deleting records:
-
-```text
-deletedAt = current timestamp
-```
-
-Normal API queries exclude deleted records.
-
-This preserves historical data required for:
-
-* Audit logs
-* Contracts
-* Payments
-* Reporting
+**Disputes**
+- Either party may raise a dispute; at least one piece of evidence is required.
+- Admin inspects all contract, payment, and evidence records before resolving.
 
 ---
 
-## 📝 Audit Logs
-
-Important system actions are recorded.
-
-Examples:
-
-```text
-PROJECT_CREATED
-PROJECT_UPDATED
-PROPOSAL_ACCEPTED
-CONTRACT_CREATED
-MILESTONE_APPROVED
-PAYMENT_CONFIRMED
-USER_SUSPENDED
-```
-
-Audit records contain information such as:
-
-```text
-actor
-action
-entity
-entityId
-oldData
-newData
-ipAddress
-timestamp
-```
-
----
-
-# 🚀 Getting Started
-
-## Prerequisites
-
-Install:
-
-* Node.js LTS
-* PostgreSQL
-* Git
-
-Optional:
-
-* Redis
-* Cloudinary account
-* Stripe account
-* Google Cloud OAuth credentials
-
----
-
-## 1. Clone the Repository
-
-```bash
-git clone https://github.com/YOUR_USERNAME/craftbridge-backend.git
-
-cd craftbridge-backend
-```
-
----
-
-## 2. Install Dependencies
-
-```bash
-npm install
-```
-
----
-
-## 3. Configure Environment Variables
-
-Create:
-
-```text
-.env
-```
-
-Example:
+## Environment Variables
 
 ```env
-NODE_ENV=development
-PORT=5000
-
-DATABASE_URL="postgresql://USER:PASSWORD@localhost:5432/craftbridge"
-
-JWT_ACCESS_SECRET="your-access-secret"
-JWT_REFRESH_SECRET="your-refresh-secret"
-
-JWT_ACCESS_EXPIRES_IN="15m"
-JWT_REFRESH_EXPIRES_IN="7d"
-
-GOOGLE_CLIENT_ID="your-google-client-id"
-GOOGLE_CLIENT_SECRET="your-google-client-secret"
-
-STRIPE_SECRET_KEY="your-stripe-secret-key"
-STRIPE_WEBHOOK_SECRET="your-stripe-webhook-secret"
-
-CLIENT_URL="http://localhost:3000"
-
-CLOUDINARY_CLOUD_NAME="your-cloud-name"
-CLOUDINARY_API_KEY="your-api-key"
-CLOUDINARY_API_SECRET="your-api-secret"
+DATABASE_URL=
+JWT_SECRET=
+JWT_REFRESH_SECRET=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+BKASH_APP_KEY=
+BKASH_APP_SECRET=
+BKASH_USERNAME=
+BKASH_PASSWORD=
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+SMTP_HOST=
+SMTP_PORT=
+SMTP_USER=
+SMTP_PASS=
+REDIS_URL=          # optional
 ```
-
-> Never commit `.env` to Git.
 
 ---
 
-# 🗄️ Prisma Setup
-
-Generate Prisma Client:
+## Getting Started
 
 ```bash
-npx prisma generate
-```
+# Install dependencies
+npm install
 
-Run migrations:
-
-```bash
+# Run database migrations
 npx prisma migrate dev
-```
 
-Format schema:
-
-```bash
-npx prisma format
-```
-
-Validate schema:
-
-```bash
-npx prisma validate
-```
-
----
-
-## 🌱 Seed Database
-
-Run:
-
-```bash
+# Seed admin account
 npm run seed
-```
 
-The seed should create the initial administrator account and required development data.
-
-Example:
-
-```text
-Role: ADMIN
-Email: admin@craftbridge.dev
-Password: <demo-password>
-```
-
-> Use dedicated demo credentials for evaluation. Never commit real passwords.
-
----
-
-# ▶️ Run the Server
-
-Development:
-
-```bash
+# Start development server
 npm run dev
 ```
-
-Production build:
-
-```bash
-npm run build
-```
-
-Production:
-
-```bash
-npm start
-```
-
-Default local API:
-
-```text
-http://localhost:5000
-```
-
-API base URL:
-
-```text
-http://localhost:5000/api/v1
-```
-
----
-
-# 📚 API Documentation
-
-Postman documentation:
-
-```text
-COMING SOON
-```
-
-Live API:
-
-```text
-COMING SOON
-```
-
-Postman collection:
-
-```text
-COMING SOON
-```
-
-These links will be updated before submission.
-
----
-
-# 🔗 API Overview
-
-## Authentication
-
-```http
-POST /api/v1/auth/register
-POST /api/v1/auth/login
-POST /api/v1/auth/google
-POST /api/v1/auth/refresh-token
-POST /api/v1/auth/logout
-GET  /api/v1/auth/me
-```
-
-## Users
-
-```http
-GET   /api/v1/users/me
-PATCH /api/v1/users/me
-```
-
-## Creators
-
-```http
-GET   /api/v1/creators/:id
-PATCH /api/v1/creators/me
-```
-
-## Services
-
-```http
-POST   /api/v1/creators/services
-GET    /api/v1/creators/me/services
-PATCH  /api/v1/creators/services/:id
-DELETE /api/v1/creators/services/:id
-```
-
-## Portfolio
-
-```http
-POST   /api/v1/creators/portfolio
-GET    /api/v1/creators/me/portfolio
-PATCH  /api/v1/creators/portfolio/:id
-DELETE /api/v1/creators/portfolio/:id
-```
-
-## Projects
-
-```http
-POST   /api/v1/projects
-GET    /api/v1/projects
-GET    /api/v1/projects/:id
-PATCH  /api/v1/projects/:id
-DELETE /api/v1/projects/:id
-PATCH  /api/v1/projects/:id/publish
-PATCH  /api/v1/projects/:id/cancel
-GET    /api/v1/projects/search?q=keyword
-```
-
-## Proposals
-
-```http
-POST   /api/v1/projects/:projectId/proposals
-GET    /api/v1/projects/:projectId/proposals
-GET    /api/v1/proposals/me
-GET    /api/v1/proposals/:id
-PATCH  /api/v1/proposals/:id/withdraw
-PATCH  /api/v1/proposals/:id/accept
-PATCH  /api/v1/proposals/:id/reject
-```
-
-## Contracts
-
-```http
-GET   /api/v1/contracts
-GET   /api/v1/contracts/:id
-PATCH /api/v1/contracts/:id/cancel
-PATCH /api/v1/contracts/:id/complete
-```
-
-## Milestones
-
-```http
-POST  /api/v1/contracts/:contractId/milestones
-GET   /api/v1/contracts/:contractId/milestones
-GET   /api/v1/milestones/:id
-PATCH /api/v1/milestones/:id
-PATCH /api/v1/milestones/:id/start
-PATCH /api/v1/milestones/:id/approve
-```
-
-## Deliverables
-
-```http
-POST  /api/v1/milestones/:milestoneId/deliverables
-GET   /api/v1/milestones/:milestoneId/deliverables
-PATCH /api/v1/deliverables/:id
-```
-
-## Revisions
-
-```http
-POST  /api/v1/milestones/:milestoneId/revisions
-GET   /api/v1/milestones/:milestoneId/revisions
-PATCH /api/v1/revisions/:id/resolve
-```
-
-## Payments
-
-```http
-POST /api/v1/payments/create-session
-POST /api/v1/payments/webhook
-GET  /api/v1/payments/:id
-GET  /api/v1/payments/my-payments
-```
-
-## Reviews
-
-```http
-POST   /api/v1/contracts/:contractId/reviews
-GET    /api/v1/contracts/:contractId/reviews
-PATCH  /api/v1/reviews/:id
-DELETE /api/v1/reviews/:id
-```
-
-## Notifications
-
-```http
-GET   /api/v1/notifications
-PATCH /api/v1/notifications/:id/read
-PATCH /api/v1/notifications/read-all
-```
-
-## Admin
-
-```http
-GET   /api/v1/admin/users
-GET   /api/v1/admin/users/:id
-PATCH /api/v1/admin/users/:id/status
-
-GET /api/v1/admin/projects
-GET /api/v1/admin/contracts
-GET /api/v1/admin/payments
-
-GET /api/v1/admin/dashboard
-GET /api/v1/admin/audit-logs
-```
-
----
-
-# 📦 Standard API Response
-
-Successful response:
-
-```json
-{
-  "success": true,
-  "message": "Operation successful",
-  "data": {}
-}
-```
-
-Error response:
-
-```json
-{
-  "success": false,
-  "message": "Something went wrong",
-  "errors": []
-}
-```
-
----
-
-# 🔄 Example Business Flow
-
-## Hiring a Creator
-
-### 1. Client creates project
-
-```http
-POST /api/v1/projects
-```
-
-### 2. Client publishes project
-
-```http
-PATCH /api/v1/projects/:id/publish
-```
-
-### 3. Creator discovers project
-
-```http
-GET /api/v1/projects
-```
-
-### 4. Creator submits proposal
-
-```http
-POST /api/v1/projects/:projectId/proposals
-```
-
-### 5. Client accepts proposal
-
-```http
-PATCH /api/v1/proposals/:proposalId/accept
-```
-
-Backend transaction:
-
-```text
-Proposal → ACCEPTED
-Project → IN_PROGRESS
-Contract → CREATED
-Notification → CREATED
-AuditLog → CREATED
-```
-
-### 6. Contract receives milestones
-
-```http
-POST /api/v1/contracts/:contractId/milestones
-```
-
-### 7. Client pays milestone
-
-```http
-POST /api/v1/payments/create-session
-```
-
-### 8. Stripe confirms payment
-
-```text
-Stripe
-   ↓
-Webhook
-   ↓
-Payment = PAID
-   ↓
-Milestone = FUNDED
-```
-
-### 9. Creator submits deliverable
-
-```http
-POST /api/v1/milestones/:milestoneId/deliverables
-```
-
-### 10. Client approves
-
-```http
-PATCH /api/v1/milestones/:id/approve
-```
-
-### 11. Contract completes
-
-```http
-PATCH /api/v1/contracts/:id/complete
-```
-
-### 12. Client and creator review each other
-
-```http
-POST /api/v1/contracts/:contractId/reviews
-```
-
----
-
-# 🧪 Testing
-
-API testing will be performed using Postman.
-
-Testing includes:
-
-* Authentication
-* Authorization
-* CRUD operations
-* Validation errors
-* 401 responses
-* 403 responses
-* 404 responses
-* Conflict errors
-* Pagination
-* Filtering
-* Search
-* Business state transitions
-* Transactions
-* Payment flow
-* Stripe webhook
-* Duplicate requests
-* Soft deletion
-
----
-
-# 🛠️ Tech Stack
-
-| Technology         | Purpose                   |
-| ------------------ | ------------------------- |
-| Node.js            | Runtime                   |
-| TypeScript         | Type safety               |
-| Express.js         | REST API                  |
-| PostgreSQL         | Database                  |
-| Prisma             | ORM                       |
-| Zod                | Validation                |
-| JWT                | Authentication            |
-| Google OAuth       | Social login              |
-| bcrypt             | Password hashing          |
-| Stripe             | Payment processing        |
-| Cloudinary         | File storage              |
-| Multer             | File uploads              |
-| Nodemailer         | Email                     |
-| Redis              | Optional caching          |
-| Helmet             | Security headers          |
-| express-rate-limit | Rate limiting             |
-| Postman            | API documentation/testing |
-
----
-
-# 🌐 Frontend
-
-A frontend is planned as a separate application.
-
-Planned stack:
-
-```text
-Next.js
-TypeScript
-Tailwind CSS
-shadcn/ui
-```
-
-The frontend will consume the CraftBridge REST API.
-
-Potential frontend sections:
-
-```text
-Landing Page
-Creators
-Projects
-Project Details
-Creator Profile
-Client Dashboard
-Creator Dashboard
-Proposal Management
-Contract Workspace
-Milestones
-Payments
-Notifications
-Admin Dashboard
-```
-
----
-
-# 🚀 Deployment
-
-Production architecture:
-
-```text
-                    ┌───────────────┐
-                    │   Next.js     │
-                    │   Frontend    │
-                    └───────┬───────┘
-                            │
-                            ▼
-                    ┌───────────────┐
-                    │ CraftBridge   │
-                    │ REST API      │
-                    └───────┬───────┘
-                            │
-              ┌─────────────┼──────────────┐
-              ▼             ▼              ▼
-        PostgreSQL       Stripe        Cloudinary
-```
-
-Deployment targets:
-
-```text
-Backend → Render
-Database → PostgreSQL
-File Storage → Cloudinary
-Payments → Stripe
-Frontend → Vercel
-```
-
----
-
-# 📋 Environment Variables
-
-Required production environment variables include:
-
-```text
-NODE_ENV
-PORT
-DATABASE_URL
-
-JWT_ACCESS_SECRET
-JWT_REFRESH_SECRET
-
-GOOGLE_CLIENT_ID
-GOOGLE_CLIENT_SECRET
-
-STRIPE_SECRET_KEY
-STRIPE_WEBHOOK_SECRET
-
-CLIENT_URL
-
-CLOUDINARY_CLOUD_NAME
-CLOUDINARY_API_KEY
-CLOUDINARY_API_SECRET
-```
-
----
-
-# 📁 Project Status
-
-```text
-🚧 In Development
-```
-
-Current development plan:
-
-```text
-[ ] Project setup
-[ ] Prisma schema
-[ ] Database migration
-[ ] Seed data
-[ ] Authentication
-[ ] Google OAuth
-[ ] RBAC
-[ ] Creator module
-[ ] Project module
-[ ] Proposal module
-[ ] Contract module
-[ ] Milestone module
-[ ] Deliverable module
-[ ] Revision module
-[ ] Payment integration
-[ ] Review module
-[ ] Notification module
-[ ] Audit logging
-[ ] Security
-[ ] Postman documentation
-[ ] Production deployment
-[ ] Final testing
-```
-
----
-
-# 📅 Development Timeline
-
-## Day 1
-
-**Planning, Architecture & Database**
-
-* Project setup
-* Prisma
-* PostgreSQL
-* Database schema
-* Migrations
-* Seed
-* Initial deployment
-
-## Day 2
-
-**Authentication & Core Modules**
-
-* Authentication
-* JWT
-* Google OAuth
-* RBAC
-* User
-* Creator
-* Services
-* Portfolio
-
-## Day 3
-
-**Business Logic**
-
-* Projects
-* Proposals
-* Contracts
-* Milestones
-* Deliverables
-* Revisions
-* Validation
-* Transactions
-* Search
-* Filtering
-* Pagination
-
-## Day 4
-
-**Payments & Testing**
-
-* Stripe
-* Webhooks
-* Reviews
-* Notifications
-* Audit logs
-* Security
-* Postman
-* Testing
-
-## Day 5
-
-**Deployment & Submission**
-
-* Production deployment
-* Database migration
-* Environment configuration
-* QA
-* Bug fixing
-* README
-* API documentation
-* Demo credentials
-* Walkthrough video
-
----
-
-# 👨‍💻 Developer
-
-**Developer:** Your Name
-
-**Project:** CraftBridge
-
-**Repository:**
-`https://github.com/YOUR_USERNAME/craftbridge-backend`
-
-**Live API:**
-`COMING SOON`
-
-**API Documentation:**
-`COMING SOON`
-
-**Demo Video:**
-`COMING SOON`
-
----
-
-# 📜 License
-
-This project is developed for educational and portfolio purposes.
