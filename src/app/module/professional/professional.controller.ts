@@ -179,6 +179,31 @@ const deleteService = catchAsync(async (req: Request, res: Response) => {
 		data: null,
 	});
 });
+
+const addSkill = catchAsync(async (req: Request, res: Response) => {
+	const payload = req.body;
+	const user = req.user!;
+
+	const result = await professionalService.addSkill(payload, user);
+	sendResponse(res, {
+		statusCode: httpStatus.OK,
+		success: true,
+		message: "Skill added Successfully",
+		data: result,
+	});
+});
+
+const deleteSkill = catchAsync(async (req: Request, res: Response) => {
+	const skillId = req.params.id;
+	const user = req.user!;
+	await professionalService.deleteService(skillId as string, user);
+	sendResponse(res, {
+		statusCode: httpStatus.OK,
+		success: true,
+		message: "Skill deleted Successfully",
+		data: null,
+	});
+});
 const createPortfolio = catchAsync(async (req: Request, res: Response) => {
 	const files = req.files as { [fieldname: string]: Express.Multer.File[] };
 	const mediaFile = files?.["mediaFile"] ? files["mediaFile"][0] : null;
@@ -263,6 +288,50 @@ const deletePortfolio = catchAsync(async (req: Request, res: Response) => {
 		data: null,
 	});
 });
+
+const addExperience = catchAsync(async (req: Request, res: Response) => {
+	const payload = req.body;
+	const user = req.user!;
+
+	const result = await professionalService.addExperience(payload, user);
+	sendResponse(res, {
+		statusCode: httpStatus.OK,
+		success: true,
+		message: "Experience added Successfully",
+		data: result,
+	});
+});
+
+const updateExperience = catchAsync(async (req: Request, res: Response) => {
+	const payload = req.body;
+	const experienceId = req.params.id;
+	const user = req.user!;
+	const result = await professionalService.updateExperience(
+		payload,
+		experienceId as string,
+		user,
+	);
+	sendResponse(res, {
+		statusCode: httpStatus.OK,
+		success: true,
+		message: "Experience updated Successfully",
+		data: result,
+	});
+});
+
+const deleteExperience = catchAsync(async (req: Request, res: Response) => {
+	const experienceId = req.params.id;
+	const user = req.user!;
+
+	await professionalService.deleteExperience(experienceId as string, user);
+	sendResponse(res, {
+		statusCode: httpStatus.OK,
+		success: true,
+		message: "Experience deleted Successfully",
+		data: null,
+	});
+});
+
 export const professionalController = {
 	applyAsProfessional,
 	verifyProfessionalEmail,
@@ -273,10 +342,15 @@ export const professionalController = {
 	getMyServices,
 	updateService,
 	deleteService,
+	addSkill,
+	deleteSkill,
 	createPortfolio,
 	getMyPortfolioItems,
 	updatePortfolioItem,
 	deletePortfolio,
 	getAllProfessionalListPublic,
 	getSingleProfessionalPublicProfile,
+	addExperience,
+	updateExperience,
+	deleteExperience,
 };

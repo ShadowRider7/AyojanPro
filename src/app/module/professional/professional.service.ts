@@ -17,8 +17,11 @@ import { AppError } from "../../utils/AppError";
 import type {
 	IApplyAsProfessionalPayload,
 	IApproveDoctorPayload,
+	ICreateExperience,
 	ICreatePortfolioItemInput,
 	ICreateService,
+	ICreateSkill,
+	IUpdateExperience,
 	IUpdatePortfolioItemInput,
 	IUpdateProfessionalProfileInput,
 	IUpdateService,
@@ -686,6 +689,59 @@ const deleteService = async (serviceId: string, user: RequestUser) => {
 	});
 };
 
+const addSkill = async (payload: ICreateSkill, user: RequestUser) => {
+	const existingProfessional = await prisma.professional.findUnique({
+		where: { userId: user.userId },
+	});
+
+	if (!existingProfessional) {
+		throw new AppError(httpStatus.NOT_FOUND, "Professional Profile Not Found");
+	}
+	const professionalId = existingProfessional.id;
+	const { name, description } = payload;
+
+	const addedSkill = await prisma.skill.create({
+		data: {
+			name,
+			description,
+			professionals: {
+				create: {
+					professionalId,
+				},
+			},
+		},
+		include: {
+			professionals: true,
+		},
+	});
+
+	return addedSkill;
+};
+
+const deleteSkill = async (skillId: string, user: RequestUser) => {
+	const existingProfessional = await prisma.professional.findUnique({
+		where: { userId: user.userId },
+	});
+
+	if (!existingProfessional) {
+		throw new AppError(httpStatus.NOT_FOUND, "Professional Profile Not Found");
+	}
+
+	const existingSKill = await prisma.skill.findUnique({
+		where: {
+			id: skillId,
+		},
+	});
+	if (!existingSKill) {
+		throw new AppError(httpStatus.NOT_FOUND, "Skill is already deleted");
+	}
+	await prisma.skill.delete({
+		where: {
+			id: skillId,
+		},
+	});
+};
+
 const createPortfolio = async (
 	payload: ICreatePortfolioItemInput,
 	mediaFile: Express.Multer.File,
@@ -816,6 +872,86 @@ const deletePortfolio = async (portfolioId: string, user: RequestUser) => {
 	});
 };
 
+const addExperience = async (payload: ICreateExperience, user: RequestUser) => {
+	const existingProfessional = await prisma.professional.findUnique({
+		where: { userId: user.userId },
+	});
+
+	if (!existingProfessional) {
+		throw new AppError(httpStatus.NOT_FOUND, "Professional Profile Not Found");
+	}
+	const professionalId = existingProfessional.id;
+
+	const addedExperience = await prisma.experience.create({
+		data: {
+			...payload,
+			professionalId,
+		},
+		include: {
+			professional: true,
+		},
+	});
+
+	return addedExperience;
+};
+
+const updateExperience = async (
+	payload: IUpdateExperience,
+	experienceId: string,
+	user: RequestUser,
+) => {
+	const existingProfessional = await prisma.professional.findUnique({
+		where: { userId: user.userId },
+	});
+
+	if (!existingProfessional) {
+		throw new AppError(httpStatus.NOT_FOUND, "Professional Profile Not Found");
+	}
+	const existingExperience = await prisma.experience.findUnique({
+		where: {
+			id: experienceId,
+		},
+	});
+	if (!existingExperience) {
+		throw new AppError(httpStatus.NOT_FOUND, "Experience not found");
+	}
+	const updatedExperience = await prisma.professionalService.update({
+		where: {
+			id: experienceId,
+		},
+		data: {
+			...payload,
+		},
+		include: {
+			professional: true,
+		},
+	});
+	return updatedExperience;
+};
+const deleteExperience = async (experienceId: string, user: RequestUser) => {
+	const existingProfessional = await prisma.professional.findUnique({
+		where: { userId: user.userId },
+	});
+
+	if (!existingProfessional) {
+		throw new AppError(httpStatus.NOT_FOUND, "Professional Profile Not Found");
+	}
+
+	const existingExperience = await prisma.experience.findUnique({
+		where: {
+			id: experienceId,
+		},
+	});
+	if (!existingExperience) {
+		throw new AppError(httpStatus.NOT_FOUND, "Experience is already deleted");
+	}
+	await prisma.experience.delete({
+		where: {
+			id: experienceId,
+		},
+	});
+};
+
 export const professionalService = {
 	applyAsProfessional,
 	verifyProfessionalEmail,
@@ -825,6 +961,8 @@ export const professionalService = {
 	getMyServices,
 	updateService,
 	deleteService,
+	addSkill,
+	deleteSkill,
 	createPortfolio,
 	getMyPortfolioItems,
 	updatePortfolioItem,
@@ -832,4 +970,7 @@ export const professionalService = {
 	getAllProfessionals,
 	getSingleProfessionalPublicProfile,
 	getAllProfessionalListPublic,
+	addExperience,
+	updateExperience,
+	deleteExperience,
 };

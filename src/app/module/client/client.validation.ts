@@ -1,28 +1,14 @@
 import { z } from "zod";
 
 const updateClientProfileSchema = z.object({
-	companyName: z
-		.string()
-		.min(3, "Company name cannot be empty")
-		.nullable()
-		.optional(),
-	bio: z
-		.string()
-		.max(500, "Bio cannot exceed 500 characters")
-		.nullable()
-		.optional(),
+	bio: z.string().max(500, "Bio cannot exceed 500 characters").optional(),
 	phone: z
 		.string()
 		.regex(/^\+?[1-9]\d{1,14}$/, "Invalid phone number")
-		.nullable()
 		.optional(),
-	location: z.string().min(2, "Location is too short").nullable().optional(),
-	website: z.string().url("Invalid URL").nullable().optional(),
-	industry: z
-		.string()
-		.min(2, "Industry name is too short")
-		.nullable()
-		.optional(),
+	address: z.string().min(2, "Address is too short").optional(),
+	city: z.string().optional(),
+	country: z.string().optional(),
 });
 
 export const ClientValidation = {

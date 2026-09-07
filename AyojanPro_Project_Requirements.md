@@ -46,7 +46,7 @@ Exactly three roles exist:
 
 ### Client
 
-Clients can register/login with credentials or Google OAuth, manage their profile, create and publish events, define multiple service requirements, set a separate budget and schedule for each service, receive and review proposals, accept proposals, hire the same professional for multiple requirements of one event, hire different professionals for different requirements, make bKash payments, confirm/complete services, review professionals, and raise disputes with evidence.
+Clients can register/login with credentials or Google OAuth, manage their profile, create and publish events, define multiple service requirements, set a separate budget and event for each service, receive and review proposals, accept proposals, hire the same professional for multiple requirements of one event, hire different professionals for different requirements, make bKash payments, confirm/complete services, review professionals, and raise disputes with evidence.
 
 ### Professional
 
@@ -162,7 +162,7 @@ startAt < endAt
 
 must be true.
 
-Event and service schedules may differ where business rules permit. The backend must validate service timing according to the platform's scheduling rules.
+Event and service events may differ where business rules permit. The backend must validate service timing according to the platform's scheduling rules.
 
 ## 10. Professional Time Conflict Rules
 
@@ -176,7 +176,7 @@ existing.endAt > new.startAt
 
 means the periods overlap. Therefore `10:00–12:00` and `12:00–15:00` are allowed, while `10:00–14:00` and `12:00–16:00` conflict.
 
-The conflict check is run directly against `Contract` rows in `CONFIRMED` or `IN_PROGRESS` status for that professional — there is no separate availability/schedule table; the contract table is the single source of truth for a professional's booked time.
+The conflict check is run directly against `Contract` rows in `CONFIRMED` or `IN_PROGRESS` status for that professional — there is no separate availability/event table; the contract table is the single source of truth for a professional's booked time.
 
 ## 11. Multiple Services by One Professional
 
@@ -222,7 +222,7 @@ PENDING → CONFIRMED → IN_PROGRESS → DELIVERED → COMPLETED
 ```
 
 - `PENDING` — contract created, awaiting confirmation (initial payment).
-- `CONFIRMED` — 30% upfront payment settled; the booking is locked in and now counts toward the professional's schedule-conflict check.
+- `CONFIRMED` — 30% upfront payment settled; the booking is locked in and now counts toward the professional's event-conflict check.
 - `IN_PROGRESS` — the service window has started.
 - `DELIVERED` — the professional has finished the on-site service and marked it delivered, optionally attaching a `Deliverable` record with media/drive links. Not every service produces a deliverable (e.g. decoration, live sound management) — the professional can move straight to `DELIVERED` without one.
 - `COMPLETED` — final 70% payment is settled; reviews unlock.
@@ -236,7 +236,7 @@ The payment provider is **bKash**. Payment status must be verified by the backen
 
 Payments are associated with contracts and (for record-keeping) the paying client.
 
-### Payment Schedule
+### Payment event
 
 ```text
 30% → Initial/Upfront Payment (unlocks CONFIRMED)
@@ -298,14 +298,14 @@ Cloudinary may be used for profile images, professional portfolios, deliverable 
 
 ## 23. Matching
 
-Since AyojanPro is a local platform, location matters. Matching may consider: service, skills, location, service schedule (no overlap with existing contracts), rating, experience, portfolio, pricing, and `acceptingBookings`. Professionals who cannot actually serve the required time period (based on existing confirmed contracts) should not be recommended as suitable matches.
+Since AyojanPro is a local platform, location matters. Matching may consider: service, skills, location, service event (no overlap with existing contracts), rating, experience, portfolio, pricing, and `acceptingBookings`. Professionals who cannot actually serve the required time period (based on existing confirmed contracts) should not be recommended as suitable matches.
 
 ## 24. Core Business Rules
 
 1. **Role restriction:** only clients directly register through the normal registration flow.
 2. **Professional gating:** a `Professional` record exists from the moment of application, but only an `APPROVED` status allows active platform use.
 3. **Service-specific budget:** every event service requirement has its own budget.
-4. **Service-specific schedule:** every event service requirement has its own service time range.
+4. **Service-specific event:** every event service requirement has its own service time range.
 5. **One active professional per requirement:** one requirement cannot have multiple simultaneously active hired professionals.
 6. **Multiple services per professional:** one professional can be hired for multiple requirements of the same event.
 7. **No time overlap:** a professional cannot have overlapping `CONFIRMED`/`IN_PROGRESS` contracts, checked directly against the contract table.
@@ -326,7 +326,7 @@ The backend must handle cases including:
 - Contract created with a conflicting confirmed contract.
 - Professional disables `acceptingBookings` before acceptance.
 - Requirement is already filled when another proposal is accepted.
-- Contract cancellation frees the professional's schedule.
+- Contract cancellation frees the professional's event.
 - Proposal expires before acceptance.
 - Final payment attempted before the contract is `DELIVERED`.
 - Final payment attempted after a dispute is opened.
@@ -567,7 +567,7 @@ Valid because each professional is qualified for the specific requirement they a
 
 AyojanPro should provide a reliable local event-service platform where:
 
-- Clients organize events with independently budgeted and scheduled services.
+- Clients organize events with independently budgeted and eventd services.
 - Professionals apply directly through their own profile record and become active only after admin approval.
 - Professionals can provide multiple services and be hired for multiple requirements of one event.
 - Different professionals can independently fill different requirements of the same event.

@@ -67,6 +67,26 @@ export interface IUpdateService {
 	name?: string;
 	description?: string;
 }
+export interface ICreateSkill {
+	name: string;
+	description?: string;
+}
+
+export interface ICreateExperience {
+	title: string;
+	description?: string;
+	organization?: string;
+	startDate?: Date;
+	endDate?: Date;
+}
+
+export interface IUpdateExperience {
+	title?: string;
+	description?: string;
+	organization?: string;
+	startDate?: Date;
+	endDate?: Date;
+}
 
 export interface ICreatePortfolioItemInput {
 	title: string;

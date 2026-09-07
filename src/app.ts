@@ -12,7 +12,7 @@ import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
 import { notFound } from "./app/middleware/notFound";
 import { AuthRoutes } from "./app/module/auth/auth.route";
 import { ClientRoutes } from "./app/module/client/client.route";
-import { ProfessionalRoutes } from "./app/module/creator/professional.route";
+import { ProfessionalRoutes } from "./app/module/professional/professional.route";
 import { UserRoutes } from "./app/module/user/user.route";
 
 const app: Application = express();

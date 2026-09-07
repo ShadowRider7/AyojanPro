@@ -4,7 +4,6 @@ model Client {
   userId String @unique
 
   phone        String? @db.VarChar(30)
-  profileImage String?
   bio          String? @db.Text
   address      String? @db.Text
   city         String? @db.VarChar(100)

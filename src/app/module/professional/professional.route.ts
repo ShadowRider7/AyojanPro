@@ -81,6 +81,32 @@ router.delete(
 	professionalController.deleteService,
 );
 
+router.post("/skill", auth(Role.PROFESSIONAL), professionalController.addSkill);
+
+router.delete(
+	"/skill/:id",
+	auth(Role.PROFESSIONAL),
+	professionalController.deleteSkill,
+);
+
+router.post(
+	"/experience",
+	auth(Role.PROFESSIONAL),
+	professionalController.addExperience,
+);
+
+router.patch(
+	"/experience/:id",
+	auth(Role.PROFESSIONAL),
+	professionalController.updateExperience,
+);
+
+router.delete(
+	"/experience/:id",
+	auth(Role.PROFESSIONAL),
+	professionalController.deleteExperience,
+);
+
 router.post(
 	"/portfolio",
 	auth(Role.PROFESSIONAL),

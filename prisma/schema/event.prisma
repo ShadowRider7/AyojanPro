@@ -1,5 +1,4 @@
 
-
 model Event {
   id       String @id @default(uuid())
   clientId String
@@ -14,6 +13,8 @@ model Event {
 
   startAt DateTime
   endAt   DateTime
+  isDeleted Boolean @default(false)
+  deletedAt DateTime?
 
   status EventStatus @default(DRAFT)
 
