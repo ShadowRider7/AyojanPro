@@ -12,7 +12,7 @@ import { cloudinary } from "../../lib/cloudinary";
 import { transporter } from "../../lib/nodemailer";
 import { prisma } from "../../lib/prisma";
 import { redisClient } from "../../lib/redis";
-import type { RequestUser } from "../../middleware/checkAuth";
+import type { RequestUser } from "../../middleware/auth";
 import { AppError } from "../../utils/AppError";
 import type {
 	IApplyAsProfessionalPayload,

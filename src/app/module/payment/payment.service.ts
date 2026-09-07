@@ -9,7 +9,7 @@ import {
 import config from "../../config";
 import { getBkashIdToken } from "../../lib/bkash";
 import { prisma } from "../../lib/prisma";
-import type { RequestUser } from "../../middleware/checkAuth";
+import type { RequestUser } from "../../middleware/auth";
 import { AppError } from "../../utils/AppError";
 import type {
 	IBkashCallbackResult,

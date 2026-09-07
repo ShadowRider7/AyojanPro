@@ -1,6 +1,6 @@
 import { Router } from "express";
 import { Role } from "../../../generated/prisma/enums";
-import { auth } from "../../middleware/checkAuth";
+import { auth } from "../../middleware/auth";
 import { validateRequest } from "../../middleware/validateRequest";
 import { eventController } from "./event.controller";
 import { eventValidator } from "./event.validation";

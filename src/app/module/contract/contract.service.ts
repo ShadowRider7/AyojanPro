@@ -1,7 +1,7 @@
 import httpStatus from "http-status";
 import { Role } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
-import type { RequestUser } from "../../middleware/checkAuth";
+import type { RequestUser } from "../../middleware/auth";
 import { AppError } from "../../utils/AppError";
 import type { IAttachDeliverable } from "./contract.interface";
 
