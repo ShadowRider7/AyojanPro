@@ -8,7 +8,6 @@
 	"main": "index.js",
 	"scripts": {
 		"build": "prisma generate && npx prisma migrate deploy && tsc",
-		"seed": "ts-node src/app/utils/seed.ts",
 		"start": "node dist/index.js",
 		"dev": "ts-node-dev src/index.ts"
 	},
