@@ -7,11 +7,10 @@
 	"type": "module",
 	"main": "index.js",
 	"scripts": {
-		"dev": "tsx watch src/server.ts",
-		"build": "tsup src/app.ts --format esm --clean --minify",
-		"start": "node dist/src/server.js",
-		"stripe:webhook": "stripe listen --forward-to localhost:5000/api/payments/webhook",
-		"test": "echo \"Error: no test specified\" && exit 1"
+		"build": "prisma generate && npx prisma migrate deploy && tsc",
+		"seed": "ts-node src/app/utils/seed.ts",
+		"start": "node dist/index.js",
+		"dev": "ts-node-dev src/index.ts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.5.11",
