@@ -12,7 +12,9 @@ import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
 import { notFound } from "./app/middleware/notFound";
 import { AuthRoutes } from "./app/module/auth/auth.route";
 import { ClientRoutes } from "./app/module/client/client.route";
+import { EventRoutes } from "./app/module/event/event.route";
 import { ProfessionalRoutes } from "./app/module/professional/professional.route";
+import { proposalRoutes } from "./app/module/proposal/proposal.route";
 import { UserRoutes } from "./app/module/user/user.route";
 
 const app: Application = express();
@@ -35,6 +37,9 @@ app.use("/api/v1/auth", AuthRoutes);
 app.use("/api/v1/user", UserRoutes);
 app.use("/api/v1/client", ClientRoutes);
 app.use("/api/v1/professional", ProfessionalRoutes);
+app.use("/api/v1/event", EventRoutes);
+app.use("/api/v1/proposal", proposalRoutes);
+
 // Basic route
 app.get("/", async (req: Request, res: Response) => {
 	res.status(httpStatus.OK).json({

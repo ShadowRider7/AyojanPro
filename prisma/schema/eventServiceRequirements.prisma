@@ -19,8 +19,8 @@ model EventServiceRequirement {
 
   event Event @relation(fields: [eventId], references: [id], onDelete: Cascade)
 
-  proposals Proposal[]
-  contracts Contract[]
+  proposalItems ProposalItem[]
+  contracts     Contract[]
 
   @@index([eventId])
   @@index([status])

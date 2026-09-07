@@ -623,7 +623,7 @@ const getMyServices = async (user: RequestUser) => {
 		include: {
 			contracts: true,
 			professional: true,
-			proposals: true,
+			proposalItems: true,
 			_count: true,
 		},
 	});

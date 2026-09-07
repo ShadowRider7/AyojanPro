@@ -1,4 +1,3 @@
-
 model ProfessionalService {
   id             String @id @default(uuid())
   professionalId String
@@ -17,8 +16,8 @@ model ProfessionalService {
 
   professional Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
 
-  proposals Proposal[]
-  contracts Contract[]
+  proposalItems ProposalItem[]
+  contracts     Contract[]
 
   @@index([professionalId])
   @@index([name])

@@ -1,4 +1,3 @@
-
 model Event {
   id       String @id @default(uuid())
   clientId String
@@ -24,6 +23,7 @@ model Event {
   client Client @relation(fields: [clientId], references: [id], onDelete: Cascade)
 
   serviceRequirements EventServiceRequirement[]
+  proposals           Proposal[]
   contracts           Contract[]
 
   @@index([clientId])

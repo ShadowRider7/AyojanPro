@@ -1,7 +1,28 @@
 
 model Proposal {
+  id             String @id @default(uuid())
+  professionalId String
+  eventId        String
+
+  message String? @db.Text
+
+  submittedAt DateTime @default(now())
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  professional Professional @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+  event        Event        @relation(fields: [eventId], references: [id], onDelete: Cascade)
+
+  items ProposalItem[]
+
+  @@index([professionalId])
+  @@index([eventId])
+}
+
+model ProposalItem {
   id                        String @id @default(uuid())
-  professionalId            String
+  proposalId                String
   eventServiceRequirementId String
   professionalServiceId     String
 
@@ -11,26 +32,22 @@ model Proposal {
   proposedStartAt DateTime
   proposedEndAt   DateTime
 
-  message String? @db.Text
-
   status ProposalStatus @default(PENDING)
 
-  submittedAt DateTime  @default(now())
   respondedAt DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  professional            Professional            @relation(fields: [professionalId], references: [id], onDelete: Cascade)
+  proposal                Proposal                @relation(fields: [proposalId], references: [id], onDelete: Cascade)
   eventServiceRequirement EventServiceRequirement @relation(fields: [eventServiceRequirementId], references: [id], onDelete: Cascade)
   professionalService     ProfessionalService     @relation(fields: [professionalServiceId], references: [id], onDelete: Restrict)
 
   contract Contract?
 
-  @@index([professionalId])
+  @@unique([proposalId, eventServiceRequirementId])
   @@index([eventServiceRequirementId])
   @@index([professionalServiceId])
   @@index([status])
   @@index([proposedStartAt, proposedEndAt])
-
 }

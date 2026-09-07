@@ -8,14 +8,14 @@ import { eventValidator } from "./event.validation";
 const router = Router();
 
 router.post(
-	"/event",
+	"/",
 	auth(Role.CLIENT),
 	validateRequest(eventValidator.eventCreateSchema),
 	eventController.createEvent,
 );
 
 router.post(
-	"/event-services/:eventId",
+	"/services/:eventId",
 	auth(Role.CLIENT),
 	validateRequest(eventValidator.eventServiceRequirementCreateSchema),
 	eventController.createEventServices,
@@ -28,25 +28,25 @@ router.get(
 );
 
 router.patch(
-	"/update-event/:eventId",
+	"/update/:eventId",
 	auth(Role.CLIENT),
 	validateRequest(eventValidator.eventUpdateSchema),
 	eventController.updateEvent,
 );
 
 router.get(
-	"/event/:eventId/required-services",
+	"/:eventId/required-services",
 	eventController.getEventRequiredServices,
 );
 router.patch(
-	"/update-event/:eventId/services/:serviceId",
+	"/update/:eventId/services/:serviceId",
 	auth(Role.CLIENT),
 	validateRequest(eventValidator.eventServiceRequirementUpdateSchema),
 	eventController.updateEventServices,
 );
 
 router.delete(
-	"/event/:eventId/services/:serviceId",
+	"/:eventId/services/:serviceId",
 	auth(Role.CLIENT),
 	eventController.deleteEventService,
 );
