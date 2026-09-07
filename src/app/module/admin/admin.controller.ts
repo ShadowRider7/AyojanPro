@@ -62,7 +62,7 @@ const updateUserStatus = catchAsync(async (req, res) => {
 	const user = await adminService.updateUserStatus(
 		req.params.id as string,
 		req.body,
-		req.user,
+		req.user!,
 	);
 
 	sendResponse(res, {

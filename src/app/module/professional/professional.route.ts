@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { Role } from "../../../generated/prisma/enums";
 import { upload } from "../../lib/multer";
-import { auth } from "../../middleware/auth";
+import { auth } from "../../middleware/checkAuth";
 import { validateRequest } from "../../middleware/validateRequest";
 import { professionalController } from "./professional.controller";
 import { ProfessionalValidation } from "./professional.validation";

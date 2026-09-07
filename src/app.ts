@@ -56,7 +56,7 @@ app.use("/api/v1/admin", adminRoutes);
 app.get("/", async (req: Request, res: Response) => {
 	res.status(httpStatus.OK).json({
 		success: true,
-		message: "Welcome to CraftBridge System Backend",
+		message: "Welcome to AyojanPro System Backend",
 	});
 });
 

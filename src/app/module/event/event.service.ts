@@ -1,4 +1,3 @@
-import { isAfter } from "date-fns";
 import httpStatus from "http-status";
 import {
 	ContractStatus,
@@ -8,7 +7,7 @@ import {
 import type { EventWhereInput } from "../../../generated/prisma/models";
 import type { getEvent } from "../../interfaces";
 import { prisma } from "../../lib/prisma";
-import type { RequestUser } from "../../middleware/auth";
+import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
 import type {
 	IEventCreate,

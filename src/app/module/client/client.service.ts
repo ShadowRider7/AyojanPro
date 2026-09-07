@@ -1,6 +1,6 @@
 import httpStatus from "http-status";
 import { prisma } from "../../lib/prisma";
-import type { RequestUser } from "../../middleware/auth";
+import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
 import type { IUpdateClientProfileInput } from "./client.interface";
 
