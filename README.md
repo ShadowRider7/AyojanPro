@@ -38,7 +38,7 @@ Routes → Middleware → Controller → Service → Prisma → PostgreSQL
 
 | Role | How the account is created |
 |---|---|
-| `CLIENT` | Self-register (credentials or Google OAuth) |
+| `CLIENT` | Self-register (credentials or Google OAuth) with email verification |
 | `PROFESSIONAL` | Applies directly by creating a `User` + `Professional` profile (`status = PENDING`) → Admin flips status to `APPROVED`/`REJECTED` |
 | `ADMIN` | Platform-seeded; not publicly registrable |
 
@@ -94,76 +94,74 @@ Base path: `/api/v1`
 | Method | Endpoint | Description |
 |---|---|---|
 | POST | `/auth/register` | Client registration |
+| POST | `/auth/verify-email` | Verify client email with OTP |
 | POST | `/auth/login` | Credential login |
-| GET | `/auth/google` | Google OAuth initiation |
-| GET | `/auth/google/callback` | Google OAuth callback |
-| POST | `/auth/refresh` | Refresh access token |
-| POST | `/auth/logout` | Logout |
+| POST | `/auth/google` | Google OAuth login |
+| POST | `/auth/refresh-token` | Refresh access token |
+| POST | `/auth/forgot-password` | Request password reset |
+| POST | `/auth/reset-password` | Reset password with token |
+| GET | `/auth/me` | Get current authenticated user |
 
 ### Professionals (profile + application in one)
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/professionals/apply` | Create `User` (role `PROFESSIONAL`) + `Professional` profile, `status = PENDING` |
-| GET | `/professionals` | Browse `APPROVED` professionals |
-| GET | `/professionals/:id` | Get professional profile |
-| PATCH | `/professionals/me` | Update own profile |
-| PATCH | `/professionals/me/accepting-bookings` | Toggle accepting bookings |
-| GET | `/admin/professionals?status=PENDING` | List pending applications (Admin) |
-| PATCH | `/admin/professionals/:id/approve` | Approve (Admin) |
-| PATCH | `/admin/professionals/:id/reject` | Reject, with reason (Admin) |
-
-### Professional Services, Skills & Experience
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/professionals/me/services` | Add service |
-| PATCH | `/professionals/me/services/:id` | Update service |
-| DELETE | `/professionals/me/services/:id` | Remove service |
-| POST | `/professionals/me/skills` | Add skill |
-| DELETE | `/professionals/me/skills/:id` | Remove skill |
-| POST | `/professionals/me/experience` | Add experience |
-| PATCH | `/professionals/me/experience/:id` | Update experience |
-| DELETE | `/professionals/me/experience/:id` | Remove experience |
-
-### Portfolio
-| Method | Endpoint | Description |
-|---|---|---|
-| POST | `/professionals/me/portfolio` | Add portfolio item |
-| PATCH | `/professionals/me/portfolio/:id` | Update item |
-| DELETE | `/professionals/me/portfolio/:id` | Remove item |
+| POST | `/professional/apply-as-professional` | Create `User` (role `PROFESSIONAL`) + `Professional` profile, `status = PENDING` (with resume & additional files upload) |
+| POST | `/professional/apply-as-professional/verify-email` | Verify professional email with OTP |
+| POST | `/professional/approve-professional` | Approve professional application (Admin) |
+| GET | `/professional/all-professionals` | List all professionals (Admin) |
+| PATCH | `/professional/update-my-profile` | Update own profile |
+| GET | `/professional/public/all-Professionals` | Browse `APPROVED` professionals (public) |
+| GET | `/professional/public/:professionalId` | Get professional public profile |
+| POST | `/professional/service` | Add service |
+| GET | `/professional/me/services` | List own services |
+| PATCH | `/professional/service/:id` | Update service |
+| DELETE | `/professional/service/:id` | Remove service |
+| POST | `/professional/skill` | Add skill |
+| DELETE | `/professional/skill/:id` | Remove skill |
+| POST | `/professional/experience` | Add experience |
+| PATCH | `/professional/experience/:id` | Update experience |
+| DELETE | `/professional/experience/:id` | Remove experience |
+| POST | `/professional/portfolio` | Add portfolio item (with media upload) |
+| GET | `/professional/me/portfolio` | List own portfolio items |
+| PATCH | `/professional/portfolio/:id` | Update portfolio item |
+| DELETE | `/professional/portfolio/:id` | Remove portfolio item |
 
 ### Client Profile
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/clients/me` | Get own profile |
-| PATCH | `/clients/me` | Update profile |
+| PATCH | `/client/my-profile` | Update own profile |
 
 ### Events
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/events` | Create event (Client) |
-| GET | `/events` | Browse published events (Professional/Admin) |
-| GET | `/events/:id` | Get event detail |
-| PATCH | `/events/:id` | Update event (Client/Admin) |
-| DELETE | `/events/:id` | Delete event (Client/Admin) |
-| PATCH | `/events/:id/publish` | Publish event |
+| POST | `/event` | Create event (Client) |
+| POST | `/event/services/:eventId` | Add service requirement |
+| GET | `/event/all-events` | Browse published events (Professional/Admin) |
+| PATCH | `/event/update/:eventId` | Update event (Client) |
+| GET | `/event/:eventId/required-services` | List service requirements for event |
+| PATCH | `/event/update/:eventId/services/:serviceId` | Update service requirement |
+| DELETE | `/event/:eventId/services/:serviceId` | Remove service requirement |
+| GET | `/event/:eventId` | Get event detail |
+| PATCH | `/event/publish-event/:eventId` | Publish event |
+| DELETE | `/event/:eventId` | Delete event (Client/Admin) |
 
 ### Event Service Requirements
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/events/:eventId/requirements` | Add service requirement |
-| GET | `/events/:eventId/requirements` | List requirements |
-| PATCH | `/events/:eventId/requirements/:id` | Update requirement |
-| DELETE | `/events/:eventId/requirements/:id` | Remove requirement |
+| POST | `/event/services/:eventId` | Add service requirement |
+| GET | `/event/:eventId/required-services` | List requirements |
+| PATCH | `/event/update/:eventId/services/:serviceId` | Update requirement |
+| DELETE | `/event/:eventId/services/:serviceId` | Remove requirement |
 
 ### Proposals
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/requirements/:requirementId/proposals` | Submit proposal (Professional) |
-| GET | `/requirements/:requirementId/proposals` | List proposals (Client/Admin) |
-| GET | `/proposals/:id` | Get proposal detail |
-| PATCH | `/proposals/:id/accept` | Accept proposal → creates Contract (Client) |
-| PATCH | `/proposals/:id/reject` | Reject proposal (Client) |
-| PATCH | `/proposals/:id/withdraw` | Withdraw proposal (Professional) |
+| POST | `/proposal/events/:eventId` | Submit proposal (Professional) |
+| GET | `/proposal/requirements/:requirementId` | List proposals (Client/Admin) |
+| GET | `/proposal/:id` | Get proposal detail |
+| PATCH | `/proposal/:id/accept` | Accept proposal → creates Contract (Client) |
+| PATCH | `/proposal/:id/reject` | Reject proposal (Client) |
+| PATCH | `/proposal/:id/withdraw` | Withdraw proposal (Professional) |
 
 ### Contracts
 | Method | Endpoint | Description |
@@ -178,34 +176,34 @@ Base path: `/api/v1`
 ### Payments
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/contracts/:id/payments/initial` | Initiate 30% upfront payment |
-| POST | `/contracts/:id/payments/final` | Initiate 70% final payment (requires `DELIVERED`) |
-| POST | `/payments/bkash/callback` | bKash payment callback (verified server-side) |
-| GET | `/contracts/:id/payments` | List payments for contract |
+| POST | `/payment/contracts/:id/payments/initial` | Initiate 30% upfront payment |
+| POST | `/payment/contracts/:id/payments/final` | Initiate 70% final payment (requires `DELIVERED`) |
+| POST | `/payment/bkash/callback` | bKash payment callback (verified server-side) |
+| GET | `/payment/contracts/:id/payments` | List payments for contract |
 
 ### Reviews
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/contracts/:id/reviews` | Leave review (Client or Professional) |
-| GET | `/professionals/:id/reviews` | Get professional reviews |
-| GET | `/clients/:id/reviews` | Get client reviews |
+| POST | `/review/contracts/:id` | Leave review (Client or Professional) |
+| GET | `/review/professionals/:id` | Get professional reviews |
+| GET | `/review/clients/:id` | Get client reviews |
 
 ### Disputes
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/contracts/:id/disputes` | Raise dispute |
-| GET | `/disputes` | List disputes (Admin) |
-| GET | `/disputes/:id` | Get dispute detail |
-| POST | `/disputes/:id/evidence` | Upload evidence |
-| PATCH | `/disputes/:id/status` | Update dispute status (Admin) |
-| PATCH | `/disputes/:id/resolve` | Resolve dispute (Admin) |
+| POST | `/dispute/contracts/:id/` | Raise dispute |
+| GET | `/dispute` | List disputes (Admin) |
+| GET | `/dispute/:id` | Get dispute detail |
+| POST | `/dispute/:id/evidence` | Upload evidence |
+| PATCH | `/dispute/:id/status` | Update dispute status (Admin) |
+| PATCH | `/dispute/:id/resolve` | Resolve dispute (Admin) |
 
 ### Notifications
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/notifications` | List notifications |
-| PATCH | `/notifications/:id/read` | Mark as read |
-| PATCH | `/notifications/read-all` | Mark all as read |
+| GET | `/notification` | List notifications |
+| PATCH | `/notification/read-all` | Mark all as read |
+| PATCH | `/notification/:id/read` | Mark as read |
 
 ### Admin
 | Method | Endpoint | Description |
@@ -216,6 +214,18 @@ Base path: `/api/v1`
 | GET | `/admin/payments` | List all payments |
 | PATCH | `/admin/users/:id/status` | Activate/suspend user |
 
+### User (Profile Image)
+| Method | Endpoint | Description |
+|---|---|---|
+| PATCH | `/user/profile-image` | Upload/update profile image (all roles) |
+
+### Analytics
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/analytics/client-analytics` | Get client analytics (Client) |
+| GET | `/analytics/professional-analytics` | Get professional analytics (Professional) |
+| GET | `/analytics/admin-analytics` | Get admin platform analytics (Admin) |
+
 ---
 
 ## Key Business Rules
@@ -223,6 +233,7 @@ Base path: `/api/v1`
 **Professional gating**
 - Applying = creating the `Professional` record itself, `status = PENDING`.
 - Only `status = APPROVED` unlocks professional-only actions (browsing events, proposing, contracting).
+- Email verification required for both clients and professionals.
 
 **Scheduling**
 - Every `EventServiceRequirement` has its own `startAt`/`endAt` and budget, independent of the parent event's time range.
@@ -244,6 +255,7 @@ Base path: `/api/v1`
 - 30% paid upfront to reach `CONFIRMED`; 70% paid once the contract is `DELIVERED`, moving it to `COMPLETED`.
 - Payment success is **always** verified server-side via bKash callback — the frontend result is never trusted.
 - Final payment is blocked if a dispute is open on the contract.
+- Only one payment per (contract, stage) is permitted.
 
 **Reviews**
 - Reviews unlock only once the contract is `COMPLETED`.

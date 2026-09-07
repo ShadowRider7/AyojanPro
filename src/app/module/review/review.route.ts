@@ -8,16 +8,13 @@ import { ReviewValidation } from "./review.validator";
 const router = Router();
 
 router.post(
-	"/contracts/:id/reviews",
+	"/contracts/:id",
 	auth(Role.CLIENT, Role.PROFESSIONAL),
 	validateRequest(ReviewValidation.createReviewZodSchema),
 	ReviewController.createReview,
 );
 
-router.get(
-	"/professionals/:id/reviews",
-	ReviewController.getProfessionalReviews,
-);
+router.get("/professionals/:id", ReviewController.getProfessionalReviews);
 
 router.get("/clients/:id/reviews", ReviewController.getClientReviews);
 

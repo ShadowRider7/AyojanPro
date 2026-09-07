@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 import type { JwtPayload } from "jsonwebtoken";
-import type { Role } from "../../generated/prisma/enums";
+import { Role, UserStatus } from "../../generated/prisma/enums";
 import config from "../config";
 import { prisma } from "../lib/prisma";
 import { AppError } from "../utils/AppError";
@@ -71,7 +71,7 @@ export const auth = (...requiredRoles: Role[]) => {
 			);
 		}
 
-		if (user.status === "SUSPENDED") {
+		if (user.status === UserStatus.SUSPENDED) {
 			throw new AppError(
 				httpStatus.FORBIDDEN,
 				"Your account has been suspended. Please contact support.",

@@ -789,7 +789,7 @@ const createPortfolio = async (
 			title: payload.title,
 			description: payload.description,
 			eventType: payload.eventType,
-			workDays: payload.workDays,
+			workDate: payload.workDays ? new Date(payload.workDays) : null,
 			externalUrl: payload.externalUrl,
 			mediaUrl: mediaUploadResult.secure_url,
 			publicId: mediaUploadResult.public_id,
@@ -915,7 +915,7 @@ const updateExperience = async (
 	if (!existingExperience) {
 		throw new AppError(httpStatus.NOT_FOUND, "Experience not found");
 	}
-	const updatedExperience = await prisma.professionalService.update({
+	const updatedExperience = await prisma.experience.update({
 		where: {
 			id: experienceId,
 		},

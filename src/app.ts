@@ -11,6 +11,7 @@ import config from "./app/config";
 import { globalErrorHandler } from "./app/middleware/globalErrorHandler";
 import { notFound } from "./app/middleware/notFound";
 import { adminRoutes } from "./app/module/admin/admin.route";
+import { AnalyticsRoutes } from "./app/module/analytics/analytics.route";
 import { AuthRoutes } from "./app/module/auth/auth.route";
 import { ClientRoutes } from "./app/module/client/client.route";
 import { contractRoutes } from "./app/module/contract/contract.route";
@@ -51,6 +52,7 @@ app.use("/api/v1/review", ReviewRoutes);
 app.use("/api/v1/notification", notificationRoutes);
 app.use("/api/v1/dispute", disputeRoutes);
 app.use("/api/v1/admin", adminRoutes);
+app.use("/api/v1/analytics", AnalyticsRoutes);
 
 // Basic route
 app.get("/", async (req: Request, res: Response) => {

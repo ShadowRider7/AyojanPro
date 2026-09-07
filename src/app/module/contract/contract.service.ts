@@ -1,5 +1,5 @@
 import httpStatus from "http-status";
-import { Role } from "../../../generated/prisma/enums";
+import { ContractStatus, Role } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
@@ -114,7 +114,7 @@ const cancelContract = async (
 		const cancelled = await tx.contract.update({
 			where: { id: contractId },
 			data: {
-				status: "CANCELLED",
+				status: ContractStatus.CANCELLED,
 				cancelledAt: new Date(),
 				cancellationReason: reason,
 			},
@@ -150,7 +150,7 @@ const attachDeliverable = async (
 		);
 	}
 
-	if (contract.status !== "CONFIRMED" && contract.status !== "IN_PROGRESS") {
+	if (contract.status !== ContractStatus.CONFIRMED && contract.status !== ContractStatus.IN_PROGRESS) {
 		throw new AppError(
 			httpStatus.BAD_REQUEST,
 			"Deliverables can only be submitted while the contract is confirmed or in progress",
@@ -212,7 +212,7 @@ const markContractCompleted = async (contractId: string) => {
 	return prisma.$transaction(async (tx) => {
 		const contract = await tx.contract.update({
 			where: { id: contractId },
-			data: { status: "COMPLETED", completedAt: new Date() },
+			data: { status: ContractStatus.COMPLETED, completedAt: new Date() },
 		});
 
 		await tx.eventServiceRequirement.update({
@@ -227,7 +227,7 @@ const markContractCompleted = async (contractId: string) => {
 const completeContract = async (contractId: string, user: RequestUser) => {
 	const contract = await getAuthorizedContract(contractId, user);
 
-	if (contract.status !== "DELIVERED") {
+	if (contract.status !== ContractStatus.DELIVERED) {
 		throw new AppError(
 			httpStatus.BAD_REQUEST,
 			"Contract must be DELIVERED before it can be marked completed",

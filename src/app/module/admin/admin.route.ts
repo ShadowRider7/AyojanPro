@@ -7,16 +7,16 @@ import { adminValidator } from "./admin.validator";
 
 const router = Router();
 
-router.get("/admin/users", auth(Role.ADMIN), adminController.listUsers);
+router.get("/users", auth(Role.ADMIN), adminController.listUsers);
 
-router.get("/admin/events", auth(Role.ADMIN), adminController.listEvents);
+router.get("/events", auth(Role.ADMIN), adminController.listEvents);
 
-router.get("/admin/contracts", auth(Role.ADMIN), adminController.listContracts);
+router.get("/contracts", auth(Role.ADMIN), adminController.listContracts);
 
-router.get("/admin/payments", auth(Role.ADMIN), adminController.listPayments);
+router.get("/payments", auth(Role.ADMIN), adminController.listPayments);
 
 router.patch(
-	"/admin/users/:id/status",
+	"/users/:id/status",
 	auth(Role.ADMIN),
 	validateRequest(adminValidator.updateUserStatusZodSchema),
 	adminController.updateUserStatus,

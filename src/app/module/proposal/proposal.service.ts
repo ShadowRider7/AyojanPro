@@ -1,5 +1,5 @@
 import httpStatus from "http-status";
-import { ProposalStatus, Role } from "../../../generated/prisma/enums";
+import { ProposalStatus, Role, ServiceRequirementStatus } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
@@ -255,8 +255,8 @@ const acceptProposalItem = async (itemId: string, user: RequestUser) => {
 	}
 
 	if (
-		requirement.status !== "OPEN" &&
-		requirement.status !== "PARTIALLY_FILLED"
+		requirement.status !== ServiceRequirementStatus.OPEN &&
+		requirement.status !== ServiceRequirementStatus.PARTIALLY_FILLED
 	) {
 		throw new AppError(
 			httpStatus.BAD_REQUEST,
@@ -296,9 +296,9 @@ const acceptProposalItem = async (itemId: string, user: RequestUser) => {
 		const { count } = await tx.eventServiceRequirement.updateMany({
 			where: {
 				id: requirement.id,
-				status: { in: ["OPEN", "PARTIALLY_FILLED"] },
+				status: { in: [ServiceRequirementStatus.OPEN, ServiceRequirementStatus.PARTIALLY_FILLED] },
 			},
-			data: { status: "FILLED" },
+			data: { status: ServiceRequirementStatus.FILLED },
 		});
 
 		if (count === 0) {

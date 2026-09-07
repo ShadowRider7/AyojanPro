@@ -1,5 +1,6 @@
 import httpStatus from "http-status";
 import {
+	ContractStatus,
 	DisputeRaisedBy,
 	DisputeStatus,
 	Role,
@@ -95,7 +96,7 @@ const raiseDispute = async (
 		);
 	}
 
-	if (contract.status === "CANCELLED") {
+	if (contract.status === ContractStatus.CANCELLED) {
 		throw new AppError(
 			httpStatus.BAD_REQUEST,
 			"Cannot raise a dispute on a cancelled contract",
@@ -130,7 +131,7 @@ const raiseDispute = async (
 		// Freeze the contract while the dispute is being looked into.
 		await tx.contract.update({
 			where: { id: contractId },
-			data: { status: "DISPUTED" },
+			data: { status: ContractStatus.DISPUTED },
 		});
 
 		return created;
@@ -235,8 +236,8 @@ const updateDisputeStatus = async (
 
 		if (payload.status === "REJECTED" || payload.status === "CLOSED") {
 			await tx.contract.updateMany({
-				where: { id: dispute.contractId, status: "DISPUTED" },
-				data: { status: "IN_PROGRESS" },
+				where: { id: dispute.contractId, status: ContractStatus.DISPUTED },
+				data: { status: ContractStatus.IN_PROGRESS },
 			});
 		}
 
@@ -278,7 +279,7 @@ const resolveDispute = async (
 		const resolved = await tx.dispute.update({
 			where: { id: disputeId },
 			data: {
-				status: "RESOLVED",
+				status: ContractStatus.RESOLVED,
 				resolution,
 				resolvedById: user.userId,
 				resolvedAt: new Date(),
@@ -287,7 +288,7 @@ const resolveDispute = async (
 
 		await tx.contract.update({
 			where: { id: dispute.contractId },
-			data: { status: "RESOLVED" },
+			data: { status: ContractStatus.RESOLVED },
 		});
 
 		return resolved;

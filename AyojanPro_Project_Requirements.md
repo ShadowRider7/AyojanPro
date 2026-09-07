@@ -46,7 +46,7 @@ Exactly three roles exist:
 
 ### Client
 
-Clients can register/login with credentials or Google OAuth, manage their profile, create and publish events, define multiple service requirements, set a separate budget and event for each service, receive and review proposals, accept proposals, hire the same professional for multiple requirements of one event, hire different professionals for different requirements, make bKash payments, confirm/complete services, review professionals, and raise disputes with evidence.
+Clients can register/login with credentials or Google OAuth, manage their profile, create and publish events, define multiple service requirements, set a separate budget and event time for each service, receive and review proposals, accept proposals, hire the same professional for multiple requirements of one event, hire different professionals for different requirements, make bKash payments, confirm/complete services, review professionals, and raise disputes with evidence.
 
 ### Professional
 
@@ -66,7 +66,7 @@ Admin manages clients, professionals (including reviewing pending applications o
 
 Only clients use the normal public registration flow. Client authentication supports:
 
-1. Credential authentication.
+1. Credential authentication with email verification.
 2. Google OAuth.
 
 Professionals follow:
@@ -424,17 +424,152 @@ Routes → Middleware → Controller → Service → Prisma → PostgreSQL
 
 Routes define endpoints and route-level middleware. Middleware handles authentication, authorization, validation, errors, rate limiting where necessary and file handling where required. Controllers remain thin and handle request extraction, service calls and responses. Services contain business logic, transactions, scheduling checks, permissions, payment verification and workflow transitions. Prisma handles database access.
 
-## 29. Validation
+## 29. API Endpoints Reference
+
+### Auth (`/api/v1/auth`)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/register` | Client registration (credentials) |
+| POST | `/verify-email` | Verify client email with OTP |
+| POST | `/login` | Credential login |
+| POST | `/google` | Google OAuth login |
+| POST | `/refresh-token` | Refresh access token |
+| POST | `/forgot-password` | Request password reset |
+| POST | `/reset-password` | Reset password with token |
+| GET | `/me` | Get current authenticated user |
+
+### Professional (`/api/v1/professional`)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/apply-as-professional` | Create `User` (role `PROFESSIONAL`) + `Professional` profile, `status = PENDING` (with resume & additional files upload) |
+| POST | `/apply-as-professional/verify-email` | Verify professional email with OTP |
+| POST | `/approve-professional` | Approve professional application (Admin) |
+| GET | `/all-professionals` | List all professionals (Admin) |
+| PATCH | `/update-my-profile` | Update own professional profile |
+| GET | `/public/all-Professionals` | Browse `APPROVED` professionals (public) |
+| GET | `/public/:professionalId` | Get professional public profile |
+| POST | `/service` | Add professional service |
+| GET | `/me/services` | List own services |
+| PATCH | `/service/:id` | Update service |
+| DELETE | `/service/:id` | Remove service |
+| POST | `/skill` | Add skill |
+| DELETE | `/skill/:id` | Remove skill |
+| POST | `/experience` | Add experience |
+| PATCH | `/experience/:id` | Update experience |
+| DELETE | `/experience/:id` | Remove experience |
+| POST | `/portfolio` | Add portfolio item (with media upload) |
+| GET | `/me/portfolio` | List own portfolio items |
+| PATCH | `/portfolio/:id` | Update portfolio item |
+| DELETE | `/portfolio/:id` | Remove portfolio item |
+
+### Client (`/api/v1/client`)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| PATCH | `/my-profile` | Update own client profile |
+
+### Events (`/api/v1/event`)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/` | Create event (Client) |
+| POST | `/services/:eventId` | Add service requirement to event |
+| GET | `/all-events` | Browse published events (Professional/Admin) |
+| PATCH | `/update/:eventId` | Update event (Client) |
+| GET | `/:eventId/required-services` | List service requirements for event |
+| PATCH | `/update/:eventId/services/:serviceId` | Update service requirement |
+| DELETE | `/:eventId/services/:serviceId` | Remove service requirement |
+| GET | `/:eventId` | Get event detail |
+| PATCH | `/publish-event/:eventId` | Publish event |
+| DELETE | `/:eventId` | Delete event (Client/Admin) |
+
+### Proposals (`/api/v1/proposal`)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/events/:eventId` | Submit proposal for event requirements (Professional) |
+| GET | `/requirements/:requirementId` | List proposals for a requirement (Client/Admin) |
+| GET | `/:id` | Get proposal detail |
+| PATCH | `/:id/accept` | Accept proposal → creates Contract (Client) |
+| PATCH | `/:id/reject` | Reject proposal (Client) |
+| PATCH | `/:id/withdraw` | Withdraw proposal (Professional) |
+
+### Contracts (`/api/v1/contract`)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/contracts` | List own contracts |
+| GET | `/contracts/:id` | Get contract detail |
+| PATCH | `/contracts/:id/cancel` | Cancel contract |
+| POST | `/contracts/:id/deliverable` | Attach deliverable links and mark `DELIVERED` (Professional) |
+| GET | `/contracts/:id/deliverable` | Get the contract's deliverable, if any |
+| PATCH | `/contracts/:id/complete` | Mark `COMPLETED` (typically triggered by final payment) |
+
+### Payments (`/api/v1/payment`)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/contracts/:id/payments/initial` | Initiate 30% upfront payment |
+| POST | `/contracts/:id/payments/final` | Initiate 70% final payment (requires `DELIVERED`) |
+| POST | `/payments/bkash/callback` | bKash payment callback (verified server-side) |
+| GET | `/contracts/:id/payments` | List payments for contract |
+
+### Reviews (`/api/v1/review`)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/contracts/:id/reviews` | Leave review (Client or Professional) |
+| GET | `/professionals/:id/reviews` | Get professional reviews |
+| GET | `/clients/:id/reviews` | Get client reviews |
+
+### Disputes (`/api/v1/dispute`)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| POST | `/contracts/:id/disputes` | Raise dispute |
+| GET | `/disputes` | List disputes (Admin) |
+| GET | `/disputes/:id` | Get dispute detail |
+| POST | `/disputes/:id/evidence` | Upload evidence |
+| PATCH | `/disputes/:id/status` | Update dispute status (Admin) |
+| PATCH | `/disputes/:id/resolve` | Resolve dispute (Admin) |
+
+### Notifications (`/api/v1/notification`)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/notifications` | List notifications |
+| PATCH | `/notifications/read-all` | Mark all as read |
+| PATCH | `/notifications/:id/read` | Mark as read |
+
+### Admin (`/api/v1/admin`)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/admin/users` | List all users |
+| GET | `/admin/events` | List all events |
+| GET | `/admin/contracts` | List all contracts |
+| GET | `/admin/payments` | List all payments |
+| PATCH | `/admin/users/:id/status` | Activate/suspend user |
+
+### User (`/api/v1/user`)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| PATCH | `/profile-image` | Upload/update profile image (all roles) |
+
+## 30. Validation
 
 Validation is required for authentication, profiles, professional applications (on the `Professional` model), services, skills, experience, portfolio, events, service requirements, proposals, contracts, payments, deliverables, reviews, disputes and evidence.
 
 Validation must include date/time consistency and business rules.
 
-## 30. Error Handling
+## 31. Error Handling
 
 The API should return consistent errors for validation, authentication, authorization, missing resources, duplicates, scheduling conflicts, invalid workflow transitions, payment failures, already-filled requirements, dispute restrictions and external service failures.
 
-## 31. Security Requirements
+## 32. Security Requirements
 
 The backend must:
 
@@ -449,7 +584,7 @@ The backend must:
 - Apply rate limiting to sensitive endpoints where appropriate.
 - Avoid exposing sensitive user information.
 
-## 32. Optional Infrastructure
+## 33. Optional Infrastructure
 
 ### Redis
 
@@ -467,7 +602,7 @@ Transactional email.
 
 Payment processing.
 
-## 33. End-to-End Client Flow
+## 34. End-to-End Client Flow
 
 ```text
 Register/Login
@@ -495,7 +630,7 @@ Pay 70% → Contract Completed
 Review Professional
 ```
 
-## 34. End-to-End Professional Flow
+## 35. End-to-End Professional Flow
 
 ```text
 Submit Professional Profile (User + Professional, status=PENDING)
@@ -521,7 +656,7 @@ Receive Final Payment → Contract Completed
 Review Client
 ```
 
-## 35. End-to-End Admin Flow
+## 36. End-to-End Admin Flow
 
 ```text
 Review Pending Professionals
@@ -535,7 +670,7 @@ Review Disputes & Evidence
 Resolve Disputes
 ```
 
-## 36. Core Business Example
+## 37. Core Business Example
 
 ```text
 Event: Wedding
@@ -563,7 +698,7 @@ Professional B
 
 Valid because each professional is qualified for the specific requirement they applied to, is `APPROVED` and `acceptingBookings`, and has no overlapping confirmed contracts. Photography/Videography/Drone and Makeup/Decoration are filled independently — one requirement being hired-out never affects another requirement's status.
 
-## 37. Final Project Objective
+## 38. Final Project Objective
 
 AyojanPro should provide a reliable local event-service platform where:
 
