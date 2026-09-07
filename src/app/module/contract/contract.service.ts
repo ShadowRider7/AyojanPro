@@ -150,7 +150,10 @@ const attachDeliverable = async (
 		);
 	}
 
-	if (contract.status !== ContractStatus.CONFIRMED && contract.status !== ContractStatus.IN_PROGRESS) {
+	if (
+		contract.status !== ContractStatus.CONFIRMED &&
+		contract.status !== ContractStatus.IN_PROGRESS
+	) {
 		throw new AppError(
 			httpStatus.BAD_REQUEST,
 			"Deliverables can only be submitted while the contract is confirmed or in progress",

@@ -1,5 +1,9 @@
 import httpStatus from "http-status";
-import { ProposalStatus, Role, ServiceRequirementStatus } from "../../../generated/prisma/enums";
+import {
+	ProposalStatus,
+	Role,
+	ServiceRequirementStatus,
+} from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
@@ -296,7 +300,12 @@ const acceptProposalItem = async (itemId: string, user: RequestUser) => {
 		const { count } = await tx.eventServiceRequirement.updateMany({
 			where: {
 				id: requirement.id,
-				status: { in: [ServiceRequirementStatus.OPEN, ServiceRequirementStatus.PARTIALLY_FILLED] },
+				status: {
+					in: [
+						ServiceRequirementStatus.OPEN,
+						ServiceRequirementStatus.PARTIALLY_FILLED,
+					],
+				},
 			},
 			data: { status: ServiceRequirementStatus.FILLED },
 		});
