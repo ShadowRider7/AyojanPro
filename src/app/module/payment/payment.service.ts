@@ -17,14 +17,9 @@ import type {
 	IInitiatePaymentResult,
 } from "./payment.interface";
 
-// Contract.agreedAmount is split 30% / 70% between the two payment stages.
 const INITIAL_PAYMENT_PERCENTAGE = 0.3;
 const FINAL_PAYMENT_PERCENTAGE = 0.7;
 
-// ------------------------------------------------------------------
-// Shared helper — creates (or re-creates) a bKash checkout session
-// for a given contract + stage and upserts the local Payment row.
-// ------------------------------------------------------------------
 const initiatePayment = async (
 	contractId: string,
 	stage: PaymentStage,
@@ -118,7 +113,6 @@ const initiatePayment = async (
 			);
 		}
 
-		// e.g. "5f2c...contractId-INITIAL" — kept unique per contract + stage
 		const merchantInvoiceNumber = `${contract.id}-${stage}`;
 
 		const bkashCreatePaymentResponse = await fetch(
