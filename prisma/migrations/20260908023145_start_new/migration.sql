@@ -2,7 +2,7 @@
 CREATE TYPE "Role" AS ENUM ('CLIENT', 'PROFESSIONAL', 'ADMIN');
 
 -- CreateEnum
-CREATE TYPE "UserStatus" AS ENUM ('ACTIVE', 'INACTIVE', 'DELETED', 'SUSPENDED', 'BLOCKED');
+CREATE TYPE "UserStatus" AS ENUM ('ACTIVE', 'DELETED', 'SUSPENDED', 'BLOCKED');
 
 -- CreateEnum
 CREATE TYPE "AuthProvider" AS ENUM ('CREDENTIAL', 'GOOGLE');
@@ -32,9 +32,6 @@ CREATE TYPE "PaymentStatus" AS ENUM ('PENDING', 'PROCESSING', 'COMPLETED', 'FAIL
 CREATE TYPE "PaymentMethod" AS ENUM ('BKASH');
 
 -- CreateEnum
-CREATE TYPE "AvailabilityType" AS ENUM ('AVAILABLE', 'UNAVAILABLE');
-
--- CreateEnum
 CREATE TYPE "RevieweeRole" AS ENUM ('CLIENT', 'PROFESSIONAL');
 
 -- CreateEnum
@@ -51,7 +48,6 @@ CREATE TABLE "Client" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "phone" VARCHAR(30),
-    "profileImage" TEXT,
     "bio" TEXT,
     "address" TEXT,
     "city" VARCHAR(100),
@@ -70,7 +66,7 @@ CREATE TABLE "Contract" (
     "eventId" TEXT NOT NULL,
     "eventServiceRequirementId" TEXT NOT NULL,
     "professionalServiceId" TEXT NOT NULL,
-    "proposalId" TEXT NOT NULL,
+    "proposalItemId" TEXT NOT NULL,
     "agreedAmount" DECIMAL(12,2) NOT NULL,
     "currency" VARCHAR(10) NOT NULL DEFAULT 'BDT',
     "serviceStartAt" TIMESTAMP(3) NOT NULL,
@@ -86,6 +82,19 @@ CREATE TABLE "Contract" (
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Contract_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Deliverable" (
+    "id" TEXT NOT NULL,
+    "contractId" TEXT NOT NULL,
+    "title" VARCHAR(255),
+    "description" TEXT,
+    "externalUrl" TEXT[],
+    "submittedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Deliverable_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -133,6 +142,8 @@ CREATE TABLE "Event" (
     "country" VARCHAR(100),
     "startAt" TIMESTAMP(3) NOT NULL,
     "endAt" TIMESTAMP(3) NOT NULL,
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
+    "deletedAt" TIMESTAMP(3),
     "status" "EventStatus" NOT NULL DEFAULT 'DRAFT',
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -148,6 +159,8 @@ CREATE TABLE "EventServiceRequirement" (
     "description" TEXT,
     "budget" DECIMAL(12,2) NOT NULL,
     "currency" VARCHAR(10) NOT NULL DEFAULT 'BDT',
+    "isDeleted" BOOLEAN NOT NULL DEFAULT false,
+    "deletedAt" TIMESTAMP(3),
     "startAt" TIMESTAMP(3) NOT NULL,
     "endAt" TIMESTAMP(3) NOT NULL,
     "status" "ServiceRequirementStatus" NOT NULL DEFAULT 'OPEN',
@@ -177,6 +190,7 @@ CREATE TABLE "notifications" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,
     "title" VARCHAR(255) NOT NULL,
+    "type" "NotificationType" NOT NULL,
     "message" TEXT NOT NULL,
     "isRead" BOOLEAN NOT NULL DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -228,15 +242,15 @@ CREATE TABLE "PortfolioItem" (
 -- CreateTable
 CREATE TABLE "Professional" (
     "id" TEXT NOT NULL,
-    "name" VARCHAR(255) NOT NULL,
-    "email" VARCHAR(255) NOT NULL,
+    "name" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
     "phone" VARCHAR(30),
     "address" TEXT,
     "city" VARCHAR(100),
     "country" VARCHAR(100),
-    "professionalTitle" VARCHAR(255),
+    "professionalTitle" VARCHAR(255) NOT NULL,
     "bio" TEXT,
-    "experienceYears" INTEGER,
+    "experienceYears" INTEGER NOT NULL,
     "acceptingBookings" BOOLEAN NOT NULL DEFAULT true,
     "status" "ApplicationStatus" NOT NULL DEFAULT 'PENDING',
     "reviewedById" TEXT,
@@ -285,20 +299,31 @@ CREATE TABLE "ProfessionalSkill" (
 CREATE TABLE "Proposal" (
     "id" TEXT NOT NULL,
     "professionalId" TEXT NOT NULL,
+    "eventId" TEXT NOT NULL,
+    "message" TEXT,
+    "submittedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Proposal_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ProposalItem" (
+    "id" TEXT NOT NULL,
+    "proposalId" TEXT NOT NULL,
     "eventServiceRequirementId" TEXT NOT NULL,
     "professionalServiceId" TEXT NOT NULL,
     "proposedAmount" DECIMAL(12,2) NOT NULL,
     "currency" VARCHAR(10) NOT NULL DEFAULT 'BDT',
     "proposedStartAt" TIMESTAMP(3) NOT NULL,
     "proposedEndAt" TIMESTAMP(3) NOT NULL,
-    "message" TEXT,
     "status" "ProposalStatus" NOT NULL DEFAULT 'PENDING',
-    "submittedAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "respondedAt" TIMESTAMP(3),
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "Proposal_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "ProposalItem_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -338,6 +363,7 @@ CREATE TABLE "User" (
     "authProvider" "AuthProvider" NOT NULL DEFAULT 'CREDENTIAL',
     "googleId" VARCHAR(255),
     "emailVerified" BOOLEAN NOT NULL DEFAULT false,
+    "needPasswordChange" BOOLEAN NOT NULL DEFAULT false,
     "imageUrl" TEXT,
     "imagePublicId" TEXT,
     "isDeleted" BOOLEAN NOT NULL DEFAULT false,
@@ -355,7 +381,7 @@ CREATE UNIQUE INDEX "Client_userId_key" ON "Client"("userId");
 CREATE INDEX "Client_city_idx" ON "Client"("city");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Contract_proposalId_key" ON "Contract"("proposalId");
+CREATE UNIQUE INDEX "Contract_proposalItemId_key" ON "Contract"("proposalItemId");
 
 -- CreateIndex
 CREATE INDEX "Contract_clientId_idx" ON "Contract"("clientId");
@@ -374,6 +400,12 @@ CREATE INDEX "Contract_status_idx" ON "Contract"("status");
 
 -- CreateIndex
 CREATE INDEX "Contract_serviceStartAt_serviceEndAt_idx" ON "Contract"("serviceStartAt", "serviceEndAt");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Deliverable_contractId_key" ON "Deliverable"("contractId");
+
+-- CreateIndex
+CREATE INDEX "Deliverable_contractId_idx" ON "Deliverable"("contractId");
 
 -- CreateIndex
 CREATE INDEX "Dispute_contractId_idx" ON "Dispute"("contractId");
@@ -451,10 +483,10 @@ CREATE INDEX "PortfolioItem_professionalId_idx" ON "PortfolioItem"("professional
 CREATE INDEX "PortfolioItem_workDate_idx" ON "PortfolioItem"("workDate");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Professional_userId_key" ON "Professional"("userId");
+CREATE UNIQUE INDEX "Professional_email_key" ON "Professional"("email");
 
 -- CreateIndex
-CREATE INDEX "Professional_email_idx" ON "Professional"("email");
+CREATE UNIQUE INDEX "Professional_userId_key" ON "Professional"("userId");
 
 -- CreateIndex
 CREATE INDEX "Professional_status_idx" ON "Professional"("status");
@@ -487,16 +519,22 @@ CREATE INDEX "ProfessionalSkill_skillId_idx" ON "ProfessionalSkill"("skillId");
 CREATE INDEX "Proposal_professionalId_idx" ON "Proposal"("professionalId");
 
 -- CreateIndex
-CREATE INDEX "Proposal_eventServiceRequirementId_idx" ON "Proposal"("eventServiceRequirementId");
+CREATE INDEX "Proposal_eventId_idx" ON "Proposal"("eventId");
 
 -- CreateIndex
-CREATE INDEX "Proposal_professionalServiceId_idx" ON "Proposal"("professionalServiceId");
+CREATE INDEX "ProposalItem_eventServiceRequirementId_idx" ON "ProposalItem"("eventServiceRequirementId");
 
 -- CreateIndex
-CREATE INDEX "Proposal_status_idx" ON "Proposal"("status");
+CREATE INDEX "ProposalItem_professionalServiceId_idx" ON "ProposalItem"("professionalServiceId");
 
 -- CreateIndex
-CREATE INDEX "Proposal_proposedStartAt_proposedEndAt_idx" ON "Proposal"("proposedStartAt", "proposedEndAt");
+CREATE INDEX "ProposalItem_status_idx" ON "ProposalItem"("status");
+
+-- CreateIndex
+CREATE INDEX "ProposalItem_proposedStartAt_proposedEndAt_idx" ON "ProposalItem"("proposedStartAt", "proposedEndAt");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "ProposalItem_proposalId_eventServiceRequirementId_key" ON "ProposalItem"("proposalId", "eventServiceRequirementId");
 
 -- CreateIndex
 CREATE INDEX "Review_clientId_idx" ON "Review"("clientId");
@@ -547,7 +585,10 @@ ALTER TABLE "Contract" ADD CONSTRAINT "Contract_eventServiceRequirementId_fkey" 
 ALTER TABLE "Contract" ADD CONSTRAINT "Contract_professionalServiceId_fkey" FOREIGN KEY ("professionalServiceId") REFERENCES "ProfessionalService"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Contract" ADD CONSTRAINT "Contract_proposalId_fkey" FOREIGN KEY ("proposalId") REFERENCES "Proposal"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "Contract" ADD CONSTRAINT "Contract_proposalItemId_fkey" FOREIGN KEY ("proposalItemId") REFERENCES "ProposalItem"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Deliverable" ADD CONSTRAINT "Deliverable_contractId_fkey" FOREIGN KEY ("contractId") REFERENCES "Contract"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Dispute" ADD CONSTRAINT "Dispute_contractId_fkey" FOREIGN KEY ("contractId") REFERENCES "Contract"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -601,10 +642,16 @@ ALTER TABLE "ProfessionalSkill" ADD CONSTRAINT "ProfessionalSkill_skillId_fkey" 
 ALTER TABLE "Proposal" ADD CONSTRAINT "Proposal_professionalId_fkey" FOREIGN KEY ("professionalId") REFERENCES "Professional"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Proposal" ADD CONSTRAINT "Proposal_eventServiceRequirementId_fkey" FOREIGN KEY ("eventServiceRequirementId") REFERENCES "EventServiceRequirement"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Proposal" ADD CONSTRAINT "Proposal_eventId_fkey" FOREIGN KEY ("eventId") REFERENCES "Event"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Proposal" ADD CONSTRAINT "Proposal_professionalServiceId_fkey" FOREIGN KEY ("professionalServiceId") REFERENCES "ProfessionalService"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "ProposalItem" ADD CONSTRAINT "ProposalItem_proposalId_fkey" FOREIGN KEY ("proposalId") REFERENCES "Proposal"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ProposalItem" ADD CONSTRAINT "ProposalItem_eventServiceRequirementId_fkey" FOREIGN KEY ("eventServiceRequirementId") REFERENCES "EventServiceRequirement"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ProposalItem" ADD CONSTRAINT "ProposalItem_professionalServiceId_fkey" FOREIGN KEY ("professionalServiceId") REFERENCES "ProfessionalService"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Review" ADD CONSTRAINT "Review_contractId_fkey" FOREIGN KEY ("contractId") REFERENCES "Contract"("id") ON DELETE CASCADE ON UPDATE CASCADE;
