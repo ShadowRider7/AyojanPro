@@ -8,7 +8,7 @@
 	"main": "index.js",
 	"scripts": {
 		"dev": "tsx watch src/server.ts",
-		"build": "tsc",
+		"build": "tsup src/server.ts --format esm --clean --minify",
 		"start": "node dist/server.js",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"format:check": "npx @biomejs/biome format ./src",
