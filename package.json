@@ -7,9 +7,9 @@
 	"type": "module",
 	"main": "index.js",
 	"scripts": {
-		"dev": "tsx watch src/server.ts",
-		"build": "prisma generate && tsup src/server.ts --format esm --clean --minify",
-		"start": "node dist/server.js",
+	"dev": "tsx watch src/server.ts",
+    "build": "tsup",
+    "start": "node dist/server.js",
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"format:check": "npx @biomejs/biome format ./src",
 		"format:fix": "npx @biomejs/biome format --write ./src",
@@ -30,6 +30,7 @@
 		"@types/pdfkit": "^0.17.6",
 		"@types/pg": "^8.23.1",
 		"prisma": "^7.10.0",
+		"tsup": "^8.5.1",
 		"tsx": "^4.23.13"
 	},
 	"dependencies": {
@@ -53,8 +54,7 @@
 		"pdfkit": "^0.20.2",
 		"pg": "^8.23.0",
 		"redis": "^6.2.1",
-		"tsup": "^8.5.1",
-		"zod": "^4.5.4",
-		"typescript": "^7.0.2"
+		"typescript": "^7.0.2",
+		"zod": "^4.5.4"
 	}
 }
