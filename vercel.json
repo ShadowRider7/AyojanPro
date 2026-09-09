@@ -1,8 +1,5 @@
 {
 	"version": 2,
-	"installCommand": "npm install",
-	"buildCommand": "npm run build",
-	"outputDirectory": "dist",
 	"builds": [
 		{
 			"src": "dist/server.js",
@@ -14,5 +11,7 @@
 			"src": "/(.*)",
 			"dest": "dist/server.js"
 		}
-	]
+	],
+	"installCommand": "npm install",
+	"buildCommand": "npm run build"
 }
