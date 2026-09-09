@@ -11,10 +11,7 @@ import {
 
 const PORT = config.port || process.env.PORT || 5000;
 
-let isInitialized = false;
-
 const main = async () => {
-	if (isInitialized) return;
 	try {
 		await prisma.$connect();
 		console.log("Connected to the database successfully.");
@@ -26,7 +23,10 @@ const main = async () => {
 		await seedTesterAdmin();
 		await seedTesterClient();
 		await seedTesterProfessional();
-		isInitialized = true;
+
+		app.listen(PORT, () => {
+			console.log(`Server is running on port ${PORT}`);
+		});
 	} catch (error) {
 		console.error("Error starting the server:", error);
 		await prisma.$disconnect();
@@ -35,9 +35,3 @@ const main = async () => {
 };
 
 main();
-
-if (process.env.VERCEL !== "1") {
-	app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
-}
-
-export default app;
