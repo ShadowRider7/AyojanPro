@@ -1,15 +1,14 @@
 {
-	"version": 2,
-	"builds": [
-		{
-			"src": "src/server.ts",
-			"use": "@vercel/node"
-		}
-	],
-	"routes": [
-		{
-			"source": "/(.*)",
-			"destination": "src/server.ts"
-		}
-	]
-}
+  "version": 2,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "functions": {
+    "dist/server.js": {
+      "runtime": "nodejs20.x",
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/dist/server.js" }
+  ]
+}			
