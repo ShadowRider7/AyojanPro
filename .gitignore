@@ -1,17 +1,14 @@
 node_modules
-.vscode
-.claude
-.agents
-.windsurf
+.env
+.env.*
+!.env.example
+dist
 
-/dist
+/src/generated
 
 # Lock Files
 pnpm-lock.yaml
 yarn.lock
+package-lock.json
 pnpm-workspace.yaml
-
-.vercel
-.env
-.env.*
-!.env.example
+.vscode
