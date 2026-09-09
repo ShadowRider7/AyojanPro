@@ -9,7 +9,7 @@ import {
 	seedTesterProfessional,
 } from "./app/utils/seed";
 
-const PORT = config.port || process.env.PORT || 5000;
+const PORT = config.port || 5000;
 
 const main = async () => {
 	try {

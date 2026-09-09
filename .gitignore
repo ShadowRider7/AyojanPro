@@ -16,6 +16,3 @@ pnpm-workspace.yaml
 .env
 .env.*
 !.env.example
-
-.vercel
-.env*
