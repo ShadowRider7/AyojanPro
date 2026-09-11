@@ -1,1540 +1,1794 @@
 {
-  "info": {
-    "_postman_id": "16d7f368-f620-40f9-a9fa-20156565d513",
-    "name": "AyojanPro",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "54804380",
-    "_collection_link": "https://go.postman.co/collection/54804380-16d7f368-f620-40f9-a9fa-20156565d513?source=collection_link"
-  },
-  "item": [
-    {
-      "name": "auth",
-      "item": [
-        {
-          "name": "user register",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"SecurePass123!\",\n  \"client\": {\n    \"phone\": \"+8801977989963\",\n    \"bio\": \"I am looking for a freelance web developer.\",\n    \"address\": \"123 Main St\",\n    \"city\": \"Dhaka\",\n    \"country\": \"Bangladesh\"\n  }\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/auth/register",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "auth", "register"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "verify email",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"john@example.com\",\n  \"otp\": \"430163\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/auth/verify-email",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "auth", "verify-email"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "login",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"SecurePass123!\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/auth/login",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "auth", "login"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "google login",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"idToken\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/auth/google",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "auth", "google"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "refresh token",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/auth/refresh-token",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "auth", "refresh-token"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "forgot password",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"john@example.com\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/auth/forgot-password",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "auth", "forgot-password"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "reset password",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"john@example.com\",\n  \"otp\": \"430163\",\n  \"newPassword\": \"NewSecurePass456!\",\n  \"confirmPassword\": \"NewSecurePass456!\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/auth/reset-password",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "auth", "reset-password"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get me",
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          },
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/auth/me",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "auth", "me"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "user",
-      "item": [
-        {
-          "name": "upload profile image",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "profileImage",
-                  "type": "file",
-                  "src": []
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/user/profile-image",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "user", "profile-image"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "professional",
-      "item": [
-        {
-          "name": "apply as professional",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "data",
-                  "type": "text",
-                  "value": "{\"user\":{\"name\":\"Jane Smith\",\"email\":\"jane@example.com\"},\"professional\":{\"phone\":\"+8801977989963\",\"address\":\"456 Park Ave\",\"city\":\"Dhaka\",\"country\":\"Bangladesh\",\"professionalTitle\":\"Full Stack Developer\",\"bio\":\"5 years of web development experience\",\"experienceYears\":5}}"
-                },
-                {
-                  "key": "resume",
-                  "type": "file",
-                  "src": []
-                },
-                {
-                  "key": "additionalFiles",
-                  "type": "file",
-                  "src": []
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/apply-as-professional",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "apply-as-professional"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "verify professional email",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"email\": \"jane@example.com\",\n  \"otp\": \"123456\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/apply-as-professional/verify-email",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "apply-as-professional", "verify-email"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "approve professional",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"status\": \"APPROVED\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/approve-professional",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "approve-professional"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get all professionals",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/all-professionals",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "all-professionals"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get all professionals public",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/public/all-Professionals",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "public", "all-Professionals"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get professional public profile",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/public/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "public", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update my profile",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"bio\": \"Expert UI/UX designer and frontend engineer with a focus on seamless interactions.\",\n  \"location\": \"Berlin, Germany\",\n  \"contactNumber\": \"+491705550192\",\n  \"experience\": 6,\n  \"hourlyRate\": 85.50,\n  \"isAvailable\": true,\n  \"website\": \"https://designbycreative.io\",\n  \"githubUrl\": \"https://github.com\",\n  \"linkedinUrl\": \"https://linkedin.com\",\n  \"behanceUrl\": \"https://behance.net\",\n  \"dribbbleUrl\": \"https://dribbble.com\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/update-my-profile",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "update-my-profile"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "add service",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Video Graphy\",\n  \"description\": \"Live shooting videos and editing.\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/service",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "service"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get my services",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/me/services",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "me", "services"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update service",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"Photo Graphy\",\n  \"description\": \"Live shooting and editing photos.\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/service/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "service", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "delete service",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/service/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "service", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "add skill",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"name\": \"React.js\",\n  \"description\": \"Frontend development skills\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/skill",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "skill"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "delete skill",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/skill/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "skill", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "add experience",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"title\": \"Senior Frontend Developer\",\n  \"organization\": \"Tech Corp\",\n  \"startDate\": \"2020-01-01\",\n  \"endDate\": \"2024-01-01\",\n  \"description\": \"Worked on various frontend projects.\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/experience",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "experience"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update experience",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"title\": \"Senior Frontend Developer\",\n  \"organization\": \"Tech Corp\",\n  \"startDate\": \"2020-01-01\",\n  \"endDate\": \"2024-01-01\",\n  \"description\": \"Worked on various frontend projects.\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/experience/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "experience", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "delete experience",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/experience/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "experience", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "create portfolio",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "formdata",
-              "formdata": [
-                {
-                  "key": "data",
-                  "type": "text",
-                  "value": "{\"title\":\"Portfolio Project\",\"description\":\"A web application built with React\",\"eventType\":\"Web Development\",\"workDays\":\"Full-time\",\"mediaUrl\":\"https://example.com/image.jpg\",\"publicId\":\"abc123\",\"externalUrl\":\"https://example.com\"}"
-                },
-                {
-                  "key": "mediaFile",
-                  "type": "file",
-                  "src": []
-                }
-              ]
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/portfolio",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "portfolio"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get my portfolio",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/me/portfolio",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "me", "portfolio"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update portfolio",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"title\": \"Updated Portfolio Project\",\n  \"description\": \"Updated description\",\n  \"eventType\": \"Web Development\",\n  \"workDays\": \"Part-time\",\n  \"mediaUrl\": \"https://example.com/new-image.jpg\",\n  \"publicId\": \"newabc123\",\n  \"externalUrl\": \"https://example.com/new\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/portfolio/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "portfolio", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "delete portfolio",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/professional/portfolio/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "professional", "portfolio", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "client",
-      "item": [
-        {
-          "name": "update client profile",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"bio\": \"Building the next generation of cloud-based enterprise solutions.\",\n  \"phone\": \"+8801977989963\",\n  \"address\": \"123 Main St\",\n  \"city\": \"San Francisco\",\n  \"country\": \"USA\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/client/my-profile",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "client", "my-profile"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "event",
-      "item": [
-        {
-          "name": "create event",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"title\": \"Website Redesign Project\",\n  \"description\": \"Redesign the company website with modern UI/UX.\",\n  \"eventType\": \"Web Development\",\n  \"city\": \"San Francisco\",\n  \"country\": \"USA\",\n  \"address\": \"123 Tech Street\",\n  \"startAt\": \"2025-01-15T09:00:00.000Z\",\n  \"endAt\": \"2025-02-15T17:00:00.000Z\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/event",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "event"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "create event service",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"serviceName\": \"UI/UX Design\",\n  \"description\": \"Design the user interface and experience.\",\n  \"budget\": 5000,\n  \"currency\": \"BDT\",\n  \"startAt\": \"2025-01-15T09:00:00.000Z\",\n  \"endAt\": \"2025-02-15T17:00:00.000Z\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/event/services/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "event", "services", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get all published events",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/event/all-events",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "event", "all-events"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get event by id",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/event/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "event", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update event",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"title\": \"Updated Website Redesign\",\n  \"description\": \"Updated description for the project.\",\n  \"eventType\": \"Web Development\",\n  \"city\": \"San Francisco\",\n  \"country\": \"USA\",\n  \"startAt\": \"2025-02-01T09:00:00.000Z\",\n  \"endAt\": \"2025-03-01T17:00:00.000Z\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/event/update/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "event", "update", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "publish event",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/event/publish-event/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "event", "publish-event", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get event required services",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/event/550e8400-e29b-41d4-a716-446655440000/required-services",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "event", "550e8400-e29b-41d4-a716-446655440000", "required-services"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update event service",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"serviceName\": \"Updated UI/UX Design\",\n  \"description\": \"Updated description.\",\n  \"budget\": 6000,\n  \"currency\": \"BDT\",\n  \"startAt\": \"2025-01-15T09:00:00.000Z\",\n  \"endAt\": \"2025-02-15T17:00:00.000Z\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/event/update/550e8400-e29b-41d4-a716-446655440000/services/660e8400-e29b-41d4-a716-446655440001",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "event", "update", "550e8400-e29b-41d4-a716-446655440000", "services", "660e8400-e29b-41d4-a716-446655440001"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "delete event service",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/event/550e8400-e29b-41d4-a716-446655440000/services/660e8400-e29b-41d4-a716-446655440001",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "event", "550e8400-e29b-41d4-a716-446655440000", "services", "660e8400-e29b-41d4-a716-446655440001"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "delete event",
-          "request": {
-            "method": "DELETE",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/event/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "event", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "proposal",
-      "item": [
-        {
-          "name": "create proposal",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"message\": \"I am interested in this project and can deliver it on time.\",\n  \"items\": [\n    {\n      \"eventServiceRequirementId\": \"550e8400-e29b-41d4-a716-446655440000\",\n      \"professionalServiceId\": \"660e8400-e29b-41d4-a716-446655440001\",\n      \"proposedAmount\": 5000,\n      \"currency\": \"BDT\",\n      \"proposedStartAt\": \"2025-01-20T09:00:00.000Z\",\n      \"proposedEndAt\": \"2025-02-20T17:00:00.000Z\"\n    }\n  ]\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/proposal/events/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "proposal", "events", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get proposals by requirement",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/proposal/requirements/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "proposal", "requirements", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get proposal details",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/proposal/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "proposal", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "accept proposal",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/proposal/550e8400-e29b-41d4-a716-446655440000/accept",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "proposal", "550e8400-e29b-41d4-a716-446655440000", "accept"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "reject proposal",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/proposal/550e8400-e29b-41d4-a716-446655440000/reject",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "proposal", "550e8400-e29b-41d4-a716-446655440000", "reject"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "withdraw proposal",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/proposal/550e8400-e29b-41d4-a716-446655440000/withdraw",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "proposal", "550e8400-e29b-41d4-a716-446655440000", "withdraw"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "contract",
-      "item": [
-        {
-          "name": "list contracts",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/contract",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "contract"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get contract details",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/contract/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "contract", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "cancel contract",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"reason\": \"Project requirements changed.\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/cancel",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "contract", "550e8400-e29b-41d4-a716-446655440000", "cancel"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "attach deliverable",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"title\": \"Final Deliverable\",\n  \"description\": \"Completed project deliverables.\",\n  \"externalUrl\": [\"https://example.com/deliverable1.pdf\", \"https://example.com/deliverable2.pdf\"]\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/deliverable",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "contract", "550e8400-e29b-41d4-a716-446655440000", "deliverable"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get deliverable",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/deliverable",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "contract", "550e8400-e29b-41d4-a716-446655440000", "deliverable"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "complete contract",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/complete",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "contract", "550e8400-e29b-41d4-a716-446655440000", "complete"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "review",
-      "item": [
-        {
-          "name": "create review",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"body\": {\n    \"rating\": 5,\n    \"comment\": \"Excellent work! Highly recommend.\"\n  }\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/review/contracts/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "review", "contracts", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get professional reviews",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/review/professionals/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "review", "professionals", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get client reviews",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/review/clients/550e8400-e29b-41d4-a716-446655440000/reviews",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "review", "clients", "550e8400-e29b-41d4-a716-446655440000", "reviews"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "payment",
-      "item": [
-        {
-          "name": "initiate initial payment",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/payment/contracts/550e8400-e29b-41d4-a716-446655440000/initial",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "payment", "contracts", "550e8400-e29b-41d4-a716-446655440000", "initial"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "initiate final payment",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/payment/contracts/550e8400-e29b-41d4-a716-446655440000/final",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "payment", "contracts", "550e8400-e29b-41d4-a716-446655440000", "final"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "bkash payment callback",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"paymentID\": \"BKASH123456\",\n  \"status\": \"COMPLETED\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/payment/bkash/callback",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "payment", "bkash", "callback"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get contract payments",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/payment/contracts/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "payment", "contracts", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "notification",
-      "item": [
-        {
-          "name": "list notifications",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/notification",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "notification"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "mark all as read",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/notification/read-all",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "notification", "read-all"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "mark as read",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/notification/550e8400-e29b-41d4-a716-446655440000/read",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "notification", "550e8400-e29b-41d4-a716-446655440000", "read"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "dispute",
-      "item": [
-        {
-          "name": "raise dispute",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"reason\": \"The work delivered does not match the agreed specifications.\",\n  \"description\": \"The deliverable has multiple bugs and does not meet the requirements outlined in the contract.\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/dispute/contracts/550e8400-e29b-41d4-a716-446655440000/",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "dispute", "contracts", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "list disputes",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/dispute",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "dispute"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get dispute details",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/dispute/550e8400-e29b-41d4-a716-446655440000",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "dispute", "550e8400-e29b-41d4-a716-446655440000"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "upload evidence",
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"type\": \"document\",\n  \"title\": \"Contract Agreement\",\n  \"description\": \"Signed contract showing agreed terms.\",\n  \"mediaUrl\": \"https://example.com/evidence.pdf\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/dispute/550e8400-e29b-41d4-a716-446655440000/evidence",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "dispute", "550e8400-e29b-41d4-a716-446655440000", "evidence"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update dispute status",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"status\": \"UNDER_REVIEW\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/dispute/550e8400-e29b-41d4-a716-446655440000/status",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "dispute", "550e8400-e29b-41d4-a716-446655440000", "status"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "resolve dispute",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"resolution\": \"The dispute has been resolved after reviewing the evidence. The professional will redo the work.\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/dispute/550e8400-e29b-41d4-a716-446655440000/resolve",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "dispute", "550e8400-e29b-41d4-a716-446655440000", "resolve"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "admin",
-      "item": [
-        {
-          "name": "list users",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/admin/users",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "admin", "users"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "list events",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/admin/events",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "admin", "events"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "list contracts",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/admin/contracts",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "admin", "contracts"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "list payments",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/admin/payments",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "admin", "payments"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update user status",
-          "request": {
-            "method": "PATCH",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n  \"status\": \"SUSPENDED\"\n}\n",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:5000/api/v1/admin/users/550e8400-e29b-41d4-a716-446655440000/status",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "admin", "users", "550e8400-e29b-41d4-a716-446655440000", "status"]
-            }
-          },
-          "response": []
-        }
-      ]
-    },
-    {
-      "name": "analytics",
-      "item": [
-        {
-          "name": "get client analytics",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/analytics/client-analytics",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "analytics", "client-analytics"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get professional analytics",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/analytics/professional-analytics",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "analytics", "professional-analytics"]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "get admin analytics",
-          "request": {
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "http://localhost:5000/api/v1/analytics/admin-analytics",
-              "protocol": "http",
-              "host": ["localhost"],
-              "port": "5000",
-              "path": ["api", "v1", "analytics", "admin-analytics"]
-            }
-          },
-          "response": []
-        }
-      ]
-    }
-  ],
-  "variable": [
-    {
-      "key": "supabase_service_role_api_key_0ehr",
-      "secret": true
-    }
-  ]
+	"info": {
+		"_postman_id": "16d7f368-f620-40f9-a9fa-20156565d513",
+		"name": "AyojanPro",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "54804380",
+		"_collection_link": "https://go.postman.co/collection/54804380-16d7f368-f620-40f9-a9fa-20156565d513?source=collection_link"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "user register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"SecurePass123!\",\n  \"client\": {\n    \"phone\": \"+8801977989963\",\n    \"bio\": \"I am looking for a freelance web developer.\",\n    \"address\": \"123 Main St\",\n    \"city\": \"Dhaka\",\n    \"country\": \"Bangladesh\"\n  }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/register",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "auth", "register"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"john@example.com\",\n  \"otp\": \"430163\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/verify-email",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "auth", "verify-email"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"SecurePass123!\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/login",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "auth", "login"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "google login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"idToken\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6IjEifQ.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/google",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "auth", "google"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/refresh-token",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "auth", "refresh-token"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"john@example.com\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/forgot-password",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "auth", "forgot-password"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"john@example.com\",\n  \"otp\": \"430163\",\n  \"newPassword\": \"NewSecurePass456!\",\n  \"confirmPassword\": \"NewSecurePass456!\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/reset-password",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "auth", "reset-password"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get me",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/me",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "auth", "me"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "upload profile image",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "profileImage",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/user/profile-image",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "user", "profile-image"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "professional",
+			"item": [
+				{
+					"name": "apply as professional",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"type": "text",
+									"value": "{\"user\":{\"name\":\"Jane Smith\",\"email\":\"jane@example.com\"},\"professional\":{\"phone\":\"+8801977989963\",\"address\":\"456 Park Ave\",\"city\":\"Dhaka\",\"country\":\"Bangladesh\",\"professionalTitle\":\"Full Stack Developer\",\"bio\":\"5 years of web development experience\",\"experienceYears\":5}}"
+								},
+								{
+									"key": "resume",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "additionalFiles",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/apply-as-professional",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "professional", "apply-as-professional"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify professional email",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"jane@example.com\",\n  \"otp\": \"123456\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/apply-as-professional/verify-email",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"professional",
+								"apply-as-professional",
+								"verify-email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "approve professional",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"APPROVED\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/approve-professional",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "professional", "approve-professional"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all professionals",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/all-professionals",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "professional", "all-professionals"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all professionals public",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/public/all-Professionals",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"professional",
+								"public",
+								"all-Professionals"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get professional public profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/public/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"professional",
+								"public",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update my profile",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bio\": \"Expert UI/UX designer and frontend engineer with a focus on seamless interactions.\",\n  \"location\": \"Berlin, Germany\",\n  \"contactNumber\": \"+491705550192\",\n  \"experience\": 6,\n  \"hourlyRate\": 85.50,\n  \"isAvailable\": true,\n  \"website\": \"https://designbycreative.io\",\n  \"githubUrl\": \"https://github.com\",\n  \"linkedinUrl\": \"https://linkedin.com\",\n  \"behanceUrl\": \"https://behance.net\",\n  \"dribbbleUrl\": \"https://dribbble.com\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/update-my-profile",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "professional", "update-my-profile"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add service",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Video Graphy\",\n  \"description\": \"Live shooting videos and editing.\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/service",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "professional", "service"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get my services",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/me/services",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "professional", "me", "services"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update service",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"Photo Graphy\",\n  \"description\": \"Live shooting and editing photos.\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/service/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"professional",
+								"service",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete service",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/service/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"professional",
+								"service",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add skill",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"name\": \"React.js\",\n  \"description\": \"Frontend development skills\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/skill",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "professional", "skill"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete skill",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/skill/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"professional",
+								"skill",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add experience",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Senior Frontend Developer\",\n  \"organization\": \"Tech Corp\",\n  \"startDate\": \"2020-01-01\",\n  \"endDate\": \"2024-01-01\",\n  \"description\": \"Worked on various frontend projects.\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/experience",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "professional", "experience"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update experience",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Senior Frontend Developer\",\n  \"organization\": \"Tech Corp\",\n  \"startDate\": \"2020-01-01\",\n  \"endDate\": \"2024-01-01\",\n  \"description\": \"Worked on various frontend projects.\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/experience/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"professional",
+								"experience",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete experience",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/experience/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"professional",
+								"experience",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create portfolio",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "data",
+									"type": "text",
+									"value": "{\"title\":\"Portfolio Project\",\"description\":\"A web application built with React\",\"eventType\":\"Web Development\",\"workDays\":\"Full-time\",\"mediaUrl\":\"https://example.com/image.jpg\",\"publicId\":\"abc123\",\"externalUrl\":\"https://example.com\"}"
+								},
+								{
+									"key": "mediaFile",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/portfolio",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "professional", "portfolio"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get my portfolio",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/me/portfolio",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "professional", "me", "portfolio"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update portfolio",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Updated Portfolio Project\",\n  \"description\": \"Updated description\",\n  \"eventType\": \"Web Development\",\n  \"workDays\": \"Part-time\",\n  \"mediaUrl\": \"https://example.com/new-image.jpg\",\n  \"publicId\": \"newabc123\",\n  \"externalUrl\": \"https://example.com/new\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/portfolio/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"professional",
+								"portfolio",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete portfolio",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/portfolio/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"professional",
+								"portfolio",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "client",
+			"item": [
+				{
+					"name": "update client profile",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"bio\": \"Building the next generation of cloud-based enterprise solutions.\",\n  \"phone\": \"+8801977989963\",\n  \"address\": \"123 Main St\",\n  \"city\": \"San Francisco\",\n  \"country\": \"USA\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/client/my-profile",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "client", "my-profile"]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "event",
+			"item": [
+				{
+					"name": "create event",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Website Redesign Project\",\n  \"description\": \"Redesign the company website with modern UI/UX.\",\n  \"eventType\": \"Web Development\",\n  \"city\": \"San Francisco\",\n  \"country\": \"USA\",\n  \"address\": \"123 Tech Street\",\n  \"startAt\": \"2025-01-15T09:00:00.000Z\",\n  \"endAt\": \"2025-02-15T17:00:00.000Z\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/event",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "event"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create event service",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"serviceName\": \"UI/UX Design\",\n  \"description\": \"Design the user interface and experience.\",\n  \"budget\": 5000,\n  \"currency\": \"BDT\",\n  \"startAt\": \"2025-01-15T09:00:00.000Z\",\n  \"endAt\": \"2025-02-15T17:00:00.000Z\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/event/services/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"event",
+								"services",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all published events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/event/all-events",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "event", "all-events"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get event by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/event/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"event",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update event",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Updated Website Redesign\",\n  \"description\": \"Updated description for the project.\",\n  \"eventType\": \"Web Development\",\n  \"city\": \"San Francisco\",\n  \"country\": \"USA\",\n  \"startAt\": \"2025-02-01T09:00:00.000Z\",\n  \"endAt\": \"2025-03-01T17:00:00.000Z\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/event/update/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"event",
+								"update",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "publish event",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/event/publish-event/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"event",
+								"publish-event",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get event required services",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/event/550e8400-e29b-41d4-a716-446655440000/required-services",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"event",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"required-services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update event service",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"serviceName\": \"Updated UI/UX Design\",\n  \"description\": \"Updated description.\",\n  \"budget\": 6000,\n  \"currency\": \"BDT\",\n  \"startAt\": \"2025-01-15T09:00:00.000Z\",\n  \"endAt\": \"2025-02-15T17:00:00.000Z\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/event/update/550e8400-e29b-41d4-a716-446655440000/services/660e8400-e29b-41d4-a716-446655440001",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"event",
+								"update",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"services",
+								"660e8400-e29b-41d4-a716-446655440001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete event service",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/event/550e8400-e29b-41d4-a716-446655440000/services/660e8400-e29b-41d4-a716-446655440001",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"event",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"services",
+								"660e8400-e29b-41d4-a716-446655440001"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete event",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/event/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"event",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "proposal",
+			"item": [
+				{
+					"name": "create proposal",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"message\": \"I am interested in this project and can deliver it on time.\",\n  \"items\": [\n    {\n      \"eventServiceRequirementId\": \"550e8400-e29b-41d4-a716-446655440000\",\n      \"professionalServiceId\": \"660e8400-e29b-41d4-a716-446655440001\",\n      \"proposedAmount\": 5000,\n      \"currency\": \"BDT\",\n      \"proposedStartAt\": \"2025-01-20T09:00:00.000Z\",\n      \"proposedEndAt\": \"2025-02-20T17:00:00.000Z\"\n    }\n  ]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/proposal/events/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"proposal",
+								"events",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get proposals by requirement",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/proposal/requirements/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"proposal",
+								"requirements",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get proposal details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/proposal/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"proposal",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "accept proposal",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/proposal/550e8400-e29b-41d4-a716-446655440000/accept",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"proposal",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"accept"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reject proposal",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/proposal/550e8400-e29b-41d4-a716-446655440000/reject",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"proposal",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "withdraw proposal",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/proposal/550e8400-e29b-41d4-a716-446655440000/withdraw",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"proposal",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"withdraw"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "contract",
+			"item": [
+				{
+					"name": "list contracts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/contract",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "contract"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get contract details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/contract/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"contract",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "cancel contract",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"reason\": \"Project requirements changed.\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/cancel",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"contract",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"cancel"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "attach deliverable",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Final Deliverable\",\n  \"description\": \"Completed project deliverables.\",\n  \"externalUrl\": [\"https://example.com/deliverable1.pdf\", \"https://example.com/deliverable2.pdf\"]\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/deliverable",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"contract",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"deliverable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get deliverable",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/deliverable",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"contract",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"deliverable"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "complete contract",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/complete",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"contract",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"complete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "review",
+			"item": [
+				{
+					"name": "create review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"body\": {\n    \"rating\": 5,\n    \"comment\": \"Excellent work! Highly recommend.\"\n  }\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/review/contracts/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"review",
+								"contracts",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get professional reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/review/professionals/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"review",
+								"professionals",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get client reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/review/clients/550e8400-e29b-41d4-a716-446655440000/reviews",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"review",
+								"clients",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"reviews"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "payment",
+			"item": [
+				{
+					"name": "initiate initial payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/payment/contracts/550e8400-e29b-41d4-a716-446655440000/initial",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"payment",
+								"contracts",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"initial"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "initiate final payment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/payment/contracts/550e8400-e29b-41d4-a716-446655440000/final",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"payment",
+								"contracts",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"final"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "bkash payment callback",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"paymentID\": \"BKASH123456\",\n  \"status\": \"COMPLETED\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/payment/bkash/callback",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "payment", "bkash", "callback"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get contract payments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/payment/contracts/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"payment",
+								"contracts",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "notification",
+			"item": [
+				{
+					"name": "list notifications",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/notification",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "notification"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mark all as read",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/notification/read-all",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "notification", "read-all"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "mark as read",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/notification/550e8400-e29b-41d4-a716-446655440000/read",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"notification",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"read"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dispute",
+			"item": [
+				{
+					"name": "raise dispute",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"reason\": \"The work delivered does not match the agreed specifications.\",\n  \"description\": \"The deliverable has multiple bugs and does not meet the requirements outlined in the contract.\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/dispute/contracts/550e8400-e29b-41d4-a716-446655440000/",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"dispute",
+								"contracts",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list disputes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/dispute",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "dispute"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get dispute details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/dispute/550e8400-e29b-41d4-a716-446655440000",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"dispute",
+								"550e8400-e29b-41d4-a716-446655440000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "upload evidence",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"type\": \"document\",\n  \"title\": \"Contract Agreement\",\n  \"description\": \"Signed contract showing agreed terms.\",\n  \"mediaUrl\": \"https://example.com/evidence.pdf\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/dispute/550e8400-e29b-41d4-a716-446655440000/evidence",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"dispute",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"evidence"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update dispute status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"UNDER_REVIEW\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/dispute/550e8400-e29b-41d4-a716-446655440000/status",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"dispute",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "resolve dispute",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"resolution\": \"The dispute has been resolved after reviewing the evidence. The professional will redo the work.\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/dispute/550e8400-e29b-41d4-a716-446655440000/resolve",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"dispute",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"resolve"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "list users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/admin/users",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "admin", "users"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list events",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/admin/events",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "admin", "events"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list contracts",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/admin/contracts",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "admin", "contracts"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list payments",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/admin/payments",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "admin", "payments"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update user status",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"status\": \"SUSPENDED\"\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/admin/users/550e8400-e29b-41d4-a716-446655440000/status",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": [
+								"api",
+								"v1",
+								"admin",
+								"users",
+								"550e8400-e29b-41d4-a716-446655440000",
+								"status"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "analytics",
+			"item": [
+				{
+					"name": "get client analytics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/analytics/client-analytics",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "analytics", "client-analytics"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get professional analytics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/analytics/professional-analytics",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "analytics", "professional-analytics"]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get admin analytics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://ayojan-pro.vercel.app/api/v1/analytics/admin-analytics",
+							"protocol": "http",
+							"host": ["localhost"],
+							"port": "5000",
+							"path": ["api", "v1", "analytics", "admin-analytics"]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "supabase_service_role_api_key_0ehr",
+			"secret": true
+		}
+	]
 }
