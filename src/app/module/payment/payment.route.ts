@@ -23,7 +23,6 @@ router.post(
 
 router.post(
 	"/bkash/callback",
-	validateRequest(PaymentValidation.bkashCallbackZodSchema),
 	PaymentController.bkashPaymentCallback,
 );
 router.get(

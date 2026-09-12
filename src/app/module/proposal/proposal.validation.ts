@@ -27,18 +27,20 @@ const proposalItemZodSchema = z
 
 const createProposalZodSchema = z
 	.object({
-		message: z
-			.string()
-			.max(5000, "Message cannot exceed 5000 characters")
-			.optional(),
+		body: z.object({
+			message: z
+				.string()
+				.max(5000, "Message cannot exceed 5000 characters")
+				.optional(),
 
-		items: z
-			.array(proposalItemZodSchema)
-			.nonempty("At least one proposal item is required"),
+			items: z
+				.array(proposalItemZodSchema)
+				.nonempty("At least one proposal item is required"),
+		}),
 	})
 	.refine(
 		(data) => {
-			const requirementIds = data.items.map(
+			const requirementIds = data.body.items.map(
 				(item) => item.eventServiceRequirementId,
 			);
 			return new Set(requirementIds).size === requirementIds.length;
@@ -46,7 +48,7 @@ const createProposalZodSchema = z
 		{
 			message:
 				"Cannot submit the same service requirement twice in one proposal",
-			path: ["items"],
+			path: ["body", "items"],
 		},
 	);
 

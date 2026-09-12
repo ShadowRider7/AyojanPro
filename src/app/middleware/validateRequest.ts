@@ -6,8 +6,18 @@ import { catchAsync } from "../utils/catchAsync";
 
 export const validateRequest = (zodSchema: z.ZodObject) => {
 	return catchAsync((req: Request, res: Response, next: NextFunction) => {
-		// const payload = req.body ? req.body : {}
-		const payload = req.body ?? {};
+		const schemaKeys = Object.keys(zodSchema.shape);
+
+		const payload: Record<string, unknown> = {};
+		if (schemaKeys.includes("body")) {
+			payload.body = req.body ?? {};
+		}
+		if (schemaKeys.includes("params")) {
+			payload.params = req.params ?? {};
+		}
+		if (schemaKeys.includes("query")) {
+			payload.query = req.query ?? {};
+		}
 
 		const result = zodSchema.safeParse(payload);
 
@@ -21,7 +31,15 @@ export const validateRequest = (zodSchema: z.ZodObject) => {
 			);
 		}
 
-		req.body = result.data;
+		if (result.data.body !== undefined) {
+			req.body = result.data.body;
+		}
+		if (result.data.params !== undefined) {
+			Object.assign(req.params, result.data.params);
+		}
+		if (result.data.query !== undefined) {
+			Object.assign(req.query, result.data.query);
+		}
 
 		next();
 	});

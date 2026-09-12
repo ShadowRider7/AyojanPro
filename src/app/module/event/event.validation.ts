@@ -2,99 +2,106 @@ import * as z from "zod";
 
 const eventServiceRequirementCreateSchema = z
 	.object({
-		serviceName: z.string().min(1, "Service name is required").max(150),
+		body: z.object({
+			serviceName: z.string().min(1, "Service name is required").max(150),
 
-		description: z.string().optional(),
+			description: z.string().optional(),
 
-		budget: z.number().positive("Budget must be greater than 0"),
+			budget: z.number().positive("Budget must be greater than 0"),
 
-		currency: z.string().max(10).default("BDT"),
+			currency: z.string().max(10).default("BDT"),
 
-		startAt: z.coerce.date(),
+			startAt: z.coerce.date(),
 
-		endAt: z.coerce.date(),
+			endAt: z.coerce.date(),
+		}),
 	})
-	.refine((data) => data.startAt < data.endAt, {
+	.refine((data) => data.body.startAt < data.body.endAt, {
 		message: "Service start time must be before its end time",
-		path: ["endAt"],
+		path: ["body", "endAt"],
 	});
 
 const eventCreateSchema = z
 	.object({
-		title: z.string().min(1, "Title is required").max(255),
+		body: z.object({
+			title: z.string().min(1, "Title is required").max(255),
 
-		description: z.string().optional(),
+			description: z.string().optional(),
 
-		eventType: z.string().max(150).optional(),
+			eventType: z.string().max(150).optional(),
 
-		city: z.string().max(100).optional(),
+			city: z.string().max(100).optional(),
 
-		country: z.string().max(100).optional(),
+			country: z.string().max(100).optional(),
 
-		address: z.string().optional(),
+			address: z.string().optional(),
 
-		startAt: z.coerce.date(),
+			startAt: z.coerce.date(),
 
-		endAt: z.coerce.date(),
+			endAt: z.coerce.date(),
+		}),
 	})
-	.refine((data) => data.startAt < data.endAt, {
+	.refine((data) => data.body.startAt < data.body.endAt, {
 		message: "Service start time must be before its end time",
-		path: ["endAt"],
+		path: ["body", "endAt"],
 	});
 
 const eventUpdateSchema = z
 	.object({
-		title: z.string().min(1, "Title cannot be empty").max(255).optional(),
-		description: z.string().optional(),
-		eventType: z.string().max(150).optional(),
-		city: z.string().max(100).optional(),
-		country: z.string().max(100).optional(),
-		address: z.string().optional(),
-		startAt: z.coerce.date().optional(),
-		endAt: z.coerce.date().optional(),
+		body: z.object({
+			title: z.string().min(1, "Title cannot be empty").max(255).optional(),
+			description: z.string().optional(),
+			eventType: z.string().max(150).optional(),
+			city: z.string().max(100).optional(),
+			country: z.string().max(100).optional(),
+			address: z.string().optional(),
+			startAt: z.coerce.date().optional(),
+			endAt: z.coerce.date().optional(),
+		}),
 	})
 	.refine(
 		(data) => {
-			// Only validate chronology if both dates are being explicitly updated
-			if (data.startAt && data.endAt) {
-				return data.startAt < data.endAt;
+			if (data.body.startAt && data.body.endAt) {
+				return data.body.startAt < data.body.endAt;
 			}
 			return true;
 		},
 		{
 			message: "Event start time must be before its end time",
-			path: ["endAt"],
+			path: ["body", "endAt"],
 		},
 	);
 
 const eventServiceRequirementUpdateSchema = z
 	.object({
-		serviceName: z
-			.string()
-			.min(1, "Service name is required")
-			.max(150)
-			.optional(),
+		body: z.object({
+			serviceName: z
+				.string()
+				.min(1, "Service name is required")
+				.max(150)
+				.optional(),
 
-		description: z.string().optional(),
+			description: z.string().optional(),
 
-		budget: z.number().positive("Budget must be greater than 0").optional(),
+			budget: z.number().positive("Budget must be greater than 0").optional(),
 
-		currency: z.string().max(10).default("BDT").optional(),
+			currency: z.string().max(10).default("BDT").optional(),
 
-		startAt: z.coerce.date().optional(),
+			startAt: z.coerce.date().optional(),
 
-		endAt: z.coerce.date().optional(),
+			endAt: z.coerce.date().optional(),
+		}),
 	})
 	.refine(
 		(data) => {
-			if (data.startAt && data.endAt) {
-				return data.startAt < data.endAt;
+			if (data.body.startAt && data.body.endAt) {
+				return data.body.startAt < data.body.endAt;
 			}
 			return true;
 		},
 		{
 			message: "Event start time must be before its end time",
-			path: ["endAt"],
+			path: ["body", "endAt"],
 		},
 	);
 

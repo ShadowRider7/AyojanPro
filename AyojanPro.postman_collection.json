@@ -26,9 +26,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/register",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "auth", "register"]
 						}
 					},
@@ -50,9 +49,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/verify-email",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "auth", "verify-email"]
 						}
 					},
@@ -74,9 +72,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/login",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "auth", "login"]
 						}
 					},
@@ -98,9 +95,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/google",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "auth", "google"]
 						}
 					},
@@ -113,9 +109,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/refresh-token",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "auth", "refresh-token"]
 						}
 					},
@@ -137,9 +132,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/forgot-password",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "auth", "forgot-password"]
 						}
 					},
@@ -161,9 +155,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/reset-password",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "auth", "reset-password"]
 						}
 					},
@@ -179,9 +172,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/auth/me",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "auth", "me"]
 						}
 					},
@@ -209,9 +201,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/user/profile-image",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "user", "profile-image"]
 						}
 					},
@@ -249,9 +240,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/apply-as-professional",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "professional", "apply-as-professional"]
 						}
 					},
@@ -273,9 +263,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/apply-as-professional/verify-email",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -303,9 +292,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/approve-professional",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "professional", "approve-professional"]
 						}
 					},
@@ -318,9 +306,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/all-professionals",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "professional", "all-professionals"]
 						}
 					},
@@ -333,9 +320,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/public/all-Professionals",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -354,9 +340,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/public/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -384,9 +369,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/update-my-profile",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "professional", "update-my-profile"]
 						}
 					},
@@ -408,9 +392,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/service",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "professional", "service"]
 						}
 					},
@@ -423,9 +406,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/me/services",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "professional", "me", "services"]
 						}
 					},
@@ -447,9 +429,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/service/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -468,9 +449,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/service/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -498,9 +478,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/skill",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "professional", "skill"]
 						}
 					},
@@ -513,9 +492,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/skill/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -543,9 +521,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/experience",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "professional", "experience"]
 						}
 					},
@@ -567,9 +544,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/experience/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -588,9 +564,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/experience/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -624,9 +599,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/portfolio",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "professional", "portfolio"]
 						}
 					},
@@ -639,9 +613,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/me/portfolio",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "professional", "me", "portfolio"]
 						}
 					},
@@ -663,9 +636,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/portfolio/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -684,9 +656,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/professional/portfolio/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -719,9 +690,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/client/my-profile",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "client", "my-profile"]
 						}
 					},
@@ -748,9 +718,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/event",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "event"]
 						}
 					},
@@ -772,9 +741,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/event/services/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -793,9 +761,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/event/all-events",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "event", "all-events"]
 						}
 					},
@@ -808,9 +775,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/event/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -837,9 +803,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/event/update/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -858,9 +823,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/event/publish-event/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -879,9 +843,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/event/550e8400-e29b-41d4-a716-446655440000/required-services",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -909,9 +872,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/event/update/550e8400-e29b-41d4-a716-446655440000/services/660e8400-e29b-41d4-a716-446655440001",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -932,9 +894,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/event/550e8400-e29b-41d4-a716-446655440000/services/660e8400-e29b-41d4-a716-446655440001",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -954,9 +915,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/event/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -988,9 +948,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/proposal/events/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1009,9 +968,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/proposal/requirements/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1030,9 +988,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/proposal/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1050,9 +1007,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/proposal/550e8400-e29b-41d4-a716-446655440000/accept",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1071,9 +1027,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/proposal/550e8400-e29b-41d4-a716-446655440000/reject",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1092,9 +1047,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/proposal/550e8400-e29b-41d4-a716-446655440000/withdraw",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1118,9 +1072,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/contract",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "contract"]
 						}
 					},
@@ -1133,9 +1086,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/contract/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1162,9 +1114,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/cancel",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1192,9 +1143,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/deliverable",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1213,9 +1163,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/deliverable",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1234,9 +1183,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/complete",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1269,9 +1217,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/review/contracts/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1290,9 +1237,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/review/professionals/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1311,9 +1257,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/review/clients/550e8400-e29b-41d4-a716-446655440000/reviews",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1338,9 +1283,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/payment/contracts/550e8400-e29b-41d4-a716-446655440000/initial",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1360,9 +1304,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/payment/contracts/550e8400-e29b-41d4-a716-446655440000/final",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1391,9 +1334,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/payment/bkash/callback",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "payment", "bkash", "callback"]
 						}
 					},
@@ -1406,9 +1348,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/payment/contracts/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1432,9 +1373,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/notification",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "notification"]
 						}
 					},
@@ -1447,9 +1387,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/notification/read-all",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "notification", "read-all"]
 						}
 					},
@@ -1462,9 +1401,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/notification/550e8400-e29b-41d4-a716-446655440000/read",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1497,9 +1435,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/dispute/contracts/550e8400-e29b-41d4-a716-446655440000/",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1518,9 +1455,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/dispute",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "dispute"]
 						}
 					},
@@ -1533,9 +1469,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/dispute/550e8400-e29b-41d4-a716-446655440000",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1562,9 +1497,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/dispute/550e8400-e29b-41d4-a716-446655440000/evidence",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1592,9 +1526,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/dispute/550e8400-e29b-41d4-a716-446655440000/status",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1622,9 +1555,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/dispute/550e8400-e29b-41d4-a716-446655440000/resolve",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1648,9 +1580,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/admin/users",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "admin", "users"]
 						}
 					},
@@ -1663,9 +1594,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/admin/events",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "admin", "events"]
 						}
 					},
@@ -1678,9 +1608,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/admin/contracts",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "admin", "contracts"]
 						}
 					},
@@ -1693,9 +1622,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/admin/payments",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "admin", "payments"]
 						}
 					},
@@ -1717,9 +1645,8 @@
 						},
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/admin/users/550e8400-e29b-41d4-a716-446655440000/status",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
@@ -1744,9 +1671,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/analytics/client-analytics",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "analytics", "client-analytics"]
 						}
 					},
@@ -1759,9 +1685,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/analytics/professional-analytics",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "analytics", "professional-analytics"]
 						}
 					},
@@ -1774,9 +1699,8 @@
 						"header": [],
 						"url": {
 							"raw": "https://ayojan-pro.vercel.app/api/v1/analytics/admin-analytics",
-							"protocol": "http",
-							"host": ["localhost"],
-							"port": "5000",
+							"protocol": "https",
+							"host": ["ayojan-pro", "vercel", "app"],
 							"path": ["api", "v1", "analytics", "admin-analytics"]
 						}
 					},

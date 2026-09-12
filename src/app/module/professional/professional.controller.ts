@@ -13,9 +13,9 @@ const applyAsProfessional = catchAsync(async (req: Request, res: Response) => {
 	const additionalFiles = files?.["additionalFiles"] || [];
 
 	const zodValidationResult =
-		ProfessionalValidation.applyAsProfessionalSchema.safeParse(
-			JSON.parse(req.body.data),
-		);
+		ProfessionalValidation.applyAsProfessionalSchema.safeParse({
+			body: JSON.parse(req.body.data),
+		});
 
 	if (!zodValidationResult.success) {
 		throw new AppError(
@@ -24,7 +24,7 @@ const applyAsProfessional = catchAsync(async (req: Request, res: Response) => {
 		);
 	}
 
-	const payload = zodValidationResult.data;
+	const payload = zodValidationResult.data.body;
 
 	const result = await professionalService.applyAsProfessional(
 		payload,
@@ -196,7 +196,7 @@ const addSkill = catchAsync(async (req: Request, res: Response) => {
 const deleteSkill = catchAsync(async (req: Request, res: Response) => {
 	const skillId = req.params.id;
 	const user = req.user!;
-	await professionalService.deleteService(skillId as string, user);
+	await professionalService.deleteSkill(skillId as string, user);
 	sendResponse(res, {
 		statusCode: httpStatus.OK,
 		success: true,
@@ -223,9 +223,9 @@ const createPortfolio = catchAsync(async (req: Request, res: Response) => {
 	}
 
 	const zodValidationResult =
-		ProfessionalValidation.CreatePortfolioSchema.safeParse(
-			JSON.parse(req.body.data),
-		);
+		ProfessionalValidation.CreatePortfolioSchema.safeParse({
+			body: JSON.parse(req.body.data),
+		});
 
 	if (!zodValidationResult.success) {
 		throw new AppError(
@@ -234,7 +234,7 @@ const createPortfolio = catchAsync(async (req: Request, res: Response) => {
 		);
 	}
 
-	const payload = zodValidationResult.data;
+	const payload = zodValidationResult.data.body;
 	const user = req.user!;
 
 	const result = await professionalService.createPortfolio(

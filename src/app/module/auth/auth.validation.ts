@@ -24,42 +24,54 @@ const clientProfileSchema = z.object({
 });
 
 export const ClientRegisterZodSchema = z.object({
-	name: z
-		.string()
-		.trim()
-		.min(2, "Name must be at least 2 characters long")
-		.max(255, "Name cannot exceed 255 characters"),
-	email: emailSchema,
-	password: passwordSchema,
-	client: clientProfileSchema,
+	body: z.object({
+		name: z
+			.string()
+			.trim()
+			.min(2, "Name must be at least 2 characters long")
+			.max(255, "Name cannot exceed 255 characters"),
+		email: emailSchema,
+		password: passwordSchema,
+		client: clientProfileSchema,
+	}),
 });
 
 const LoginZodSchema = z.object({
-	email: emailSchema,
-	password: z.string().min(1, "Password is required"),
+	body: z.object({
+		email: emailSchema,
+		password: z.string().min(1, "Password is required"),
+	}),
 });
 
 const VerifyEmailZodSchema = z.object({
-	email: emailSchema,
-	otp: z.string().regex(/^\d{6}$/, "OTP must be a 6-digit number"),
+	body: z.object({
+		email: emailSchema,
+		otp: z.string().regex(/^\d{6}$/, "OTP must be a 6-digit number"),
+	}),
 });
 
 const GoogleLoginZodSchema = z.object({
-	idToken: z.string().min(1, "Google ID token is required"),
+	body: z.object({
+		idToken: z.string().min(1, "Google ID token is required"),
+	}),
 });
 
 const ForgotPasswordZodSchema = z.object({
-	email: emailSchema,
+	body: z.object({
+		email: emailSchema,
+	}),
 });
 
 const ResetPasswordZodSchema = z.object({
-	email: emailSchema,
+	body: z.object({
+		email: emailSchema,
 
-	otp: z.string().regex(/^\d{6}$/, "OTP must be a 6-digit number"),
+		otp: z.string().regex(/^\d{6}$/, "OTP must be a 6-digit number"),
 
-	newPassword: passwordSchema,
+		newPassword: passwordSchema,
 
-	confirmPassword: z.string().min(1, "Confirm password is required"),
+		confirmPassword: z.string().min(1, "Confirm password is required"),
+	}),
 });
 
 export const AuthValidation = {

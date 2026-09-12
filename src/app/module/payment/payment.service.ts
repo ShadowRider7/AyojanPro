@@ -194,11 +194,6 @@ const initiateFinalPayment = async (
 	return initiatePayment(contractId, PaymentStage.FINAL, user);
 };
 
-// ------------------------------------------------------------------
-// bKash callback — verifies the payment server-side via the execute
-// endpoint (never trusts the query/body status blindly) and updates
-// the Payment + Contract rows accordingly.
-// ------------------------------------------------------------------
 const bkashPaymentCallback = async (
 	query: Record<string, any>,
 ): Promise<IBkashCallbackResult> => {
