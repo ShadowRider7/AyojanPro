@@ -26,17 +26,20 @@ router.post(
 
 router.post(
 	"/apply-as-professional/verify-email",
+	validateRequest(ProfessionalValidation.verifyProfessionalEmailSchema),
 	professionalController.verifyProfessionalEmail,
 );
 router.post(
 	"/approve-professional",
 	auth(Role.ADMIN),
+	validateRequest(ProfessionalValidation.approveProfessionalSchema),
 	professionalController.approveProfessional,
 );
 
 router.get(
 	"/all-professionals",
 	auth(Role.ADMIN),
+	validateRequest(ProfessionalValidation.getAllProfessionalsSchema),
 	professionalController.getAllProfessionals,
 );
 
@@ -49,17 +52,22 @@ router.patch(
 
 router.get(
 	"/public/all-Professionals",
+	validateRequest(ProfessionalValidation.getAllProfessionalListPublicSchema),
 	professionalController.getAllProfessionalListPublic,
 );
 
 router.get(
 	"/public/:professionalId",
+	validateRequest(
+		ProfessionalValidation.getSingleProfessionalPublicProfileSchema,
+	),
 	professionalController.getSingleProfessionalPublicProfile,
 );
 
 router.post(
 	"/service",
 	auth(Role.PROFESSIONAL),
+	validateRequest(ProfessionalValidation.addServiceSchema),
 	professionalController.addServices,
 );
 
@@ -72,38 +80,49 @@ router.get(
 router.patch(
 	"/service/:id",
 	auth(Role.PROFESSIONAL),
+	validateRequest(ProfessionalValidation.updateServiceSchema),
 	professionalController.updateService,
 );
 
 router.delete(
 	"/service/:id",
 	auth(Role.PROFESSIONAL),
+	validateRequest(ProfessionalValidation.deleteServiceSchema),
 	professionalController.deleteService,
 );
 
-router.post("/skill", auth(Role.PROFESSIONAL), professionalController.addSkill);
+router.post(
+	"/skill",
+	auth(Role.PROFESSIONAL),
+	validateRequest(ProfessionalValidation.addSkillSchema),
+	professionalController.addSkill,
+);
 
 router.delete(
 	"/skill/:id",
 	auth(Role.PROFESSIONAL),
+	validateRequest(ProfessionalValidation.deleteSkillSchema),
 	professionalController.deleteSkill,
 );
 
 router.post(
 	"/experience",
 	auth(Role.PROFESSIONAL),
+	validateRequest(ProfessionalValidation.addExperienceSchema),
 	professionalController.addExperience,
 );
 
 router.patch(
 	"/experience/:id",
 	auth(Role.PROFESSIONAL),
+	validateRequest(ProfessionalValidation.updateExperienceSchema),
 	professionalController.updateExperience,
 );
 
 router.delete(
 	"/experience/:id",
 	auth(Role.PROFESSIONAL),
+	validateRequest(ProfessionalValidation.deleteExperienceSchema),
 	professionalController.deleteExperience,
 );
 
@@ -128,12 +147,14 @@ router.get(
 router.patch(
 	"/portfolio/:id",
 	auth(Role.PROFESSIONAL),
+	validateRequest(ProfessionalValidation.updatePortfolioItemSchema),
 	professionalController.updatePortfolioItem,
 );
 
 router.delete(
 	"/portfolio/:id",
 	auth(Role.PROFESSIONAL),
+	validateRequest(ProfessionalValidation.deletePortfolioSchema),
 	professionalController.deletePortfolio,
 );
 

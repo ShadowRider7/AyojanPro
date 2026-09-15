@@ -1,5 +1,4 @@
 import bcrypt from "bcrypt";
-import type { UploadApiResponse } from "cloudinary";
 import crypto from "crypto";
 import ejs from "ejs";
 import httpStatus from "http-status";
@@ -46,62 +45,24 @@ const applyAsProfessional = async (
 		);
 	}
 
-	const resumeUploadResult = await new Promise<UploadApiResponse>(
-		(resolve, reject) => {
-			cloudinary.uploader
-				.upload_stream(
-					{
-						resource_type: "auto",
-					},
+	const resumeBase64 = resume?.buffer.toString("base64");
+	const resumeDataUri = `data:${resume?.mimetype};base64,${resumeBase64}`;
 
-					async (error, result) => {
-						if (error) {
-							return reject(error);
-						}
-
-						if (!result) {
-							return reject(
-								new AppError(
-									httpStatus.INTERNAL_SERVER_ERROR,
-									"No result returned from Cloudinary",
-								),
-							);
-						}
-
-						resolve(result);
-					},
-				)
-				.end(resume?.buffer);
-		},
-	);
+	const resumeUploadResult = await cloudinary.uploader.upload(resumeDataUri, {
+		resource_type: "auto",
+	});
 
 	console.log({ resumeUploadResult });
 
-	const additionalFilesUploadResults = await Promise.all(
-		additionalFiles.map((file) => {
-			return new Promise<UploadApiResponse>((resolve, reject) => {
-				cloudinary.uploader
-					.upload_stream(
-						{
-							resource_type: "auto",
-						},
-
-						async (error, result) => {
-							if (error) {
-								return reject(error);
-							}
-
-							if (!result) {
-								return reject(new Error("No result returned from Cloudinary"));
-							}
-
-							resolve(result);
-						},
-					)
-					.end(file.buffer);
-			});
-		}),
-	);
+	const additionalFilesUploadResults = [];
+	for (const file of additionalFiles) {
+		const base64 = file.buffer.toString("base64");
+		const dataUri = `data:${file.mimetype};base64,${base64}`;
+		const result = await cloudinary.uploader.upload(dataUri, {
+			resource_type: "auto",
+		});
+		additionalFilesUploadResults.push(result);
+	}
 
 	console.log({ additionalFilesUploadResults });
 
@@ -755,34 +716,12 @@ const createPortfolio = async (
 		throw new AppError(httpStatus.NOT_FOUND, "Professional Profile Not Found");
 	}
 
-	const mediaUploadResult = await new Promise<UploadApiResponse>(
-		(resolve, reject) => {
-			cloudinary.uploader
-				.upload_stream(
-					{
-						resource_type: "auto",
-					},
+	const mediaBase64 = mediaFile?.buffer.toString("base64");
+	const mediaDataUri = `data:${mediaFile?.mimetype};base64,${mediaBase64}`;
 
-					async (error, result) => {
-						if (error) {
-							return reject(error);
-						}
-
-						if (!result) {
-							return reject(
-								new AppError(
-									httpStatus.INTERNAL_SERVER_ERROR,
-									"No result returned from Cloudinary",
-								),
-							);
-						}
-
-						resolve(result);
-					},
-				)
-				.end(mediaFile?.buffer);
-		},
-	);
+	const mediaUploadResult = await cloudinary.uploader.upload(mediaDataUri, {
+		resource_type: "auto",
+	});
 
 	const createdPortfolio = await prisma.portfolioItem.create({
 		data: {

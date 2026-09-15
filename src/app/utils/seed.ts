@@ -56,8 +56,6 @@ export const seedTesterAdmin = async () => {
 	}
 };
 
-// create tester doctor
-
 export const seedTesterClient = async () => {
 	// 1. Move validation to the top to avoid running queries with missing inputs
 	const name = config.tester_client_name;

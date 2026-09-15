@@ -1,4 +1,3 @@
-import type { UploadApiResponse } from "cloudinary";
 import { cloudinary } from "../../lib/cloudinary";
 import { prisma } from "../../lib/prisma";
 
@@ -13,29 +12,12 @@ const uploadProfileImage = async (buffer: Buffer, userId: string) => {
 		},
 	});
 
-	const cloudinaryResult = await new Promise<UploadApiResponse>(
-		(resolve, reject) => {
-			cloudinary.uploader
-				.upload_stream(
-					{
-						resource_type: "image",
-					},
+	const base64 = buffer.toString("base64");
+	const dataUri = `data:image/jpeg;base64,${base64}`;
 
-					async (error, result) => {
-						if (error) {
-							return reject(error);
-						}
-
-						if (!result) {
-							return reject(new Error("No result returned from Cloudinary"));
-						}
-
-						resolve(result);
-					},
-				)
-				.end(buffer);
-		},
-	);
+	const cloudinaryResult = await cloudinary.uploader.upload(dataUri, {
+		resource_type: "image",
+	});
 
 	const updatedUser = await prisma.user.update({
 		where: {

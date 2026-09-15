@@ -45,7 +45,7 @@ export interface IVerifyProfessionalEmailPayload {
 export interface IApproveDoctorPayload {
 	professionalId: string;
 	status: ApplicationStatus;
-	rejectionReason: string;
+	rejectionReason?: string;
 }
 
 export interface IUpdateProfessionalProfileInput {
@@ -56,7 +56,6 @@ export interface IUpdateProfessionalProfileInput {
 	city?: string;
 	country?: string;
 	experienceYears?: number;
-	additionalFiles?: any;
 }
 
 export interface ICreateService {
@@ -93,17 +92,13 @@ export interface ICreatePortfolioItemInput {
 	description?: string;
 	eventType?: string;
 	workDays: string;
-	mediaUrl: string;
-	publicId: string;
 	externalUrl?: string;
 }
 
 export interface IUpdatePortfolioItemInput {
-	title: string;
+	title?: string;
 	description?: string;
 	eventType?: string;
-	workDays: string;
-	mediaUrl: string;
-	publicId: string;
+	workDays?: string;
 	externalUrl?: string;
 }

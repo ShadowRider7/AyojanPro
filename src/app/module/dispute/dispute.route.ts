@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { Role } from "../../../generated/prisma/enums";
+import { upload } from "../../lib/multer";
 import { auth } from "../../middleware/checkAuth";
 import { validateRequest } from "../../middleware/validateRequest";
 import { disputeController } from "./dispute.controller";
@@ -8,23 +9,30 @@ import { disputeValidator } from "./dispute.validator";
 const router = Router();
 
 router.post(
-	"/contracts/:id/",
+	"/contracts/:id",
 	auth(Role.CLIENT, Role.PROFESSIONAL),
 	validateRequest(disputeValidator.raiseDisputeZodSchema),
 	disputeController.raiseDispute,
 );
 
-router.get("/", auth(Role.ADMIN), disputeController.listDisputes);
+router.get(
+	"/",
+	auth(Role.ADMIN),
+	validateRequest(disputeValidator.listDisputesSchema),
+	disputeController.listDisputes,
+);
 
 router.get(
 	"/:id",
 	auth(Role.CLIENT, Role.PROFESSIONAL, Role.ADMIN),
+	validateRequest(disputeValidator.getDisputeDetailsSchema),
 	disputeController.getDisputeDetails,
 );
 
 router.post(
 	"/:id/evidence",
 	auth(Role.CLIENT, Role.PROFESSIONAL, Role.ADMIN),
+	upload.single("evidenceFile"),
 	validateRequest(disputeValidator.uploadEvidenceZodSchema),
 	disputeController.uploadEvidence,
 );

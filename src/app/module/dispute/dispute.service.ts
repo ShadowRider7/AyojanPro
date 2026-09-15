@@ -169,6 +169,7 @@ const getDisputeDetails = async (disputeId: string, user: RequestUser) => {
 const uploadEvidence = async (
 	disputeId: string,
 	payload: IUploadEvidence,
+	mediaUrl: string,
 	user: RequestUser,
 ) => {
 	const dispute = await getAuthorizedDispute(disputeId, user);
@@ -187,7 +188,7 @@ const uploadEvidence = async (
 			type: payload.type,
 			title: payload.title,
 			description: payload.description,
-			mediaUrl: payload.mediaUrl,
+			mediaUrl,
 		},
 	});
 };

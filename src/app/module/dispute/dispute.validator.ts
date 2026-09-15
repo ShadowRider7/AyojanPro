@@ -1,8 +1,14 @@
 import { z } from "zod";
 
 const raiseDisputeZodSchema = z.object({
+	params: z.object({
+		id: z.string().min(1, "Contract ID is required"),
+	}),
 	body: z.object({
-		reason: z.string().min(3).max(255, "Reason cannot exceed 255 characters"),
+		reason: z
+			.string()
+			.min(3, "Reason must be at least 3 characters")
+			.max(255, "Reason cannot exceed 255 characters"),
 		description: z
 			.string()
 			.min(10, "Please describe the issue in more detail")
@@ -10,22 +16,55 @@ const raiseDisputeZodSchema = z.object({
 	}),
 });
 
+const listDisputesSchema = z.object({
+	query: z.object({
+		status: z
+			.enum(["OPEN", "UNDER_REVIEW", "RESOLVED", "REJECTED", "CLOSED"])
+			.optional(),
+	}),
+});
+
+const getDisputeDetailsSchema = z.object({
+	params: z.object({
+		id: z.string().min(1, "Dispute ID is required"),
+	}),
+});
+
 const uploadEvidenceZodSchema = z.object({
+	params: z.object({
+		id: z.string().min(1, "Dispute ID is required"),
+	}),
 	body: z.object({
-		type: z.string().max(50).optional(),
-		title: z.string().max(255).optional(),
-		description: z.string().max(2000).optional(),
-		mediaUrl: z.string().url("mediaUrl must be a valid URL"),
+		type: z
+			.string()
+			.max(50, "Type cannot exceed 50 characters")
+			.optional(),
+		title: z
+			.string()
+			.max(255, "Title cannot exceed 255 characters")
+			.optional(),
+		description: z
+			.string()
+			.max(2000, "Description cannot exceed 2000 characters")
+			.optional(),
 	}),
 });
 
 const updateDisputeStatusZodSchema = z.object({
+	params: z.object({
+		id: z.string().min(1, "Dispute ID is required"),
+	}),
 	body: z.object({
-		status: z.enum(["OPEN", "UNDER_REVIEW", "REJECTED", "CLOSED"]),
+		status: z.enum(["OPEN", "UNDER_REVIEW", "REJECTED", "CLOSED"], {
+			message: "Status must be OPEN, UNDER_REVIEW, REJECTED, or CLOSED",
+		}),
 	}),
 });
 
 const resolveDisputeZodSchema = z.object({
+	params: z.object({
+		id: z.string().min(1, "Dispute ID is required"),
+	}),
 	body: z.object({
 		resolution: z
 			.string()
@@ -36,6 +75,8 @@ const resolveDisputeZodSchema = z.object({
 
 export const disputeValidator = {
 	raiseDisputeZodSchema,
+	listDisputesSchema,
+	getDisputeDetailsSchema,
 	uploadEvidenceZodSchema,
 	updateDisputeStatusZodSchema,
 	resolveDisputeZodSchema,

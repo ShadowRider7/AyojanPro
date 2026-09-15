@@ -4,6 +4,21 @@ import { Prisma } from "../../generated/prisma/client";
 import config from "../config";
 import { AppError } from "../utils/AppError";
 
+const STATUS_TEXT: Record<number, string> = {
+	200: "OK",
+	201: "Created",
+	400: "Bad Request",
+	401: "Unauthorized",
+	403: "Forbidden",
+	404: "Not Found",
+	409: "Conflict",
+	422: "Unprocessable Entity",
+	429: "Too Many Requests",
+	500: "Internal Server Error",
+	502: "Bad Gateway",
+	503: "Service Unavailable",
+};
+
 const handlePrismaError = (err: Prisma.PrismaClientKnownRequestError) => {
 	switch (err.code) {
 		case "P2002": {
@@ -66,6 +81,7 @@ export const globalErrorHandler = async (
 	} else if (err instanceof Prisma.PrismaClientValidationError) {
 		statusCode = httpStatus.BAD_REQUEST;
 		message = "You have provided incorrect field type or missing fields";
+		name = "Bad Request";
 	} else if (err instanceof Prisma.PrismaClientKnownRequestError) {
 		const prismaResult = handlePrismaError(err);
 		statusCode = prismaResult.statusCode;
@@ -84,13 +100,15 @@ export const globalErrorHandler = async (
 		message = "Error occurred during query execution";
 	} else if (err.statusCode) {
 		statusCode = err.statusCode;
-		message = isDev ? err.message : "Internal Server Error";
+		message = err.message;
 	} else if (err instanceof SyntaxError) {
 		statusCode = httpStatus.BAD_REQUEST;
 		message = "Invalid JSON in request body";
 	} else if (err instanceof Error) {
-		message = isDev ? err.message : "Internal Server Error";
+		message = err.message;
 	}
+
+	name = STATUS_TEXT[statusCode] || name;
 
 	res.status(statusCode).json({
 		success: false,

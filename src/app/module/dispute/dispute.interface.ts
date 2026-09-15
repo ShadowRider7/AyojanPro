@@ -7,7 +7,6 @@ export interface IUploadEvidence {
 	type?: string;
 	title?: string;
 	description?: string;
-	mediaUrl: string;
 }
 
 // RESOLVED is intentionally excluded — that transition only happens via
