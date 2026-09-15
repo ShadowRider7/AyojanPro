@@ -420,7 +420,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Event Videography\",\n  "description": \"Professional video coverage with cinematic editing for weddings and events.\"\n}\n",
+							"raw": "{\n  \"name\": \"Event Videography\",\n  \"description\": \"Professional video coverage with cinematic editing for weddings and events.\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
