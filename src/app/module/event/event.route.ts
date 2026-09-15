@@ -51,6 +51,7 @@ router.delete(
 	eventController.deleteEventService,
 );
 router.get("/:eventId", eventController.getEventById);
+
 router.patch(
 	"/publish-event/:eventId",
 	auth(Role.CLIENT),

@@ -88,6 +88,13 @@ const createEventService = async (
 	const { serviceName, description, budget, currency, startAt, endAt } =
 		payload;
 
+	if (startAt < event.startAt || endAt > event.endAt) {
+		throw new AppError(
+			httpStatus.BAD_REQUEST,
+			"Service dates must be within the event schedule",
+		);
+	}
+
 	const createdEventServices = await prisma.eventServiceRequirement.create({
 		data: {
 			serviceName,
@@ -212,18 +219,9 @@ const getEventById = async (eventId: string) => {
 				},
 			},
 			serviceRequirements: {
-				select: {
-					budget: true,
-					serviceName: true,
-					startAt: true,
-					endAt: true,
-					description: true,
-					status: true,
-					currency: true,
-				},
 				include: {
 					contracts: true,
-					proposals: true,
+					proposalItems: true,
 				},
 			},
 			contracts: {
@@ -330,6 +328,16 @@ const updateEventService = async (
 
 	const { serviceName, description, budget, currency, startAt, endAt } =
 		payload;
+
+	const effectiveStartAt = startAt ?? event.startAt;
+	const effectiveEndAt = endAt ?? event.endAt;
+
+	if (effectiveStartAt < event.startAt || effectiveEndAt > event.endAt) {
+		throw new AppError(
+			httpStatus.BAD_REQUEST,
+			"Service dates must be within the event schedule",
+		);
+	}
 
 	const updatedEventServices = await prisma.eventServiceRequirement.update({
 		where: {
