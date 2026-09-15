@@ -24,6 +24,9 @@ const listUsers = async (filters: {
 					}
 				: {}),
 		},
+		omit: {
+			password: true,
+		},
 		include: { client: true, professional: true },
 		orderBy: { createdAt: "desc" },
 	});
@@ -66,11 +69,6 @@ const listPayments = async (filters: { status?: string; stage?: string }) => {
 	});
 };
 
-/**
- * Activates, suspends, or blocks a user account. Guards against locking
- * out other admins by mistake and against an admin accidentally changing
- * their own status through this endpoint.
- */
 const updateUserStatus = async (
 	targetUserId: string,
 	payload: IUpdateUserStatus,

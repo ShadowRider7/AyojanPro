@@ -11,13 +11,13 @@
 			"name": "auth",
 			"item": [
 				{
-					"name": "user register",
+					"name": "client register",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"John Doe\",\n  \"email\": \"john@example.com\",\n  \"password\": \"SecurePass123!\",\n  \"client\": {\n    \"phone\": \"+8801977989963\",\n    \"bio\": \"I am looking for a freelance web developer.\",\n    \"address\": \"123 Main St\",\n    \"city\": \"Dhaka\",\n    \"country\": \"Bangladesh\"\n  }\n}\n",
+							"raw": "{\n  \"name\": \"Rifat Hossain\",\n  \"email\": \"rifat.hossain@gmail.com\",\n  \"password\": \"WeddingPlanner123!\",\n  \"client\": {\n  \"phone\": \"+8801712345678\",\n  \"bio\": \"Organizing a grand wedding reception for 500 guests.\",\n  \"address\": \"House 12, Road 5, Banani\",\n  \"city\": \"Dhaka\",\n  \"country\": \"Bangladesh\"\n  }\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -40,7 +40,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"john@example.com\",\n  \"otp\": \"430163\"\n}\n",
+							"raw": "{\n  \"email\": \"rifat.hossain@gmail.com\",\n  \"otp\": \"430163\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -63,7 +63,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"SecurePass123!\"\n}\n",
+							"raw": "{\n  \"email\": \"rifat.hossain@gmail.com\",\n  \"password\": \"WeddingPlanner123!\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -123,7 +123,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"john@example.com\"\n}\n",
+							"raw": "{\n  \"email\": \"rifat.hossain@gmail.com\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -146,7 +146,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"john@example.com\",\n  \"otp\": \"430163\",\n  \"newPassword\": \"NewSecurePass456!\",\n  \"confirmPassword\": \"NewSecurePass456!\"\n}\n",
+							"raw": "{\n  \"email\": \"rifat.hossain@gmail.com\",\n  \"otp\": \"430163\",\n  \"newPassword\": \"NewSecurePass456!\",\n  \"confirmPassword\": \"NewSecurePass456!\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -224,7 +224,7 @@
 								{
 									"key": "data",
 									"type": "text",
-									"value": "{\"user\":{\"name\":\"Jane Smith\",\"email\":\"jane@example.com\"},\"professional\":{\"phone\":\"+8801977989963\",\"address\":\"456 Park Ave\",\"city\":\"Dhaka\",\"country\":\"Bangladesh\",\"professionalTitle\":\"Full Stack Developer\",\"bio\":\"5 years of web development experience\",\"experienceYears\":5}}"
+									"value": "{\"user\":{\"name\":\"Tanvir Ahmed\",\"email\":\"tanvir.ahmed@gmail.com\"},\"professional\":{\"phone\":\"+8801812345678\",\"address\":\"45 Gulshan Avenue, Gulshan-1\",\"city\":\"Dhaka\",\"country\":\"Bangladesh\",\"professionalTitle\":\"Event Photographer\",\"bio\":\"Professional event and wedding photographer with 8 years of experience capturing unforgettable moments.\",\"experienceYears\":8}}"
 								},
 								{
 									"key": "resume",
@@ -254,7 +254,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"email\": \"jane@example.com\",\n  \"otp\": \"123456\"\n}\n",
+							"raw": "{\n  \"email\": \"tanvir.ahmed@gmail.com\",\n  \"otp\": \"123456\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -360,7 +360,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"bio\": \"Expert UI/UX designer and frontend engineer with a focus on seamless interactions.\",\n  \"location\": \"Berlin, Germany\",\n  \"contactNumber\": \"+491705550192\",\n  \"experience\": 6,\n  \"hourlyRate\": 85.50,\n  \"isAvailable\": true,\n  \"website\": \"https://designbycreative.io\",\n  \"githubUrl\": \"https://github.com\",\n  \"linkedinUrl\": \"https://linkedin.com\",\n  \"behanceUrl\": \"https://behance.net\",\n  \"dribbbleUrl\": \"https://dribbble.com\"\n}\n",
+							"raw": "{\n  \"bio\": \"Specialized in wedding, birthday, and corporate event photography. Known for candid shots and creative compositions.\",\n  \"location\": \"Gulshan, Dhaka\",\n  \"contactNumber\": \"+8801812345678\",\n  \"experienceYears\": 8,\n  \"hourlyRate\": 5000,\n  \"acceptingBookings\": true,\n  \"website\": \"https://tanvirevents.com\",\n  \"instagramUrl\": \"https://instagram.com/tanvirevents\",\n  \"facebookUrl\": \"https://facebook.com/tanvirevents\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -383,7 +383,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Video Graphy\",\n  \"description\": \"Live shooting videos and editing.\"\n}\n",
+							"raw": "{\n  \"name\": \"Wedding Photography\",\n  \"description\": \"Full-day wedding photography coverage including bride & groom portraits, ceremony, and reception.\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -420,7 +420,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"Photo Graphy\",\n  \"description\": \"Live shooting and editing photos.\"\n}\n",
+							"raw": "{\n  \"name\": \"Event Videography\",\n  "description": \"Professional video coverage with cinematic editing for weddings and events.\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -469,7 +469,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"name\": \"React.js\",\n  \"description\": \"Frontend development skills\"\n}\n",
+							"raw": "{\n  \"name\": \"Portrait Photography\",\n  \"description\": \"Expert in portrait and candid event photography\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -512,7 +512,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"Senior Frontend Developer\",\n  \"organization\": \"Tech Corp\",\n  \"startDate\": \"2020-01-01\",\n  \"endDate\": \"2024-01-01\",\n  \"description\": \"Worked on various frontend projects.\"\n}\n",
+							"raw": "{\n  \"title\": \"Lead Photographer\",\n  \"organization\": \"Sheraton Dhaka Hotel & Towers\",\n  \"startDate\": \"2019-01-01\",\n  \"endDate\": \"2024-12-31\",\n  \"description\": \"Covered 200+ weddings and corporate events at Sheraton, managing a team of 2 assistant photographers.\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -535,7 +535,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"Senior Frontend Developer\",\n  \"organization\": \"Tech Corp\",\n  \"startDate\": \"2020-01-01\",\n  \"endDate\": \"2024-01-01\",\n  \"description\": \"Worked on various frontend projects.\"\n}\n",
+							"raw": "{\n  \"title\": \"Senior Event Photographer\",\n  \"organization\": \"Radisson Blu Water Garden\",\n  \"startDate\": \"2020-06-01\",\n  \"endDate\": \"2024-11-30\",\n  \"description\": \"Exclusive photographer for high-end wedding receptions and corporate galas at Radisson Blu.\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -588,7 +588,7 @@
 								{
 									"key": "data",
 									"type": "text",
-									"value": "{\"title\":\"Portfolio Project\",\"description\":\"A web application built with React\",\"eventType\":\"Web Development\",\"workDays\":\"Full-time\",\"mediaUrl\":\"https://example.com/image.jpg\",\"publicId\":\"abc123\",\"externalUrl\":\"https://example.com\"}"
+									"value": "{\"title\":\"Sakib & Nusrat Wedding Reception\",\"description\":\"A beautiful wedding reception at Radisson Blu Water Garden with 400 guests. Captured the couple's first dance, traditional customs, and candid moments.\",\"eventType\":\"Wedding Reception\",\"workDays\":\"Full-day coverage\",\"mediaUrl\":\"https://example.com/wedding-photo.jpg\",\"publicId\":\"wedding_portfolio_001\",\"externalUrl\":\"https://tanvirevents.com/portfolio/wedding-001\"}"
 								},
 								{
 									"key": "mediaFile",
@@ -627,7 +627,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"Updated Portfolio Project\",\n  \"description\": \"Updated description\",\n  \"eventType\": \"Web Development\",\n  \"workDays\": \"Part-time\",\n  \"mediaUrl\": \"https://example.com/new-image.jpg\",\n  \"publicId\": \"newabc123\",\n  \"externalUrl\": \"https://example.com/new\"\n}\n",
+							"raw": "{\n  \"title\": \"Rahima's 50th Birthday Celebration\",\n  \"description\": \"A grand surprise birthday party at Le Meridien with 200+ guests. Captured the emotional moments and the family's joy.\",\n  \"eventType\": \"Birthday Party\",\n  \"workDays\": \"Half-day\",\n  \"mediaUrl\": \"https://example.com/birthday-photo.jpg\",\n  \"publicId\": \"birthday_portfolio_001\",\n  \"externalUrl\": \"https://tanvirevents.com/portfolio/birthday-001\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -681,7 +681,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"bio\": \"Building the next generation of cloud-based enterprise solutions.\",\n  \"phone\": \"+8801977989963\",\n  \"address\": \"123 Main St\",\n  \"city\": \"San Francisco\",\n  \"country\": \"USA\"\n}\n",
+							"raw": "{\n  \"bio\": \"Organizing my sister's wedding reception. Looking for the best photographers, decorators, and sound professionals in Dhaka.\",\n  \"phone\": \"+8801712345678\",\n  \"address\": \"House 12, Road 5, Banani\",\n  \"city\": \"Dhaka\",\n  \"country\": \"Bangladesh\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -709,7 +709,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"Website Redesign Project\",\n  \"description\": \"Redesign the company website with modern UI/UX.\",\n  \"eventType\": \"Web Development\",\n  \"city\": \"San Francisco\",\n  \"country\": \"USA\",\n  \"address\": \"123 Tech Street\",\n  \"startAt\": \"2025-01-15T09:00:00.000Z\",\n  \"endAt\": \"2025-02-15T17:00:00.000Z\"\n}\n",
+							"raw": "{\n  \"title\": \"Wedding Reception of Rifat's Sister\",\n  \"description\": \"A grand wedding reception at Radisson Blu Water Garden Dhaka. 500+ guests expected. Need photography, videography, decoration, and DJ services.\",\n  \"eventType\": \"Wedding Reception\",\n  \"city\": \"Dhaka\",\n  \"country\": \"Bangladesh\",\n  \"address\": \"Radisson Blu Water Garden, Airport Road, Dhaka\",\n  \"startAt\": \"2025-03-15T16:00:00.000Z\",\n  \"endAt\": \"2025-03-15T23:00:00.000Z\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -732,7 +732,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"serviceName\": \"UI/UX Design\",\n  \"description\": \"Design the user interface and experience.\",\n  \"budget\": 5000,\n  \"currency\": \"BDT\",\n  \"startAt\": \"2025-01-15T09:00:00.000Z\",\n  \"endAt\": \"2025-02-15T17:00:00.000Z\"\n}\n",
+							"raw": "{\n  \"serviceName\": \"Wedding Photography\",\n  \"description\": \"Need a professional photographer for full-day coverage including pre-event portraits, ceremony, and reception candid shots.\",\n  \"budget\": 25000,\n  \"currency\": \"BDT\",\n  \"startAt\": \"2025-03-15T14:00:00.000Z\",\n  \"endAt\": \"2025-03-15T23:00:00.000Z\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -794,7 +794,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"Updated Website Redesign\",\n  \"description\": \"Updated description for the project.\",\n  \"eventType\": \"Web Development\",\n  \"city\": \"San Francisco\",\n  \"country\": \"USA\",\n  \"startAt\": \"2025-02-01T09:00:00.000Z\",\n  \"endAt\": \"2025-03-01T17:00:00.000Z\"\n}\n",
+							"raw": "{\n  \"title\": \"Wedding Reception of Rifat's Sister (Updated)\",\n  \"description\": \"A grand wedding reception at Radisson Blu Water Garden. 600+ guests. Added DJ requirement.\",\n  \"eventType\": \"Wedding Reception\",\n  \"city\": \"Dhaka\",\n  \"country\": \"Bangladesh\",\n  \"startAt\": \"2025-03-15T16:00:00.000Z\",\n  \"endAt\": \"2025-03-15T23:30:00.000Z\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -863,7 +863,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"serviceName\": \"Updated UI/UX Design\",\n  \"description\": \"Updated description.\",\n  \"budget\": 6000,\n  \"currency\": \"BDT\",\n  \"startAt\": \"2025-01-15T09:00:00.000Z\",\n  \"endAt\": \"2025-02-15T17:00:00.000Z\"\n}\n",
+							"raw": "{\n  \"serviceName\": \"Wedding Videography\",\n  \"description\": \"Cinematic video coverage of the reception with drone shots if possible.\",\n  \"budget\": 35000,\n  \"currency\": \"BDT\",\n  \"startAt\": \"2025-03-15T14:00:00.000Z\",\n  \"endAt\": \"2025-03-15T23:00:00.000Z\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -939,7 +939,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"message\": \"I am interested in this project and can deliver it on time.\",\n  \"items\": [\n    {\n      \"eventServiceRequirementId\": \"550e8400-e29b-41d4-a716-446655440000\",\n      \"professionalServiceId\": \"660e8400-e29b-41d4-a716-446655440001\",\n      \"proposedAmount\": 5000,\n      \"currency\": \"BDT\",\n      \"proposedStartAt\": \"2025-01-20T09:00:00.000Z\",\n      \"proposedEndAt\": \"2025-02-20T17:00:00.000Z\"\n    }\n  ]\n}\n",
+							"raw": "{\n  \"message\": \"Hi Rifat, I would love to cover your sister's wedding reception! I have 8 years of experience shooting weddings at 5-star venues in Dhaka. I'll bring 2 assistant photographers and all professional gear including studio lights.\",\n  \"items\": [\n    {\n      \"eventServiceRequirementId\": \"550e8400-e29b-41d4-a716-446655440000\",\n      \"professionalServiceId\": \"660e8400-e29b-41d4-a716-446655440001\",\n      \"proposedAmount\": 22000,\n      \"currency\": \"BDT\",\n      \"proposedStartAt\": \"2025-03-15T14:00:00.000Z\",\n      \"proposedEndAt\": \"2025-03-15T23:00:00.000Z\"\n    }\n  ]\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1071,10 +1071,10 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://ayojan-pro.vercel.app/api/v1/contract",
+							"raw": "https://ayojan-pro.vercel.app/api/v1/contracts",
 							"protocol": "https",
 							"host": ["ayojan-pro", "vercel", "app"],
-							"path": ["api", "v1", "contract"]
+							"path": ["api", "v1", "contracts"]
 						}
 					},
 					"response": []
@@ -1085,13 +1085,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://ayojan-pro.vercel.app/api/v1/contract/550e8400-e29b-41d4-a716-446655440000",
+							"raw": "https://ayojan-pro.vercel.app/api/v1/contracts/550e8400-e29b-41d4-a716-446655440000",
 							"protocol": "https",
 							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
-								"contract",
+								"contracts",
 								"550e8400-e29b-41d4-a716-446655440000"
 							]
 						}
@@ -1105,7 +1105,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"reason\": \"Project requirements changed.\"\n}\n",
+							"raw": "{\n  \"reason\": \"Event venue changed to a different city, need to find a local photographer instead.\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1113,13 +1113,13 @@
 							}
 						},
 						"url": {
-							"raw": "https://ayojan-pro.vercel.app/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/cancel",
+							"raw": "https://ayojan-pro.vercel.app/api/v1/contracts/550e8400-e29b-41d4-a716-446655440000/cancel",
 							"protocol": "https",
 							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
-								"contract",
+								"contracts",
 								"550e8400-e29b-41d4-a716-446655440000",
 								"cancel"
 							]
@@ -1134,7 +1134,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"title\": \"Final Deliverable\",\n  \"description\": \"Completed project deliverables.\",\n  \"externalUrl\": [\"https://example.com/deliverable1.pdf\", \"https://example.com/deliverable2.pdf\"]\n}\n",
+							"raw": "{\n  \"title\": \"Wedding Reception Photos & Album\",\n  \"description\": \"800+ edited photos from the reception and a 20-page premium album design.\",\n  \"externalUrl\": [\"https://drive.google.com/wedding-photos-sakib-nusrat\", \"https://tanvirevents.com/albums/sakib-nusrat\"]\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1142,13 +1142,13 @@
 							}
 						},
 						"url": {
-							"raw": "https://ayojan-pro.vercel.app/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/deliverable",
+							"raw": "https://ayojan-pro.vercel.app/api/v1/contracts/550e8400-e29b-41d4-a716-446655440000/deliverable",
 							"protocol": "https",
 							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
-								"contract",
+								"contracts",
 								"550e8400-e29b-41d4-a716-446655440000",
 								"deliverable"
 							]
@@ -1162,13 +1162,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://ayojan-pro.vercel.app/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/deliverable",
+							"raw": "https://ayojan-pro.vercel.app/api/v1/contracts/550e8400-e29b-41d4-a716-446655440000/deliverable",
 							"protocol": "https",
 							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
-								"contract",
+								"contracts",
 								"550e8400-e29b-41d4-a716-446655440000",
 								"deliverable"
 							]
@@ -1182,13 +1182,13 @@
 						"method": "PATCH",
 						"header": [],
 						"url": {
-							"raw": "https://ayojan-pro.vercel.app/api/v1/contract/550e8400-e29b-41d4-a716-446655440000/complete",
+							"raw": "https://ayojan-pro.vercel.app/api/v1/contracts/550e8400-e29b-41d4-a716-446655440000/complete",
 							"protocol": "https",
 							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
 								"api",
 								"v1",
-								"contract",
+								"contracts",
 								"550e8400-e29b-41d4-a716-446655440000",
 								"complete"
 							]
@@ -1208,7 +1208,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"body\": {\n    \"rating\": 5,\n    \"comment\": \"Excellent work! Highly recommend.\"\n  }\n}\n",
+							"raw": "{\n  \"body\": {\n    \"rating\": 5,\n    \"comment\": \"Tanvir was absolutely amazing at our wedding reception! The photos turned out stunning, especially the candid shots during the ceremony. He arrived early, stayed late, and captured every moment perfectly. Highly recommend!\"\n  }\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1256,7 +1256,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://ayojan-pro.vercel.app/api/v1/review/clients/550e8400-e29b-41d4-a716-446655440000/reviews",
+							"raw": "https://ayojan-pro.vercel.app/api/v1/review/clients/550e8400-e29b-41d4-a716-446655440000",
 							"protocol": "https",
 							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
@@ -1264,8 +1264,7 @@
 								"v1",
 								"review",
 								"clients",
-								"550e8400-e29b-41d4-a716-446655440000",
-								"reviews"
+								"550e8400-e29b-41d4-a716-446655440000"
 							]
 						}
 					},
@@ -1282,7 +1281,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://ayojan-pro.vercel.app/api/v1/payment/contracts/550e8400-e29b-41d4-a716-446655440000/initial",
+							"raw": "https://ayojan-pro.vercel.app/api/v1/payment/contracts/550e8400-e29b-41d4-a716-446655440000/payments/initial",
 							"protocol": "https",
 							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
@@ -1291,6 +1290,7 @@
 								"payment",
 								"contracts",
 								"550e8400-e29b-41d4-a716-446655440000",
+								"payments",
 								"initial"
 							]
 						}
@@ -1303,7 +1303,7 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "https://ayojan-pro.vercel.app/api/v1/payment/contracts/550e8400-e29b-41d4-a716-446655440000/final",
+							"raw": "https://ayojan-pro.vercel.app/api/v1/payment/contracts/550e8400-e29b-41d4-a716-446655440000/payments/final",
 							"protocol": "https",
 							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
@@ -1312,6 +1312,7 @@
 								"payment",
 								"contracts",
 								"550e8400-e29b-41d4-a716-446655440000",
+								"payments",
 								"final"
 							]
 						}
@@ -1325,7 +1326,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"paymentID\": \"BKASH123456\",\n  \"status\": \"COMPLETED\"\n}\n",
+							"raw": "{\n  \"paymentID\": \"BKASHWEDDING789\",\n  \"status\": \"COMPLETED\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1347,7 +1348,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "https://ayojan-pro.vercel.app/api/v1/payment/contracts/550e8400-e29b-41d4-a716-446655440000",
+							"raw": "https://ayojan-pro.vercel.app/api/v1/payment/contracts/550e8400-e29b-41d4-a716-446655440000/payments",
 							"protocol": "https",
 							"host": ["ayojan-pro", "vercel", "app"],
 							"path": [
@@ -1355,7 +1356,8 @@
 								"v1",
 								"payment",
 								"contracts",
-								"550e8400-e29b-41d4-a716-446655440000"
+								"550e8400-e29b-41d4-a716-446655440000",
+								"payments"
 							]
 						}
 					},
@@ -1426,7 +1428,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"reason\": \"The work delivered does not match the agreed specifications.\",\n  \"description\": \"The deliverable has multiple bugs and does not meet the requirements outlined in the contract.\"\n}\n",
+							"raw": "{\n  \"reason\": \"Photographer delivered only 200 photos instead of the agreed 800+ edited photos.\",\n  \"description\": \"The contract specified 800+ edited photos and a premium album. Only 200 low-quality photos were delivered via Google Drive. The album was not provided.\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1488,7 +1490,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"type\": \"document\",\n  \"title\": \"Contract Agreement\",\n  \"description\": \"Signed contract showing agreed terms.\",\n  \"mediaUrl\": \"https://example.com/evidence.pdf\"\n}\n",
+							"raw": "{\n  \"type\": \"document\",\n  \"title\": \"Contract Agreement\",\n  \"description\": \"Signed contract specifying 800+ edited photos and premium album.\",\n  \"mediaUrl\": \"https://drive.google.com/contract-wedding-photo\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1546,7 +1548,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"resolution\": \"The dispute has been resolved after reviewing the evidence. The professional will redo the work.\"\n}\n",
+							"raw": "{\n  \"resolution\": \"After reviewing the contract and evidence, the professional must deliver the remaining 600 photos and the premium album within 7 days. A partial refund of 30% will be issued if deliverables are not met.\"\n}\n",
 							"options": {
 								"raw": {
 									"language": "json"

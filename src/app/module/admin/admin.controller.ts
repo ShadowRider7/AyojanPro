@@ -1,11 +1,12 @@
 import httpStatus from "http-status";
+import type { Role } from "../../../generated/prisma/enums";
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
 import { adminService } from "./admin.service";
 
 const listUsers = catchAsync(async (req, res) => {
 	const users = await adminService.listUsers({
-		role: req.query.role as never,
+		role: req.query.role as Role,
 		status: req.query.status as string | undefined,
 		search: req.query.search as string | undefined,
 	});
