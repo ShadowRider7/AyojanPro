@@ -122,6 +122,7 @@ const updateProfessionalProfileSchema = z.object({
 			.int()
 			.nonnegative("Experience years must be a positive integer")
 			.optional(),
+		acceptingBookings: z.boolean().optional(),
 	}),
 });
 
@@ -130,11 +131,20 @@ const addServiceSchema = z.object({
 		name: z
 			.string()
 			.min(1, "Service name is required")
-			.max(255, "Service name cannot exceed 255 characters"),
+			.max(150, "Service name cannot exceed 150 characters"),
 		description: z
 			.string()
 			.max(1000, "Description cannot exceed 1000 characters")
 			.optional(),
+		pricingNote: z
+			.string()
+			.max(1000, "Pricing note cannot exceed 1000 characters"),
+		minimumPrice: z
+			.number()
+			.nonnegative("Minimum price must be a positive number"),
+		maximumPrice: z
+			.number()
+			.nonnegative("Maximum price must be a positive number"),
 	}),
 });
 
@@ -146,11 +156,23 @@ const updateServiceSchema = z.object({
 		name: z
 			.string()
 			.min(1, "Service name is required")
-			.max(255, "Service name cannot exceed 255 characters")
+			.max(150, "Service name cannot exceed 150 characters")
 			.optional(),
 		description: z
 			.string()
 			.max(1000, "Description cannot exceed 1000 characters")
+			.optional(),
+		pricingNote: z
+			.string()
+			.max(1000, "Pricing note cannot exceed 1000 characters")
+			.optional(),
+		minimumPrice: z
+			.number()
+			.nonnegative("Minimum price must be a positive number")
+			.optional(),
+		maximumPrice: z
+			.number()
+			.nonnegative("Maximum price must be a positive number")
 			.optional(),
 	}),
 });
@@ -166,7 +188,7 @@ const addSkillSchema = z.object({
 		name: z
 			.string()
 			.min(1, "Skill name is required")
-			.max(255, "Skill name cannot exceed 255 characters"),
+			.max(150, "Skill name cannot exceed 150 characters"),
 		description: z
 			.string()
 			.max(500, "Description cannot exceed 500 characters")

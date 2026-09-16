@@ -15,7 +15,7 @@ import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
 import type {
 	IApplyAsProfessionalPayload,
-	IApproveDoctorPayload,
+	IApproveProfessionalPayload,
 	ICreateExperience,
 	ICreatePortfolioItemInput,
 	ICreateService,
@@ -52,8 +52,6 @@ const applyAsProfessional = async (
 		resource_type: "auto",
 	});
 
-	console.log({ resumeUploadResult });
-
 	const additionalFilesUploadResults = [];
 	for (const file of additionalFiles) {
 		const base64 = file.buffer.toString("base64");
@@ -63,8 +61,6 @@ const applyAsProfessional = async (
 		});
 		additionalFilesUploadResults.push(result);
 	}
-
-	console.log({ additionalFilesUploadResults });
 
 	const randomProfessionalPassword = Math.random().toString(36).slice(-8);
 
@@ -105,6 +101,16 @@ const applyAsProfessional = async (
 	const otpValue = crypto.randomInt(100000, 1000000).toString();
 
 	await redisClient.set(otpKey, otpValue, {
+		expiration: {
+			type: "EX",
+			value: expirationSeconds,
+		},
+	});
+
+	const passKey = `professional-application-pass:${payload.user.email}`;
+	const passValue = randomProfessionalPassword.toString();
+
+	await redisClient.set(passKey, passValue, {
 		expiration: {
 			type: "EX",
 			value: expirationSeconds,
@@ -183,7 +189,7 @@ const verifyProfessionalEmail = async (
 };
 
 const approveProfessional = async (
-	payload: IApproveDoctorPayload,
+	payload: IApproveProfessionalPayload,
 	reviewer: RequestUser,
 ) => {
 	const { professionalId, status, rejectionReason } = payload;
@@ -244,6 +250,9 @@ const approveProfessional = async (
 
 	const isApproved = status === ApplicationStatus.APPROVED;
 
+	const passKey = `professional-application-pass:${updatedProfessional.email}`;
+	const redisPass = await redisClient.get(passKey);
+
 	const templatePath = path.join(
 		process.cwd(),
 		`src/app/templates/${
@@ -256,6 +265,7 @@ const approveProfessional = async (
 	const templateData = {
 		name: updatedProfessional.user.name,
 		reason: updatedProfessional.rejectionReason,
+		password: isApproved ? redisPass : undefined,
 	};
 
 	const html = await ejs.renderFile(templatePath, templateData);
@@ -268,6 +278,8 @@ const approveProfessional = async (
 			: "Your professional Application Has Been Rejected",
 		html,
 	});
+
+	await redisClient.del(passKey);
 
 	return updatedProfessional;
 };
@@ -458,7 +470,7 @@ const getAllProfessionalListPublic = async (query: IQuery) => {
 
 	if (query.professionalTitle) {
 		andConditions.push({
-			professionalTitle: { equals: query.specialization, mode: "insensitive" },
+			professionalTitle: { equals: query.professionalTitle, mode: "insensitive" },
 		});
 	}
 
@@ -492,6 +504,10 @@ const getAllProfessionalListPublic = async (query: IQuery) => {
 					},
 				},
 			},
+			experiences: true,
+			services: true,
+			portfolioItems: true,
+			reviews: true,
 		},
 	});
 
@@ -535,6 +551,10 @@ const getSingleProfessionalPublicProfile = async (professionalId: string) => {
 					},
 				},
 			},
+			experiences: true,
+			services: true,
+			portfolioItems: true,
+			reviews: true,
 		},
 	});
 
@@ -553,12 +573,16 @@ const addServices = async (payload: ICreateService, user: RequestUser) => {
 		throw new AppError(httpStatus.NOT_FOUND, "Professional Profile Not Found");
 	}
 	const professionalId = existingProfessional.id;
-	const { name, description } = payload;
+	const { name, description, pricingNote, minimumPrice, maximumPrice } =
+		payload;
 
 	const addedService = await prisma.professionalService.create({
 		data: {
 			name,
 			description,
+			pricingNote,
+			minimumPrice,
+			maximumPrice,
 			professionalId,
 		},
 		include: {
@@ -610,7 +634,8 @@ const updateService = async (
 	if (!existingService) {
 		throw new AppError(httpStatus.NOT_FOUND, "Service not found");
 	}
-	const { name, description } = payload;
+	const { name, description, pricingNote, minimumPrice, maximumPrice } =
+		payload;
 	const updatedService = await prisma.professionalService.update({
 		where: {
 			id: serviceId,
@@ -618,6 +643,9 @@ const updateService = async (
 		data: {
 			name,
 			description,
+			pricingNote,
+			minimumPrice,
+			maximumPrice,
 		},
 		include: {
 			professional: true,

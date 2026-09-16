@@ -7,13 +7,6 @@ export interface SkillPayload {
 export interface ProfessionalSkillPayload {
 	skill: SkillPayload;
 }
-export interface IServicePayload {
-	name: string;
-	description?: string;
-	pricingNote?: string;
-	minimumPrice?: number;
-	maximumPrice?: number;
-}
 
 export interface IExperiencePayload {
 	title: string;
@@ -42,7 +35,7 @@ export interface IVerifyProfessionalEmailPayload {
 	email: string;
 	otp: string;
 }
-export interface IApproveDoctorPayload {
+export interface IApproveProfessionalPayload {
 	professionalId: string;
 	status: ApplicationStatus;
 	rejectionReason?: string;
@@ -58,13 +51,27 @@ export interface IUpdateProfessionalProfileInput {
 	experienceYears?: number;
 }
 
+export interface IServicePayload {
+	name: string;
+	description?: string;
+	pricingNote?: string;
+	minimumPrice?: number;
+	maximumPrice?: number;
+}
+
 export interface ICreateService {
 	name: string;
 	description?: string;
+	pricingNote: string;
+	minimumPrice: number;
+	maximumPrice: number;
 }
 export interface IUpdateService {
 	name?: string;
 	description?: string;
+	pricingNote?: string;
+	minimumPrice?: number;
+	maximumPrice?: number;
 }
 export interface ICreateSkill {
 	name: string;

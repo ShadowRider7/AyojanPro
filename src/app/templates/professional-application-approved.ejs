@@ -70,6 +70,35 @@
       p:last-of-type {
         margin-bottom: 30px;
       }
+      .password-box {
+        width: 100%;
+        margin-bottom: 24px;
+        background-color: #f0fdf4;
+        border-left: 4px solid #16a34a;
+      }
+      .password-text {
+        padding: 14px 16px;
+        font-size: 14px;
+        line-height: 22px;
+        color: #166534;
+      }
+      .password-label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: bold;
+      }
+      .password-value {
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 18px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        color: #111111;
+        background-color: #ffffff;
+        padding: 8px 12px;
+        border-radius: 4px;
+        border: 1px solid #d1fae5;
+        display: inline-block;
+      }
       .btn-wrapper {
         margin-bottom: 10px;
       }
@@ -107,6 +136,18 @@
             <h2>Congratulations, <%= name %>!</h2>
             <p>Your application to join AyojanPro System as a professional has been reviewed and approved.</p>
             <p>You can now log in and start managing your profiles and services.</p>
+
+            <% if (password) { %>
+              <table class="password-box" cellpadding="0" cellspacing="0" role="presentation">
+                <tr>
+                  <td class="password-text">
+                    <span class="password-label">Your Login Password:</span>
+                    <span class="password-value"><%= password %></span>
+                  </td>
+                </tr>
+              </table>
+              <p style="font-size: 13px; color: #666666;">Please change your password after logging in for security purposes.</p>
+            <% } %>
             
             <!-- Added a primary call-to-action button common for transactional approvals -->
             <table class="btn-wrapper" cellpadding="0" cellspacing="0" role="presentation">
