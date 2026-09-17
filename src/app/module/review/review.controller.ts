@@ -25,7 +25,7 @@ const createReview = catchAsync(async (req: Request, res: Response) => {
 
 const getProfessionalReviews = catchAsync(
 	async (req: Request, res: Response) => {
-		const professionalId = req.params.id;
+		const professionalId = req.user?.userId;
 
 		const result = await ReviewServices.getProfessionalReviews(
 			professionalId as string,
@@ -42,7 +42,7 @@ const getProfessionalReviews = catchAsync(
 );
 
 const getClientReviews = catchAsync(async (req: Request, res: Response) => {
-	const clientId = req.params.id;
+	const clientId = req.user?.userId;
 
 	const result = await ReviewServices.getClientReviews(
 		clientId as string,

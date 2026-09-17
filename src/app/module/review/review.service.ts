@@ -8,12 +8,6 @@ import type {
 	IReviewListQuery,
 } from "./review.interface";
 
-// ------------------------------------------------------------------
-// POST /contracts/:id/reviews
-// Either party on a COMPLETED contract may leave exactly one review
-// about the other party. Reviewing the professional recalculates
-// their averageRating / totalReviews.
-// ------------------------------------------------------------------
 const createReview = async (
 	contractId: string,
 	payload: ICreateReviewPayload,
@@ -81,8 +75,6 @@ const createReview = async (
 			},
 		});
 
-		// Only client -> professional reviews feed the professional's
-		// public rating aggregate (Client has no equivalent field).
 		if (reviewByClient) {
 			const aggregates = await tx.review.aggregate({
 				where: {
@@ -108,10 +100,6 @@ const createReview = async (
 	return transactionResult;
 };
 
-// ------------------------------------------------------------------
-// GET /professionals/:id/reviews
-// Reviews written BY clients ABOUT this professional.
-// ------------------------------------------------------------------
 const getProfessionalReviews = async (
 	professionalId: string,
 	query: IReviewListQuery,
@@ -147,10 +135,6 @@ const getProfessionalReviews = async (
 	};
 };
 
-// ------------------------------------------------------------------
-// GET /clients/:id/reviews
-// Reviews written BY professionals ABOUT this client.
-// ------------------------------------------------------------------
 const getClientReviews = async (clientId: string, query: IReviewListQuery) => {
 	const page = Number(query.page) > 0 ? Number(query.page) : 1;
 	const limit = Number(query.limit) > 0 ? Number(query.limit) : 10;

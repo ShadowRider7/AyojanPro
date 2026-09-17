@@ -21,12 +21,23 @@ const INITIAL_PAYMENT_PERCENTAGE = 0.3;
 const FINAL_PAYMENT_PERCENTAGE = 0.7;
 
 const parseBkashDate = (value: unknown): Date | null => {
-	if (!value || typeof value !== "string") {
+	if (value === null || value === undefined) {
 		return null;
 	}
 
-	// bKash returns paymentExecuteTime as "2026-09-17T11:45:30:298+0600"
-	// (colon before milliseconds). Normalize it to a valid ISO string.
+	// bKash may return paymentExecuteTime as:
+	// - a number (epoch milliseconds): 1679123400123
+	// - a string with colon before ms: "2026-09-17T11:45:30:298+0600"
+	// - a valid ISO string: "2026-09-17T11:45:30.298+0600"
+	if (typeof value === "number") {
+		const date = new Date(value);
+		return Number.isNaN(date.getTime()) ? null : date;
+	}
+
+	if (typeof value !== "string") {
+		return null;
+	}
+
 	const normalized = value.replace(
 		/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}):(\d{3})/,
 		"$1.$2",
