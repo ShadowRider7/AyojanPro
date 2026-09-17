@@ -312,39 +312,79 @@ const bkashPaymentCallback = async (
 				};
 			}
 
-			if (status === "failure") {
-				await tx.payment.update({
-					where: { id: payment.id },
-					data: {
-						status: PaymentStatus.FAILED,
-						failureReason:
-							executedPaymentResult?.statusMessage ?? "Payment Failed",
-						metadata: executedPaymentResult ?? {
-							status: "failure",
-						},
-					},
+		if (status === "failure") {
+			const isFinalStage = payment.stage === PaymentStage.FINAL;
+
+			const revertData: Record<string, any> = {
+				failureReason:
+					executedPaymentResult?.statusMessage ?? "Payment Failed",
+				metadata: executedPaymentResult ?? {
+					status: "failure",
+				},
+			};
+
+			if (isFinalStage) {
+				const contract = await tx.contract.findUnique({
+					where: { id: payment.contractId },
 				});
 
-				return {
-					redirectUrl: `${config.frontend_url}/dashboard/contracts/${payment.contractId}?payment=failure`,
-				};
+				const initialAmount = (
+					Number(contract?.agreedAmount ?? payment.amount) *
+					INITIAL_PAYMENT_PERCENTAGE
+				).toFixed(2);
+
+				revertData.status = PaymentStatus.PARTIALLY_COMPLETED;
+				revertData.stage = PaymentStage.INITIAL;
+				revertData.amount = initialAmount;
+			} else {
+				revertData.status = PaymentStatus.FAILED;
 			}
 
-			if (status === "cancel") {
-				await tx.payment.update({
-					where: { id: payment.id },
-					data: {
-						status: PaymentStatus.CANCELLED,
-						metadata: executedPaymentResult ?? {
-							status: "cancel",
-						},
-					},
+			await tx.payment.update({
+				where: { id: payment.id },
+				data: revertData,
+			});
+
+			return {
+				redirectUrl: `${config.frontend_url}/dashboard/contracts/${payment.contractId}?payment=failure`,
+			};
+		}
+
+		if (status === "cancel") {
+			const isFinalStage = payment.stage === PaymentStage.FINAL;
+
+			const revertData: Record<string, any> = {
+				metadata: executedPaymentResult ?? {
+					status: "cancel",
+				},
+			};
+
+			if (isFinalStage) {
+				const contract = await tx.contract.findUnique({
+					where: { id: payment.contractId },
 				});
 
-				return {
-					redirectUrl: `${config.frontend_url}/dashboard/contracts/${payment.contractId}?payment=cancel`,
-				};
+				const initialAmount = (
+					Number(contract?.agreedAmount ?? payment.amount) *
+					INITIAL_PAYMENT_PERCENTAGE
+				).toFixed(2);
+
+				revertData.status = PaymentStatus.PARTIALLY_COMPLETED;
+				revertData.stage = PaymentStage.INITIAL;
+				revertData.amount = initialAmount;
+			} else {
+				revertData.status = PaymentStatus.CANCELLED;
 			}
+
+			await tx.payment.update({
+				where: { id: payment.id },
+				data: revertData,
+			});
+
+			return {
+				redirectUrl: `${config.frontend_url}/dashboard/contracts/${payment.contractId}?payment=cancel`,
+			};
+		}
 
 			return {
 				redirectUrl: `${config.frontend_url}/dashboard/contracts/${payment.contractId}?payment=error`,
