@@ -20,6 +20,27 @@ import type {
 const INITIAL_PAYMENT_PERCENTAGE = 0.3;
 const FINAL_PAYMENT_PERCENTAGE = 0.7;
 
+const parseBkashDate = (value: unknown): Date | null => {
+	if (!value || typeof value !== "string") {
+		return null;
+	}
+
+	// bKash returns paymentExecuteTime as "2026-09-17T11:45:30:298+0600"
+	// (colon before milliseconds). Normalize it to a valid ISO string.
+	const normalized = value.replace(
+		/(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}):(\d{3})/,
+		"$1.$2",
+	);
+
+	const date = new Date(normalized);
+
+	if (Number.isNaN(date.getTime())) {
+		return null;
+	}
+
+	return date;
+};
+
 const initiatePayment = async (
 	contractId: string,
 	stage: PaymentStage,
@@ -59,18 +80,13 @@ const initiatePayment = async (
 				);
 			}
 
-			const initialPayment = await tx.payment.findUnique({
-				where: {
-					contractId_stage: {
-						contractId: contract.id,
-						stage: PaymentStage.INITIAL,
-					},
-				},
+			const existingPayment = await tx.payment.findUnique({
+				where: { contractId },
 			});
 
 			if (
-				!initialPayment ||
-				initialPayment.status !== PaymentStatus.COMPLETED
+				!existingPayment ||
+				existingPayment.status !== PaymentStatus.PARTIALLY_COMPLETED
 			) {
 				throw new AppError(
 					httpStatus.BAD_REQUEST,
@@ -80,29 +96,24 @@ const initiatePayment = async (
 		}
 
 		const existingPayment = await tx.payment.findUnique({
-			where: { contractId_stage: { contractId: contract.id, stage } },
+			where: { contractId },
 		});
-
-		if (existingPayment?.status === PaymentStatus.PENDING) {
-			throw new AppError(
-				httpStatus.BAD_REQUEST,
-				`You Already Have A Pending ${stage} Payment. Please Complete That First`,
-			);
-		}
 
 		if (existingPayment?.status === PaymentStatus.COMPLETED) {
 			throw new AppError(
 				httpStatus.BAD_REQUEST,
-				`The ${stage} Payment Has Already Been Completed For This Contract`,
+				"The Payment Has Already Been Completed For This Contract",
 			);
 		}
+
+		const fullAmount = Number(contract.agreedAmount);
 
 		const percentage =
 			stage === PaymentStage.INITIAL
 				? INITIAL_PAYMENT_PERCENTAGE
 				: FINAL_PAYMENT_PERCENTAGE;
 
-		const amount = (Number(contract.agreedAmount) * percentage).toFixed(2);
+		const chargeAmount = (fullAmount * percentage).toFixed(2);
 
 		const bkashIdToken = await getBkashIdToken();
 
@@ -128,8 +139,8 @@ const initiatePayment = async (
 				body: JSON.stringify({
 					mode: "0011",
 					payerReference: user.email,
-					callbackURL: `${config.bkash_callback_url}/payments/bkash/callback`,
-					amount,
+					callbackURL: `${config.bkash_callback_url}/payment/bkash/callback`,
+					amount: chargeAmount,
 					currency: "BDT",
 					intent: "sale",
 					merchantInvoiceNumber,
@@ -140,12 +151,16 @@ const initiatePayment = async (
 		const bkashCreatePaymentResult = await bkashCreatePaymentResponse.json();
 
 		if (existingPayment) {
+			const updatedAmount =
+				stage === PaymentStage.FINAL ? fullAmount.toFixed(2) : chargeAmount;
+
 			await tx.payment.update({
 				where: { id: existingPayment.id },
 				data: {
+					stage,
 					status: PaymentStatus.PENDING,
 					method: PaymentMethod.BKASH,
-					amount,
+					amount: updatedAmount,
 					currency: contract.currency,
 					merchantInvoiceNumber: bkashCreatePaymentResult.merchantInvoiceNumber,
 					bkashPaymentId: bkashCreatePaymentResult.paymentID,
@@ -162,7 +177,7 @@ const initiatePayment = async (
 					stage,
 					status: PaymentStatus.PENDING,
 					method: PaymentMethod.BKASH,
-					amount,
+					amount: chargeAmount,
 					currency: contract.currency,
 					merchantInvoiceNumber: bkashCreatePaymentResult.merchantInvoiceNumber,
 					bkashPaymentId: bkashCreatePaymentResult.paymentID,
@@ -208,7 +223,7 @@ const bkashPaymentCallback = async (
 			const status = query.status;
 
 			if (!status) {
-				throw new AppError(httpStatus.BAD_REQUEST, "Payment Status Is Missing");
+				throw new AppError(httpStatus.BAD_REQUEST, "Payment Status is Missing");
 			}
 
 			const payment = await tx.payment.findUnique({
@@ -216,7 +231,7 @@ const bkashPaymentCallback = async (
 			});
 
 			if (!payment) {
-				throw new AppError(httpStatus.NOT_FOUND, "Payment Not Found");
+				throw new AppError(httpStatus.NOT_FOUND, "Payment Not Found!");
 			}
 
 			const bkashIdToken = await getBkashIdToken();
@@ -228,8 +243,6 @@ const bkashPaymentCallback = async (
 				);
 			}
 
-			// Always verify with bKash directly — the redirect status alone
-			// is not trusted.
 			const executedPaymentResponse = await fetch(
 				`${config.bkash_base_url}/tokenized/checkout/execute`,
 				{
@@ -240,27 +253,47 @@ const bkashPaymentCallback = async (
 						Authorization: bkashIdToken,
 						"X-App-Key": config.bkash_app_key,
 					},
-					body: JSON.stringify({ paymentID: paymentId }),
+					body: JSON.stringify({
+						paymentID: paymentId,
+					}),
 				},
 			);
 
 			const executedPaymentResult = await executedPaymentResponse.json();
 
 			if (status === "success") {
+				const isInitialStage = payment.stage === PaymentStage.INITIAL;
+
+				const contract = await tx.contract.findUnique({
+					where: { id: payment.contractId },
+				});
+
+				if (!contract) {
+					throw new AppError(httpStatus.NOT_FOUND, "Contract Not Found!");
+				}
+
+				const updatedAmount = isInitialStage
+					? payment.amount
+					: Number(contract.agreedAmount ?? payment.amount).toFixed(2);
+
 				await tx.payment.update({
 					where: { id: payment.id },
 					data: {
-						status: PaymentStatus.COMPLETED,
-						bkashTransactionId: executedPaymentResult.trxID,
-						transactionTime: executedPaymentResult.paymentExecuteTime
-							? new Date(executedPaymentResult.paymentExecuteTime)
-							: new Date(),
+						status: isInitialStage
+							? PaymentStatus.PARTIALLY_COMPLETED
+							: PaymentStatus.COMPLETED,
+						amount: updatedAmount,
+						bkashTransactionId: executedPaymentResult?.trxID ?? null,
+						transactionTime: parseBkashDate(
+							executedPaymentResult?.paymentExecuteTime,
+						),
 						paidAt: new Date(),
-						metadata: executedPaymentResult,
+						metadata: executedPaymentResult ?? {
+							status: "success",
+							note: "Execute API was unavailable",
+						},
 					},
 				});
-
-				const isInitialStage = payment.stage === PaymentStage.INITIAL;
 
 				await tx.contract.update({
 					where: { id: payment.contractId },
@@ -285,8 +318,10 @@ const bkashPaymentCallback = async (
 					data: {
 						status: PaymentStatus.FAILED,
 						failureReason:
-							executedPaymentResult.statusMessage ?? "Payment Failed",
-						metadata: executedPaymentResult,
+							executedPaymentResult?.statusMessage ?? "Payment Failed",
+						metadata: executedPaymentResult ?? {
+							status: "failure",
+						},
 					},
 				});
 
@@ -300,7 +335,9 @@ const bkashPaymentCallback = async (
 					where: { id: payment.id },
 					data: {
 						status: PaymentStatus.CANCELLED,
-						metadata: executedPaymentResult,
+						metadata: executedPaymentResult ?? {
+							status: "cancel",
+						},
 					},
 				});
 
@@ -322,9 +359,6 @@ const bkashPaymentCallback = async (
 	return transactionResult;
 };
 
-// ------------------------------------------------------------------
-// GET /contracts/:id/payments
-// ------------------------------------------------------------------
 const getContractPayments = async (
 	contractId: string,
 	user: RequestUser,

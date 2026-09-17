@@ -216,8 +216,8 @@ const addExperienceSchema = z.object({
 			.string()
 			.max(255, "Organization name cannot exceed 255 characters")
 			.optional(),
-		startDate: z.string().optional(),
-		endDate: z.string().optional(),
+		startDate: z.coerce.date().optional(),
+		endDate: z.coerce.date().optional(),
 	}),
 });
 
@@ -239,8 +239,8 @@ const updateExperienceSchema = z.object({
 			.string()
 			.max(255, "Organization name cannot exceed 255 characters")
 			.optional(),
-		startDate: z.string().optional(),
-		endDate: z.string().optional(),
+		startDate: z.coerce.date().optional(),
+		endDate: z.coerce.date().optional(),
 	}),
 });
 
@@ -270,10 +270,7 @@ const CreatePortfolioSchema = z.object({
 			.trim()
 			.optional(),
 
-		workDays: z
-			.string("Work days is required")
-			.min(1, "Work days cannot be empty")
-			.trim(),
+		workDate: z.coerce.date({ message: "Work days must be a valid date" }),
 
 		externalUrl: z
 			.string()
@@ -304,7 +301,9 @@ const updatePortfolioItemSchema = z.object({
 			.max(100, "Event type must be 100 characters or less")
 			.trim()
 			.optional(),
-		workDays: z.string().optional(),
+		workDate: z.coerce
+			.date({ message: "Work days must be a valid date" })
+			.optional(),
 		externalUrl: z
 			.string()
 			.url("Invalid external URL format")

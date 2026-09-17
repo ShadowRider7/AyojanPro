@@ -9,12 +9,6 @@ import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
 import type { ICreateProposal } from "./proposal.interface";
 
-/**
- * Creates one Proposal for an event, containing one ProposalItem per
- * (eventServiceRequirementId, professionalServiceId) pair the professional
- * is submitting for. This lets a professional propose for multiple
- * requirements of the same event in a single submission.
- */
 const createProposal = async (
 	eventId: string,
 	payload: ICreateProposal,
@@ -197,11 +191,6 @@ const getProposalDetails = async (proposalId: string) => {
 	return proposal;
 };
 
-/**
- * Fetches a ProposalItem plus everything needed to authorize and act on it:
- * the owning proposal (professional), the requirement + its event (client),
- * and the professional service.
- */
 const getItemWithContext = async (itemId: string) => {
 	const item = await prisma.proposalItem.findUnique({
 		where: { id: itemId },
@@ -221,16 +210,6 @@ const getItemWithContext = async (itemId: string) => {
 	return item;
 };
 
-/**
- * Client accepts one ProposalItem → creates the Contract for that
- * requirement, auto-rejects every other PENDING item competing for the
- * same requirement, and marks the requirement FILLED.
- *
- * Race-safety: the requirement is flipped to FILLED via a conditional
- * `updateMany` inside the transaction. If another accept beat this one to
- * it, the affected-row count will be 0 and we abort with a conflict
- * instead of creating a duplicate contract.
- */
 const acceptProposalItem = async (itemId: string, user: RequestUser) => {
 	const client = await prisma.client.findUnique({
 		where: { userId: user.userId },
@@ -426,10 +405,164 @@ const withdrawProposalItem = async (itemId: string, user: RequestUser) => {
 	return updated;
 };
 
+/**
+ * Client accepts a Proposal — accepts all pending ProposalItems,
+ * creates Contracts for each, auto-rejects competing items, and
+ * marks requirements as FILLED.
+ */
+const acceptProposal = async (proposalId: string, user: RequestUser) => {
+	const client = await prisma.client.findUnique({
+		where: { userId: user.userId },
+	});
+
+	if (!client) {
+		throw new AppError(httpStatus.NOT_FOUND, "Client Profile Not Found");
+	}
+
+	const proposal = await prisma.proposal.findUnique({
+		where: { id: proposalId },
+		include: {
+			items: true,
+			event: true,
+		},
+	});
+
+	if (!proposal) {
+		throw new AppError(httpStatus.NOT_FOUND, "Proposal Not Found");
+	}
+
+	if (proposal.event.clientId !== client.id) {
+		throw new AppError(
+			httpStatus.FORBIDDEN,
+			"You do not own the event this proposal belongs to",
+		);
+	}
+
+	const pendingItems = proposal.items.filter(
+		(item) => item.status === ProposalStatus.PENDING,
+	);
+
+	if (pendingItems.length === 0) {
+		throw new AppError(
+			httpStatus.BAD_REQUEST,
+			"No pending items to accept in this proposal",
+		);
+	}
+
+	const results = [];
+	for (const item of pendingItems) {
+		const result = await acceptProposalItem(item.id, user);
+		results.push(result);
+	}
+
+	return results.length === 1 ? results[0] : results;
+};
+
+/**
+ * Client rejects a Proposal — rejects all pending ProposalItems.
+ */
+const rejectProposal = async (proposalId: string, user: RequestUser) => {
+	const client = await prisma.client.findUnique({
+		where: { userId: user.userId },
+	});
+
+	if (!client) {
+		throw new AppError(httpStatus.NOT_FOUND, "Client Profile Not Found");
+	}
+
+	const proposal = await prisma.proposal.findUnique({
+		where: { id: proposalId },
+		include: {
+			items: true,
+			event: true,
+		},
+	});
+
+	if (!proposal) {
+		throw new AppError(httpStatus.NOT_FOUND, "Proposal Not Found");
+	}
+
+	if (proposal.event.clientId !== client.id) {
+		throw new AppError(
+			httpStatus.FORBIDDEN,
+			"You do not own the event this proposal belongs to",
+		);
+	}
+
+	const pendingItems = proposal.items.filter(
+		(item) => item.status === ProposalStatus.PENDING,
+	);
+
+	if (pendingItems.length === 0) {
+		throw new AppError(
+			httpStatus.BAD_REQUEST,
+			"No pending items to reject in this proposal",
+		);
+	}
+
+	const results = [];
+	for (const item of pendingItems) {
+		const result = await rejectProposalItem(item.id, user);
+		results.push(result);
+	}
+
+	return results.length === 1 ? results[0] : results;
+};
+
+/**
+ * Professional withdraws a Proposal — withdraws all pending ProposalItems.
+ */
+const withdrawProposal = async (proposalId: string, user: RequestUser) => {
+	const professional = await prisma.professional.findUnique({
+		where: { userId: user.userId },
+	});
+
+	if (!professional) {
+		throw new AppError(httpStatus.NOT_FOUND, "Professional Profile Not Found");
+	}
+
+	const proposal = await prisma.proposal.findUnique({
+		where: { id: proposalId },
+		include: {
+			items: true,
+		},
+	});
+
+	if (!proposal) {
+		throw new AppError(httpStatus.NOT_FOUND, "Proposal Not Found");
+	}
+
+	if (proposal.professionalId !== professional.id) {
+		throw new AppError(httpStatus.FORBIDDEN, "You do not own this proposal");
+	}
+
+	const pendingItems = proposal.items.filter(
+		(item) => item.status === ProposalStatus.PENDING,
+	);
+
+	if (pendingItems.length === 0) {
+		throw new AppError(
+			httpStatus.BAD_REQUEST,
+			"No pending items to withdraw in this proposal",
+		);
+	}
+
+	const results = [];
+	for (const item of pendingItems) {
+		const result = await withdrawProposalItem(item.id, user);
+		results.push(result);
+	}
+
+	return results.length === 1 ? results[0] : results;
+};
+
 export const proposalService = {
 	createProposal,
 	getProposals,
 	getProposalDetails,
+	acceptProposal,
+	rejectProposal,
+	withdrawProposal,
 	acceptProposalItem,
 	rejectProposalItem,
 	withdrawProposalItem,

@@ -27,19 +27,19 @@ router.get(
 );
 
 router.patch(
-	"/:id/accept",
+	"/:proposalId/accept",
 	auth(Role.CLIENT),
 	proposalController.acceptProposal,
 );
 
 router.patch(
-	"/:id/reject",
+	"/:proposalId/reject",
 	auth(Role.CLIENT),
 	proposalController.rejectProposal,
 );
 
 router.patch(
-	"/:id/withdraw",
+	"/:proposalId/withdraw",
 	auth(Role.PROFESSIONAL),
 	proposalController.withdrawProposal,
 );

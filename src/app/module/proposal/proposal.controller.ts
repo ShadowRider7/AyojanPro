@@ -45,12 +45,11 @@ const getProposalDetails = catchAsync(async (req, res) => {
 	});
 });
 
-// NOTE: `:id` here refers to a ProposalItem id — acceptance/rejection/
-// withdrawal happens per line item, not per whole Proposal, since one
-// Proposal can span multiple service requirements.
+// NOTE: `:proposalId` here refers to a Proposal id. Acceptance/rejection/
+// withdrawal happens per Proposal, acting on all its pending items.
 const acceptProposal = catchAsync(async (req, res) => {
-	const contract = await proposalService.acceptProposalItem(
-		req.params.id as string,
+	const result = await proposalService.acceptProposal(
+		req.params.proposalId as string,
 		req.user!,
 	);
 
@@ -58,13 +57,13 @@ const acceptProposal = catchAsync(async (req, res) => {
 		statusCode: httpStatus.OK,
 		success: true,
 		message: "Proposal accepted, contract created",
-		data: contract,
+		data: result,
 	});
 });
 
 const rejectProposal = catchAsync(async (req, res) => {
-	const item = await proposalService.rejectProposalItem(
-		req.params.id as string,
+	const result = await proposalService.rejectProposal(
+		req.params.proposalId as string,
 		req.user!,
 	);
 
@@ -72,13 +71,13 @@ const rejectProposal = catchAsync(async (req, res) => {
 		statusCode: httpStatus.OK,
 		success: true,
 		message: "Proposal rejected",
-		data: item,
+		data: result,
 	});
 });
 
 const withdrawProposal = catchAsync(async (req, res) => {
-	const item = await proposalService.withdrawProposalItem(
-		req.params.id as string,
+	const result = await proposalService.withdrawProposal(
+		req.params.proposalId as string,
 		req.user!,
 	);
 
@@ -86,7 +85,7 @@ const withdrawProposal = catchAsync(async (req, res) => {
 		statusCode: httpStatus.OK,
 		success: true,
 		message: "Proposal withdrawn",
-		data: item,
+		data: result,
 	});
 });
 

@@ -66,6 +66,7 @@ enum PaymentStage {
 enum PaymentStatus {
   PENDING
   PROCESSING
+  PARTIALLY_COMPLETED
   COMPLETED
   FAILED
   CANCELLED

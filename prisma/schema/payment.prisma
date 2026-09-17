@@ -27,7 +27,7 @@ model Payment {
   contract Contract @relation(fields: [contractId], references: [id], onDelete: Restrict)
   client Client @relation(fields: [clientId],references: [id])
 
-  @@unique([contractId, stage])
+  @@unique([contractId])
   @@index([status])
   @@index([bkashPaymentId])
   @@index([bkashTransactionId])

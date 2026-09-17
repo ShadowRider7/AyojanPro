@@ -98,7 +98,7 @@ export interface ICreatePortfolioItemInput {
 	title: string;
 	description?: string;
 	eventType?: string;
-	workDays: string;
+	workDate: Date | string;
 	externalUrl?: string;
 }
 
@@ -106,6 +106,6 @@ export interface IUpdatePortfolioItemInput {
 	title?: string;
 	description?: string;
 	eventType?: string;
-	workDays?: string;
+	workDate?: Date | string;
 	externalUrl?: string;
 }

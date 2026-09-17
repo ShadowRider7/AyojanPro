@@ -41,19 +41,11 @@ const initiateFinalPayment = catchAsync(async (req: Request, res: Response) => {
 });
 
 const bkashPaymentCallback = catchAsync(async (req: Request, res: Response) => {
-	// bKash may deliver either query params (redirect) or a JSON body
-	// (server-to-server webhook) — merge both, query taking precedence.
 	const payload = { ...req.body, ...req.query };
 
 	const { redirectUrl } = await PaymentServices.bkashPaymentCallback(payload);
 
 	res.redirect(redirectUrl);
-	// sendResponse(res, {
-	//     statusCode: httpStatus.OK,
-	//     success: true,
-	//     message: "Payment Callback Processed Successfully",
-	//     data: result,
-	// });
 });
 
 const getContractPayments = catchAsync(async (req: Request, res: Response) => {

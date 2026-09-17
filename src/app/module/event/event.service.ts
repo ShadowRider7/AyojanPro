@@ -124,6 +124,7 @@ const getAllPublishedEvents = async (query: getEvent) => {
 	const andConditions: EventWhereInput[] = [
 		{
 			status: EventStatus.PUBLISHED,
+			isDeleted: false,
 		},
 	];
 
@@ -279,21 +280,71 @@ const updateEvent = async (
 			);
 		}
 	}
-	const updatedEvent = await prisma.event.update({
-		where: { id: event.id },
-		data: {
-			title: payload.title ?? event.title,
-			description: payload.description ?? event.description,
-			eventType: payload.eventType ?? event.eventType,
-			address: payload.address ?? event.address,
-			city: payload.city ?? event.city,
-			country: payload.country ?? event.country,
-			startAt: payload.startAt ?? event.startAt,
-			endAt: payload.endAt ?? event.endAt,
-		},
-		include: {
-			serviceRequirements: true,
-		},
+	const newStartAt = payload.startAt ?? event.startAt;
+	const newEndAt = payload.endAt ?? event.endAt;
+
+	if (newStartAt >= newEndAt) {
+		throw new AppError(
+			httpStatus.BAD_REQUEST,
+			"Event start time must be before end time",
+		);
+	}
+
+	const hasTimeChange =
+		payload.startAt !== undefined || payload.endAt !== undefined;
+
+	const updatedEvent = await prisma.$transaction(async (tx) => {
+		const eventUpdate = await tx.event.update({
+			where: { id: event.id },
+			data: {
+				title: payload.title ?? event.title,
+				description: payload.description ?? event.description,
+				eventType: payload.eventType ?? event.eventType,
+				address: payload.address ?? event.address,
+				city: payload.city ?? event.city,
+				country: payload.country ?? event.country,
+				startAt: newStartAt,
+				endAt: newEndAt,
+			},
+			include: {
+				serviceRequirements: true,
+			},
+		});
+
+		if (hasTimeChange && event.serviceRequirements.length > 0) {
+			for (const sr of event.serviceRequirements) {
+				const clampedStart = sr.startAt < newStartAt ? newStartAt : sr.startAt;
+				const clampedEnd = sr.endAt > newEndAt ? newEndAt : sr.endAt;
+
+				if (clampedStart >= clampedEnd) {
+					throw new AppError(
+						httpStatus.BAD_REQUEST,
+						`Service requirement "${sr.serviceName}" dates fall outside the new event schedule. Please update or remove it.`,
+					);
+				}
+
+				const needsUpdate =
+					new Date(clampedStart).getTime() !== new Date(sr.startAt).getTime() ||
+					new Date(clampedEnd).getTime() !== new Date(sr.endAt).getTime();
+
+				if (needsUpdate) {
+					await tx.eventServiceRequirement.update({
+						where: { id: sr.id },
+						data: { startAt: clampedStart, endAt: clampedEnd },
+					});
+
+					await tx.contract.updateMany({
+						where: { eventServiceRequirementId: sr.id },
+						data: {
+							serviceStartAt: clampedStart,
+							serviceEndAt: clampedEnd,
+						},
+					});
+				}
+			}
+		}
+
+		return eventUpdate;
 	});
 
 	return updatedEvent;

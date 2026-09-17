@@ -20,11 +20,7 @@ router.post(
 	validateRequest(PaymentValidation.contractIdParamZodSchema),
 	PaymentController.initiateFinalPayment,
 );
-
-router.post(
-	"/bkash/callback",
-	PaymentController.bkashPaymentCallback,
-);
+router.get("/bkash/callback", PaymentController.bkashPaymentCallback);
 router.get(
 	"/contracts/:id",
 	auth(Role.CLIENT, Role.PROFESSIONAL, Role.ADMIN),

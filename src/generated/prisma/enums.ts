@@ -104,6 +104,7 @@ export type PaymentStage = (typeof PaymentStage)[keyof typeof PaymentStage]
 export const PaymentStatus = {
   PENDING: 'PENDING',
   PROCESSING: 'PROCESSING',
+  PARTIALLY_COMPLETED: 'PARTIALLY_COMPLETED',
   COMPLETED: 'COMPLETED',
   FAILED: 'FAILED',
   CANCELLED: 'CANCELLED',

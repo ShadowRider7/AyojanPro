@@ -87,7 +87,7 @@ const updateEventServices = catchAsync(async (req: Request, res: Response) => {
 	sendResponse(res, {
 		statusCode: httpStatus.OK,
 		success: true,
-		message: "Event Services created Successfully",
+		message: "Event Services updated Successfully",
 		data: result,
 	});
 });

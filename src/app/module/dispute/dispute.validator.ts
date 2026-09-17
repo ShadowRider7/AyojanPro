@@ -35,14 +35,8 @@ const uploadEvidenceZodSchema = z.object({
 		id: z.string().min(1, "Dispute ID is required"),
 	}),
 	body: z.object({
-		type: z
-			.string()
-			.max(50, "Type cannot exceed 50 characters")
-			.optional(),
-		title: z
-			.string()
-			.max(255, "Title cannot exceed 255 characters")
-			.optional(),
+		type: z.string().max(50, "Type cannot exceed 50 characters").optional(),
+		title: z.string().max(255, "Title cannot exceed 255 characters").optional(),
 		description: z
 			.string()
 			.max(2000, "Description cannot exceed 2000 characters")

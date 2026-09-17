@@ -470,7 +470,10 @@ const getAllProfessionalListPublic = async (query: IQuery) => {
 
 	if (query.professionalTitle) {
 		andConditions.push({
-			professionalTitle: { equals: query.professionalTitle, mode: "insensitive" },
+			professionalTitle: {
+				equals: query.professionalTitle,
+				mode: "insensitive",
+			},
 		});
 	}
 
@@ -756,7 +759,7 @@ const createPortfolio = async (
 			title: payload.title,
 			description: payload.description,
 			eventType: payload.eventType,
-			workDate: payload.workDays ? new Date(payload.workDays) : null,
+			workDate: payload.workDate ? new Date(payload.workDate) : null,
 			externalUrl: payload.externalUrl,
 			mediaUrl: mediaUploadResult.secure_url,
 			publicId: mediaUploadResult.public_id,
