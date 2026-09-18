@@ -11,9 +11,9 @@ import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
 import { createNotifications } from "../../utils/notifications";
 import type {
+	IEvidenceInput,
 	IRaiseDispute,
 	IUpdateDisputeStatus,
-	IUploadEvidence,
 } from "./dispute.interface";
 
 const DISPUTE_INCLUDE = {
@@ -63,14 +63,15 @@ const getAuthorizedDispute = async (disputeId: string, user: RequestUser) => {
 };
 
 /**
- * Raises a dispute on a contract. Only the client or professional on the
- * contract may do this, and only one active (OPEN/UNDER_REVIEW) dispute is
- * allowed per contract at a time. Raising a dispute freezes the contract
- * by moving it to DISPUTED.
+ * Raises a dispute on a contract, optionally attaching supporting evidence.
+ * Only the client or professional on the contract may do this, and only one
+ * active (OPEN/UNDER_REVIEW) dispute is allowed per contract at a time.
+ * Raising a dispute freezes the contract by moving it to DISPUTED.
  */
 const raiseDispute = async (
 	contractId: string,
 	payload: IRaiseDispute,
+	evidences: IEvidenceInput[],
 	user: RequestUser,
 ) => {
 	const contract = await prisma.contract.findUnique({
@@ -126,6 +127,15 @@ const raiseDispute = async (
 				raisedByRole,
 				reason: payload.reason,
 				description: payload.description,
+				evidences: {
+					create: evidences.map((evidence) => ({
+						uploadedById: user.userId,
+						type: evidence.type,
+						title: evidence.title,
+						description: evidence.description,
+						mediaUrl: evidence.mediaUrl,
+					})),
+				},
 			},
 			include: DISPUTE_INCLUDE,
 		});
@@ -174,56 +184,6 @@ const listDisputes = async (
 
 const getDisputeDetails = async (disputeId: string, user: RequestUser) => {
 	return getAuthorizedDispute(disputeId, user);
-};
-
-/**
- * Either party on the contract (or admin) can add evidence, but only while
- * the dispute is still active — not after it's been resolved/rejected/closed.
- */
-const uploadEvidence = async (
-	disputeId: string,
-	payload: IUploadEvidence,
-	mediaUrl: string,
-	user: RequestUser,
-) => {
-	const dispute = await getAuthorizedDispute(disputeId, user);
-
-	if (TERMINAL_STATUSES.has(dispute.status)) {
-		throw new AppError(
-			httpStatus.BAD_REQUEST,
-			`Cannot add evidence to a dispute that is already ${dispute.status.toLowerCase()}`,
-		);
-	}
-
-	const evidence = await prisma.disputeEvidence.create({
-		data: {
-			disputeId,
-			uploadedById: user.userId,
-			type: payload.type,
-			title: payload.title,
-			description: payload.description,
-			mediaUrl,
-		},
-	});
-
-	const { client, professional } = dispute.contract;
-	const notifyUserId =
-		user.userId === client.userId ? professional.userId : client.userId;
-
-	try {
-		await createNotifications(prisma, [
-			{
-				userId: notifyUserId,
-				title: "New Evidence Uploaded",
-				type: NotificationType.DISPUTE,
-				message: `New evidence has been uploaded for the dispute on your contract.`,
-			},
-		]);
-	} catch (error) {
-		console.error("Failed to create evidence upload notification:", error);
-	}
-
-	return evidence;
 };
 
 /**
@@ -381,7 +341,6 @@ export const disputeService = {
 	raiseDispute,
 	listDisputes,
 	getDisputeDetails,
-	uploadEvidence,
 	updateDisputeStatus,
 	resolveDispute,
 };

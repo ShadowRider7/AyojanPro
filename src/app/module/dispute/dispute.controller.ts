@@ -1,15 +1,28 @@
 import httpStatus from "http-status";
 import type { DisputeStatus } from "../../../generated/prisma/enums";
 import { cloudinary } from "../../lib/cloudinary";
-import { AppError } from "../../utils/AppError";
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
+import type { IEvidenceInput } from "./dispute.interface";
 import { disputeService } from "./dispute.service";
 
 const raiseDispute = catchAsync(async (req, res) => {
+	const files = (req.files as Express.Multer.File[] | undefined) ?? [];
+
+	const evidences: IEvidenceInput[] = [];
+	for (const file of files) {
+		const base64 = file.buffer.toString("base64");
+		const dataUri = `data:${file.mimetype};base64,${base64}`;
+		const cloudinaryResult = await cloudinary.uploader.upload(dataUri, {
+			resource_type: "auto",
+		});
+		evidences.push({ mediaUrl: cloudinaryResult.secure_url });
+	}
+
 	const dispute = await disputeService.raiseDispute(
 		req.params.id as string,
 		req.body,
+		evidences,
 		req.user!,
 	);
 
@@ -48,35 +61,6 @@ const getDisputeDetails = catchAsync(async (req, res) => {
 	});
 });
 
-const uploadEvidence = catchAsync(async (req, res) => {
-	const file = req.file;
-
-	if (!file) {
-		throw new AppError(httpStatus.BAD_REQUEST, "Evidence file is required");
-	}
-
-	const base64 = file.buffer.toString("base64");
-	const dataUri = `data:${file.mimetype};base64,${base64}`;
-
-	const cloudinaryResult = await cloudinary.uploader.upload(dataUri, {
-		resource_type: "auto",
-	});
-
-	const evidence = await disputeService.uploadEvidence(
-		req.params.id as string,
-		req.body,
-		cloudinaryResult.secure_url,
-		req.user!,
-	);
-
-	sendResponse(res, {
-		statusCode: httpStatus.CREATED,
-		success: true,
-		message: "Evidence uploaded successfully",
-		data: evidence,
-	});
-});
-
 const updateDisputeStatus = catchAsync(async (req, res) => {
 	const dispute = await disputeService.updateDisputeStatus(
 		req.params.id as string,
@@ -111,7 +95,6 @@ export const disputeController = {
 	raiseDispute,
 	listDisputes,
 	getDisputeDetails,
-	uploadEvidence,
 	updateDisputeStatus,
 	resolveDispute,
 };

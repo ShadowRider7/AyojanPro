@@ -3,7 +3,8 @@ export interface IRaiseDispute {
 	description: string;
 }
 
-export interface IUploadEvidence {
+export interface IEvidenceInput {
+	mediaUrl: string;
 	type?: string;
 	title?: string;
 	description?: string;

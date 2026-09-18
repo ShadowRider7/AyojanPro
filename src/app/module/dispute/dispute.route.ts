@@ -11,6 +11,7 @@ const router = Router();
 router.post(
 	"/contracts/:id",
 	auth(Role.CLIENT, Role.PROFESSIONAL),
+	upload.array("evidence"),
 	validateRequest(disputeValidator.raiseDisputeZodSchema),
 	disputeController.raiseDispute,
 );
@@ -27,14 +28,6 @@ router.get(
 	auth(Role.CLIENT, Role.PROFESSIONAL, Role.ADMIN),
 	validateRequest(disputeValidator.getDisputeDetailsSchema),
 	disputeController.getDisputeDetails,
-);
-
-router.post(
-	"/:id/evidence",
-	auth(Role.CLIENT, Role.PROFESSIONAL, Role.ADMIN),
-	upload.single("evidenceFile"),
-	validateRequest(disputeValidator.uploadEvidenceZodSchema),
-	disputeController.uploadEvidence,
 );
 
 router.patch(
