@@ -1,8 +1,13 @@
 import httpStatus from "http-status";
-import { ContractStatus, Role } from "../../../generated/prisma/enums";
+import {
+	ContractStatus,
+	NotificationType,
+	Role,
+} from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
+import { createNotifications } from "../../utils/notifications";
 import type {
 	ICreateReviewPayload,
 	IReviewListQuery,
@@ -16,7 +21,7 @@ const createReview = async (
 	const transactionResult = await prisma.$transaction(async (tx) => {
 		const contract = await tx.contract.findUnique({
 			where: { id: contractId },
-			include: { client: true, professional: true },
+			include: { client: true, professional: true, event: true },
 		});
 
 		if (!contract) {
@@ -93,6 +98,17 @@ const createReview = async (
 				},
 			});
 		}
+
+		await createNotifications(tx, [
+			{
+				userId: reviewByClient
+					? contract.professional.userId
+					: contract.client.userId,
+				title: "New Review Received",
+				type: NotificationType.REVIEW,
+				message: `You have received a ${payload.rating}-star review on the contract for "${contract.event.title}".`,
+			},
+		]);
 
 		return review;
 	});

@@ -27,8 +27,7 @@ model Professional {
 
   resume          String?
   resumePublicId   String?
-  additionalFiles Json? // Array of file URLs or file metadata // Stores: [{ url: "...", publicId: "..." }]
-
+  additionalFiles Json? 
 
   isDeleted Boolean   @default(false)
   deletedAt DateTime?

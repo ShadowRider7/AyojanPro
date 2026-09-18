@@ -14,8 +14,8 @@ router.post(
 	ReviewController.createReview,
 );
 
-router.get("/professionals/:id", ReviewController.getProfessionalReviews);
+router.get("/professionals", ReviewController.getProfessionalReviews);
 
-router.get("/clients/:id", ReviewController.getClientReviews);
+router.get("/clients", ReviewController.getClientReviews);
 
 export const ReviewRoutes = router;

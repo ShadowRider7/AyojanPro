@@ -3,11 +3,13 @@ import {
 	ContractStatus,
 	DisputeRaisedBy,
 	DisputeStatus,
+	NotificationType,
 	Role,
 } from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
+import { createNotifications } from "../../utils/notifications";
 import type {
 	IRaiseDispute,
 	IUpdateDisputeStatus,
@@ -73,7 +75,7 @@ const raiseDispute = async (
 ) => {
 	const contract = await prisma.contract.findUnique({
 		where: { id: contractId },
-		include: { client: true, professional: true, disputes: true },
+		include: { client: true, professional: true, event: true, disputes: true },
 	});
 
 	if (!contract) {
@@ -134,6 +136,18 @@ const raiseDispute = async (
 			data: { status: ContractStatus.DISPUTED },
 		});
 
+		await createNotifications(tx, [
+			{
+				userId:
+					raisedByRole === DisputeRaisedBy.CLIENT
+						? contract.professional.userId
+						: contract.client.userId,
+				title: "Dispute Raised",
+				type: NotificationType.DISPUTE,
+				message: `A dispute has been raised on the contract for "${contract.event.title}" by the ${raisedByRole.toLowerCase()}.`,
+			},
+		]);
+
 		return created;
 	});
 
@@ -181,7 +195,7 @@ const uploadEvidence = async (
 		);
 	}
 
-	return prisma.disputeEvidence.create({
+	const evidence = await prisma.disputeEvidence.create({
 		data: {
 			disputeId,
 			uploadedById: user.userId,
@@ -191,6 +205,25 @@ const uploadEvidence = async (
 			mediaUrl,
 		},
 	});
+
+	const { client, professional } = dispute.contract;
+	const notifyUserId =
+		user.userId === client.userId ? professional.userId : client.userId;
+
+	try {
+		await createNotifications(prisma, [
+			{
+				userId: notifyUserId,
+				title: "New Evidence Uploaded",
+				type: NotificationType.DISPUTE,
+				message: `New evidence has been uploaded for the dispute on your contract.`,
+			},
+		]);
+	} catch (error) {
+		console.error("Failed to create evidence upload notification:", error);
+	}
+
+	return evidence;
 };
 
 /**
@@ -242,6 +275,30 @@ const updateDisputeStatus = async (
 			});
 		}
 
+		const contract = await tx.contract.findUnique({
+			where: { id: dispute.contractId },
+			include: { client: true, professional: true, event: true },
+		});
+
+		await createNotifications(tx, [
+			{
+				userId: contract?.client.userId ?? "",
+				title: "Dispute Status Updated",
+				type: NotificationType.DISPUTE,
+				message: `The dispute on the contract${
+					contract?.event?.title ? ` for "${contract.event.title}"` : ""
+				} has been updated to ${payload.status}.`,
+			},
+			{
+				userId: contract?.professional.userId ?? "",
+				title: "Dispute Status Updated",
+				type: NotificationType.DISPUTE,
+				message: `The dispute on the contract${
+					contract?.event?.title ? ` for "${contract.event.title}"` : ""
+				} has been updated to ${payload.status}.`,
+			},
+		]);
+
 		return updated;
 	});
 };
@@ -291,6 +348,30 @@ const resolveDispute = async (
 			where: { id: dispute.contractId },
 			data: { status: ContractStatus.RESOLVED },
 		});
+
+		const contract = await tx.contract.findUnique({
+			where: { id: dispute.contractId },
+			include: { client: true, professional: true, event: true },
+		});
+
+		await createNotifications(tx, [
+			{
+				userId: contract?.client.userId ?? "",
+				title: "Dispute Resolved",
+				type: NotificationType.DISPUTE,
+				message: `The dispute on the contract${
+					contract?.event?.title ? ` for "${contract.event.title}"` : ""
+				} has been resolved.`,
+			},
+			{
+				userId: contract?.professional.userId ?? "",
+				title: "Dispute Resolved",
+				type: NotificationType.DISPUTE,
+				message: `The dispute on the contract${
+					contract?.event?.title ? ` for "${contract.event.title}"` : ""
+				} has been resolved.`,
+			},
+		]);
 
 		return resolved;
 	});

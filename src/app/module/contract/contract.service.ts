@@ -1,8 +1,13 @@
 import httpStatus from "http-status";
-import { ContractStatus, Role } from "../../../generated/prisma/enums";
+import {
+	ContractStatus,
+	NotificationType,
+	Role,
+} from "../../../generated/prisma/enums";
 import { prisma } from "../../lib/prisma";
 import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
+import { createNotifications } from "../../utils/notifications";
 import type { IAttachDeliverable } from "./contract.interface";
 
 const CONTRACT_INCLUDE = {
@@ -127,6 +132,30 @@ const cancelContract = async (
 			data: { status: "OPEN" },
 		});
 
+		const cancelMessage = `The contract for "${contract.event.title}" has been cancelled${
+			reason ? `: ${reason}` : "."
+		}`;
+
+		const notifications = [];
+		if (user.role !== Role.PROFESSIONAL) {
+			notifications.push({
+				userId: contract.professional.userId,
+				title: "Contract Cancelled",
+				type: NotificationType.CONTRACT,
+				message: cancelMessage,
+			});
+		}
+		if (user.role !== Role.CLIENT) {
+			notifications.push({
+				userId: contract.client.userId,
+				title: "Contract Cancelled",
+				type: NotificationType.CONTRACT,
+				message: cancelMessage,
+			});
+		}
+
+		await createNotifications(tx, notifications);
+
 		return cancelled;
 	});
 
@@ -188,6 +217,15 @@ const attachDeliverable = async (
 			data: { status: "DELIVERED" },
 		});
 
+		await createNotifications(tx, [
+			{
+				userId: contract.client.userId,
+				title: "Deliverable Submitted",
+				type: NotificationType.CONTRACT,
+				message: `${contract.professional.name} has submitted deliverables for the contract "${contract.event.title}".`,
+			},
+		]);
+
 		return { deliverable, contract: updatedContract };
 	});
 
@@ -216,12 +254,28 @@ const markContractCompleted = async (contractId: string) => {
 		const contract = await tx.contract.update({
 			where: { id: contractId },
 			data: { status: ContractStatus.COMPLETED, completedAt: new Date() },
+			include: { client: true, professional: true, event: true },
 		});
 
 		await tx.eventServiceRequirement.update({
 			where: { id: contract.eventServiceRequirementId },
 			data: { status: "COMPLETED" },
 		});
+
+		await createNotifications(tx, [
+			{
+				userId: contract.client.userId,
+				title: "Contract Completed",
+				type: NotificationType.CONTRACT,
+				message: `The contract for "${contract.event.title}" has been completed successfully.`,
+			},
+			{
+				userId: contract.professional.userId,
+				title: "Contract Completed",
+				type: NotificationType.CONTRACT,
+				message: `The contract for "${contract.event.title}" has been completed successfully.`,
+			},
+		]);
 
 		return contract;
 	});

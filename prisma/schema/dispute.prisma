@@ -1,5 +1,3 @@
-
-
 model Dispute {
   id         String @id @default(uuid())
   contractId String

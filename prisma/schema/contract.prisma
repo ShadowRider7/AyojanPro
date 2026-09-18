@@ -1,5 +1,3 @@
-
-
 model Contract {
   id String @id @default(uuid())
 

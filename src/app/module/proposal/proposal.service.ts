@@ -1,5 +1,6 @@
 import httpStatus from "http-status";
 import {
+	NotificationType,
 	ProposalStatus,
 	Role,
 	ServiceRequirementStatus,
@@ -7,6 +8,7 @@ import {
 import { prisma } from "../../lib/prisma";
 import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
+import { createNotifications } from "../../utils/notifications";
 import type { ICreateProposal } from "./proposal.interface";
 
 const createProposal = async (
@@ -24,6 +26,7 @@ const createProposal = async (
 
 	const event = await prisma.event.findUnique({
 		where: { id: eventId },
+		include: { client: { select: { userId: true } } },
 	});
 
 	if (!event || event.isDeleted) {
@@ -130,6 +133,21 @@ const createProposal = async (
 			},
 		},
 	});
+
+	const eventOwnerUserId = event.client.userId;
+
+	try {
+		await createNotifications(prisma, [
+			{
+				userId: eventOwnerUserId,
+				title: "New Proposal Received",
+				type: NotificationType.PROPOSAL,
+				message: `${existingProfessional.name} has submitted a proposal for your event "${event.title}".`,
+			},
+		]);
+	} catch (error) {
+		console.error("Failed to create proposal notification:", error);
+	}
 
 	return proposal;
 };
@@ -303,6 +321,17 @@ const acceptProposalItem = async (itemId: string, user: RequestUser) => {
 
 		// Every other still-pending item competing for this requirement is
 		// auto-rejected — the requirement is now spoken for.
+		const competingItems = await tx.proposalItem.findMany({
+			where: {
+				eventServiceRequirementId: requirement.id,
+				id: { not: item.id },
+				status: ProposalStatus.PENDING,
+			},
+			include: {
+				proposal: { include: { professional: true } },
+			},
+		});
+
 		await tx.proposalItem.updateMany({
 			where: {
 				eventServiceRequirementId: requirement.id,
@@ -312,7 +341,7 @@ const acceptProposalItem = async (itemId: string, user: RequestUser) => {
 			data: { status: ProposalStatus.REJECTED, respondedAt: new Date() },
 		});
 
-		return tx.contract.create({
+		const createdContract = await tx.contract.create({
 			data: {
 				clientId: client.id,
 				professionalId: professional.id,
@@ -333,6 +362,23 @@ const acceptProposalItem = async (itemId: string, user: RequestUser) => {
 				professionalService: true,
 			},
 		});
+
+		await createNotifications(tx, [
+			{
+				userId: professional.userId,
+				title: "Proposal Accepted",
+				type: NotificationType.PROPOSAL,
+				message: `Your proposal for "${item.eventServiceRequirement.serviceName}" has been accepted. A contract has been created.`,
+			},
+			...competingItems.map((competing) => ({
+				userId: competing.proposal.professional.userId,
+				title: "Proposal Rejected",
+				type: NotificationType.PROPOSAL,
+				message: `Your proposal for "${item.eventServiceRequirement.serviceName}" has been rejected because another proposal was accepted.`,
+			})),
+		]);
+
+		return createdContract;
 	});
 
 	return contract;
@@ -369,6 +415,19 @@ const rejectProposalItem = async (itemId: string, user: RequestUser) => {
 		data: { status: ProposalStatus.REJECTED, respondedAt: new Date() },
 	});
 
+	try {
+		await createNotifications(prisma, [
+			{
+				userId: item.proposal.professional.userId,
+				title: "Proposal Rejected",
+				type: NotificationType.PROPOSAL,
+				message: `Your proposal for "${item.eventServiceRequirement.serviceName}" has been rejected.`,
+			},
+		]);
+	} catch (error) {
+		console.error("Failed to create proposal rejected notification:", error);
+	}
+
 	return updated;
 };
 
@@ -401,6 +460,19 @@ const withdrawProposalItem = async (itemId: string, user: RequestUser) => {
 		where: { id: item.id },
 		data: { status: ProposalStatus.WITHDRAWN, respondedAt: new Date() },
 	});
+
+	try {
+		await createNotifications(prisma, [
+			{
+				userId: item.eventServiceRequirement.event.client.userId,
+				title: "Proposal Withdrawn",
+				type: NotificationType.PROPOSAL,
+				message: `${item.proposal.professional.name} has withdrawn their proposal for "${item.eventServiceRequirement.serviceName}".`,
+			},
+		]);
+	} catch (error) {
+		console.error("Failed to create proposal withdrawn notification:", error);
+	}
 
 	return updated;
 };

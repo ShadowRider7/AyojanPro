@@ -3,7 +3,11 @@ import crypto from "crypto";
 import ejs from "ejs";
 import httpStatus from "http-status";
 import path from "path";
-import { ApplicationStatus, Role } from "../../../generated/prisma/enums";
+import {
+	ApplicationStatus,
+	NotificationType,
+	Role,
+} from "../../../generated/prisma/enums";
 import type { ProfessionalWhereInput } from "../../../generated/prisma/models";
 import config from "../../config";
 import type { IQuery } from "../../interfaces";
@@ -13,6 +17,7 @@ import { prisma } from "../../lib/prisma";
 import { redisClient } from "../../lib/redis";
 import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
+import { createNotifications } from "../../utils/notifications";
 import type {
 	IApplyAsProfessionalPayload,
 	IApproveProfessionalPayload,
@@ -280,6 +285,25 @@ const approveProfessional = async (
 	});
 
 	await redisClient.del(passKey);
+
+	try {
+		await createNotifications(prisma, [
+			{
+				userId: updatedProfessional.user.id,
+				title: isApproved ? "Application Approved" : "Application Rejected",
+				type: NotificationType.APPLICATION,
+				message: isApproved
+					? "Congratulations! Your professional application has been approved."
+					: `Your professional application has been rejected${
+							updatedProfessional.rejectionReason
+								? `: ${updatedProfessional.rejectionReason}`
+								: "."
+						}`,
+			},
+		]);
+	} catch (error) {
+		console.error("Failed to create application status notification:", error);
+	}
 
 	return updatedProfessional;
 };

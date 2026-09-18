@@ -1,6 +1,7 @@
 import httpStatus from "http-status";
 import {
 	ContractStatus,
+	NotificationType,
 	PaymentMethod,
 	PaymentStage,
 	PaymentStatus,
@@ -11,6 +12,7 @@ import { getBkashIdToken } from "../../lib/bkash";
 import { prisma } from "../../lib/prisma";
 import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
+import { createNotifications } from "../../utils/notifications";
 import type {
 	IBkashCallbackResult,
 	IContractPaymentsResult,
@@ -277,6 +279,7 @@ const bkashPaymentCallback = async (
 
 				const contract = await tx.contract.findUnique({
 					where: { id: payment.contractId },
+					include: { client: true, professional: true, event: true },
 				});
 
 				if (!contract) {
@@ -318,84 +321,153 @@ const bkashPaymentCallback = async (
 					},
 				});
 
+				const contractName = contract.event?.title
+					? `"${contract.event.title}"`
+					: `#${payment.contractId.slice(0, 8)}`;
+
+				await createNotifications(tx, [
+					{
+						userId: contract.professional.userId,
+						title: isInitialStage
+							? "Initial Payment Received"
+							: "Final Payment Received",
+						type: NotificationType.PAYMENT,
+						message: isInitialStage
+							? `An initial payment of ${updatedAmount} ${payment.currency} has been received for contract ${contractName}. Your contract is now confirmed.`
+							: `The final payment of ${updatedAmount} ${payment.currency} has been received for contract ${contractName}.`,
+					},
+					...(isInitialStage
+						? []
+						: [
+								{
+									userId: contract.professional.userId,
+									title: "Contract Completed",
+									type: NotificationType.CONTRACT,
+									message: `The contract ${contractName} has been completed after the final payment.`,
+								},
+								{
+									userId: contract.client.userId,
+									title: "Contract Completed",
+									type: NotificationType.CONTRACT,
+									message: `The contract ${contractName} has been completed successfully.`,
+								},
+							]),
+				]);
+
 				return {
 					redirectUrl: `${config.frontend_url}/dashboard/contracts/${payment.contractId}?payment=success`,
 				};
 			}
 
-		if (status === "failure") {
-			const isFinalStage = payment.stage === PaymentStage.FINAL;
+			if (status === "failure") {
+				const isFinalStage = payment.stage === PaymentStage.FINAL;
 
-			const revertData: Record<string, any> = {
-				failureReason:
-					executedPaymentResult?.statusMessage ?? "Payment Failed",
-				metadata: executedPaymentResult ?? {
-					status: "failure",
-				},
-			};
+				const revertData: Record<string, any> = {
+					failureReason:
+						executedPaymentResult?.statusMessage ?? "Payment Failed",
+					metadata: executedPaymentResult ?? {
+						status: "failure",
+					},
+				};
 
-			if (isFinalStage) {
-				const contract = await tx.contract.findUnique({
-					where: { id: payment.contractId },
+				if (isFinalStage) {
+					const contract = await tx.contract.findUnique({
+						where: { id: payment.contractId },
+					});
+
+					const initialAmount = (
+						Number(contract?.agreedAmount ?? payment.amount) *
+						INITIAL_PAYMENT_PERCENTAGE
+					).toFixed(2);
+
+					revertData.status = PaymentStatus.PARTIALLY_COMPLETED;
+					revertData.stage = PaymentStage.INITIAL;
+					revertData.amount = initialAmount;
+				} else {
+					revertData.status = PaymentStatus.FAILED;
+				}
+
+				await tx.payment.update({
+					where: { id: payment.id },
+					data: revertData,
 				});
 
-				const initialAmount = (
-					Number(contract?.agreedAmount ?? payment.amount) *
-					INITIAL_PAYMENT_PERCENTAGE
-				).toFixed(2);
-
-				revertData.status = PaymentStatus.PARTIALLY_COMPLETED;
-				revertData.stage = PaymentStage.INITIAL;
-				revertData.amount = initialAmount;
-			} else {
-				revertData.status = PaymentStatus.FAILED;
-			}
-
-			await tx.payment.update({
-				where: { id: payment.id },
-				data: revertData,
-			});
-
-			return {
-				redirectUrl: `${config.frontend_url}/dashboard/contracts/${payment.contractId}?payment=failure`,
-			};
-		}
-
-		if (status === "cancel") {
-			const isFinalStage = payment.stage === PaymentStage.FINAL;
-
-			const revertData: Record<string, any> = {
-				metadata: executedPaymentResult ?? {
-					status: "cancel",
-				},
-			};
-
-			if (isFinalStage) {
-				const contract = await tx.contract.findUnique({
+				const failedContract = await tx.contract.findUnique({
 					where: { id: payment.contractId },
+					include: { client: true, event: true },
 				});
 
-				const initialAmount = (
-					Number(contract?.agreedAmount ?? payment.amount) *
-					INITIAL_PAYMENT_PERCENTAGE
-				).toFixed(2);
+				await createNotifications(tx, [
+					{
+						userId: failedContract?.client.userId ?? payment.clientId,
+						title: `${isFinalStage ? "Final" : "Initial"} Payment Failed`,
+						type: NotificationType.PAYMENT,
+						message: `Your ${isFinalStage ? "final" : "initial"} payment for contract ${
+							failedContract?.event?.title
+								? `"${failedContract.event.title}"`
+								: `#${payment.contractId.slice(0, 8)}`
+						} has failed. Please try again.`,
+					},
+				]);
 
-				revertData.status = PaymentStatus.PARTIALLY_COMPLETED;
-				revertData.stage = PaymentStage.INITIAL;
-				revertData.amount = initialAmount;
-			} else {
-				revertData.status = PaymentStatus.CANCELLED;
+				return {
+					redirectUrl: `${config.frontend_url}/dashboard/contracts/${payment.contractId}?payment=failure`,
+				};
 			}
 
-			await tx.payment.update({
-				where: { id: payment.id },
-				data: revertData,
-			});
+			if (status === "cancel") {
+				const isFinalStage = payment.stage === PaymentStage.FINAL;
 
-			return {
-				redirectUrl: `${config.frontend_url}/dashboard/contracts/${payment.contractId}?payment=cancel`,
-			};
-		}
+				const revertData: Record<string, any> = {
+					metadata: executedPaymentResult ?? {
+						status: "cancel",
+					},
+				};
+
+				if (isFinalStage) {
+					const contract = await tx.contract.findUnique({
+						where: { id: payment.contractId },
+					});
+
+					const initialAmount = (
+						Number(contract?.agreedAmount ?? payment.amount) *
+						INITIAL_PAYMENT_PERCENTAGE
+					).toFixed(2);
+
+					revertData.status = PaymentStatus.PARTIALLY_COMPLETED;
+					revertData.stage = PaymentStage.INITIAL;
+					revertData.amount = initialAmount;
+				} else {
+					revertData.status = PaymentStatus.CANCELLED;
+				}
+
+				await tx.payment.update({
+					where: { id: payment.id },
+					data: revertData,
+				});
+
+				const cancelledContract = await tx.contract.findUnique({
+					where: { id: payment.contractId },
+					include: { client: true, event: true },
+				});
+
+				await createNotifications(tx, [
+					{
+						userId: cancelledContract?.client.userId ?? payment.clientId,
+						title: "Payment Cancelled",
+						type: NotificationType.PAYMENT,
+						message: `Your ${isFinalStage ? "final" : "initial"} payment for contract ${
+							cancelledContract?.event?.title
+								? `"${cancelledContract.event.title}"`
+								: `#${payment.contractId.slice(0, 8)}`
+						} was cancelled.`,
+					},
+				]);
+
+				return {
+					redirectUrl: `${config.frontend_url}/dashboard/contracts/${payment.contractId}?payment=cancel`,
+				};
+			}
 
 			return {
 				redirectUrl: `${config.frontend_url}/dashboard/contracts/${payment.contractId}?payment=error`,
