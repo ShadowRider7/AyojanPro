@@ -248,7 +248,7 @@ The initial 30% is paid upfront to confirm the contract. The remaining 70% is pa
 Payment records support contract, client, payment stage, amount, currency, method, bKash transaction/reference information, status, transaction time, failure reason and metadata. Only one payment per (contract, stage) is permitted.
 
 Payment stages: `INITIAL`, `FINAL`.
-Payment statuses: `PENDING`, `PROCESSING`, `COMPLETED`, `FAILED`, `CANCELLED`, `REFUNDED`.
+Payment statuses: `PENDING`, `PROCESSING`, `PARTIALLY_COMPLETED`, `COMPLETED`, `FAILED`, `CANCELLED`, `REFUNDED`.
 
 ## 16. Service Delivery & Deliverables
 
@@ -276,9 +276,13 @@ Either client or professional can raise a dispute for issues such as client non-
 
 A dispute contains contract, raised-by user, raised-by role, reason, description, status, resolution information and timestamps.
 
+Evidence is uploaded **in the same request** that raises the dispute (multipart files under the `evidence` field). At least **one** piece of evidence is mandatory — the backend rejects a dispute with `400 "At least one piece of evidence is required to raise a dispute"` when none is provided. Uploaded evidence file URLs are persisted as a JSON array directly on the `Dispute` row (`evidences`).
+
 ## 19. Dispute Evidence
 
-Disputes require sufficient supporting evidence: images, documents, screenshots, other media, and descriptions. Cloudinary may be used for media storage. Evidence is associated with the relevant dispute and protected from unauthorized access.
+Disputes require sufficient supporting evidence: images, documents, screenshots, other media, and descriptions. Cloudinary may be used for media storage.
+
+There is **no separate `DisputeEvidence` model/table** — evidence is stored as a JSON array (`evidences Json @default("[]")`) directly on the `Dispute` record. Evidence is uploaded as multipart files (field `evidence`) when the dispute is raised via `POST /api/v1/dispute/contracts/:id`, and at least one file is required. Evidence belongs to the dispute → contract it was raised against and must be protected from unauthorized access.
 
 ## 20. Admin Dispute Resolution
 
@@ -314,7 +318,7 @@ Since AyojanPro is a local platform, location matters. Matching may consider: se
 10. **Two-stage payment:** 30% unlocks `CONFIRMED`, 70% unlocks `COMPLETED`.
 11. **Delivery is not deliverable-dependent:** a contract can move to `DELIVERED` with or without a `Deliverable` record.
 12. **Review eligibility:** reviews are available only after a contract is `COMPLETED`.
-13. **Dispute evidence:** disputes require sufficient supporting information/evidence.
+13. **Dispute evidence:** disputes require sufficient supporting information/evidence; at least one piece of evidence is mandatory and stored as a JSON array on the `Dispute` record.
 14. **Transactional booking:** proposal acceptance and contract creation must protect against race conditions.
 15. **Date/time validation:** every relevant workflow transition validates timestamps and scheduling conflicts.
 
@@ -374,14 +378,13 @@ Feedback
     └── Review
 
 Dispute
-    ├── Dispute
-    └── DisputeEvidence
+    └── Dispute        (evidences stored as a JSON array on the dispute row)
 
 Communication
     └── Notification
 ```
 
-**No `AuditLog`, `ProfessionalApplication`, `AvailabilityRule`, `TimeOff`, or `Revision` models are used** — applications are folded into `Professional`, and delivery is a status + one optional `Deliverable` row rather than a revision workflow.
+**No `AuditLog`, `ProfessionalApplication`, `AvailabilityRule`, `TimeOff`, `Revision`, or `DisputeEvidence` models are used** — applications are folded into `Professional`, delivery is a status + one optional `Deliverable` row rather than a revision workflow, and dispute evidence is a JSON field on `Dispute` rather than a separate table.
 
 ## 27. Core Relationships
 
@@ -405,7 +408,7 @@ Contract
 ├── Payments (INITIAL, FINAL)
 ├── Deliverable (0 or 1)
 ├── Reviews (client→professional, professional→client)
-└── Disputes
+└── Disputes (evidence held on the dispute row itself as `evidences` JSON)
 ```
 
 ## 28. API Architecture
@@ -500,64 +503,88 @@ Routes define endpoints and route-level middleware. Middleware handles authentic
 
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/contracts` | List own contracts |
-| GET | `/contracts/:id` | Get contract detail |
-| PATCH | `/contracts/:id/cancel` | Cancel contract |
-| POST | `/contracts/:id/deliverable` | Attach deliverable links and mark `DELIVERED` (Professional) |
-| GET | `/contracts/:id/deliverable` | Get the contract's deliverable, if any |
-| PATCH | `/contracts/:id/complete` | Mark `COMPLETED` (typically triggered by final payment) |
+| GET | `/` | List own contracts (Client/Professional/Admin) |
+| GET | `/:id` | Get contract detail |
+| PATCH | `/:id/cancel` | Cancel contract |
+| POST | `/:id/deliverable` | Attach deliverable links (Professional) |
+| GET | `/:id/deliverable` | Get the contract's deliverable, if any |
+| PATCH | `/:id/complete` | Mark `COMPLETED` (Client/Admin) |
 
 ### Payments (`/api/v1/payment`)
 
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/contracts/:id/payments/initial` | Initiate 30% upfront payment |
-| POST | `/contracts/:id/payments/final` | Initiate 70% final payment (requires `DELIVERED`) |
-| POST | `/payments/bkash/callback` | bKash payment callback (verified server-side) |
-| GET | `/contracts/:id/payments` | List payments for contract |
+| POST | `/contracts/:id/initial` | Initiate 30% upfront payment (Client) |
+| POST | `/contracts/:id/final` | Initiate 70% final payment — requires `DELIVERED` (Client) |
+| GET | `/bkash/callback` | bKash payment callback (public; verified server-side) |
+| GET | `/contracts/:id` | List payments for a contract (all roles) |
 
 ### Reviews (`/api/v1/review`)
 
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/contracts/:id/reviews` | Leave review (Client or Professional) |
-| GET | `/professionals/:id/reviews` | Get professional reviews |
-| GET | `/clients/:id/reviews` | Get client reviews |
+| POST | `/contracts/:id` | Leave review after contract `COMPLETED` (Client or Professional) |
+| GET | `/professionals` | Reviews about the authenticated professional |
+| GET | `/clients` | Reviews about the authenticated client |
 
 ### Disputes (`/api/v1/dispute`)
 
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/contracts/:id/disputes` | Raise dispute |
-| GET | `/disputes` | List disputes (Admin) |
-| GET | `/disputes/:id` | Get dispute detail |
-| POST | `/disputes/:id/evidence` | Upload evidence |
-| PATCH | `/disputes/:id/status` | Update dispute status (Admin) |
-| PATCH | `/disputes/:id/resolve` | Resolve dispute (Admin) |
+| POST | `/contracts/:id` | Raise dispute — multipart `evidence` files (1+ required), body `reason` (min 3) and `description` (min 10) (Client/Professional) |
+| GET | `/` | List disputes (Admin) |
+| GET | `/:id` | Get dispute detail (parties + Admin) |
+| PATCH | `/:id/status` | Update dispute status (Admin) |
+| PATCH | `/:id/resolve` | Resolve dispute (Admin) |
 
 ### Notifications (`/api/v1/notification`)
 
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/notifications` | List notifications |
-| PATCH | `/notifications/read-all` | Mark all as read |
-| PATCH | `/notifications/:id/read` | Mark as read |
+| GET | `/` | List notifications (all roles) |
+| PATCH | `/read-all` | Mark all as read |
+| PATCH | `/:id/read` | Mark as read |
 
 ### Admin (`/api/v1/admin`)
 
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/admin/users` | List all users |
-| GET | `/admin/events` | List all events |
-| GET | `/admin/contracts` | List all contracts |
-| GET | `/admin/payments` | List all payments |
-| PATCH | `/admin/users/:id/status` | Activate/suspend user |
+| GET | `/users` | List all users |
+| GET | `/events` | List all events |
+| GET | `/contracts` | List all contracts |
+| GET | `/payments` | List all payments |
+| PATCH | `/users/:id/status` | Activate/suspend user |
 
 ### User (`/api/v1/user`)
 
 | Method | Endpoint | Description |
 |---|---|---|
 | PATCH | `/profile-image` | Upload/update profile image (all roles) |
+
+### Analytics (`/api/v1/analytics`)
+
+| Method | Endpoint | Description |
+|---|---|---|
+| GET | `/client-analytics` | Client dashboard analytics (Client) |
+| GET | `/professional-analytics` | Professional dashboard analytics (Professional) |
+| GET | `/admin-analytics` | Platform analytics (Admin) |
+
+### List endpoints and query parameters
+
+All list endpoints share a common query interface (`IQuery`): `page`, `limit`, `sortBy`, `sortOrder`, `searchTerm` (where applicable) plus endpoint-specific filters below.
+
+| Endpoint | Specific query parameters |
+|---|---|
+| `GET /api/v1/dispute` (Admin) | `status` = `OPEN` \| `UNDER_REVIEW` \| `RESOLVED` \| `REJECTED` \| `CLOSED` |
+| `GET /api/v1/admin/users` | `role` = `CLIENT` \| `PROFESSIONAL` \| `ADMIN`, `status` = `ACTIVE` \| `DELETED` \| `SUSPENDED` \| `BLOCKED`, `search` |
+| `GET /api/v1/admin/events` | `status` = `DRAFT` \| `PUBLISHED` \| `IN_PROGRESS` \| `COMPLETED` \| `CANCELLED` |
+| `GET /api/v1/admin/contracts` | `status` = `PENDING` \| `CONFIRMED` \| `IN_PROGRESS` \| `DELIVERED` \| `COMPLETED` \| `CANCELLED` \| `DISPUTED` \| `RESOLVED` |
+| `GET /api/v1/admin/payments` | `status` = `PENDING` \| `PROCESSING` \| `PARTIALLY_COMPLETED` \| `COMPLETED` \| `FAILED` \| `CANCELLED` \| `REFUNDED`, `stage` = `INITIAL` \| `FINAL` |
+| `GET /api/v1/event/all-events` | `searchTerm`, `clientId`, `email`, `status` |
+| `GET /api/v1/professional/all-professionals` (Admin) | `searchTerm`, `professionalTitle`, `city`, `country`, `minExperience`, `maxExperience`, `minRating`, `acceptingBookings`, `status` |
+| `GET /api/v1/professional/public/all-Professionals` | `searchTerm`, `professionalTitle` |
+| `GET /api/v1/review/professionals` / `GET /api/v1/review/clients` | `page`, `limit` |
+| `GET /api/v1/notification` | `isRead` = `true` \| `false` |
 
 ## 30. Validation
 

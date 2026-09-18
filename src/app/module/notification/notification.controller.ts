@@ -4,10 +4,10 @@ import { sendResponse } from "../../utils/sendResponse";
 import { notificationService } from "./notification.service";
 
 const listNotifications = catchAsync(async (req, res) => {
-	const isReadParam = req.query.isRead as string | undefined;
-	const notifications = await notificationService.listNotifications(req.user!, {
-		isRead: isReadParam === undefined ? undefined : isReadParam === "true",
-	});
+	const notifications = await notificationService.listNotifications(
+		req.user!,
+		req.query,
+	);
 
 	sendResponse(res, {
 		statusCode: httpStatus.OK,

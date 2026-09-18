@@ -401,7 +401,6 @@ export const ModelName = {
   Contract: 'Contract',
   Deliverable: 'Deliverable',
   Dispute: 'Dispute',
-  DisputeEvidence: 'DisputeEvidence',
   Event: 'Event',
   EventServiceRequirement: 'EventServiceRequirement',
   Experience: 'Experience',
@@ -431,7 +430,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "client" | "contract" | "deliverable" | "dispute" | "disputeEvidence" | "event" | "eventServiceRequirement" | "experience" | "notification" | "payment" | "portfolioItem" | "professional" | "professionalService" | "professionalSkill" | "proposal" | "proposalItem" | "review" | "skill" | "user"
+    modelProps: "client" | "contract" | "deliverable" | "dispute" | "event" | "eventServiceRequirement" | "experience" | "notification" | "payment" | "portfolioItem" | "professional" | "professionalService" | "professionalSkill" | "proposal" | "proposalItem" | "review" | "skill" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -728,80 +727,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.DisputeCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.DisputeCountAggregateOutputType> | number
-        }
-      }
-    }
-    DisputeEvidence: {
-      payload: Prisma.$DisputeEvidencePayload<ExtArgs>
-      fields: Prisma.DisputeEvidenceFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.DisputeEvidenceFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputeEvidencePayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.DisputeEvidenceFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputeEvidencePayload>
-        }
-        findFirst: {
-          args: Prisma.DisputeEvidenceFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputeEvidencePayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.DisputeEvidenceFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputeEvidencePayload>
-        }
-        findMany: {
-          args: Prisma.DisputeEvidenceFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputeEvidencePayload>[]
-        }
-        create: {
-          args: Prisma.DisputeEvidenceCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputeEvidencePayload>
-        }
-        createMany: {
-          args: Prisma.DisputeEvidenceCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.DisputeEvidenceCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputeEvidencePayload>[]
-        }
-        delete: {
-          args: Prisma.DisputeEvidenceDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputeEvidencePayload>
-        }
-        update: {
-          args: Prisma.DisputeEvidenceUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputeEvidencePayload>
-        }
-        deleteMany: {
-          args: Prisma.DisputeEvidenceDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.DisputeEvidenceUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.DisputeEvidenceUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputeEvidencePayload>[]
-        }
-        upsert: {
-          args: Prisma.DisputeEvidenceUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$DisputeEvidencePayload>
-        }
-        aggregate: {
-          args: Prisma.DisputeEvidenceAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateDisputeEvidence>
-        }
-        groupBy: {
-          args: Prisma.DisputeEvidenceGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DisputeEvidenceGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.DisputeEvidenceCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.DisputeEvidenceCountAggregateOutputType> | number
         }
       }
     }
@@ -1941,6 +1866,7 @@ export const DisputeScalarFieldEnum = {
   raisedByRole: 'raisedByRole',
   reason: 'reason',
   description: 'description',
+  evidences: 'evidences',
   status: 'status',
   resolution: 'resolution',
   resolvedById: 'resolvedById',
@@ -1950,21 +1876,6 @@ export const DisputeScalarFieldEnum = {
 } as const
 
 export type DisputeScalarFieldEnum = (typeof DisputeScalarFieldEnum)[keyof typeof DisputeScalarFieldEnum]
-
-
-export const DisputeEvidenceScalarFieldEnum = {
-  id: 'id',
-  disputeId: 'disputeId',
-  uploadedById: 'uploadedById',
-  type: 'type',
-  title: 'title',
-  description: 'description',
-  mediaUrl: 'mediaUrl',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type DisputeEvidenceScalarFieldEnum = (typeof DisputeEvidenceScalarFieldEnum)[keyof typeof DisputeEvidenceScalarFieldEnum]
 
 
 export const EventScalarFieldEnum = {
@@ -2219,6 +2130,13 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const NullableJsonNullValueInput = {
   DbNull: DbNull,
   JsonNull: JsonNull
@@ -2329,6 +2247,20 @@ export type ListEnumDisputeRaisedByFieldRefInput<$PrismaModel> = FieldRefInputTy
 
 
 /**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
+
+/**
  * Reference to a field of type 'DisputeStatus'
  */
 export type EnumDisputeStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DisputeStatus'>
@@ -2430,20 +2362,6 @@ export type EnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
  * Reference to a field of type 'PaymentMethod[]'
  */
 export type ListEnumPaymentMethodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'PaymentMethod[]'>
-    
-
-
-/**
- * Reference to a field of type 'Json'
- */
-export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
-    
-
-
-/**
- * Reference to a field of type 'QueryMode'
- */
-export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
     
 
 
@@ -2699,7 +2617,6 @@ export type GlobalOmitConfig = {
   contract?: Prisma.ContractOmit
   deliverable?: Prisma.DeliverableOmit
   dispute?: Prisma.DisputeOmit
-  disputeEvidence?: Prisma.DisputeEvidenceOmit
   event?: Prisma.EventOmit
   eventServiceRequirement?: Prisma.EventServiceRequirementOmit
   experience?: Prisma.ExperienceOmit

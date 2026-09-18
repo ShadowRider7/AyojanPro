@@ -1,15 +1,10 @@
 import httpStatus from "http-status";
-import type { Role } from "../../../generated/prisma/enums";
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
 import { adminService } from "./admin.service";
 
 const listUsers = catchAsync(async (req, res) => {
-	const users = await adminService.listUsers({
-		role: req.query.role as Role,
-		status: req.query.status as string | undefined,
-		search: req.query.search as string | undefined,
-	});
+	const users = await adminService.listUsers(req.query);
 
 	sendResponse(res, {
 		statusCode: httpStatus.OK,
@@ -20,9 +15,7 @@ const listUsers = catchAsync(async (req, res) => {
 });
 
 const listEvents = catchAsync(async (req, res) => {
-	const events = await adminService.listEvents({
-		status: req.query.status as string | undefined,
-	});
+	const events = await adminService.listEvents(req.query);
 
 	sendResponse(res, {
 		statusCode: httpStatus.OK,
@@ -33,9 +26,7 @@ const listEvents = catchAsync(async (req, res) => {
 });
 
 const listContracts = catchAsync(async (req, res) => {
-	const contracts = await adminService.listContracts({
-		status: req.query.status as string | undefined,
-	});
+	const contracts = await adminService.listContracts(req.query);
 
 	sendResponse(res, {
 		statusCode: httpStatus.OK,
@@ -46,10 +37,7 @@ const listContracts = catchAsync(async (req, res) => {
 });
 
 const listPayments = catchAsync(async (req, res) => {
-	const payments = await adminService.listPayments({
-		status: req.query.status as string | undefined,
-		stage: req.query.stage as string | undefined,
-	});
+	const payments = await adminService.listPayments(req.query);
 
 	sendResponse(res, {
 		statusCode: httpStatus.OK,

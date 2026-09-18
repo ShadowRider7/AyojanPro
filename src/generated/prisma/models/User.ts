@@ -275,7 +275,6 @@ export type UserWhereInput = {
   notifications?: Prisma.NotificationListRelationFilter
   disputesRaised?: Prisma.DisputeListRelationFilter
   disputesResolved?: Prisma.DisputeListRelationFilter
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -300,7 +299,6 @@ export type UserOrderByWithRelationInput = {
   notifications?: Prisma.NotificationOrderByRelationAggregateInput
   disputesRaised?: Prisma.DisputeOrderByRelationAggregateInput
   disputesResolved?: Prisma.DisputeOrderByRelationAggregateInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -328,7 +326,6 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   notifications?: Prisma.NotificationListRelationFilter
   disputesRaised?: Prisma.DisputeListRelationFilter
   disputesResolved?: Prisma.DisputeListRelationFilter
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceListRelationFilter
 }, "id" | "email" | "googleId">
 
 export type UserOrderByWithAggregationInput = {
@@ -397,7 +394,6 @@ export type UserCreateInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
   disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -422,7 +418,6 @@ export type UserUncheckedCreateInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
   disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUpdateInput = {
@@ -447,7 +442,6 @@ export type UserUpdateInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
   disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -472,7 +466,6 @@ export type UserUncheckedUpdateInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
   disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -643,20 +636,6 @@ export type UserUpdateOneWithoutDisputesResolvedNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDisputesResolvedInput, Prisma.UserUpdateWithoutDisputesResolvedInput>, Prisma.UserUncheckedUpdateWithoutDisputesResolvedInput>
 }
 
-export type UserCreateNestedOneWithoutDisputeEvidenceUploadedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDisputeEvidenceUploadedInput, Prisma.UserUncheckedCreateWithoutDisputeEvidenceUploadedInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDisputeEvidenceUploadedInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutDisputeEvidenceUploadedNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDisputeEvidenceUploadedInput, Prisma.UserUncheckedCreateWithoutDisputeEvidenceUploadedInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDisputeEvidenceUploadedInput
-  upsert?: Prisma.UserUpsertWithoutDisputeEvidenceUploadedInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDisputeEvidenceUploadedInput, Prisma.UserUpdateWithoutDisputeEvidenceUploadedInput>, Prisma.UserUncheckedUpdateWithoutDisputeEvidenceUploadedInput>
-}
-
 export type UserCreateNestedOneWithoutNotificationsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutNotificationsInput, Prisma.UserUncheckedCreateWithoutNotificationsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutNotificationsInput
@@ -718,7 +697,6 @@ export type UserCreateWithoutClientInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
   disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUncheckedCreateWithoutClientInput = {
@@ -742,7 +720,6 @@ export type UserUncheckedCreateWithoutClientInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
   disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserCreateOrConnectWithoutClientInput = {
@@ -782,7 +759,6 @@ export type UserUpdateWithoutClientInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
   disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClientInput = {
@@ -806,7 +782,6 @@ export type UserUncheckedUpdateWithoutClientInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
   disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserCreateWithoutDisputesRaisedInput = {
@@ -830,7 +805,6 @@ export type UserCreateWithoutDisputesRaisedInput = {
   professional?: Prisma.ProfessionalCreateNestedOneWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUncheckedCreateWithoutDisputesRaisedInput = {
@@ -854,7 +828,6 @@ export type UserUncheckedCreateWithoutDisputesRaisedInput = {
   professional?: Prisma.ProfessionalUncheckedCreateNestedOneWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserCreateOrConnectWithoutDisputesRaisedInput = {
@@ -883,7 +856,6 @@ export type UserCreateWithoutDisputesResolvedInput = {
   professional?: Prisma.ProfessionalCreateNestedOneWithoutUserInput
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUncheckedCreateWithoutDisputesResolvedInput = {
@@ -907,7 +879,6 @@ export type UserUncheckedCreateWithoutDisputesResolvedInput = {
   professional?: Prisma.ProfessionalUncheckedCreateNestedOneWithoutUserInput
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserCreateOrConnectWithoutDisputesResolvedInput = {
@@ -947,7 +918,6 @@ export type UserUpdateWithoutDisputesRaisedInput = {
   professional?: Prisma.ProfessionalUpdateOneWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesRaisedInput = {
@@ -971,7 +941,6 @@ export type UserUncheckedUpdateWithoutDisputesRaisedInput = {
   professional?: Prisma.ProfessionalUncheckedUpdateOneWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUpsertWithoutDisputesResolvedInput = {
@@ -1006,7 +975,6 @@ export type UserUpdateWithoutDisputesResolvedInput = {
   professional?: Prisma.ProfessionalUpdateOneWithoutUserNestedInput
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
@@ -1030,119 +998,6 @@ export type UserUncheckedUpdateWithoutDisputesResolvedInput = {
   professional?: Prisma.ProfessionalUncheckedUpdateOneWithoutUserNestedInput
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
-}
-
-export type UserCreateWithoutDisputeEvidenceUploadedInput = {
-  id?: string
-  name: string
-  email: string
-  password?: string | null
-  role: $Enums.Role
-  status?: $Enums.UserStatus
-  authProvider?: $Enums.AuthProvider
-  googleId?: string | null
-  emailVerified?: boolean
-  needPasswordChange?: boolean
-  imageUrl?: string | null
-  imagePublicId?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  client?: Prisma.ClientCreateNestedOneWithoutUserInput
-  professional?: Prisma.ProfessionalCreateNestedOneWithoutUserInput
-  notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
-  disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
-  disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
-}
-
-export type UserUncheckedCreateWithoutDisputeEvidenceUploadedInput = {
-  id?: string
-  name: string
-  email: string
-  password?: string | null
-  role: $Enums.Role
-  status?: $Enums.UserStatus
-  authProvider?: $Enums.AuthProvider
-  googleId?: string | null
-  emailVerified?: boolean
-  needPasswordChange?: boolean
-  imageUrl?: string | null
-  imagePublicId?: string | null
-  isDeleted?: boolean
-  deletedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  client?: Prisma.ClientUncheckedCreateNestedOneWithoutUserInput
-  professional?: Prisma.ProfessionalUncheckedCreateNestedOneWithoutUserInput
-  notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
-  disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
-  disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
-}
-
-export type UserCreateOrConnectWithoutDisputeEvidenceUploadedInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutDisputeEvidenceUploadedInput, Prisma.UserUncheckedCreateWithoutDisputeEvidenceUploadedInput>
-}
-
-export type UserUpsertWithoutDisputeEvidenceUploadedInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutDisputeEvidenceUploadedInput, Prisma.UserUncheckedUpdateWithoutDisputeEvidenceUploadedInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutDisputeEvidenceUploadedInput, Prisma.UserUncheckedCreateWithoutDisputeEvidenceUploadedInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutDisputeEvidenceUploadedInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutDisputeEvidenceUploadedInput, Prisma.UserUncheckedUpdateWithoutDisputeEvidenceUploadedInput>
-}
-
-export type UserUpdateWithoutDisputeEvidenceUploadedInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  needPasswordChange?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  client?: Prisma.ClientUpdateOneWithoutUserNestedInput
-  professional?: Prisma.ProfessionalUpdateOneWithoutUserNestedInput
-  notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
-  disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
-  disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
-}
-
-export type UserUncheckedUpdateWithoutDisputeEvidenceUploadedInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  authProvider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
-  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  emailVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  needPasswordChange?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  imagePublicId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  isDeleted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  client?: Prisma.ClientUncheckedUpdateOneWithoutUserNestedInput
-  professional?: Prisma.ProfessionalUncheckedUpdateOneWithoutUserNestedInput
-  notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
-  disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
-  disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -1166,7 +1021,6 @@ export type UserCreateWithoutNotificationsInput = {
   professional?: Prisma.ProfessionalCreateNestedOneWithoutUserInput
   disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
   disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -1190,7 +1044,6 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   professional?: Prisma.ProfessionalUncheckedCreateNestedOneWithoutUserInput
   disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
   disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -1230,7 +1083,6 @@ export type UserUpdateWithoutNotificationsInput = {
   professional?: Prisma.ProfessionalUpdateOneWithoutUserNestedInput
   disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
   disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -1254,7 +1106,6 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   professional?: Prisma.ProfessionalUncheckedUpdateOneWithoutUserNestedInput
   disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
   disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserCreateWithoutProfessionalInput = {
@@ -1278,7 +1129,6 @@ export type UserCreateWithoutProfessionalInput = {
   notifications?: Prisma.NotificationCreateNestedManyWithoutUserInput
   disputesRaised?: Prisma.DisputeCreateNestedManyWithoutRaisedByInput
   disputesResolved?: Prisma.DisputeCreateNestedManyWithoutResolvedByInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserUncheckedCreateWithoutProfessionalInput = {
@@ -1302,7 +1152,6 @@ export type UserUncheckedCreateWithoutProfessionalInput = {
   notifications?: Prisma.NotificationUncheckedCreateNestedManyWithoutUserInput
   disputesRaised?: Prisma.DisputeUncheckedCreateNestedManyWithoutRaisedByInput
   disputesResolved?: Prisma.DisputeUncheckedCreateNestedManyWithoutResolvedByInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutUploadedByInput
 }
 
 export type UserCreateOrConnectWithoutProfessionalInput = {
@@ -1342,7 +1191,6 @@ export type UserUpdateWithoutProfessionalInput = {
   notifications?: Prisma.NotificationUpdateManyWithoutUserNestedInput
   disputesRaised?: Prisma.DisputeUpdateManyWithoutRaisedByNestedInput
   disputesResolved?: Prisma.DisputeUpdateManyWithoutResolvedByNestedInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUpdateManyWithoutUploadedByNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfessionalInput = {
@@ -1366,7 +1214,6 @@ export type UserUncheckedUpdateWithoutProfessionalInput = {
   notifications?: Prisma.NotificationUncheckedUpdateManyWithoutUserNestedInput
   disputesRaised?: Prisma.DisputeUncheckedUpdateManyWithoutRaisedByNestedInput
   disputesResolved?: Prisma.DisputeUncheckedUpdateManyWithoutResolvedByNestedInput
-  disputeEvidenceUploaded?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutUploadedByNestedInput
 }
 
 
@@ -1378,14 +1225,12 @@ export type UserCountOutputType = {
   notifications: number
   disputesRaised: number
   disputesResolved: number
-  disputeEvidenceUploaded: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   notifications?: boolean | UserCountOutputTypeCountNotificationsArgs
   disputesRaised?: boolean | UserCountOutputTypeCountDisputesRaisedArgs
   disputesResolved?: boolean | UserCountOutputTypeCountDisputesResolvedArgs
-  disputeEvidenceUploaded?: boolean | UserCountOutputTypeCountDisputeEvidenceUploadedArgs
 }
 
 /**
@@ -1419,13 +1264,6 @@ export type UserCountOutputTypeCountDisputesResolvedArgs<ExtArgs extends runtime
   where?: Prisma.DisputeWhereInput
 }
 
-/**
- * UserCountOutputType without action
- */
-export type UserCountOutputTypeCountDisputeEvidenceUploadedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DisputeEvidenceWhereInput
-}
-
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1449,7 +1287,6 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   disputesRaised?: boolean | Prisma.User$disputesRaisedArgs<ExtArgs>
   disputesResolved?: boolean | Prisma.User$disputesResolvedArgs<ExtArgs>
-  disputeEvidenceUploaded?: boolean | Prisma.User$disputeEvidenceUploadedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1517,7 +1354,6 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   notifications?: boolean | Prisma.User$notificationsArgs<ExtArgs>
   disputesRaised?: boolean | Prisma.User$disputesRaisedArgs<ExtArgs>
   disputesResolved?: boolean | Prisma.User$disputesResolvedArgs<ExtArgs>
-  disputeEvidenceUploaded?: boolean | Prisma.User$disputeEvidenceUploadedArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1531,7 +1367,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     notifications: Prisma.$NotificationPayload<ExtArgs>[]
     disputesRaised: Prisma.$DisputePayload<ExtArgs>[]
     disputesResolved: Prisma.$DisputePayload<ExtArgs>[]
-    disputeEvidenceUploaded: Prisma.$DisputeEvidencePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1949,7 +1784,6 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   notifications<T extends Prisma.User$notificationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$notificationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$NotificationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   disputesRaised<T extends Prisma.User$disputesRaisedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$disputesRaisedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DisputePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   disputesResolved<T extends Prisma.User$disputesResolvedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$disputesResolvedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DisputePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  disputeEvidenceUploaded<T extends Prisma.User$disputeEvidenceUploadedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$disputeEvidenceUploadedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DisputeEvidencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2495,30 +2329,6 @@ export type User$disputesResolvedArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.DisputeScalarFieldEnum | Prisma.DisputeScalarFieldEnum[]
-}
-
-/**
- * User.disputeEvidenceUploaded
- */
-export type User$disputeEvidenceUploadedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DisputeEvidence
-   */
-  select?: Prisma.DisputeEvidenceSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the DisputeEvidence
-   */
-  omit?: Prisma.DisputeEvidenceOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DisputeEvidenceInclude<ExtArgs> | null
-  where?: Prisma.DisputeEvidenceWhereInput
-  orderBy?: Prisma.DisputeEvidenceOrderByWithRelationInput | Prisma.DisputeEvidenceOrderByWithRelationInput[]
-  cursor?: Prisma.DisputeEvidenceWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DisputeEvidenceScalarFieldEnum | Prisma.DisputeEvidenceScalarFieldEnum[]
 }
 
 /**

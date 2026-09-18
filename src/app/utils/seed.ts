@@ -57,7 +57,6 @@ export const seedTesterAdmin = async () => {
 };
 
 export const seedTesterClient = async () => {
-	// 1. Move validation to the top to avoid running queries with missing inputs
 	const name = config.tester_client_name;
 	const email = config.tester_client_email;
 	const password = config.tester_client_password;
@@ -70,7 +69,6 @@ export const seedTesterClient = async () => {
 	}
 
 	try {
-		// 2. Check if user already exists
 		const isTesterClientExist = await prisma.user.findUnique({
 			where: { email },
 		});
@@ -80,7 +78,6 @@ export const seedTesterClient = async () => {
 			return;
 		}
 
-		// 3. Hash password
 		const hashedPassword = await bcrypt.hash(
 			password,
 			Number(config.bcrypt_salt_rounds) || 10,
@@ -151,9 +148,9 @@ export const seedTesterProfessional = async () => {
 					create: {
 						name,
 						email,
-						professionalTitle: "QA Tester / Software Professional", // Required by schema
-						experienceYears: 2, // Corrected from "experience" to match schema
-						status: ApplicationStatus.APPROVED, // Overriding the default PENDING status for a functional test user
+						professionalTitle: "QA Tester / Software Professional",
+						experienceYears: 2,
+						status: ApplicationStatus.APPROVED,
 					},
 				},
 			},

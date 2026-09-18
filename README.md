@@ -77,12 +77,12 @@ User ─┬─ Client ─── Event ─── EventServiceRequirement ─┬�
 Contract ─┬─ Payment (INITIAL, FINAL)
            ├─ Deliverable (0 or 1, optional links only)
            ├─ Review (client→professional, professional→client)
-           └─ Dispute ─── DisputeEvidence
+           └─ Dispute (evidences stored as a JSON array on the dispute row)
 
 Notification
 ```
 
-No `ProfessionalApplication`, `AvailabilityRule`, `TimeOff`, `Revision`, or `AuditLog` models — professional intake is a status field on `Professional`, scheduling conflicts are checked directly against `Contract` rows, and delivery is a status + one optional record rather than a versioned revision flow.
+No `ProfessionalApplication`, `AvailabilityRule`, `TimeOff`, `Revision`, `AuditLog`, or `DisputeEvidence` models — professional intake is a status field on `Professional`, scheduling conflicts are checked directly against `Contract` rows, delivery is a status + one optional record rather than a versioned revision flow, and dispute evidence is a JSON field on `Dispute` (`evidences Json @default("[]")`) rather than a separate table.
 
 ---
 
@@ -166,35 +166,34 @@ Base path: `/api/v1`
 ### Contracts
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/contracts` | List own contracts |
-| GET | `/contracts/:id` | Get contract detail |
-| PATCH | `/contracts/:id/cancel` | Cancel contract |
-| POST | `/contracts/:id/deliverable` | Attach deliverable links and mark `DELIVERED` (Professional) |
-| GET | `/contracts/:id/deliverable` | Get the contract's deliverable, if any |
-| PATCH | `/contracts/:id/complete` | Mark `COMPLETED` (typically triggered by final payment) |
+| GET | `/contract` | List own contracts |
+| GET | `/contract/:id` | Get contract detail |
+| PATCH | `/contract/:id/cancel` | Cancel contract |
+| POST | `/contract/:id/deliverable` | Attach deliverable links (Professional) |
+| GET | `/contract/:id/deliverable` | Get the contract's deliverable, if any |
+| PATCH | `/contract/:id/complete` | Mark `COMPLETED` (Client/Admin) |
 
 ### Payments
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/payment/contracts/:id/payments/initial` | Initiate 30% upfront payment |
-| POST | `/payment/contracts/:id/payments/final` | Initiate 70% final payment (requires `DELIVERED`) |
-| POST | `/payment/bkash/callback` | bKash payment callback (verified server-side) |
-| GET | `/payment/contracts/:id/payments` | List payments for contract |
+| POST | `/payment/contracts/:id/initial` | Initiate 30% upfront payment (Client) |
+| POST | `/payment/contracts/:id/final` | Initiate 70% final payment — requires `DELIVERED` (Client) |
+| GET | `/payment/bkash/callback` | bKash payment callback (public, verified server-side) |
+| GET | `/payment/contracts/:id` | List payments for a contract (all roles) |
 
 ### Reviews
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/review/contracts/:id` | Leave review (Client or Professional) |
-| GET | `/review/professionals/:id` | Get professional reviews |
-| GET | `/review/clients/:id` | Get client reviews |
+| POST | `/review/contracts/:id` | Leave review after contract `COMPLETED` (Client or Professional) |
+| GET | `/review/professionals` | Reviews about the authenticated professional |
+| GET | `/review/clients` | Reviews about the authenticated client |
 
 ### Disputes
 | Method | Endpoint | Description |
 |---|---|---|
-| POST | `/dispute/contracts/:id/` | Raise dispute |
+| POST | `/dispute/contracts/:id` | Raise dispute — multipart `evidence` files (1+ required), body `reason` (min 3) and `description` (min 10) (Client/Professional) |
 | GET | `/dispute` | List disputes (Admin) |
-| GET | `/dispute/:id` | Get dispute detail |
-| POST | `/dispute/:id/evidence` | Upload evidence |
+| GET | `/dispute/:id` | Get dispute detail (parties + Admin) |
 | PATCH | `/dispute/:id/status` | Update dispute status (Admin) |
 | PATCH | `/dispute/:id/resolve` | Resolve dispute (Admin) |
 
@@ -225,6 +224,23 @@ Base path: `/api/v1`
 | GET | `/analytics/client-analytics` | Get client analytics (Client) |
 | GET | `/analytics/professional-analytics` | Get professional analytics (Professional) |
 | GET | `/analytics/admin-analytics` | Get admin platform analytics (Admin) |
+
+### List endpoints & query parameters
+
+All list endpoints share the global `IQuery` interface: `page`, `limit`, `sortBy`, `sortOrder`, `searchTerm` (where applicable), plus:
+
+| Endpoint | Specific query parameters |
+|---|---|
+| `GET /dispute` (Admin) | `status` = `OPEN` \| `UNDER_REVIEW` \| `RESOLVED` \| `REJECTED` \| `CLOSED` |
+| `GET /admin/users` | `role` = `CLIENT` \| `PROFESSIONAL` \| `ADMIN`, `status` = `ACTIVE` \| `DELETED` \| `SUSPENDED` \| `BLOCKED`, `search` |
+| `GET /admin/events` | `status` = `DRAFT` \| `PUBLISHED` \| `IN_PROGRESS` \| `COMPLETED` \| `CANCELLED` |
+| `GET /admin/contracts` | `status` = `PENDING` \| `CONFIRMED` \| `IN_PROGRESS` \| `DELIVERED` \| `COMPLETED` \| `CANCELLED` \| `DISPUTED` \| `RESOLVED` |
+| `GET /admin/payments` | `status` = `PENDING` \| `PROCESSING` \| `PARTIALLY_COMPLETED` \| `COMPLETED` \| `FAILED` \| `CANCELLED` \| `REFUNDED`, `stage` = `INITIAL` \| `FINAL` |
+| `GET /event/all-events` | `searchTerm`, `clientId`, `email`, `status` |
+| `GET /professional/all-professionals` (Admin) | `searchTerm`, `professionalTitle`, `city`, `country`, `minExperience`, `maxExperience`, `minRating`, `acceptingBookings`, `status` |
+| `GET /professional/public/all-Professionals` | `searchTerm`, `professionalTitle` |
+| `GET /review/professionals` / `GET /review/clients` | `page`, `limit` |
+| `GET /notification` | `isRead` = `true` \| `false` |
 
 ---
 
@@ -262,7 +278,7 @@ Base path: `/api/v1`
 - One review per direction (Client→Professional, Professional→Client) per contract.
 
 **Disputes**
-- Either party may raise a dispute; at least one piece of evidence is required.
+- Either party may raise a dispute; at least one piece of evidence (multipart upload, stored as a JSON array on the dispute) is required.
 - Admin inspects all contract, payment, and evidence records before resolving.
 
 ---

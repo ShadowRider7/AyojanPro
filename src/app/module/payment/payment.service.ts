@@ -8,6 +8,7 @@ import {
 	Role,
 } from "../../../generated/prisma/enums";
 import config from "../../config";
+import type { IQuery } from "../../interfaces";
 import { getBkashIdToken } from "../../lib/bkash";
 import { prisma } from "../../lib/prisma";
 import type { RequestUser } from "../../middleware/checkAuth";
@@ -26,11 +27,6 @@ const parseBkashDate = (value: unknown): Date | null => {
 	if (value === null || value === undefined) {
 		return null;
 	}
-
-	// bKash may return paymentExecuteTime as:
-	// - a number (epoch milliseconds): 1679123400123
-	// - a string with colon before ms: "2026-09-17T11:45:30:298+0600"
-	// - a valid ISO string: "2026-09-17T11:45:30.298+0600"
 	if (typeof value === "number") {
 		const date = new Date(value);
 		return Number.isNaN(date.getTime()) ? null : date;
@@ -223,7 +219,7 @@ const initiateFinalPayment = async (
 };
 
 const bkashPaymentCallback = async (
-	query: Record<string, any>,
+	query: IQuery,
 ): Promise<IBkashCallbackResult> => {
 	const transactionResult = await prisma.$transaction(
 		async (tx) => {

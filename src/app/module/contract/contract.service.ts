@@ -21,10 +21,6 @@ const CONTRACT_INCLUDE = {
 	deliverables: true,
 } as const;
 
-/**
- * Loads a contract and confirms the requesting user is the client on it,
- * the professional on it, or an admin. Throws otherwise.
- */
 const getAuthorizedContract = async (contractId: string, user: RequestUser) => {
 	const contract = await prisma.contract.findUnique({
 		where: { id: contractId },
@@ -238,17 +234,9 @@ const getDeliverable = async (contractId: string, user: RequestUser) => {
 	const deliverable = await prisma.deliverable.findUnique({
 		where: { contractId },
 	});
-
-	// Deliberately returns null rather than 404 — the caller asked for
-	// "the deliverable, if any."
 	return deliverable;
 };
 
-/**
- * Shared completion logic — called from the manual PATCH endpoint below
- * AND from the bKash callback handler once the final payment is verified
- * COMPLETED, so both paths stay in sync.
- */
 const markContractCompleted = async (contractId: string) => {
 	return prisma.$transaction(async (tx) => {
 		const contract = await tx.contract.update({

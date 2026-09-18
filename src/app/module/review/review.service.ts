@@ -4,14 +4,12 @@ import {
 	NotificationType,
 	Role,
 } from "../../../generated/prisma/enums";
+import type { IQuery } from "../../interfaces";
 import { prisma } from "../../lib/prisma";
 import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
 import { createNotifications } from "../../utils/notifications";
-import type {
-	ICreateReviewPayload,
-	IReviewListQuery,
-} from "./review.interface";
+import type { ICreateReviewPayload } from "./review.interface";
 
 const createReview = async (
 	contractId: string,
@@ -118,7 +116,7 @@ const createReview = async (
 
 const getProfessionalReviews = async (
 	professionalId: string,
-	query: IReviewListQuery,
+	query: IQuery,
 ) => {
 	const page = Number(query.page) > 0 ? Number(query.page) : 1;
 	const limit = Number(query.limit) > 0 ? Number(query.limit) : 10;
@@ -151,7 +149,7 @@ const getProfessionalReviews = async (
 	};
 };
 
-const getClientReviews = async (clientId: string, query: IReviewListQuery) => {
+const getClientReviews = async (clientId: string, query: IQuery) => {
 	const page = Number(query.page) > 0 ? Number(query.page) : 1;
 	const limit = Number(query.limit) > 0 ? Number(query.limit) : 10;
 	const skip = (page - 1) * limit;

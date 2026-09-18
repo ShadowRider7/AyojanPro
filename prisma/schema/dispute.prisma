@@ -8,6 +8,8 @@ model Dispute {
   reason      String @db.VarChar(255)
   description String @db.Text
 
+  evidences Json @default("[]")
+
   status DisputeStatus @default(OPEN)
 
   resolution   String?   @db.Text
@@ -20,8 +22,6 @@ model Dispute {
   contract   Contract @relation(fields: [contractId], references: [id], onDelete: Cascade)
   raisedBy   User     @relation("DisputeRaisedBy", fields: [raisedById], references: [id], onDelete: Restrict)
   resolvedBy User?    @relation("DisputeResolvedBy", fields: [resolvedById], references: [id], onDelete: SetNull)
-
-  evidences DisputeEvidence[]
 
   @@index([contractId])
   @@index([raisedById])

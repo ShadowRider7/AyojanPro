@@ -1,28 +1,34 @@
 import httpStatus from "http-status";
-import { Role } from "../../../generated/prisma/enums";
+import {
+	type ContractStatus,
+	type EventStatus,
+	type PaymentStage,
+	type PaymentStatus,
+	Role,
+	type UserStatus,
+} from "../../../generated/prisma/enums";
+import type { IQuery } from "../../interfaces";
 import { prisma } from "../../lib/prisma";
 import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
 import type { IUpdateUserStatus } from "./admin.interface";
 
-const listUsers = async (filters: {
-	role?: Role;
-	status?: string;
-	search?: string;
-}) => {
+const searchFilter = (search: string) => ({
+	OR: [
+		{ name: { contains: search, mode: "insensitive" as const } },
+		{ email: { contains: search, mode: "insensitive" as const } },
+	],
+});
+
+const listUsers = async (query: IQuery) => {
+	const { role, status, search } = query;
+
 	return prisma.user.findMany({
 		where: {
 			isDeleted: false,
-			...(filters.role ? { role: filters.role } : {}),
-			...(filters.status ? { status: filters.status as never } : {}),
-			...(filters.search
-				? {
-						OR: [
-							{ name: { contains: filters.search, mode: "insensitive" } },
-							{ email: { contains: filters.search, mode: "insensitive" } },
-						],
-					}
-				: {}),
+			...(role ? { role: role as Role } : {}),
+			...(status ? { status: status as UserStatus } : {}),
+			...(search ? searchFilter(search) : {}),
 		},
 		omit: {
 			password: true,
@@ -32,20 +38,24 @@ const listUsers = async (filters: {
 	});
 };
 
-const listEvents = async (filters: { status?: string }) => {
+const listEvents = async (query: IQuery) => {
+	const { status } = query;
+
 	return prisma.event.findMany({
 		where: {
 			isDeleted: false,
-			...(filters.status ? { status: filters.status as never } : {}),
+			...(status ? { status: status as EventStatus } : {}),
 		},
 		include: { client: { include: { user: true } }, serviceRequirements: true },
 		orderBy: { createdAt: "desc" },
 	});
 };
 
-const listContracts = async (filters: { status?: string }) => {
+const listContracts = async (query: IQuery) => {
+	const { status } = query;
+
 	return prisma.contract.findMany({
-		where: filters.status ? { status: filters.status as never } : undefined,
+		where: status ? { status: status as ContractStatus } : undefined,
 		include: {
 			client: true,
 			professional: true,
@@ -58,11 +68,13 @@ const listContracts = async (filters: { status?: string }) => {
 	});
 };
 
-const listPayments = async (filters: { status?: string; stage?: string }) => {
+const listPayments = async (query: IQuery) => {
+	const { status, stage } = query;
+
 	return prisma.payment.findMany({
 		where: {
-			...(filters.status ? { status: filters.status as never } : {}),
-			...(filters.stage ? { stage: filters.stage as never } : {}),
+			...(status ? { status: status as PaymentStatus } : {}),
+			...(stage ? { stage: stage as PaymentStage } : {}),
 		},
 		include: { contract: true, client: true },
 		orderBy: { createdAt: "desc" },

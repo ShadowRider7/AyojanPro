@@ -62,11 +62,6 @@ export type Deliverable = Prisma.DeliverableModel
  */
 export type Dispute = Prisma.DisputeModel
 /**
- * Model DisputeEvidence
- * 
- */
-export type DisputeEvidence = Prisma.DisputeEvidenceModel
-/**
  * Model Event
  * 
  */

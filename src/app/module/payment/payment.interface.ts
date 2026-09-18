@@ -4,12 +4,6 @@ export type IInitiatePaymentResult = {
 	paymentUrl: string;
 };
 
-export type IBkashCallbackQuery = {
-	paymentID?: string;
-	status?: string;
-	[key: string]: unknown;
-};
-
 export type IBkashCallbackResult = {
 	redirectUrl: string;
 };

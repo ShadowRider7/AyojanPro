@@ -55,7 +55,6 @@ export const ModelName = {
   Contract: 'Contract',
   Deliverable: 'Deliverable',
   Dispute: 'Dispute',
-  DisputeEvidence: 'DisputeEvidence',
   Event: 'Event',
   EventServiceRequirement: 'EventServiceRequirement',
   Experience: 'Experience',
@@ -149,6 +148,7 @@ export const DisputeScalarFieldEnum = {
   raisedByRole: 'raisedByRole',
   reason: 'reason',
   description: 'description',
+  evidences: 'evidences',
   status: 'status',
   resolution: 'resolution',
   resolvedById: 'resolvedById',
@@ -158,21 +158,6 @@ export const DisputeScalarFieldEnum = {
 } as const
 
 export type DisputeScalarFieldEnum = (typeof DisputeScalarFieldEnum)[keyof typeof DisputeScalarFieldEnum]
-
-
-export const DisputeEvidenceScalarFieldEnum = {
-  id: 'id',
-  disputeId: 'disputeId',
-  uploadedById: 'uploadedById',
-  type: 'type',
-  title: 'title',
-  description: 'description',
-  mediaUrl: 'mediaUrl',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type DisputeEvidenceScalarFieldEnum = (typeof DisputeEvidenceScalarFieldEnum)[keyof typeof DisputeEvidenceScalarFieldEnum]
 
 
 export const EventScalarFieldEnum = {
@@ -425,6 +410,13 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const NullableJsonNullValueInput = {

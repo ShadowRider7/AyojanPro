@@ -1,4 +1,5 @@
 import httpStatus from "http-status";
+import type { Prisma } from "../../../generated/prisma/client";
 import {
 	ContractStatus,
 	DisputeRaisedBy,
@@ -6,6 +7,7 @@ import {
 	NotificationType,
 	Role,
 } from "../../../generated/prisma/enums";
+import type { IQuery } from "../../interfaces";
 import { prisma } from "../../lib/prisma";
 import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
@@ -22,7 +24,6 @@ const DISPUTE_INCLUDE = {
 	},
 	raisedBy: true,
 	resolvedBy: true,
-	evidences: { include: { uploadedBy: true } },
 } as const;
 
 const TERMINAL_STATUSES = new Set<DisputeStatus>([
@@ -31,10 +32,6 @@ const TERMINAL_STATUSES = new Set<DisputeStatus>([
 	DisputeStatus.CLOSED,
 ]);
 
-/**
- * Loads a dispute and confirms the requester is the contract's client, the
- * contract's professional, or an admin. Throws otherwise.
- */
 const getAuthorizedDispute = async (disputeId: string, user: RequestUser) => {
 	const dispute = await prisma.dispute.findUnique({
 		where: { id: disputeId },
@@ -62,12 +59,6 @@ const getAuthorizedDispute = async (disputeId: string, user: RequestUser) => {
 	return dispute;
 };
 
-/**
- * Raises a dispute on a contract, optionally attaching supporting evidence.
- * Only the client or professional on the contract may do this, and only one
- * active (OPEN/UNDER_REVIEW) dispute is allowed per contract at a time.
- * Raising a dispute freezes the contract by moving it to DISPUTED.
- */
 const raiseDispute = async (
 	contractId: string,
 	payload: IRaiseDispute,
@@ -106,6 +97,13 @@ const raiseDispute = async (
 		);
 	}
 
+	if (evidences.length === 0) {
+		throw new AppError(
+			httpStatus.BAD_REQUEST,
+			"At least one piece of evidence is required to raise a dispute",
+		);
+	}
+
 	const alreadyActive = contract.disputes.some(
 		(d) =>
 			d.status === DisputeStatus.OPEN ||
@@ -127,15 +125,7 @@ const raiseDispute = async (
 				raisedByRole,
 				reason: payload.reason,
 				description: payload.description,
-				evidences: {
-					create: evidences.map((evidence) => ({
-						uploadedById: user.userId,
-						type: evidence.type,
-						title: evidence.title,
-						description: evidence.description,
-						mediaUrl: evidence.mediaUrl,
-					})),
-				},
+				evidences: evidences as unknown as Prisma.InputJsonValue,
 			},
 			include: DISPUTE_INCLUDE,
 		});
@@ -164,10 +154,7 @@ const raiseDispute = async (
 	return dispute;
 };
 
-const listDisputes = async (
-	user: RequestUser,
-	filters: { status?: DisputeStatus },
-) => {
+const listDisputes = async (user: RequestUser, query: IQuery) => {
 	if (user.role !== Role.ADMIN) {
 		throw new AppError(
 			httpStatus.FORBIDDEN,
@@ -175,8 +162,10 @@ const listDisputes = async (
 		);
 	}
 
+	const { status } = query;
+
 	return prisma.dispute.findMany({
-		where: filters.status ? { status: filters.status } : undefined,
+		where: status ? { status: status as DisputeStatus } : undefined,
 		include: DISPUTE_INCLUDE,
 		orderBy: { createdAt: "desc" },
 	});

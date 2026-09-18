@@ -1,5 +1,4 @@
 import httpStatus from "http-status";
-import type { DisputeStatus } from "../../../generated/prisma/enums";
 import { cloudinary } from "../../lib/cloudinary";
 import { catchAsync } from "../../utils/catchAsync";
 import { sendResponse } from "../../utils/sendResponse";
@@ -35,9 +34,7 @@ const raiseDispute = catchAsync(async (req, res) => {
 });
 
 const listDisputes = catchAsync(async (req, res) => {
-	const disputes = await disputeService.listDisputes(req.user!, {
-		status: req.query.status as DisputeStatus | undefined,
-	});
+	const disputes = await disputeService.listDisputes(req.user!, req.query);
 
 	sendResponse(res, {
 		statusCode: httpStatus.OK,

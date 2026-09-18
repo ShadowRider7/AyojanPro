@@ -72,16 +72,13 @@ export const globalErrorHandler = async (
 
 	let statusCode: number = httpStatus.INTERNAL_SERVER_ERROR;
 	let message = "Internal Server Error";
-	let name = "Internal Server Error";
 
 	if (err instanceof AppError) {
 		statusCode = err.statusCode;
 		message = err.message;
-		name = err.name;
 	} else if (err instanceof Prisma.PrismaClientValidationError) {
 		statusCode = httpStatus.BAD_REQUEST;
 		message = "You have provided incorrect field type or missing fields";
-		name = "Bad Request";
 	} else if (err instanceof Prisma.PrismaClientKnownRequestError) {
 		const prismaResult = handlePrismaError(err);
 		statusCode = prismaResult.statusCode;
@@ -108,12 +105,12 @@ export const globalErrorHandler = async (
 		message = err.message;
 	}
 
-	name = STATUS_TEXT[statusCode] || name;
+	const errorName = STATUS_TEXT[statusCode] || "Internal Server Error";
 
 	res.status(statusCode).json({
 		success: false,
 		statusCode,
-		name,
+		name: errorName,
 		message,
 		...(isDev && {
 			error: {

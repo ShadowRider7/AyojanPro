@@ -1,16 +1,17 @@
 import httpStatus from "http-status";
+import type { IQuery } from "../../interfaces";
 import { prisma } from "../../lib/prisma";
 import type { RequestUser } from "../../middleware/checkAuth";
 import { AppError } from "../../utils/AppError";
 
-const listNotifications = async (
-	user: RequestUser,
-	filters: { isRead?: boolean },
-) => {
+const listNotifications = async (user: RequestUser, query: IQuery) => {
+	const isRead =
+		query.isRead === undefined ? undefined : query.isRead === "true";
+
 	return prisma.notification.findMany({
 		where: {
 			userId: user.userId,
-			...(filters.isRead !== undefined ? { isRead: filters.isRead } : {}),
+			...(isRead !== undefined ? { isRead } : {}),
 		},
 		orderBy: { createdAt: "desc" },
 	});

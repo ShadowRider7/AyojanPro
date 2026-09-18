@@ -61,6 +61,7 @@ export type DisputeCountAggregateOutputType = {
   raisedByRole: number
   reason: number
   description: number
+  evidences: number
   status: number
   resolution: number
   resolvedById: number
@@ -108,6 +109,7 @@ export type DisputeCountAggregateInputType = {
   raisedByRole?: true
   reason?: true
   description?: true
+  evidences?: true
   status?: true
   resolution?: true
   resolvedById?: true
@@ -196,6 +198,7 @@ export type DisputeGroupByOutputType = {
   raisedByRole: $Enums.DisputeRaisedBy
   reason: string
   description: string
+  evidences: runtime.JsonValue
   status: $Enums.DisputeStatus
   resolution: string | null
   resolvedById: string | null
@@ -232,6 +235,7 @@ export type DisputeWhereInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByFilter<"Dispute"> | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFilter<"Dispute"> | string
   description?: Prisma.StringFilter<"Dispute"> | string
+  evidences?: Prisma.JsonFilter<"Dispute">
   status?: Prisma.EnumDisputeStatusFilter<"Dispute"> | $Enums.DisputeStatus
   resolution?: Prisma.StringNullableFilter<"Dispute"> | string | null
   resolvedById?: Prisma.StringNullableFilter<"Dispute"> | string | null
@@ -241,7 +245,6 @@ export type DisputeWhereInput = {
   contract?: Prisma.XOR<Prisma.ContractScalarRelationFilter, Prisma.ContractWhereInput>
   raisedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   resolvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  evidences?: Prisma.DisputeEvidenceListRelationFilter
 }
 
 export type DisputeOrderByWithRelationInput = {
@@ -251,6 +254,7 @@ export type DisputeOrderByWithRelationInput = {
   raisedByRole?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  evidences?: Prisma.SortOrder
   status?: Prisma.SortOrder
   resolution?: Prisma.SortOrderInput | Prisma.SortOrder
   resolvedById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -260,7 +264,6 @@ export type DisputeOrderByWithRelationInput = {
   contract?: Prisma.ContractOrderByWithRelationInput
   raisedBy?: Prisma.UserOrderByWithRelationInput
   resolvedBy?: Prisma.UserOrderByWithRelationInput
-  evidences?: Prisma.DisputeEvidenceOrderByRelationAggregateInput
 }
 
 export type DisputeWhereUniqueInput = Prisma.AtLeast<{
@@ -273,6 +276,7 @@ export type DisputeWhereUniqueInput = Prisma.AtLeast<{
   raisedByRole?: Prisma.EnumDisputeRaisedByFilter<"Dispute"> | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFilter<"Dispute"> | string
   description?: Prisma.StringFilter<"Dispute"> | string
+  evidences?: Prisma.JsonFilter<"Dispute">
   status?: Prisma.EnumDisputeStatusFilter<"Dispute"> | $Enums.DisputeStatus
   resolution?: Prisma.StringNullableFilter<"Dispute"> | string | null
   resolvedById?: Prisma.StringNullableFilter<"Dispute"> | string | null
@@ -282,7 +286,6 @@ export type DisputeWhereUniqueInput = Prisma.AtLeast<{
   contract?: Prisma.XOR<Prisma.ContractScalarRelationFilter, Prisma.ContractWhereInput>
   raisedBy?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   resolvedBy?: Prisma.XOR<Prisma.UserNullableScalarRelationFilter, Prisma.UserWhereInput> | null
-  evidences?: Prisma.DisputeEvidenceListRelationFilter
 }, "id">
 
 export type DisputeOrderByWithAggregationInput = {
@@ -292,6 +295,7 @@ export type DisputeOrderByWithAggregationInput = {
   raisedByRole?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  evidences?: Prisma.SortOrder
   status?: Prisma.SortOrder
   resolution?: Prisma.SortOrderInput | Prisma.SortOrder
   resolvedById?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -313,6 +317,7 @@ export type DisputeScalarWhereWithAggregatesInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByWithAggregatesFilter<"Dispute"> | $Enums.DisputeRaisedBy
   reason?: Prisma.StringWithAggregatesFilter<"Dispute"> | string
   description?: Prisma.StringWithAggregatesFilter<"Dispute"> | string
+  evidences?: Prisma.JsonWithAggregatesFilter<"Dispute">
   status?: Prisma.EnumDisputeStatusWithAggregatesFilter<"Dispute"> | $Enums.DisputeStatus
   resolution?: Prisma.StringNullableWithAggregatesFilter<"Dispute"> | string | null
   resolvedById?: Prisma.StringNullableWithAggregatesFilter<"Dispute"> | string | null
@@ -326,6 +331,7 @@ export type DisputeCreateInput = {
   raisedByRole: $Enums.DisputeRaisedBy
   reason: string
   description: string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.DisputeStatus
   resolution?: string | null
   resolvedAt?: Date | string | null
@@ -334,7 +340,6 @@ export type DisputeCreateInput = {
   contract: Prisma.ContractCreateNestedOneWithoutDisputesInput
   raisedBy: Prisma.UserCreateNestedOneWithoutDisputesRaisedInput
   resolvedBy?: Prisma.UserCreateNestedOneWithoutDisputesResolvedInput
-  evidences?: Prisma.DisputeEvidenceCreateNestedManyWithoutDisputeInput
 }
 
 export type DisputeUncheckedCreateInput = {
@@ -344,13 +349,13 @@ export type DisputeUncheckedCreateInput = {
   raisedByRole: $Enums.DisputeRaisedBy
   reason: string
   description: string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.DisputeStatus
   resolution?: string | null
   resolvedById?: string | null
   resolvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  evidences?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutDisputeInput
 }
 
 export type DisputeUpdateInput = {
@@ -358,6 +363,7 @@ export type DisputeUpdateInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByFieldUpdateOperationsInput | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumDisputeStatusFieldUpdateOperationsInput | $Enums.DisputeStatus
   resolution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -366,7 +372,6 @@ export type DisputeUpdateInput = {
   contract?: Prisma.ContractUpdateOneRequiredWithoutDisputesNestedInput
   raisedBy?: Prisma.UserUpdateOneRequiredWithoutDisputesRaisedNestedInput
   resolvedBy?: Prisma.UserUpdateOneWithoutDisputesResolvedNestedInput
-  evidences?: Prisma.DisputeEvidenceUpdateManyWithoutDisputeNestedInput
 }
 
 export type DisputeUncheckedUpdateInput = {
@@ -376,13 +381,13 @@ export type DisputeUncheckedUpdateInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByFieldUpdateOperationsInput | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumDisputeStatusFieldUpdateOperationsInput | $Enums.DisputeStatus
   resolution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  evidences?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutDisputeNestedInput
 }
 
 export type DisputeCreateManyInput = {
@@ -392,6 +397,7 @@ export type DisputeCreateManyInput = {
   raisedByRole: $Enums.DisputeRaisedBy
   reason: string
   description: string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.DisputeStatus
   resolution?: string | null
   resolvedById?: string | null
@@ -405,6 +411,7 @@ export type DisputeUpdateManyMutationInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByFieldUpdateOperationsInput | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumDisputeStatusFieldUpdateOperationsInput | $Enums.DisputeStatus
   resolution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -419,6 +426,7 @@ export type DisputeUncheckedUpdateManyInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByFieldUpdateOperationsInput | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumDisputeStatusFieldUpdateOperationsInput | $Enums.DisputeStatus
   resolution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -444,6 +452,7 @@ export type DisputeCountOrderByAggregateInput = {
   raisedByRole?: Prisma.SortOrder
   reason?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  evidences?: Prisma.SortOrder
   status?: Prisma.SortOrder
   resolution?: Prisma.SortOrder
   resolvedById?: Prisma.SortOrder
@@ -480,11 +489,6 @@ export type DisputeMinOrderByAggregateInput = {
   resolvedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type DisputeScalarRelationFilter = {
-  is?: Prisma.DisputeWhereInput
-  isNot?: Prisma.DisputeWhereInput
 }
 
 export type DisputeCreateNestedManyWithoutContractInput = {
@@ -535,20 +539,6 @@ export type EnumDisputeRaisedByFieldUpdateOperationsInput = {
 
 export type EnumDisputeStatusFieldUpdateOperationsInput = {
   set?: $Enums.DisputeStatus
-}
-
-export type DisputeCreateNestedOneWithoutEvidencesInput = {
-  create?: Prisma.XOR<Prisma.DisputeCreateWithoutEvidencesInput, Prisma.DisputeUncheckedCreateWithoutEvidencesInput>
-  connectOrCreate?: Prisma.DisputeCreateOrConnectWithoutEvidencesInput
-  connect?: Prisma.DisputeWhereUniqueInput
-}
-
-export type DisputeUpdateOneRequiredWithoutEvidencesNestedInput = {
-  create?: Prisma.XOR<Prisma.DisputeCreateWithoutEvidencesInput, Prisma.DisputeUncheckedCreateWithoutEvidencesInput>
-  connectOrCreate?: Prisma.DisputeCreateOrConnectWithoutEvidencesInput
-  upsert?: Prisma.DisputeUpsertWithoutEvidencesInput
-  connect?: Prisma.DisputeWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.DisputeUpdateToOneWithWhereWithoutEvidencesInput, Prisma.DisputeUpdateWithoutEvidencesInput>, Prisma.DisputeUncheckedUpdateWithoutEvidencesInput>
 }
 
 export type DisputeCreateNestedManyWithoutRaisedByInput = {
@@ -640,6 +630,7 @@ export type DisputeCreateWithoutContractInput = {
   raisedByRole: $Enums.DisputeRaisedBy
   reason: string
   description: string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.DisputeStatus
   resolution?: string | null
   resolvedAt?: Date | string | null
@@ -647,7 +638,6 @@ export type DisputeCreateWithoutContractInput = {
   updatedAt?: Date | string
   raisedBy: Prisma.UserCreateNestedOneWithoutDisputesRaisedInput
   resolvedBy?: Prisma.UserCreateNestedOneWithoutDisputesResolvedInput
-  evidences?: Prisma.DisputeEvidenceCreateNestedManyWithoutDisputeInput
 }
 
 export type DisputeUncheckedCreateWithoutContractInput = {
@@ -656,13 +646,13 @@ export type DisputeUncheckedCreateWithoutContractInput = {
   raisedByRole: $Enums.DisputeRaisedBy
   reason: string
   description: string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.DisputeStatus
   resolution?: string | null
   resolvedById?: string | null
   resolvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  evidences?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutDisputeInput
 }
 
 export type DisputeCreateOrConnectWithoutContractInput = {
@@ -701,6 +691,7 @@ export type DisputeScalarWhereInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByFilter<"Dispute"> | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFilter<"Dispute"> | string
   description?: Prisma.StringFilter<"Dispute"> | string
+  evidences?: Prisma.JsonFilter<"Dispute">
   status?: Prisma.EnumDisputeStatusFilter<"Dispute"> | $Enums.DisputeStatus
   resolution?: Prisma.StringNullableFilter<"Dispute"> | string | null
   resolvedById?: Prisma.StringNullableFilter<"Dispute"> | string | null
@@ -709,87 +700,12 @@ export type DisputeScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"Dispute"> | Date | string
 }
 
-export type DisputeCreateWithoutEvidencesInput = {
-  id?: string
-  raisedByRole: $Enums.DisputeRaisedBy
-  reason: string
-  description: string
-  status?: $Enums.DisputeStatus
-  resolution?: string | null
-  resolvedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  contract: Prisma.ContractCreateNestedOneWithoutDisputesInput
-  raisedBy: Prisma.UserCreateNestedOneWithoutDisputesRaisedInput
-  resolvedBy?: Prisma.UserCreateNestedOneWithoutDisputesResolvedInput
-}
-
-export type DisputeUncheckedCreateWithoutEvidencesInput = {
-  id?: string
-  contractId: string
-  raisedById: string
-  raisedByRole: $Enums.DisputeRaisedBy
-  reason: string
-  description: string
-  status?: $Enums.DisputeStatus
-  resolution?: string | null
-  resolvedById?: string | null
-  resolvedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type DisputeCreateOrConnectWithoutEvidencesInput = {
-  where: Prisma.DisputeWhereUniqueInput
-  create: Prisma.XOR<Prisma.DisputeCreateWithoutEvidencesInput, Prisma.DisputeUncheckedCreateWithoutEvidencesInput>
-}
-
-export type DisputeUpsertWithoutEvidencesInput = {
-  update: Prisma.XOR<Prisma.DisputeUpdateWithoutEvidencesInput, Prisma.DisputeUncheckedUpdateWithoutEvidencesInput>
-  create: Prisma.XOR<Prisma.DisputeCreateWithoutEvidencesInput, Prisma.DisputeUncheckedCreateWithoutEvidencesInput>
-  where?: Prisma.DisputeWhereInput
-}
-
-export type DisputeUpdateToOneWithWhereWithoutEvidencesInput = {
-  where?: Prisma.DisputeWhereInput
-  data: Prisma.XOR<Prisma.DisputeUpdateWithoutEvidencesInput, Prisma.DisputeUncheckedUpdateWithoutEvidencesInput>
-}
-
-export type DisputeUpdateWithoutEvidencesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  raisedByRole?: Prisma.EnumDisputeRaisedByFieldUpdateOperationsInput | $Enums.DisputeRaisedBy
-  reason?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumDisputeStatusFieldUpdateOperationsInput | $Enums.DisputeStatus
-  resolution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  contract?: Prisma.ContractUpdateOneRequiredWithoutDisputesNestedInput
-  raisedBy?: Prisma.UserUpdateOneRequiredWithoutDisputesRaisedNestedInput
-  resolvedBy?: Prisma.UserUpdateOneWithoutDisputesResolvedNestedInput
-}
-
-export type DisputeUncheckedUpdateWithoutEvidencesInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  contractId?: Prisma.StringFieldUpdateOperationsInput | string
-  raisedById?: Prisma.StringFieldUpdateOperationsInput | string
-  raisedByRole?: Prisma.EnumDisputeRaisedByFieldUpdateOperationsInput | $Enums.DisputeRaisedBy
-  reason?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumDisputeStatusFieldUpdateOperationsInput | $Enums.DisputeStatus
-  resolution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
 export type DisputeCreateWithoutRaisedByInput = {
   id?: string
   raisedByRole: $Enums.DisputeRaisedBy
   reason: string
   description: string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.DisputeStatus
   resolution?: string | null
   resolvedAt?: Date | string | null
@@ -797,7 +713,6 @@ export type DisputeCreateWithoutRaisedByInput = {
   updatedAt?: Date | string
   contract: Prisma.ContractCreateNestedOneWithoutDisputesInput
   resolvedBy?: Prisma.UserCreateNestedOneWithoutDisputesResolvedInput
-  evidences?: Prisma.DisputeEvidenceCreateNestedManyWithoutDisputeInput
 }
 
 export type DisputeUncheckedCreateWithoutRaisedByInput = {
@@ -806,13 +721,13 @@ export type DisputeUncheckedCreateWithoutRaisedByInput = {
   raisedByRole: $Enums.DisputeRaisedBy
   reason: string
   description: string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.DisputeStatus
   resolution?: string | null
   resolvedById?: string | null
   resolvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  evidences?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutDisputeInput
 }
 
 export type DisputeCreateOrConnectWithoutRaisedByInput = {
@@ -830,6 +745,7 @@ export type DisputeCreateWithoutResolvedByInput = {
   raisedByRole: $Enums.DisputeRaisedBy
   reason: string
   description: string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.DisputeStatus
   resolution?: string | null
   resolvedAt?: Date | string | null
@@ -837,7 +753,6 @@ export type DisputeCreateWithoutResolvedByInput = {
   updatedAt?: Date | string
   contract: Prisma.ContractCreateNestedOneWithoutDisputesInput
   raisedBy: Prisma.UserCreateNestedOneWithoutDisputesRaisedInput
-  evidences?: Prisma.DisputeEvidenceCreateNestedManyWithoutDisputeInput
 }
 
 export type DisputeUncheckedCreateWithoutResolvedByInput = {
@@ -847,12 +762,12 @@ export type DisputeUncheckedCreateWithoutResolvedByInput = {
   raisedByRole: $Enums.DisputeRaisedBy
   reason: string
   description: string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.DisputeStatus
   resolution?: string | null
   resolvedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  evidences?: Prisma.DisputeEvidenceUncheckedCreateNestedManyWithoutDisputeInput
 }
 
 export type DisputeCreateOrConnectWithoutResolvedByInput = {
@@ -903,6 +818,7 @@ export type DisputeCreateManyContractInput = {
   raisedByRole: $Enums.DisputeRaisedBy
   reason: string
   description: string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.DisputeStatus
   resolution?: string | null
   resolvedById?: string | null
@@ -916,6 +832,7 @@ export type DisputeUpdateWithoutContractInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByFieldUpdateOperationsInput | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumDisputeStatusFieldUpdateOperationsInput | $Enums.DisputeStatus
   resolution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -923,7 +840,6 @@ export type DisputeUpdateWithoutContractInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   raisedBy?: Prisma.UserUpdateOneRequiredWithoutDisputesRaisedNestedInput
   resolvedBy?: Prisma.UserUpdateOneWithoutDisputesResolvedNestedInput
-  evidences?: Prisma.DisputeEvidenceUpdateManyWithoutDisputeNestedInput
 }
 
 export type DisputeUncheckedUpdateWithoutContractInput = {
@@ -932,13 +848,13 @@ export type DisputeUncheckedUpdateWithoutContractInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByFieldUpdateOperationsInput | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumDisputeStatusFieldUpdateOperationsInput | $Enums.DisputeStatus
   resolution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  evidences?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutDisputeNestedInput
 }
 
 export type DisputeUncheckedUpdateManyWithoutContractInput = {
@@ -947,6 +863,7 @@ export type DisputeUncheckedUpdateManyWithoutContractInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByFieldUpdateOperationsInput | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumDisputeStatusFieldUpdateOperationsInput | $Enums.DisputeStatus
   resolution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -961,6 +878,7 @@ export type DisputeCreateManyRaisedByInput = {
   raisedByRole: $Enums.DisputeRaisedBy
   reason: string
   description: string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.DisputeStatus
   resolution?: string | null
   resolvedById?: string | null
@@ -976,6 +894,7 @@ export type DisputeCreateManyResolvedByInput = {
   raisedByRole: $Enums.DisputeRaisedBy
   reason: string
   description: string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: $Enums.DisputeStatus
   resolution?: string | null
   resolvedAt?: Date | string | null
@@ -988,6 +907,7 @@ export type DisputeUpdateWithoutRaisedByInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByFieldUpdateOperationsInput | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumDisputeStatusFieldUpdateOperationsInput | $Enums.DisputeStatus
   resolution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -995,7 +915,6 @@ export type DisputeUpdateWithoutRaisedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contract?: Prisma.ContractUpdateOneRequiredWithoutDisputesNestedInput
   resolvedBy?: Prisma.UserUpdateOneWithoutDisputesResolvedNestedInput
-  evidences?: Prisma.DisputeEvidenceUpdateManyWithoutDisputeNestedInput
 }
 
 export type DisputeUncheckedUpdateWithoutRaisedByInput = {
@@ -1004,13 +923,13 @@ export type DisputeUncheckedUpdateWithoutRaisedByInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByFieldUpdateOperationsInput | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumDisputeStatusFieldUpdateOperationsInput | $Enums.DisputeStatus
   resolution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  evidences?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutDisputeNestedInput
 }
 
 export type DisputeUncheckedUpdateManyWithoutRaisedByInput = {
@@ -1019,6 +938,7 @@ export type DisputeUncheckedUpdateManyWithoutRaisedByInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByFieldUpdateOperationsInput | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumDisputeStatusFieldUpdateOperationsInput | $Enums.DisputeStatus
   resolution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedById?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1032,6 +952,7 @@ export type DisputeUpdateWithoutResolvedByInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByFieldUpdateOperationsInput | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumDisputeStatusFieldUpdateOperationsInput | $Enums.DisputeStatus
   resolution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1039,7 +960,6 @@ export type DisputeUpdateWithoutResolvedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   contract?: Prisma.ContractUpdateOneRequiredWithoutDisputesNestedInput
   raisedBy?: Prisma.UserUpdateOneRequiredWithoutDisputesRaisedNestedInput
-  evidences?: Prisma.DisputeEvidenceUpdateManyWithoutDisputeNestedInput
 }
 
 export type DisputeUncheckedUpdateWithoutResolvedByInput = {
@@ -1049,12 +969,12 @@ export type DisputeUncheckedUpdateWithoutResolvedByInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByFieldUpdateOperationsInput | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumDisputeStatusFieldUpdateOperationsInput | $Enums.DisputeStatus
   resolution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  evidences?: Prisma.DisputeEvidenceUncheckedUpdateManyWithoutDisputeNestedInput
 }
 
 export type DisputeUncheckedUpdateManyWithoutResolvedByInput = {
@@ -1064,6 +984,7 @@ export type DisputeUncheckedUpdateManyWithoutResolvedByInput = {
   raisedByRole?: Prisma.EnumDisputeRaisedByFieldUpdateOperationsInput | $Enums.DisputeRaisedBy
   reason?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.StringFieldUpdateOperationsInput | string
+  evidences?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   status?: Prisma.EnumDisputeStatusFieldUpdateOperationsInput | $Enums.DisputeStatus
   resolution?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   resolvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
@@ -1071,35 +992,6 @@ export type DisputeUncheckedUpdateManyWithoutResolvedByInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-
-/**
- * Count Type DisputeCountOutputType
- */
-
-export type DisputeCountOutputType = {
-  evidences: number
-}
-
-export type DisputeCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  evidences?: boolean | DisputeCountOutputTypeCountEvidencesArgs
-}
-
-/**
- * DisputeCountOutputType without action
- */
-export type DisputeCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DisputeCountOutputType
-   */
-  select?: Prisma.DisputeCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * DisputeCountOutputType without action
- */
-export type DisputeCountOutputTypeCountEvidencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.DisputeEvidenceWhereInput
-}
 
 
 export type DisputeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1109,6 +1001,7 @@ export type DisputeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   raisedByRole?: boolean
   reason?: boolean
   description?: boolean
+  evidences?: boolean
   status?: boolean
   resolution?: boolean
   resolvedById?: boolean
@@ -1118,8 +1011,6 @@ export type DisputeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   contract?: boolean | Prisma.ContractDefaultArgs<ExtArgs>
   raisedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   resolvedBy?: boolean | Prisma.Dispute$resolvedByArgs<ExtArgs>
-  evidences?: boolean | Prisma.Dispute$evidencesArgs<ExtArgs>
-  _count?: boolean | Prisma.DisputeCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["dispute"]>
 
 export type DisputeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1129,6 +1020,7 @@ export type DisputeSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   raisedByRole?: boolean
   reason?: boolean
   description?: boolean
+  evidences?: boolean
   status?: boolean
   resolution?: boolean
   resolvedById?: boolean
@@ -1147,6 +1039,7 @@ export type DisputeSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   raisedByRole?: boolean
   reason?: boolean
   description?: boolean
+  evidences?: boolean
   status?: boolean
   resolution?: boolean
   resolvedById?: boolean
@@ -1165,6 +1058,7 @@ export type DisputeSelectScalar = {
   raisedByRole?: boolean
   reason?: boolean
   description?: boolean
+  evidences?: boolean
   status?: boolean
   resolution?: boolean
   resolvedById?: boolean
@@ -1173,13 +1067,11 @@ export type DisputeSelectScalar = {
   updatedAt?: boolean
 }
 
-export type DisputeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contractId" | "raisedById" | "raisedByRole" | "reason" | "description" | "status" | "resolution" | "resolvedById" | "resolvedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["dispute"]>
+export type DisputeOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "contractId" | "raisedById" | "raisedByRole" | "reason" | "description" | "evidences" | "status" | "resolution" | "resolvedById" | "resolvedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["dispute"]>
 export type DisputeInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contract?: boolean | Prisma.ContractDefaultArgs<ExtArgs>
   raisedBy?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   resolvedBy?: boolean | Prisma.Dispute$resolvedByArgs<ExtArgs>
-  evidences?: boolean | Prisma.Dispute$evidencesArgs<ExtArgs>
-  _count?: boolean | Prisma.DisputeCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DisputeIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   contract?: boolean | Prisma.ContractDefaultArgs<ExtArgs>
@@ -1198,7 +1090,6 @@ export type $DisputePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     contract: Prisma.$ContractPayload<ExtArgs>
     raisedBy: Prisma.$UserPayload<ExtArgs>
     resolvedBy: Prisma.$UserPayload<ExtArgs> | null
-    evidences: Prisma.$DisputeEvidencePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1207,6 +1098,7 @@ export type $DisputePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     raisedByRole: $Enums.DisputeRaisedBy
     reason: string
     description: string
+    evidences: runtime.JsonValue
     status: $Enums.DisputeStatus
     resolution: string | null
     resolvedById: string | null
@@ -1610,7 +1502,6 @@ export interface Prisma__DisputeClient<T, Null = never, ExtArgs extends runtime.
   contract<T extends Prisma.ContractDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ContractDefaultArgs<ExtArgs>>): Prisma.Prisma__ContractClient<runtime.Types.Result.GetResult<Prisma.$ContractPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   raisedBy<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   resolvedBy<T extends Prisma.Dispute$resolvedByArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Dispute$resolvedByArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  evidences<T extends Prisma.Dispute$evidencesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Dispute$evidencesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DisputeEvidencePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1646,6 +1537,7 @@ export interface DisputeFieldRefs {
   readonly raisedByRole: Prisma.FieldRef<"Dispute", 'DisputeRaisedBy'>
   readonly reason: Prisma.FieldRef<"Dispute", 'String'>
   readonly description: Prisma.FieldRef<"Dispute", 'String'>
+  readonly evidences: Prisma.FieldRef<"Dispute", 'Json'>
   readonly status: Prisma.FieldRef<"Dispute", 'DisputeStatus'>
   readonly resolution: Prisma.FieldRef<"Dispute", 'String'>
   readonly resolvedById: Prisma.FieldRef<"Dispute", 'String'>
@@ -2069,30 +1961,6 @@ export type Dispute$resolvedByArgs<ExtArgs extends runtime.Types.Extensions.Inte
    */
   include?: Prisma.UserInclude<ExtArgs> | null
   where?: Prisma.UserWhereInput
-}
-
-/**
- * Dispute.evidences
- */
-export type Dispute$evidencesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the DisputeEvidence
-   */
-  select?: Prisma.DisputeEvidenceSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the DisputeEvidence
-   */
-  omit?: Prisma.DisputeEvidenceOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.DisputeEvidenceInclude<ExtArgs> | null
-  where?: Prisma.DisputeEvidenceWhereInput
-  orderBy?: Prisma.DisputeEvidenceOrderByWithRelationInput | Prisma.DisputeEvidenceOrderByWithRelationInput[]
-  cursor?: Prisma.DisputeEvidenceWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.DisputeEvidenceScalarFieldEnum | Prisma.DisputeEvidenceScalarFieldEnum[]
 }
 
 /**
